@@ -1,0 +1,234 @@
+- generic [ref=f6e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f6e4]:
+    - list [ref=f6e12]:
+      - listitem [ref=f6e13]:
+        - button [ref=f6e14] [cursor=pointer]
+      - listitem [ref=f6e18]:
+        - link [ref=f6e19] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f6e25]:
+        - link [ref=f6e26] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f6e32]:
+        - link [ref=f6e33] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f6e37]:
+        - link [ref=f6e38] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f6e42]:
+        - link [ref=f6e43] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f6e47]:
+        - link [ref=f6e48] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f6e53]:
+        - link [ref=f6e54] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f6e59]:
+        - link [ref=f6e60] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f6e63]:
+        - link [ref=f6e64] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f6e68]:
+        - link [ref=f6e69] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f6e73]:
+        - link [ref=f6e74] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f6e78]:
+      - banner [ref=f6e79]:
+        - img "Logo" [ref=f6e81]
+        - generic [ref=f6e82]:
+          - button [ref=f6e83] [cursor=pointer]
+          - button [ref=f6e84] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f6e85] [cursor=pointer]:
+            - generic [ref=f6e86]: as
+            - generic [ref=f6e87]: aravi.s@kpit.com
+      - main [ref=f6e88]:
+        - generic [ref=f6e90]:
+          - generic [ref=f6e91]:
+            - heading "Reports" [level=1] [ref=f6e92]
+            - paragraph [ref=f6e93]: View, filter, and export licensing information.
+          - generic [ref=f6e94]:
+            - button "Standard Licenses Standard and deleted license records" [pressed] [ref=f6e95] [cursor=pointer]:
+              - generic [ref=f6e99]:
+                - generic [ref=f6e100]: Standard Licenses
+                - generic [ref=f6e101]: Standard and deleted license records
+            - button "Floating Licenses Floating-license usage records" [ref=f6e102] [cursor=pointer]:
+              - generic [ref=f6e107]:
+                - generic [ref=f6e108]: Floating Licenses
+                - generic [ref=f6e109]: Floating-license usage records
+            - button "Floating Configurations Floating-license configuration records" [ref=f6e110] [cursor=pointer]:
+              - generic [ref=f6e114]:
+                - generic [ref=f6e115]: Floating Configurations
+                - generic [ref=f6e116]: Floating-license configuration records
+          - generic [ref=f6e117]:
+            - generic [ref=f6e118]:
+              - generic [ref=f6e119]: 2,350 records
+              - group "License mode" [ref=f6e120]:
+                - button "Active" [pressed] [ref=f6e121] [cursor=pointer]
+                - button "Deleted" [ref=f6e122] [cursor=pointer]
+              - button "Filters" [ref=f6e123] [cursor=pointer]
+              - button "Export Excel" [ref=f6e127] [cursor=pointer]
+            - generic [ref=f6e347]:
+              - generic [ref=f6e348]: Filters
+              - generic [ref=f6e350]:
+                - generic [ref=f6e351]:
+                  - text: Email
+                  - searchbox "Email" [ref=f6e352]
+                - generic [ref=f6e353]:
+                  - text: Hardware IDs
+                  - searchbox "Search Hardware IDs" [ref=f6e355]
+                - generic [ref=f6e356]:
+                  - text: Expiration Date
+                  - generic [ref=f6e357]:
+                    - textbox "Expiration Date" [active] [ref=f6e358]: 2026-11-12
+                    - button "Open calendar" [ref=f6e359] [cursor=pointer]
+                - generic [ref=f6e362]:
+                  - text: Maintenance Date
+                  - generic [ref=f6e363]:
+                    - textbox "Maintenance Date" [ref=f6e364]
+                    - button "Open calendar" [ref=f6e365] [cursor=pointer]
+                - generic [ref=f6e368]:
+                  - text: User Group
+                  - searchbox "Search groups" [ref=f6e370]
+                - generic [ref=f6e371]:
+                  - text: Product Profile
+                  - searchbox "Search profiles" [ref=f6e373]
+                - generic [ref=f6e374]:
+                  - text: Profile Role
+                  - searchbox "Select a profile first" [disabled] [ref=f6e376]
+                - generic [ref=f6e377]:
+                  - text: License Created Date
+                  - generic [ref=f6e378]:
+                    - textbox "License Created Date" [ref=f6e379]
+                    - button "Open calendar" [ref=f6e380] [cursor=pointer]
+                - generic [ref=f6e383]:
+                  - text: License Modified Date
+                  - generic [ref=f6e384]:
+                    - textbox "License Modified Date" [ref=f6e385]
+                    - button "Open calendar" [ref=f6e386] [cursor=pointer]
+              - button "Clear" [ref=f6e390] [cursor=pointer]
+            - generic [ref=f6e871]:
+              - generic [ref=f6e872]:
+                - text: "Exp: 2026-11-12"
+                - 'button "Remove Exp: 2026-11-12" [ref=f6e873] [cursor=pointer]'
+              - button "Clear all" [ref=f6e877] [cursor=pointer]
+            - generic [ref=f6e128]:
+              - generic [ref=f6e129]: 10 loaded · 2,350 total
+              - table [ref=f6e878]:
+                - rowgroup [ref=f6e879]:
+                  - row [ref=f6e880]:
+                    - columnheader "User Group" [ref=f6e881]
+                    - columnheader "Profile" [ref=f6e882]
+                    - columnheader "Role" [ref=f6e883]
+                    - columnheader "Email" [ref=f6e884]
+                    - columnheader "Hardware ID" [ref=f6e885]
+                    - columnheader "License Dates" [ref=f6e886]
+                - rowgroup [ref=f6e887]:
+                  - row [ref=f6e888]:
+                    - cell "AdaptiveAutosar" [ref=f6e889]
+                    - cell "Adaptive Autosar" [ref=f6e890]
+                    - cell "UserRole" [ref=f6e891]
+                    - cell "c4k@kpit.com" [ref=f6e892]
+                    - cell "1836236568" [ref=f6e893]
+                    - 'cell "Exp: 08 Feb 2020 Maint: 08 Feb 2020" [ref=f6e894]':
+                      - generic [ref=f6e895]:
+                        - generic [ref=f6e896]: "Exp: 08 Feb 2020"
+                        - generic [ref=f6e897]: "Maint: 08 Feb 2020"
+                  - row [ref=f6e898]:
+                    - cell "AdaptiveAutosar" [ref=f6e899]
+                    - cell "Adaptive Autosar" [ref=f6e900]
+                    - cell "UserRole" [ref=f6e901]
+                    - cell "c4k.c4k@kpit.com" [ref=f6e902]
+                    - cell "1836236568" [ref=f6e903]
+                    - 'cell "Exp: 31 Dec 2021 Maint: 31 Dec 2021" [ref=f6e904]':
+                      - generic [ref=f6e905]:
+                        - generic [ref=f6e906]: "Exp: 31 Dec 2021"
+                        - generic [ref=f6e907]: "Maint: 31 Dec 2021"
+                  - row [ref=f6e908]:
+                    - cell "AdaptiveAutosar" [ref=f6e909]
+                    - cell "Adaptive Autosar" [ref=f6e910]
+                    - cell "UserRole" [ref=f6e911]
+                    - cell "abc@kpit.com" [ref=f6e912]
+                    - cell "1836236568" [ref=f6e913]
+                    - 'cell "Exp: 30 Mar 2021 Maint: 30 Mar 2021" [ref=f6e914]':
+                      - generic [ref=f6e915]:
+                        - generic [ref=f6e916]: "Exp: 30 Mar 2021"
+                        - generic [ref=f6e917]: "Maint: 30 Mar 2021"
+                  - row [ref=f6e918]:
+                    - cell "AdaptiveAutosar" [ref=f6e919]
+                    - cell "Autosar 2" [ref=f6e920]
+                    - cell "UserRole" [ref=f6e921]
+                    - cell "abc@kpit.com" [ref=f6e922]
+                    - cell "1836236568" [ref=f6e923]
+                    - 'cell "Exp: 30 Mar 2021 Maint: 30 Mar 2021" [ref=f6e924]':
+                      - generic [ref=f6e925]:
+                        - generic [ref=f6e926]: "Exp: 30 Mar 2021"
+                        - generic [ref=f6e927]: "Maint: 30 Mar 2021"
+                  - row [ref=f6e928]:
+                    - cell "AdaptiveAutosar" [ref=f6e929]
+                    - cell "Autosar 2" [ref=f6e930]
+                    - cell "UserRole" [ref=f6e931]
+                    - cell "uat.uat@Kpit.com" [ref=f6e932]
+                    - cell "1836236568" [ref=f6e933]
+                    - 'cell "Exp: 31 Dec 2021 Maint: 31 Dec 2021" [ref=f6e934]':
+                      - generic [ref=f6e935]:
+                        - generic [ref=f6e936]: "Exp: 31 Dec 2021"
+                        - generic [ref=f6e937]: "Maint: 31 Dec 2021"
+                  - row [ref=f6e938]:
+                    - cell "AdaptiveAutosar" [ref=f6e939]
+                    - cell "Autosar 2" [ref=f6e940]
+                    - cell "UserRole" [ref=f6e941]
+                    - cell "uat.anil@kpit.com" [ref=f6e942]
+                    - cell "991746581" [ref=f6e943]
+                    - 'cell "Exp: 31 Dec 2025 Maint: 31 Dec 2025" [ref=f6e944]':
+                      - generic [ref=f6e945]:
+                        - generic [ref=f6e946]: "Exp: 31 Dec 2025"
+                        - generic [ref=f6e947]: "Maint: 31 Dec 2025"
+                  - row [ref=f6e948]:
+                    - cell "AdaptiveAutosar" [ref=f6e949]
+                    - cell "Autosar 2" [ref=f6e950]
+                    - cell "UserRole" [ref=f6e951]
+                    - cell "gattam.mallikarjun@kpit.com" [ref=f6e952]
+                    - cell "-363576920" [ref=f6e953]
+                    - 'cell "Exp: 31 Mar 2023 Maint: 31 Mar 2023" [ref=f6e954]':
+                      - generic [ref=f6e955]:
+                        - generic [ref=f6e956]: "Exp: 31 Mar 2023"
+                        - generic [ref=f6e957]: "Maint: 31 Mar 2023"
+                  - row [ref=f6e958]:
+                    - cell "AdaptiveAutosar" [ref=f6e959]
+                    - cell "Autosar 2" [ref=f6e960]
+                    - cell "UserRole" [ref=f6e961]
+                    - cell "priyab5@kpit.com" [ref=f6e962]
+                    - cell "991746581" [ref=f6e963]
+                    - 'cell "Exp: 31 Dec 2023 Maint: 31 Dec 2023" [ref=f6e964]':
+                      - generic [ref=f6e965]:
+                        - generic [ref=f6e966]: "Exp: 31 Dec 2023"
+                        - generic [ref=f6e967]: "Maint: 31 Dec 2023"
+                  - row [ref=f6e968]:
+                    - cell "AdaptiveAutosar" [ref=f6e969]
+                    - cell "Autosar 2" [ref=f6e970]
+                    - cell "UserRole" [ref=f6e971]
+                    - cell "anders.kallerdahl@kpit.com" [ref=f6e972]
+                    - cell "-249060302" [ref=f6e973]
+                    - 'cell "Exp: 31 Dec 2021 Maint: 31 Dec 2021" [ref=f6e974]':
+                      - generic [ref=f6e975]:
+                        - generic [ref=f6e976]: "Exp: 31 Dec 2021"
+                        - generic [ref=f6e977]: "Maint: 31 Dec 2021"
+                  - row [ref=f6e978]:
+                    - cell "AdaptiveAutosar" [ref=f6e979]
+                    - cell "Autosar 2" [ref=f6e980]
+                    - cell "UserRole" [ref=f6e981]
+                    - cell "loyiedp@kpit.com" [ref=f6e982]
+                    - cell "991746581" [ref=f6e983]
+                    - 'cell "Exp: 31 Dec 2021 Maint: 31 Dec 2021" [ref=f6e984]':
+                      - generic [ref=f6e985]:
+                        - generic [ref=f6e986]: "Exp: 31 Dec 2021"
+                        - generic [ref=f6e987]: "Maint: 31 Dec 2021"
+      - contentinfo [ref=f6e341]:
+        - paragraph [ref=f6e344]: © KPIT Technologies Ltd. All rights reserved.

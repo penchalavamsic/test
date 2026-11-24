@@ -1,0 +1,1361 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic:
+      - generic:
+        - generic:
+          - banner [aria-hidden]:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+          - main:
+            - generic:
+              - button [aria-hidden]
+              - generic:
+                - generic [aria-hidden]:
+                  - generic:
+                    - generic:
+                      - heading [level=1]: System User Dashboard
+                      - paragraph: Monitor pending requests, expiring licenses, and floating seat usage.
+                  - button: Import License Request from File
+                - generic [aria-hidden]:
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic: "146"
+                          - paragraph: Pending License Requests
+                    - button [pressed]:
+                      - generic:
+                        - generic:
+                          - generic: "78"
+                          - paragraph: Expiring Licenses
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic: "0"
+                          - paragraph: Expiring Floating Configurations
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic: "0"
+                          - paragraph: Floating Licenses
+                - generic:
+                  - generic:
+                    - generic [aria-hidden]:
+                      - generic:
+                        - heading [level=3]:
+                          - generic: Expiring Licenses
+                        - paragraph: Review and extend licenses approaching expiration.
+                    - generic:
+                      - generic:
+                        - generic [aria-hidden]:
+                          - generic:
+                            - group:
+                              - generic: Filter by
+                              - generic:
+                                - generic:
+                                  - radio [checked]
+                                  - text: Expiration
+                                - generic:
+                                  - radio
+                                  - text: Maintenance
+                            - generic:
+                              - text: Expires before
+                              - textbox
+                          - button: User Licenses
+                        - generic [aria-hidden]:
+                          - searchbox
+                        - paragraph [aria-hidden]: 78 loaded·78 total
+                        - generic [aria-hidden]:
+                          - generic:
+                            - generic:
+                              - paragraph: c4k kpit
+                              - paragraph: c4k@kpit.com
+                            - generic: OTX-Authoring Floating
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 04 Jun 2035
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 16 Oct 2029
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: abc@kpit.com
+                            - generic: Adaptive Autosar
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 19 Dec 2050
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 19 Dec 2050
+                            - generic:
+                              - paragraph: "1646828583"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: abc@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Dec 2050
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Dec 2050
+                            - generic:
+                              - paragraph: "1646828583"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test user login
+                              - paragraph: testUserLogin@kpit.com
+                            - generic: Authoring Suite 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Oct 2026
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 04 Sept 2026
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test no apprpriate license
+                              - paragraph: testNoAppropriateLicense@kpit.com
+                            - generic: Diagnostic Communicator
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 05 Sept 2026
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 05 Sept 2026
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anil verma
+                              - paragraph: uat.anil@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2025
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2025
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test update gdpr
+                              - paragraph: testUpdateGdpr@kpit.com
+                            - generic: Authoring Suite 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test lower version
+                              - paragraph: testLowerVersion@kpit.com
+                            - generic: Authoring Suite 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test gdpr pending
+                              - paragraph: gdprPending@kpit.com
+                            - generic: Authoring Suite 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test disabled user
+                              - paragraph: testDisabledUser@kpit.com
+                            - generic: Authoring Suite 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test No floating license
+                              - paragraph: testNoFloatingLicense@kpit.com
+                            - generic: Authoring Suite 2 Floating
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: test floating license release
+                              - paragraph: testFloatingLicenseRelease@kpit.com
+                            - generic: Authoring Suite 2 Floating
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 13 May 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 13 May 2024
+                            - generic:
+                              - paragraph: "460604123"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: manual.testing.kpit@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 29 Feb 2024
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 29 Feb 2024
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Priya Boloor
+                              - paragraph: priyab5@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "6520950"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Priya Boloor
+                              - paragraph: priyab5@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anders kallerdahl
+                              - paragraph: anders.kallerdahl@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-32176961"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: irfan ustad
+                              - paragraph: irfanustad1995@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Abishek K
+                              - paragraph: abishekkumk@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Abishek K
+                              - paragraph: abishekkumk@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-392206071"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Vandana Sankanagoudar
+                              - paragraph: vandanas@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-2090005909"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Vandana Sankanagoudar
+                              - paragraph: vandanas@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Nandini R
+                              - paragraph: nandinir@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Nandini R
+                              - paragraph: nandinir@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-221225805"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Sharath Kumar
+                              - paragraph: sharathkumas@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shivangi Bhandari
+                              - paragraph: shivangi.bhandari@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-1146130195"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shivangi Bhandari
+                              - paragraph: shivangi.bhandari@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "-392206569"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shivangi Bhandari
+                              - paragraph: shivangi.bhandari@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2023
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Oct 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Oct 2023
+                            - generic:
+                              - paragraph: "1077634465"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: uat uat
+                              - paragraph: uat.uat@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Sept 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Sept 2023
+                            - generic:
+                              - paragraph: "-277689531"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Aug 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Aug 2023
+                            - generic:
+                              - paragraph: "991746584"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Aug 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Aug 2023
+                            - generic:
+                              - paragraph: "1020376106"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Mar 2023
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Mar 2023
+                            - generic:
+                              - paragraph: "-363576920"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Sharath Kumar
+                              - paragraph: sharathkumas@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2022
+                            - generic:
+                              - paragraph: "-1986906394"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2022
+                            - generic:
+                              - paragraph: "-277689531"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2022
+                            - generic:
+                              - paragraph: "-392206071"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2022
+                            - generic:
+                              - paragraph: "1196891898"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shrinivas Deshpande
+                              - paragraph: shrinivasd2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Sept 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Sept 2022
+                            - generic:
+                              - paragraph: "1077634465"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Pradeep SP
+                              - paragraph: Pradeep.P2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Sept 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Sept 2022
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Pradeep SP
+                              - paragraph: Pradeep.P2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Sept 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Sept 2022
+                            - generic:
+                              - paragraph: "969524895"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shrinivas Deshpande
+                              - paragraph: shrinivasd2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Aug 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Aug 2022
+                            - generic:
+                              - paragraph: "-262323931"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shrinivas Deshpande
+                              - paragraph: shrinivasd2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Jul 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Jul 2022
+                            - generic:
+                              - paragraph: "-277689531"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Jun 2022
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Jun 2022
+                            - generic:
+                              - paragraph: "-392206071"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: c4k c4k
+                              - paragraph: c4k.c4k@kpit.com
+                            - generic: Adaptive Autosar
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: uat uat
+                              - paragraph: uat.uat@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: uat uat
+                              - paragraph: uat.uat@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-2113993842"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "934488804"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: gattam mallikarjun
+                              - paragraph: gattam.mallikarjun@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-420835284"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anders kallerdahl
+                              - paragraph: anders.kallerdahl@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anders kallerdahl
+                              - paragraph: anders.kallerdahl@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "1106263694"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anders kallerdahl
+                              - paragraph: anders.kallerdahl@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-1059446133"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: anders kallerdahl
+                              - paragraph: anders.kallerdahl@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-2010643945"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Loyied Paulson
+                              - paragraph: loyiedp@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "848616230"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Loyied Paulson
+                              - paragraph: loyiedp@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "934488647"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Loyied Paulson
+                              - paragraph: loyiedp@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Loyied Paulson
+                              - paragraph: loyiedp@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-392206071"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Loyied Paulson
+                              - paragraph: loyiedp@kpit.com
+                            - generic: Adaptive Autosar
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-392206071"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Johan Rehnberg
+                              - paragraph: johan.rehnberg@cevt.se
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: erik dahlgren
+                              - paragraph: erik.dahlgren@cevt.se
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Christian Fuss
+                              - paragraph: christian.fuss@futomotive.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "1106263694"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: d lingam
+                              - paragraph: dharma.lingam@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-2018057638"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Satoshi Tabuchi
+                              - paragraph: Satoshi_Tabuchi@n.t.rd.honda.co.jp
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-277689461"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Shrinivas Deshpande
+                              - paragraph: shrinivasd2@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "-392206569"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 31 Dec 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 31 Dec 2021
+                            - generic:
+                              - paragraph: "323847609"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Irappa Koli
+                              - paragraph: irappa.koli@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Sept 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Sept 2021
+                            - generic:
+                              - paragraph: "-392206569"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: avanish sharma
+                              - paragraph: avanish.sharma@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 28 May 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 28 May 2021
+                            - generic:
+                              - paragraph: "991746581"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: vivek pinto
+                              - paragraph: vivek.pinto@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 21 May 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 21 May 2021
+                            - generic:
+                              - paragraph: "-1604178298"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: avanish sharma
+                              - paragraph: avanish.sharma@Kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 12 May 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 12 May 2021
+                            - generic:
+                              - paragraph: "813773402"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: rahul pandey
+                              - paragraph: rahul.pandey@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 01 May 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 01 May 2021
+                            - generic:
+                              - paragraph: "-1003683278"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: abc@kpit.com
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Mar 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Mar 2021
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: abc@kpit.com
+                            - generic: Adaptive Autosar
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Mar 2021
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Mar 2021
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Mats Hojlund
+                              - paragraph: mats.hojlund@cevt.se
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Aug 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Aug 2020
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Patrik Ingmarsson
+                              - paragraph: patrik.ingmarsson@cevt.se
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 Aug 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 Aug 2020
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: Abhijeet Shirolikar
+                              - paragraph: abhijeet.shirolikar@cevt.se
+                            - generic: Autosar 2
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 30 May 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 30 May 2020
+                            - generic:
+                              - paragraph: "-249060302"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: limas clienttest
+                              - paragraph: limas.clienttest@kpit.com
+                            - generic: Autosar 2 floating
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 04 Apr 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 04 Apr 2020
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: raghu rao
+                              - paragraph: manual.testing.kpit@Kpit.com
+                            - generic: Autosar 2 floating
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 02 Apr 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 02 Apr 2020
+                            - generic:
+                              - paragraph: "43634745"
+                            - generic:
+                              - button: Extend
+                          - generic:
+                            - generic:
+                              - paragraph: c4k kpit
+                              - paragraph: c4k@kpit.com
+                            - generic: Adaptive Autosar
+                            - generic:
+                              - generic:
+                                - generic: "Exp:"
+                                - generic: 08 Feb 2020
+                              - generic:
+                                - generic: "Maint:"
+                                - generic: 08 Feb 2020
+                            - generic:
+                              - paragraph: "1836236568"
+                            - generic:
+                              - button: Extend
+                        - generic: All expiring licenses are displayed.
+          - contentinfo [aria-hidden]:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - dialog [ref=f13e1879]:
+    - heading "Extend License· OTX-Authoring Floating · 1836236568" [level=2] [ref=f13e1881]:
+      - generic [ref=f13e1884]:
+        - text: Extend License
+        - generic [ref=f13e1885]: · OTX-Authoring Floating · 1836236568
+    - generic [ref=f13e1886]:
+      - generic [ref=f13e1887]:
+        - paragraph [ref=f13e1888]: Expiration
+        - generic [ref=f13e1889]:
+          - generic [ref=f13e1890]:
+            - text: New Expiration Date
+            - generic [ref=f13e1891]:
+              - textbox "New Expiration Date" [active] [ref=f13e1892] [cursor=pointer]
+              - button "Open new expiration date calendar" [ref=f13e1893] [cursor=pointer]
+          - generic [ref=f13e1896]:
+            - text: Extend by Days
+            - spinbutton "Extend by Days" [ref=f13e1897]
+      - generic [ref=f13e1898]:
+        - checkbox "Synchronise Maintenance Date with Expiration" [ref=f13e1899]
+        - generic [ref=f13e1900] [cursor=pointer]: Synchronise Maintenance Date with Expiration
+      - generic [ref=f13e1901]:
+        - paragraph [ref=f13e1902]: Maintenance
+        - generic [ref=f13e1903]:
+          - generic [ref=f13e1904]:
+            - text: New Maintenance Date
+            - generic [ref=f13e1905]:
+              - textbox "New Maintenance Date" [ref=f13e1906] [cursor=pointer]
+              - button "Open new maintenance date calendar" [ref=f13e1907] [cursor=pointer]
+          - generic [ref=f13e1910]:
+            - text: Extend by Days
+            - spinbutton "Extend by Days" [ref=f13e1911]
+    - generic [ref=f13e1912]:
+      - button "Cancel" [ref=f13e1913] [cursor=pointer]
+      - button "Apply Extension" [ref=f13e1914] [cursor=pointer]
+    - button "Close" [ref=f13e1915] [cursor=pointer]

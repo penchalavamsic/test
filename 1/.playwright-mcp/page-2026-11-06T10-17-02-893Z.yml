@@ -1,0 +1,63 @@
+- generic [ref=f18e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f18e9]:
+    - banner [ref=f18e10]:
+      - img "Logo" [ref=f18e12]
+      - generic [ref=f18e13]:
+        - button [ref=f18e14] [cursor=pointer]
+        - button [ref=f18e15] [cursor=pointer]
+        - button "as" [ref=f18e16] [cursor=pointer]
+    - main [ref=f18e18]:
+      - generic [ref=f18e19]:
+        - button [aria-hidden] [ref=f18e20]
+        - generic [ref=f18e21]:
+          - generic [ref=f18e22]:
+            - generic [ref=f18e29]:
+              - heading "System User Dashboard" [level=1] [ref=f18e30]
+              - paragraph [ref=f18e31]: Monitor pending requests, expiring licenses, and floating seat usage.
+            - button "Import License Request from File" [ref=f18e32] [cursor=pointer]
+          - generic [ref=f18e34]:
+            - button "146 Pending License Requests" [ref=f18e35] [cursor=pointer]:
+              - generic [ref=f18e37]:
+                - generic [ref=f18e38]: "146"
+                - paragraph [ref=f18e43]: Pending License Requests
+            - button "78 Expiring Licenses" [ref=f18e44] [cursor=pointer]:
+              - generic [ref=f18e46]:
+                - generic [ref=f18e47]: "78"
+                - paragraph [ref=f18e51]: Expiring Licenses
+            - button "0 Expiring Floating Configurations" [active] [pressed] [ref=f18e52] [cursor=pointer]:
+              - generic [ref=f18e54]:
+                - generic [ref=f18e55]: "0"
+                - paragraph [ref=f18e67]: Expiring Floating Configurations
+            - button "0 Floating Licenses" [ref=f18e68] [cursor=pointer]:
+              - generic [ref=f18e70]:
+                - generic [ref=f18e71]: "0"
+                - paragraph [ref=f18e75]: Floating Licenses
+          - generic [ref=f18e77]:
+            - generic [ref=f18e79]:
+              - heading "Expiring Floating Configurations" [level=3] [ref=f18e445]
+              - paragraph [ref=f18e85]: Review and extend floating license configurations approaching expiration.
+            - generic [ref=f18e87]:
+              - generic [ref=f18e448]:
+                - generic [ref=f18e449]:
+                  - group "Filter by" [ref=f18e450]:
+                    - generic [ref=f18e452]:
+                      - generic [ref=f18e453] [cursor=pointer]:
+                        - radio "Expiration" [checked] [ref=f18e454]
+                        - text: Expiration
+                      - generic [ref=f18e455] [cursor=pointer]:
+                        - radio "Maintenance" [ref=f18e456]
+                        - text: Maintenance
+                  - generic [ref=f18e457]:
+                    - text: Expires until
+                    - textbox "Expires until" [ref=f18e458] [cursor=pointer]
+                - button "Floating License Configurations" [ref=f18e459] [cursor=pointer]
+              - searchbox "Search by User Group or Profile…" [ref=f18e464]
+              - paragraph [ref=f18e465]: 0 loaded · 0 total configurations
+              - generic [ref=f18e466]:
+                - paragraph [ref=f18e469]: No expiring floating configurations found
+                - paragraph [ref=f18e470]: No floating license configurations match the selected date criteria.
+    - contentinfo [ref=f18e441]:
+      - paragraph [ref=f18e444]: © KPIT Technologies Ltd. All rights reserved.

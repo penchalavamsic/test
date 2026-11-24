@@ -1,0 +1,1015 @@
+- generic [ref=f3e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f3e177]:
+    - list [ref=f3e185]:
+      - listitem [ref=f3e186]:
+        - button [ref=f3e187] [cursor=pointer]
+      - listitem [ref=f3e191]:
+        - link [ref=f3e192] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f3e198]:
+        - link [ref=f3e199] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f3e205]:
+        - link [ref=f3e206] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f3e210]:
+        - link [ref=f3e211] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f3e215]:
+        - link [ref=f3e216] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f3e220]:
+        - link [ref=f3e221] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f3e226]:
+        - link [ref=f3e227] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f3e232]:
+        - link [ref=f3e233] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f3e236]:
+        - link [ref=f3e237] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f3e241]:
+        - link [ref=f3e242] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f3e246]:
+        - link [ref=f3e247] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f3e251]:
+      - banner [ref=f3e252]:
+        - img "Logo" [ref=f3e254]
+        - generic [ref=f3e255]:
+          - button [ref=f3e256] [cursor=pointer]
+          - button [ref=f3e257] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f3e258] [cursor=pointer]:
+            - generic [ref=f3e259]: as
+            - generic [ref=f3e260]: aravi.s@kpit.com
+      - main [ref=f3e261]:
+        - generic [ref=f3e263]:
+          - heading "Floating License Configurations" [level=1] [ref=f3e265]
+          - generic [ref=f3e2017]:
+            - generic [ref=f3e2018]:
+              - generic [ref=f3e2019]:
+                - paragraph [ref=f3e2020]: Select a User Group
+                - paragraph [ref=f3e2021]: Choose a group to view its Floating License Configurations.
+              - textbox "Search groups" [ref=f3e2023]
+              - generic [ref=f3e2024]:
+                - button "Expand All" [ref=f3e2025] [cursor=pointer]
+                - button "Collapse All" [ref=f3e2026] [cursor=pointer]
+            - tree "User Groups" [ref=f3e2027]:
+              - button "Expand LIMAS-Root-Group" [ref=f3e2029] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2032]: LIMAS-Root-Group
+              - button "Expand Default 11g" [ref=f3e2034] [cursor=pointer]:
+                - button "Expand" [ref=f3e2035]
+                - generic [ref=f3e2040]: Default
+                - generic "11 child group(s)" [ref=f3e2042]: 11g
+              - button "Expand DSA 2g" [ref=f3e2044] [cursor=pointer]:
+                - button "Expand" [ref=f3e2045]
+                - generic [ref=f3e2050]: DSA
+                - generic "2 child group(s)" [ref=f3e2052]: 2g
+              - button "Expand DSA_US - QT.160310.5899" [ref=f3e2054] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2057]: DSA_US - QT.160310.5899
+              - button "Expand DSA_CN 1g" [ref=f3e2059] [cursor=pointer]:
+                - button "Expand" [ref=f3e2060]
+                - generic [ref=f3e2065]: DSA_CN
+                - generic "1 child group(s)" [ref=f3e2067]: 1g
+              - button "Expand Valeo 6g" [ref=f3e2069] [cursor=pointer]:
+                - button "Expand" [ref=f3e2070]
+                - generic [ref=f3e2075]: Valeo
+                - generic "6 child group(s)" [ref=f3e2077]: 6g
+              - button "Expand Valeo_Egypt - QT/180426/6346" [ref=f3e2079] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2082]: Valeo_Egypt - QT/180426/6346
+              - button "Expand APAC 30g" [ref=f3e2084] [cursor=pointer]:
+                - button "Expand" [ref=f3e2085]
+                - generic [ref=f3e2090]: APAC
+                - generic "30 child group(s)" [ref=f3e2092]: 30g
+              - button "Expand Denso -QT/170614/6153 1g" [ref=f3e2094] [cursor=pointer]:
+                - button "Expand" [ref=f3e2095]
+                - generic [ref=f3e2100]: Denso -QT/170614/6153
+                - generic "1 child group(s)" [ref=f3e2102]: 1g
+              - button "Expand Denso_Yuzo Harata" [ref=f3e2104] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2107]: Denso_Yuzo Harata
+              - button "Expand Mahindra" [ref=f3e2109] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2112]: Mahindra
+              - button "Expand Nissin" [ref=f3e2114] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2117]: Nissin
+              - button "Expand Bosch_India" [ref=f3e2119] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2122]: Bosch_India
+              - button "Expand FAW VW China" [ref=f3e2124] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2127]: FAW VW China
+              - button "Expand NSK_Japan_DN/171116/6261" [ref=f3e2129] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2132]: NSK_Japan_DN/171116/6261
+              - button "Expand DF Nissan" [ref=f3e2134] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2137]: DF Nissan
+              - button "Expand Desay - QT/170112/6116" [ref=f3e2139] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2142]: Desay - QT/170112/6116
+              - button "Expand PATAC" [ref=f3e2144] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2147]: PATAC
+              - button "Expand BHTC_India - QT/171016/6209" [ref=f3e2149] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2152]: BHTC_India - QT/171016/6209
+              - button "Expand Encon 2g" [ref=f3e2154] [cursor=pointer]:
+                - button "Expand" [ref=f3e2155]
+                - generic [ref=f3e2160]: Encon
+                - generic "2 child group(s)" [ref=f3e2162]: 2g
+              - button "Expand LG - QT.170223.6125" [ref=f3e2164] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2167]: LG - QT.170223.6125
+              - button "Expand Daimler_India" [ref=f3e2169] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2172]: Daimler_India
+              - button "Expand GAC" [ref=f3e2174] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2177]: GAC
+              - button "Expand EMEA 65g" [ref=f3e2179] [cursor=pointer]:
+                - button "Expand" [ref=f3e2180]
+                - generic [ref=f3e2185]: EMEA
+                - generic "65 child group(s)" [ref=f3e2187]: 65g
+              - button "Expand Marelli_DN/220822/6928 1g" [ref=f3e2189] [cursor=pointer]:
+                - button "Expand" [ref=f3e2190]
+                - generic [ref=f3e2195]: Marelli_DN/220822/6928
+                - generic "1 child group(s)" [ref=f3e2197]: 1g
+              - button "Expand Marelli Italy" [ref=f3e2199] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2202]: Marelli Italy
+              - button "Expand Rapa" [ref=f3e2204] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2207]: Rapa
+              - button "Expand Kostal" [ref=f3e2209] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2212]: Kostal
+              - button "Expand AWTC" [ref=f3e2214] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2217]: AWTC
+              - button "Expand Flex Automotive GmbH - QT.180124.6300" [ref=f3e2219] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2222]: Flex Automotive GmbH - QT.180124.6300
+              - button "Expand Porsche" [ref=f3e2224] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2227]: Porsche
+              - button "Expand Hella Gutmann - QT/171221/6290-DBD_DN/230710/7090_OAS2_FL 2g" [ref=f3e2229] [cursor=pointer]:
+                - button "Expand" [ref=f3e2230]
+                - generic [ref=f3e2235]: Hella Gutmann - QT/171221/6290-DBD_DN/230710/7090_OAS2_FL
+                - generic "2 child group(s)" [ref=f3e2237]: 2g
+              - button "Expand Bertrandt" [ref=f3e2239] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2242]: Bertrandt
+              - button "Expand dSpace" [ref=f3e2244] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2247]: dSpace
+              - button "Expand AVL" [ref=f3e2249] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2252]: AVL
+              - button "Expand IAV 6g" [ref=f3e2254] [cursor=pointer]:
+                - button "Expand" [ref=f3e2255]
+                - generic [ref=f3e2260]: IAV
+                - generic "6 child group(s)" [ref=f3e2262]: 6g
+              - button "Expand IAV_Franz Johannes Zenner / Rico Beyer - QT/180208/6322 / QT/220826/6937" [ref=f3e2264] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2267]: IAV_Franz Johannes Zenner / Rico Beyer - QT/180208/6322 / QT/220826/6937
+              - button "Expand Vaillant" [ref=f3e2269] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2272]: Vaillant
+              - button "Expand Software Technology Team" [ref=f3e2274] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2277]: Software Technology Team
+              - button "Expand MTU - Qt.171019.6229" [ref=f3e2279] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2282]: MTU - Qt.171019.6229
+              - button "Expand Krone" [ref=f3e2284] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2287]: Krone
+              - button "Expand Renault" [ref=f3e2289] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2292]: Renault
+              - button "Expand Bosch 9g" [ref=f3e2294] [cursor=pointer]:
+                - button "Expand" [ref=f3e2295]
+                - generic [ref=f3e2300]: Bosch
+                - generic "9 child group(s)" [ref=f3e2302]: 9g
+              - button "Expand Bosch Engineering GmbH - Heilbronn" [ref=f3e2304] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2307]: Bosch Engineering GmbH - Heilbronn
+              - button "Expand BoschRexroth" [ref=f3e2309] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2312]: BoschRexroth
+              - button "Expand Bosch_Boran" [ref=f3e2314] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2317]: Bosch_Boran
+              - button "Expand Bosch_Ridder - QT/171127/6267" [ref=f3e2319] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2322]: Bosch_Ridder - QT/171127/6267
+              - button "Expand Bosch Hungary - Stefan Schneider" [ref=f3e2324] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2327]: Bosch Hungary - Stefan Schneider
+              - button "Expand Bosch_Fadwa - QT/170710/6162 and QT.180321.6337" [ref=f3e2329] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2332]: Bosch_Fadwa - QT/170710/6162 and QT.180321.6337
+              - button "Expand VW 9g" [ref=f3e2334] [cursor=pointer]:
+                - button "Expand" [ref=f3e2335]
+                - generic [ref=f3e2340]: VW
+                - generic "9 child group(s)" [ref=f3e2342]: 9g
+              - button "Expand VW_Schnier" [ref=f3e2344] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2347]: VW_Schnier
+              - button "Expand VW_Harms" [ref=f3e2349] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2352]: VW_Harms
+              - button "Expand VW_Lips" [ref=f3e2354] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2357]: VW_Lips
+              - button "Expand VW Russia" [ref=f3e2359] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2362]: VW Russia
+              - button "Expand VW_Hartmann" [ref=f3e2364] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2367]: VW_Hartmann
+              - button "Expand Continental 8g" [ref=f3e2369] [cursor=pointer]:
+                - button "Expand" [ref=f3e2370]
+                - generic [ref=f3e2375]: Continental
+                - generic "8 child group(s)" [ref=f3e2377]: 8g
+              - button "Expand Conti - Frankfurt - QT/171211/6275" [ref=f3e2379] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2382]: Conti - Frankfurt - QT/171211/6275
+              - button "Expand Conti Regensburg 2g" [ref=f3e2384] [cursor=pointer]:
+                - button "Expand" [ref=f3e2385]
+                - generic [ref=f3e2390]: Conti Regensburg
+                - generic "2 child group(s)" [ref=f3e2392]: 2g
+              - button "Expand Conti_Gassner/Wellnhofer" [ref=f3e2394] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2397]: Conti_Gassner/Wellnhofer
+              - button "Expand Conti_Flach - QT/180208/6316 and QT/180208/6317 and QT/220908/6963" [ref=f3e2399] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2402]: Conti_Flach - QT/180208/6316 and QT/180208/6317 and QT/220908/6963
+              - button "Expand Conti_Zintl" [ref=f3e2404] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2407]: Conti_Zintl
+              - button "Expand Conti_Nue - QT.180116.6299" [ref=f3e2409] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2412]: Conti_Nue - QT.180116.6299
+              - button "Expand Conti Teves_Perizonius - QT/171211/6275" [ref=f3e2414] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2417]: Conti Teves_Perizonius - QT/171211/6275
+              - button "Expand Conti_Engineering - QT.170301.6126 1g" [ref=f3e2419] [cursor=pointer]:
+                - button "Expand" [ref=f3e2420]
+                - generic [ref=f3e2425]: Conti_Engineering - QT.170301.6126
+                - generic "1 child group(s)" [ref=f3e2427]: 1g
+              - button "Expand Conti_Engineering - CCP" [ref=f3e2429] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2432]: Conti_Engineering - CCP
+              - button "Expand ZF 7g" [ref=f3e2434] [cursor=pointer]:
+                - button "Expand" [ref=f3e2435]
+                - generic [ref=f3e2440]: ZF
+                - generic "7 child group(s)" [ref=f3e2442]: 7g
+              - button "Expand ZF_UK" [ref=f3e2444] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2447]: ZF_UK
+              - button "Expand ZF_Morath - QT.180116.6298" [ref=f3e2449] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2452]: ZF_Morath - QT.180116.6298
+              - button "Expand ZF_Schweinfurt" [ref=f3e2454] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2457]: ZF_Schweinfurt
+              - button "Expand ZF_Dohrmann" [ref=f3e2459] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2462]: ZF_Dohrmann
+              - button "Expand Magna - QT/171017/6212 1g" [ref=f3e2464] [cursor=pointer]:
+                - button "Expand" [ref=f3e2465]
+                - generic [ref=f3e2470]: Magna - QT/171017/6212
+                - generic "1 child group(s)" [ref=f3e2472]: 1g
+              - button "Expand Magna_Austria" [ref=f3e2474] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2477]: Magna_Austria
+              - button "Expand Autoliv - QT.160714.5969" [ref=f3e2479] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2482]: Autoliv - QT.160714.5969
+              - button "Expand Viessmann" [ref=f3e2484] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2487]: Viessmann
+              - button "Expand Skoda - QT.170922.6205" [ref=f3e2489] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2492]: Skoda - QT.170922.6205
+              - button "Expand Bentley" [ref=f3e2494] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2497]: Bentley
+              - button "Expand Daimler" [ref=f3e2499] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2502]: Daimler
+              - button "Expand Audi" [ref=f3e2504] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2507]: Audi
+              - button "Expand XTRONIC - QT.161110.5992" [ref=f3e2509] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2512]: XTRONIC - QT.161110.5992
+              - button "Expand Embedeers/CATL" [ref=f3e2514] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2517]: Embedeers/CATL
+              - button "Expand e-Traction" [ref=f3e2519] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2522]: e-Traction
+              - button "Expand Marquardt - QT/171120/6264" [ref=f3e2524] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2527]: Marquardt - QT/171120/6264
+              - button "Expand Preh - QT/170822/6202 and QT/180208/6326" [ref=f3e2529] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2532]: Preh - QT/170822/6202 and QT/180208/6326
+              - button "Expand Visteon" [ref=f3e2534] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2537]: Visteon
+              - button "Expand MAN" [ref=f3e2539] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2542]: MAN
+              - button "Expand Liebherr" [ref=f3e2544] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2547]: Liebherr
+              - button "Expand JLR" [ref=f3e2549] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2552]: JLR
+              - button "Expand Webasto - QT/171211/6274" [ref=f3e2554] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2557]: Webasto - QT/171211/6274
+              - button "Expand FICOSA - QT.170308.6128" [ref=f3e2559] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2562]: FICOSA - QT.170308.6128
+              - button "Expand TRW 3g" [ref=f3e2564] [cursor=pointer]:
+                - button "Expand" [ref=f3e2565]
+                - generic [ref=f3e2570]: TRW
+                - generic "3 child group(s)" [ref=f3e2572]: 3g
+              - button "Expand TRW Polska - QT.170201.6122" [ref=f3e2574] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2577]: TRW Polska - QT.170201.6122
+              - button "Expand ZF TRW" [ref=f3e2579] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2582]: ZF TRW
+              - button "Expand APAG" [ref=f3e2584] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2587]: APAG
+              - button "Expand Volvo" [ref=f3e2589] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2592]: Volvo
+              - button "Expand Flex" [ref=f3e2594] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2597]: Flex
+              - button "Expand Kendrion - QT.170629.6158" [ref=f3e2599] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2602]: Kendrion - QT.170629.6158
+              - button "Expand Vispiron" [ref=f3e2604] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2607]: Vispiron
+              - button "Expand Synostik" [ref=f3e2609] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2612]: Synostik
+              - button "Expand NAFTA 13g" [ref=f3e2614] [cursor=pointer]:
+                - button "Expand" [ref=f3e2615]
+                - generic [ref=f3e2620]: NAFTA
+                - generic "13 child group(s)" [ref=f3e2622]: 13g
+              - button "Expand NextEV" [ref=f3e2624] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2627]: NextEV
+              - button "Expand Brain Bee S.p.a." [ref=f3e2629] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2632]: Brain Bee S.p.a.
+              - button "Expand SnapOn" [ref=f3e2634] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2637]: SnapOn
+              - button "Expand Deere" [ref=f3e2639] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2642]: Deere
+              - button "Expand KARMA" [ref=f3e2644] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2647]: KARMA
+              - button "Expand BRP 6g" [ref=f3e2649] [cursor=pointer]:
+                - button "Expand" [ref=f3e2650]
+                - generic [ref=f3e2655]: BRP
+                - generic "6 child group(s)" [ref=f3e2657]: 6g
+              - button "Expand BRP_Engineering_Sylvain - QT.171221.6289" [ref=f3e2659] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2662]: BRP_Engineering_Sylvain - QT.171221.6289
+              - button "Expand BRP_Aftersales_Fagnan - QT.171221.6288" [ref=f3e2664] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2667]: BRP_Aftersales_Fagnan - QT.171221.6288
+              - button "Expand BRP_Production_Bisson" [ref=f3e2669] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2672]: BRP_Production_Bisson
+              - button "Expand BRP Austria" [ref=f3e2674] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2677]: BRP Austria
+              - button "Expand Redbend" [ref=f3e2679] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2682]: Redbend
+              - button "Expand AGCO US - QT.171212.6284" [ref=f3e2684] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2687]: AGCO US - QT.171212.6284
+              - button "Expand KPIT 9g" [ref=f3e2689] [cursor=pointer]:
+                - button "Expand" [ref=f3e2690]
+                - generic [ref=f3e2695]: KPIT
+                - generic "9 child group(s)" [ref=f3e2697]: 9g
+              - button "Expand KPIT Germany 1g" [ref=f3e2699] [cursor=pointer]:
+                - button "Expand" [ref=f3e2700]
+                - generic [ref=f3e2705]: KPIT Germany
+                - generic "1 child group(s)" [ref=f3e2707]: 1g
+              - button "Expand AGCO-Evaluation" [ref=f3e2709] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2712]: AGCO-Evaluation
+              - button "Expand KPIT Pune 3g" [ref=f3e2714] [cursor=pointer]:
+                - button "Expand" [ref=f3e2715]
+                - generic [ref=f3e2720]: KPIT Pune
+                - generic "3 child group(s)" [ref=f3e2722]: 3g
+              - button "Expand KPIT Bangalore - NOS 1g" [ref=f3e2724] [cursor=pointer]:
+                - button "Expand" [ref=f3e2725]
+                - generic [ref=f3e2730]: KPIT Bangalore - NOS
+                - generic "1 child group(s)" [ref=f3e2732]: 1g
+              - button "Expand KPIT_Rest" [ref=f3e2734] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2737]: KPIT_Rest
+              - button "Expand Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241 1g" [ref=f3e2739] [cursor=pointer]:
+                - button "Expand" [ref=f3e2740]
+                - generic [ref=f3e2745]: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                - generic "1 child group(s)" [ref=f3e2747]: 1g
+              - button "Expand Actia China - QT/170315/6129 and QT.171108.6244" [ref=f3e2749] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2752]: Actia China - QT/170315/6129 and QT.171108.6244
+              - button "Expand MicroFuzzy" [ref=f3e2754] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2757]: MicroFuzzy
+              - button "Expand HUF" [ref=f3e2759] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2762]: HUF
+              - button "Expand Test K-DCP products (internal) 1g" [ref=f3e2764] [cursor=pointer]:
+                - button "Expand" [ref=f3e2765]
+                - generic [ref=f3e2770]: Test K-DCP products (internal)
+                - generic "1 child group(s)" [ref=f3e2772]: 1g
+              - button "Expand Delphi -QT/171121/6265" [ref=f3e2774] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2777]: Delphi -QT/171121/6265
+              - button "Expand CalAmp - QT.170906.6203" [ref=f3e2779] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2782]: CalAmp - QT.170906.6203
+              - button "Expand BFFT - QT.171025.6242" [ref=f3e2784] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2787]: BFFT - QT.171025.6242
+              - button "Expand Harman - QT.171019.6228" [ref=f3e2789] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2792]: Harman - QT.171019.6228
+              - button "Expand BHTC - DN/220823/6929" [ref=f3e2794] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2797]: BHTC - DN/220823/6929
+              - button "Expand Helbako" [ref=f3e2799] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2802]: Helbako
+              - button "Expand Hirschmann" [ref=f3e2804] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2807]: Hirschmann
+              - button "Expand IAV_Liebezeit QT/180208/6321 and QT/180208/6321" [ref=f3e2809] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2812]: IAV_Liebezeit QT/180208/6321 and QT/180208/6321
+              - button "Expand IAV_Schuler" [ref=f3e2814] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2817]: IAV_Schuler
+              - button "Expand Bosch Yu - QT/180201/6312" [ref=f3e2819] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2822]: Bosch Yu - QT/180201/6312
+              - button "Expand Stoneridge" [ref=f3e2824] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2827]: Stoneridge
+              - button "Expand DAF (PACCAR) - OP/NOV21/0000049662 - 5 SL - ODX Checker NG" [ref=f3e2829] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2832]: DAF (PACCAR) - OP/NOV21/0000049662 - 5 SL - ODX Checker NG
+              - button "Expand KPIT Revolo" [ref=f3e2834] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2837]: KPIT Revolo
+              - button "Expand NEVS" [ref=f3e2839] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2842]: NEVS
+              - button "Expand VW - default" [ref=f3e2844] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2847]: VW - default
+              - button "Expand VWGroup 1g" [ref=f3e2849] [cursor=pointer]:
+                - button "Expand" [ref=f3e2850]
+                - generic [ref=f3e2855]: VWGroup
+                - generic "1 child group(s)" [ref=f3e2857]: 1g
+              - button "Expand AGCO1" [ref=f3e2859] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2862]: AGCO1
+              - button "Expand External Trial Licenses 10g" [ref=f3e2864] [cursor=pointer]:
+                - button "Expand" [ref=f3e2865]
+                - generic [ref=f3e2870]: External Trial Licenses
+                - generic "10 child group(s)" [ref=f3e2872]: 10g
+              - button "Expand Conti China" [ref=f3e2874] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2877]: Conti China
+              - button "Expand Stihl 1g" [ref=f3e2879] [cursor=pointer]:
+                - button "Expand" [ref=f3e2880]
+                - generic [ref=f3e2885]: Stihl
+                - generic "1 child group(s)" [ref=f3e2887]: 1g
+              - button "Expand Deutz - QT.180301.6331" [ref=f3e2889] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2892]: Deutz - QT.180301.6331
+              - button "Expand LG - Beom Jun Kim - QT.180418.6341" [ref=f3e2894] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2897]: LG - Beom Jun Kim - QT.180418.6341
+              - button "Expand Lamborghini - QT/180301/6330" [ref=f3e2899] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2902]: Lamborghini - QT/180301/6330
+              - button "Expand Valeo India - QT/180517/6353" [ref=f3e2904] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2907]: Valeo India - QT/180517/6353
+              - button "Expand Krause" [ref=f3e2909] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2912]: Krause
+              - button "Expand Conti - Hungary - QT.180109.6291" [ref=f3e2914] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2917]: Conti - Hungary - QT.180109.6291
+              - button "Expand Hella_DBD 2 Dongle_DN/240507/7266" [ref=f3e2919] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2922]: Hella_DBD 2 Dongle_DN/240507/7266
+              - button "Expand TRW Radolfzell" [ref=f3e2924] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2927]: TRW Radolfzell
+              - button "Expand Hang Sheng" [ref=f3e2929] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2932]: Hang Sheng
+              - button "Expand Valeo DE" [ref=f3e2934] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2937]: Valeo DE
+              - button "Expand Diagnostic Training Bangalore" [ref=f3e2939] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2942]: Diagnostic Training Bangalore
+              - button "Expand GM 4g" [ref=f3e2944] [cursor=pointer]:
+                - button "Expand" [ref=f3e2945]
+                - generic [ref=f3e2950]: GM
+                - generic "4 child group(s)" [ref=f3e2952]: 4g
+              - button "Expand Service Tool" [ref=f3e2954] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2957]: Service Tool
+              - button "Expand Joshson Electric DN.190117.6492" [ref=f3e2959] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2962]: Joshson Electric DN.190117.6492
+              - button "Expand Viessmann Workshop" [ref=f3e2964] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2967]: Viessmann Workshop
+              - button "Expand Trial License" [ref=f3e2969] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2972]: Trial License
+              - button "Expand License Library Junit Test Group 1g" [ref=f3e2974] [cursor=pointer]:
+                - button "Expand" [ref=f3e2975]
+                - generic [ref=f3e2980]: License Library Junit Test Group
+                - generic "1 child group(s)" [ref=f3e2982]: 1g
+              - button "Expand No Floating Config" [ref=f3e2984] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e2987]: No Floating Config
+              - button "Expand License Library Junit Test 1g" [ref=f3e2989] [cursor=pointer]:
+                - button "Expand" [ref=f3e2990]
+                - generic [ref=f3e2995]: License Library Junit Test
+                - generic "1 child group(s)" [ref=f3e2997]: 1g
+              - button "Expand No Floating License Test" [ref=f3e2999] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3002]: No Floating License Test
+              - button "Expand KPIT KOEL" [ref=f3e3004] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3007]: KPIT KOEL
+              - button "Expand OLA Electric India" [ref=f3e3009] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3012]: OLA Electric India
+              - button "Expand K-DCP Tools (swapped)" [ref=f3e3014] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3017]: K-DCP Tools (swapped)
+              - button "Expand KPIT OLA" [ref=f3e3019] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3022]: KPIT OLA
+              - button "Expand PES Eaton M2 and M3" [ref=f3e3024] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3027]: PES Eaton M2 and M3
+              - button "Expand Diagnostic Training" [ref=f3e3029] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3032]: Diagnostic Training
+              - button "Expand WABCO-ZF" [ref=f3e3034] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3037]: WABCO-ZF
+              - button "Expand Flex ODX Training" [ref=f3e3039] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3042]: Flex ODX Training
+              - button "Expand ZF Testing" [ref=f3e3044] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3047]: ZF Testing
+              - button "Expand STIHL-TESTING" [ref=f3e3049] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3052]: STIHL-TESTING
+              - button "Expand STIHL FLOATING LICENSES" [ref=f3e3054] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3057]: STIHL FLOATING LICENSES
+              - button "Expand SAT" [ref=f3e3059] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3062]: SAT
+              - button "Expand AGCO-Testing" [ref=f3e3064] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3067]: AGCO-Testing
+              - button "Expand KPIT-Testing" [ref=f3e3069] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3072]: KPIT-Testing
+              - button "Expand AGCO-Test-Group" [ref=f3e3074] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3077]: AGCO-Test-Group
+              - button "Expand OLA-Root-Group" [ref=f3e3079] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3082]: OLA-Root-Group
+              - button "Expand VW_Commercial" [ref=f3e3084] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3087]: VW_Commercial
+              - button "Expand CLAAS" [ref=f3e3089] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3092]: CLAAS
+              - button "Expand KPIT Navistar" [ref=f3e3094] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3097]: KPIT Navistar
+              - button "Expand VW_Evaluation_DBDVW_DBDNG" [ref=f3e3099] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3102]: VW_Evaluation_DBDVW_DBDNG
+              - button "Expand CARIAD_IT Applications (TP-E)" [ref=f3e3104] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3107]: CARIAD_IT Applications (TP-E)
+              - button "Expand CARIAD_Germany" [ref=f3e3109] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3112]: CARIAD_Germany
+              - button "Expand Bosch_Germany DN/210929/6823 (Simone Cherry)" [ref=f3e3114] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3117]: Bosch_Germany DN/210929/6823 (Simone Cherry)
+              - button "Expand IAV_Tomas Binnewies_DN/220310/6876" [ref=f3e3119] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3122]: IAV_Tomas Binnewies_DN/220310/6876
+              - button "Expand Marquardt-Elementum Romania DN/220208/6866" [ref=f3e3124] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3127]: Marquardt-Elementum Romania DN/220208/6866
+              - button "Expand PGRC" [ref=f3e3129] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3132]: PGRC
+              - button "Expand VEG" [ref=f3e3134] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3137]: VEG
+              - button "Expand BRP_Martial_QT/220407/6887" [ref=f3e3139] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3142]: BRP_Martial_QT/220407/6887
+              - button "Expand SOMIT Solutions" [ref=f3e3144] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3147]: SOMIT Solutions
+              - button "Expand DPDUAPI" [ref=f3e3149] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3152]: DPDUAPI
+              - button "Expand CARIAD_IT Applications (TP-E4)" [ref=f3e3154] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3157]: CARIAD_IT Applications (TP-E4)
+              - button "Expand KPIT_JLR (Cross-Practice_Mohana.Palaniswamy@kpit.com) - QT/220530/6903" [ref=f3e3159] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3162]: KPIT_JLR (Cross-Practice_Mohana.Palaniswamy@kpit.com) - QT/220530/6903
+              - button "Expand Class_default" [ref=f3e3164] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3167]: Class_default
+              - button "Expand Claas_default" [ref=f3e3169] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3172]: Claas_default
+              - button "Expand Claas_Germany_Default" [ref=f3e3174] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3177]: Claas_Germany_Default
+              - button "Expand HELLA, Pune, India - DN/210921/6785" [ref=f3e3179] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3182]: HELLA, Pune, India - DN/210921/6785
+              - button "Expand Schaeffler_Germany - DN/211018/6829 / DN/230524/7073" [ref=f3e3184] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3187]: Schaeffler_Germany - DN/211018/6829 / DN/230524/7073
+              - button "Expand ONE.ai_US_DN/220425/6891" [ref=f3e3189] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3192]: ONE.ai_US_DN/220425/6891
+              - button "Expand Bosch_ QT/220812/6925 (Mr. Thomas Daub)" [ref=f3e3194] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3197]: Bosch_ QT/220812/6925 (Mr. Thomas Daub)
+              - button "Expand VW Tiers 37g" [ref=f3e3199] [cursor=pointer]:
+                - button "Expand" [ref=f3e3200]
+                - generic [ref=f3e3205]: VW Tiers
+                - generic "37 child group(s)" [ref=f3e3207]: 37g
+              - button "Expand ZF_Germany_Bernhard Morath_DN/220902/6954, DN/230602/7078" [ref=f3e3209] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3212]: ZF_Germany_Bernhard Morath_DN/220902/6954, DN/230602/7078
+              - button "Expand STIHL Testing" [ref=f3e3214] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3217]: STIHL Testing
+              - button "Expand KPIT Testing" [ref=f3e3219] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3222]: KPIT Testing
+              - button "Expand STIHL_QA_ETT" [ref=f3e3224] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3227]: STIHL_QA_ETT
+              - button "Expand ZF_Germany_DN/220812/6924" [ref=f3e3229] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3232]: ZF_Germany_DN/220812/6924
+              - button "Expand KION OP/NOV21/0000049668" [ref=f3e3234] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3237]: KION OP/NOV21/0000049668
+              - button "Expand IAV - Dennis Tempel - DN/220913/6974" [ref=f3e3239] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3242]: IAV - Dennis Tempel - DN/220913/6974
+              - button "Expand AWTCE- AISIN Japan - QT/220906/6959" [ref=f3e3244] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3247]: AWTCE- AISIN Japan - QT/220906/6959
+              - button "Expand AWTCE - AISIN Japan - QT/220906/6959" [ref=f3e3249] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3252]: AWTCE - AISIN Japan - QT/220906/6959
+              - button "Expand BorgWarner_US - DN/221117/7004" [ref=f3e3254] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3257]: BorgWarner_US - DN/221117/7004
+              - button "Expand BorgWarner" [ref=f3e3259] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3262]: BorgWarner
+              - button "Expand KPIT_Cummins Team" [ref=f3e3264] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3267]: KPIT_Cummins Team
+              - button "Expand VW_CV_DN/221018/6991" [ref=f3e3269] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3272]: VW_CV_DN/221018/6991
+              - button "Expand Visteon_US - DN/230103/7019" [ref=f3e3274] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3277]: Visteon_US - DN/230103/7019
+              - button "Expand Umlaut Systems Germany - DN/230918/7160" [ref=f3e3279] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3282]: Umlaut Systems Germany - DN/230918/7160
+              - button "Expand CLAASGROUPTEST" [ref=f3e3284] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3287]: CLAASGROUPTEST
+              - button "Expand Brp_QA" [ref=f3e3289] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3292]: Brp_QA
+              - button "Expand IAV_Tomas Binnewies_DN/221216/7016" [ref=f3e3294] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3297]: IAV_Tomas Binnewies_DN/221216/7016
+              - button "Expand BHTC_Pune_DN/220823/6930" [ref=f3e3299] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3302]: BHTC_Pune_DN/220823/6930
+              - button "Expand ZF_Italy_Maria Lana_DN/230227/7046" [ref=f3e3304] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3307]: ZF_Italy_Maria Lana_DN/230227/7046
+              - button "Expand Skoda_Jaromir Krecl_DN/220829/6946" [ref=f3e3309] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3312]: Skoda_Jaromir Krecl_DN/220829/6946
+              - button "Expand Bosch_Germany_Sabrina Kehrer_DN/220718/6916" [ref=f3e3314] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3317]: Bosch_Germany_Sabrina Kehrer_DN/220718/6916
+              - button "Expand import_brp_qa" [ref=f3e3319] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3322]: import_brp_qa
+              - button "Expand brp_import_qa" [ref=f3e3324] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3327]: brp_import_qa
+              - button "Expand QA Import" [ref=f3e3329] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3332]: QA Import
+              - button "Expand brp_import" [ref=f3e3334] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3337]: brp_import
+              - button "Expand Paccar-KPIT user" [ref=f3e3339] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3342]: Paccar-KPIT user
+              - button "Expand Fisker_USA_DN.221027.6993" [ref=f3e3344] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3347]: Fisker_USA_DN.221027.6993
+              - button "Expand Token Group" [ref=f3e3349] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3352]: Token Group
+              - button "Expand Veoneer_Germany_DN/230628/7084" [ref=f3e3354] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3357]: Veoneer_Germany_DN/230628/7084
+              - button "Expand Xuancheng luxshare_China - DN/230424/7063" [ref=f3e3359] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3362]: Xuancheng luxshare_China - DN/230424/7063
+              - button "Expand Bosch_Germany_DN/220829/6944_2FL" [ref=f3e3364] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3367]: Bosch_Germany_DN/220829/6944_2FL
+              - button "Expand TEXA" [ref=f3e3369] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3372]: TEXA
+              - button "Expand Bosch_Coimbatore_DN/230719/7095" [ref=f3e3374] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3377]: Bosch_Coimbatore_DN/230719/7095
+              - button "Expand Claas_LMT" [ref=f3e3379] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3382]: Claas_LMT
+              - button "Expand CarUX_Netherlands - QT/230807/7101" [ref=f3e3384] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3387]: CarUX_Netherlands - QT/230807/7101
+              - button "Expand Valeo_Spain_PO from Germany_DN/230706/7088" [ref=f3e3389] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3392]: Valeo_Spain_PO from Germany_DN/230706/7088
+              - button "Expand IAV_Marcel Heinig - DN/220913/6974" [ref=f3e3394] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3397]: IAV_Marcel Heinig - DN/220913/6974
+              - button "Expand Barbara_Ridder_DN/230911/7123" [ref=f3e3399] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3402]: Barbara_Ridder_DN/230911/7123
+              - button "Expand name" [ref=f3e3404] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3407]: name
+              - button "Expand Vitesco Technologies - Germany - QT/220823/6932" [ref=f3e3409] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3412]: Vitesco Technologies - Germany - QT/220823/6932
+              - button "Expand Preh_Germany_DN/230911/7124" [ref=f3e3414] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3417]: Preh_Germany_DN/230911/7124
+              - button "Expand Valeo_Guangzhou Deruic_China_DN/231026/7180" [ref=f3e3419] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3422]: Valeo_Guangzhou Deruic_China_DN/231026/7180
+              - button "Expand Huizhou Desay_China_DN/230201/7034" [ref=f3e3424] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3427]: Huizhou Desay_China_DN/230201/7034
+              - button "Expand Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174" [ref=f3e3429] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3432]: Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174
+              - button "Expand BRP_QT/231121/7184" [ref=f3e3434] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3437]: BRP_QT/231121/7184
+              - button "Expand ZF/TRW_Gego/Sangitaben_DN/230912/7136" [ref=f3e3439] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3442]: ZF/TRW_Gego/Sangitaben_DN/230912/7136
+              - button "Expand KPIT_Renault_Europe-India Team_QT/230721/7097" [ref=f3e3444] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3447]: KPIT_Renault_Europe-India Team_QT/230721/7097
+              - button "Expand katapult_test" [ref=f3e3449] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3452]: katapult_test
+              - button "Expand assign_group356789" [ref=f3e3454] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3457]: assign_group356789
+              - button "Expand Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174_v2.0" [ref=f3e3459] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3462]: Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174_v2.0
+              - button "Expand Hella-Texa_OAS2_FL_DN/230710/7090" [ref=f3e3464] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3467]: Hella-Texa_OAS2_FL_DN/230710/7090
+              - button "Expand ECU Editor_DN/231222/7206_OP/JUN23/0000053188" [ref=f3e3469] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3472]: ECU Editor_DN/231222/7206_OP/JUN23/0000053188
+              - button "Expand Bosch_DN/210809/6764_DBDVW_Sub" [ref=f3e3474] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3477]: Bosch_DN/210809/6764_DBDVW_Sub
+              - button "Expand Marquardt Switches_China_DN/231130/7186" [ref=f3e3479] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3482]: Marquardt Switches_China_DN/231130/7186
+              - button "Expand Dalian Joynext_China_DN/231019/7176" [ref=f3e3484] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3487]: Dalian Joynext_China_DN/231019/7176
+              - button "Expand GM_DN/231222/7206" [ref=f3e3489] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3492]: GM_DN/231222/7206
+              - button "Expand SEG Automotive_China_DN/240205/7240" [ref=f3e3494] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3497]: SEG Automotive_China_DN/240205/7240
+              - button "Expand SEG Automotive_Germany_DN/240205/7240" [ref=f3e3499] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3502]: SEG Automotive_Germany_DN/240205/7240
+              - button "Expand Vaibhav_Group07" [ref=f3e3504] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3507]: Vaibhav_Group07
+              - button "Expand Vaibhav" [ref=f3e3509] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3512]: Vaibhav
+              - button "Expand vaibhav02524" [ref=f3e3514] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3517]: vaibhav02524
+              - button "Expand Vaibhav_Group2624" [ref=f3e3519] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3522]: Vaibhav_Group2624
+              - button "Expand testGroup" [ref=f3e3524] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3527]: testGroup
+              - button "Expand IAV_Germany_DN/230910/7117_v2" [ref=f3e3529] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3532]: IAV_Germany_DN/230910/7117_v2
+              - button "Expand Schaeffler_Slovakia_DN/221107/6999" [ref=f3e3534] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3537]: Schaeffler_Slovakia_DN/221107/6999
+              - button "Expand Wuhan Baohua_China_DN/240129/7235" [ref=f3e3539] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3542]: Wuhan Baohua_China_DN/240129/7235
+              - button "Expand Catapult user" [ref=f3e3544] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3547]: Catapult user
+              - button "Expand Fulscience_China_DN/240306/7251" [ref=f3e3549] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3552]: Fulscience_China_DN/240306/7251
+              - button "Expand NSK_Japan_DN/240416/7261" [ref=f3e3554] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3557]: NSK_Japan_DN/240416/7261
+              - button "Expand Hella_OAS2 2 Dongle_DN/240507/7266" [ref=f3e3559] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3562]: Hella_OAS2 2 Dongle_DN/240507/7266
+              - button "Expand UAES PO from Shanghai Weiler_China_DN/240424/7265" [ref=f3e3564] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3567]: UAES PO from Shanghai Weiler_China_DN/240424/7265
+              - button "Expand Sanket Kapadnis" [ref=f3e3569] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3572]: Sanket Kapadnis
+              - button "Expand ALPSALPINE_Japan_DN/240509/7268" [ref=f3e3574] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3577]: ALPSALPINE_Japan_DN/240509/7268
+              - button "Expand Elausa Electronics_Spain_DN/240724/7289" [ref=f3e3579] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3582]: Elausa Electronics_Spain_DN/240724/7289
+              - button "Expand ZF Friedrichshafen AG_DN/240110/7222" [ref=f3e3584] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3587]: ZF Friedrichshafen AG_DN/240110/7222
+              - button "Expand Volkswagen (Anhui)_CHINA_DN/230207/7041" [ref=f3e3589] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3592]: Volkswagen (Anhui)_CHINA_DN/230207/7041
+              - button "Expand VW_DN/250123/7389_Stephan Alpert_1FL" [ref=f3e3594] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3597]: VW_DN/250123/7389_Stephan Alpert_1FL
+              - button "Expand ANDREAS STIHL AG & Co. KG_DN/250117/7387_2 EOL" [ref=f3e3599] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3602]: ANDREAS STIHL AG & Co. KG_DN/250117/7387_2 EOL
+              - button "Expand Marelli Automotive_China_DBD NG_DN/240910/7301" [ref=f3e3604] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3607]: Marelli Automotive_China_DBD NG_DN/240910/7301
+              - button "Expand Longhorn Auto_China_DN/250221/7396" [ref=f3e3609] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3612]: Longhorn Auto_China_DN/250221/7396
+              - button "Expand Valeo_Guangzhou Deruic_China_DN/250409/7409" [ref=f3e3614] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3617]: Valeo_Guangzhou Deruic_China_DN/250409/7409
+              - button "Expand Technica" [ref=f3e3619] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3622]: Technica
+              - button "Expand ASTEMO_Japan_DN/250515/7422" [ref=f3e3624] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3627]: ASTEMO_Japan_DN/250515/7422
+              - button "Expand AGCO" [ref=f3e3629] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3632]: AGCO
+              - button "Expand SCB" [ref=f3e3634] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3637]: SCB
+              - button "Expand CAEA_China_DN/250825/7446" [ref=f3e3639] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3642]: CAEA_China_DN/250825/7446
+              - button "Expand Schaeffler_Vitesco_Albert Bauer_DN/250919/7482" [ref=f3e3644] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3647]: Schaeffler_Vitesco_Albert Bauer_DN/250919/7482
+              - button "Expand Skyworth_China_DN/250929/7491" [ref=f3e3649] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3652]: Skyworth_China_DN/250929/7491
+              - button "Expand BorgWarner_USA_DN/250424/7415" [ref=f3e3654] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3657]: BorgWarner_USA_DN/250424/7415
+              - button "Expand AUMOVIO Germany" [ref=f3e3659] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3662]: AUMOVIO Germany
+              - button "Expand Vitesco_Lic DBD NG_FL_DN/250908/7448" [ref=f3e3664] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3667]: Vitesco_Lic DBD NG_FL_DN/250908/7448
+              - button "Expand Cummins_EV_DN/260422/7527_USA" [ref=f3e3669] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3672]: Cummins_EV_DN/260422/7527_USA
+              - button "Expand Cummins 3g" [ref=f3e3674] [cursor=pointer]:
+                - button "Expand" [ref=f3e3675]
+                - generic [ref=f3e3680]: Cummins
+                - generic "3 child group(s)" [ref=f3e3682]: 3g
+              - button "Expand Cummins-EV-DN/260422/7527_v2-USA" [ref=f3e3684] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3687]: Cummins-EV-DN/260422/7527_v2-USA
+              - button "Expand Cummins-EV-QT/260506/7530-USA" [ref=f3e3689] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3692]: Cummins-EV-QT/260506/7530-USA
+              - button "Expand EDAG_Germany_DN/260529/7539" [ref=f3e3694] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3697]: EDAG_Germany_DN/260529/7539
+              - button "Expand JLR_D3M_Offline License" [ref=f3e3699] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3702]: JLR_D3M_Offline License
+              - button "Expand SKODA_Czech Republic_QT/260619/7544" [ref=f3e3704] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3707]: SKODA_Czech Republic_QT/260619/7544
+              - button "Expand AUMOVIO-Germany-DN/260907/7569" [ref=f3e3709] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3712]: AUMOVIO-Germany-DN/260907/7569
+              - button "Expand ZF-China-DN/260624/7546" [ref=f3e3714] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3717]: ZF-China-DN/260624/7546
+              - button "Expand Cummins-EV-DN/260904/7568-USA" [ref=f3e3719] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f3e3722]: Cummins-EV-DN/260904/7568-USA
+          - generic [ref=f3e3723]:
+            - paragraph [ref=f3e3729]: Select a User Group to continue
+            - paragraph [ref=f3e3730]: Choose a Group above to view and manage its floating configurations.
+      - contentinfo [ref=f3e286]:
+        - paragraph [ref=f3e289]: © KPIT Technologies Ltd. All rights reserved.

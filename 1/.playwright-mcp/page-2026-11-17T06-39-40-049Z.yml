@@ -1,0 +1,188 @@
+- generic [ref=f11e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f11e177]:
+    - list [ref=f11e185]:
+      - listitem [ref=f11e186]:
+        - button [ref=f11e187] [cursor=pointer]
+      - listitem [ref=f11e191]:
+        - link [ref=f11e192] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f11e198]:
+        - link [ref=f11e199] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f11e205]:
+        - link [ref=f11e206] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f11e210]:
+        - link [ref=f11e211] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f11e215]:
+        - link [ref=f11e216] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f11e220]:
+        - link [ref=f11e221] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f11e226]:
+        - link [ref=f11e227] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f11e232]:
+        - link [ref=f11e233] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f11e236]:
+        - link [ref=f11e237] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f11e241]:
+        - link [ref=f11e242] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f11e246]:
+        - link [ref=f11e247] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f11e251]:
+      - banner [ref=f11e252]:
+        - img "Logo" [ref=f11e254]
+        - generic [ref=f11e255]:
+          - button [ref=f11e256] [cursor=pointer]
+          - button [ref=f11e257] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f11e258] [cursor=pointer]:
+            - generic [ref=f11e259]: as
+            - generic [ref=f11e260]: aravi.s@kpit.com
+      - main [ref=f11e261]:
+        - generic [ref=f11e263]:
+          - heading "Floating License Configurations" [level=1] [ref=f11e265]
+          - button "Back to User Group selection" [ref=f11e1988] [cursor=pointer]: Back
+          - generic [ref=f11e1990]:
+            - generic [ref=f11e1998]:
+              - paragraph [ref=f11e1999]: User Group
+              - paragraph [ref=f11e2000]: KPIT-Testing
+            - generic [ref=f11e2001]:
+              - generic [ref=f11e2002]:
+                - checkbox "Include subgroups" [disabled] [ref=f11e2003]
+                - generic [ref=f11e2004]: Include subgroups
+              - button "Change Group" [ref=f11e2005] [cursor=pointer]
+          - generic [ref=f11e2006]:
+            - paragraph [ref=f11e2008]: 3 configurations
+            - button "Search" [ref=f11e2009] [cursor=pointer]
+            - button "Filters" [ref=f11e2010] [cursor=pointer]
+            - button "Refresh" [ref=f11e2012] [cursor=pointer]
+            - button "Create Configuration" [ref=f11e2013] [cursor=pointer]
+          - generic [ref=f11e2014]:
+            - generic [ref=f11e2015]:
+              - generic [ref=f11e2016]:
+                - checkbox "Select DatabaseDesigner" [ref=f11e2017] [cursor=pointer]
+                - generic [ref=f11e2018]:
+                  - paragraph [ref=f11e2019]: DatabaseDesigner
+                  - paragraph [ref=f11e2020]: Intern
+                  - paragraph [ref=f11e2021]: KPIT-Testing
+                - button "Actions for DatabaseDesigner" [expanded] [active] [ref=f11e2022] [cursor=pointer]
+              - generic [ref=f11e2023]:
+                - generic [ref=f11e2024]:
+                  - paragraph [ref=f11e2025]: Capacity
+                  - paragraph [ref=f11e2026]: 0 total · 0 available
+                - generic [ref=f11e2027]:
+                  - paragraph [ref=f11e2028]: Checkout
+                  - paragraph [ref=f11e2029]: Unavailable · 2h max
+                - generic [ref=f11e2030]:
+                  - paragraph [ref=f11e2031]: Expiration
+                  - paragraph [ref=f11e2032]: 31 Dec 2099
+                - generic [ref=f11e2033]:
+                  - paragraph [ref=f11e2034]: Maintenance
+                  - paragraph [ref=f11e2035]: 31 Dec 2099
+              - region "Details for DatabaseDesigner" [ref=f11e2141]:
+                - generic [ref=f11e2142]:
+                  - generic [ref=f11e2143]: Configuration Details
+                  - button "Close details for DatabaseDesigner" [ref=f11e2144] [cursor=pointer]: Close
+                - generic [ref=f11e2145]:
+                  - generic [ref=f11e2146]:
+                    - paragraph [ref=f11e2147]: Product Profile
+                    - paragraph [ref=f11e2148]: DatabaseDesigner
+                  - generic [ref=f11e2149]:
+                    - paragraph [ref=f11e2150]: Profile Role
+                    - paragraph [ref=f11e2151]: Intern
+                  - generic [ref=f11e2152]:
+                    - paragraph [ref=f11e2153]: User Group
+                    - paragraph [ref=f11e2154]: KPIT-Testing
+                  - generic [ref=f11e2155]:
+                    - paragraph [ref=f11e2156]: Enabled
+                    - paragraph [ref=f11e2157]: "Yes"
+                  - generic [ref=f11e2158]:
+                    - paragraph [ref=f11e2159]: Checkout
+                    - paragraph [ref=f11e2160]: Unavailable
+                  - generic [ref=f11e2161]:
+                    - paragraph [ref=f11e2162]: Total Licenses
+                    - paragraph [ref=f11e2163]: "0"
+                  - generic [ref=f11e2164]:
+                    - paragraph [ref=f11e2165]: Occupied
+                    - paragraph [ref=f11e2166]: "0"
+                  - generic [ref=f11e2167]:
+                    - paragraph [ref=f11e2168]: Available
+                    - paragraph [ref=f11e2169]: "0"
+                  - generic [ref=f11e2170]:
+                    - paragraph [ref=f11e2171]: Max Checkout Time
+                    - paragraph [ref=f11e2172]: 2h
+                  - generic [ref=f11e2173]:
+                    - paragraph [ref=f11e2174]: Expiration
+                    - paragraph [ref=f11e2175]: 31 Dec 2099
+                  - generic [ref=f11e2176]:
+                    - paragraph [ref=f11e2177]: Maintenance
+                    - paragraph [ref=f11e2178]: 31 Dec 2099
+                  - generic [ref=f11e2179]:
+                    - paragraph [ref=f11e2180]: Created
+                    - paragraph [ref=f11e2181]: 09 Nov 2021
+                  - generic [ref=f11e2182]:
+                    - paragraph [ref=f11e2183]: Last Modified
+                    - paragraph [ref=f11e2184]: 06 Aug 2025
+                  - generic [ref=f11e2185]:
+                    - paragraph [ref=f11e2186]: Created by
+                    - paragraph [ref=f11e2187]: admin
+                - generic [ref=f11e2188]:
+                  - generic [ref=f11e2189]: "Configuration ID: 257"
+                  - generic [ref=f11e2190]: "Version ID: 6"
+                  - generic [ref=f11e2191]: "System User ID: 1"
+                - paragraph [ref=f11e2192]: Feature information is not available in this view.
+            - generic [ref=f11e2036]:
+              - generic [ref=f11e2037]:
+                - checkbox "Select Authoring Suite 2" [ref=f11e2038] [cursor=pointer]
+                - generic [ref=f11e2039]:
+                  - paragraph [ref=f11e2040]: Authoring Suite 2
+                  - paragraph [ref=f11e2041]: Intern
+                  - paragraph [ref=f11e2042]: KPIT-Testing
+                - button "Actions for Authoring Suite 2" [ref=f11e2043] [cursor=pointer]
+              - generic [ref=f11e2044]:
+                - generic [ref=f11e2045]:
+                  - paragraph [ref=f11e2046]: Capacity
+                  - paragraph [ref=f11e2047]: 0 total · 0 available
+                - generic [ref=f11e2048]:
+                  - paragraph [ref=f11e2049]: Checkout
+                  - paragraph [ref=f11e2050]: Unavailable · 2h max
+                - generic [ref=f11e2051]:
+                  - paragraph [ref=f11e2052]: Expiration
+                  - paragraph [ref=f11e2053]: 31 Dec 2099
+                - generic [ref=f11e2054]:
+                  - paragraph [ref=f11e2055]: Maintenance
+                  - paragraph [ref=f11e2056]: 31 Dec 2099
+            - generic [ref=f11e2057]:
+              - generic [ref=f11e2058]:
+                - checkbox "Select DatabaseDesigner NG" [ref=f11e2059] [cursor=pointer]
+                - generic [ref=f11e2060]:
+                  - paragraph [ref=f11e2061]: DatabaseDesigner NG
+                  - paragraph [ref=f11e2062]: Intern
+                  - paragraph [ref=f11e2063]: KPIT-Testing
+                - button "Actions for DatabaseDesigner NG" [ref=f11e2064] [cursor=pointer]
+              - generic [ref=f11e2065]:
+                - generic [ref=f11e2066]:
+                  - paragraph [ref=f11e2067]: Capacity
+                  - paragraph [ref=f11e2068]: 0 total · 0 available
+                - generic [ref=f11e2069]:
+                  - paragraph [ref=f11e2070]: Checkout
+                  - paragraph [ref=f11e2071]: Unavailable · 2h max
+                - generic [ref=f11e2072]:
+                  - paragraph [ref=f11e2073]: Expiration
+                  - paragraph [ref=f11e2074]: 31 Dec 2099
+                - generic [ref=f11e2075]:
+                  - paragraph [ref=f11e2076]: Maintenance
+                  - paragraph [ref=f11e2077]: 31 Dec 2099
+          - paragraph [ref=f11e2078]: All 3 configurations loaded.
+      - contentinfo [ref=f11e1980]:
+        - paragraph [ref=f11e1983]: © KPIT Technologies Ltd. All rights reserved.

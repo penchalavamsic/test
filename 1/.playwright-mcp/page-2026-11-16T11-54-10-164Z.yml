@@ -1,0 +1,44 @@
+- generic [ref=f9e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f9e5]:
+    - banner [ref=f9e6]:
+      - img "Logo" [ref=f9e8]
+      - generic [ref=f9e9]:
+        - button [ref=f9e10] [cursor=pointer]
+        - button [ref=f9e11] [cursor=pointer]
+        - button "as" [ref=f9e12] [cursor=pointer]
+    - main [ref=f9e14]:
+      - generic [ref=f9e16]:
+        - generic [ref=f9e17]:
+          - heading "Reports" [level=1] [ref=f9e18]
+          - paragraph [ref=f9e19]: View, filter, and export licensing information.
+        - generic [ref=f9e20]:
+          - button "Standard Licenses Standard and deleted license records" [ref=f9e21] [cursor=pointer]:
+            - generic [ref=f9e25]:
+              - generic [ref=f9e26]: Standard Licenses
+              - generic [ref=f9e27]: Standard and deleted license records
+          - button "Floating Licenses Floating-license usage records" [active] [pressed] [ref=f9e28] [cursor=pointer]:
+            - generic [ref=f9e33]:
+              - generic [ref=f9e34]: Floating Licenses
+              - generic [ref=f9e35]: Floating-license usage records
+          - button "Floating Configurations Floating-license configuration records" [ref=f9e36] [cursor=pointer]:
+            - generic [ref=f9e40]:
+              - generic [ref=f9e41]: Floating Configurations
+              - generic [ref=f9e42]: Floating-license configuration records
+        - generic [ref=f9e171]:
+          - generic [ref=f9e172]:
+            - generic [ref=f9e173]: 0 records
+            - group "Floating license mode" [ref=f9e174]:
+              - button "Active" [pressed] [ref=f9e175] [cursor=pointer]
+              - button "Deleted" [ref=f9e176] [cursor=pointer]
+            - button "Filters" [ref=f9e177] [cursor=pointer]
+            - generic [ref=f9e180]:
+              - button "Export Excel" [disabled]
+          - generic [ref=f9e182]:
+            - paragraph [ref=f9e186]: No Floating License records found
+            - paragraph [ref=f9e187]: No records are available for the current report and applied filters.
+            - paragraph [ref=f9e188]: 0 loaded · 0 total
+    - contentinfo [ref=f9e167]:
+      - paragraph [ref=f9e170]: © KPIT Technologies Ltd. All rights reserved.

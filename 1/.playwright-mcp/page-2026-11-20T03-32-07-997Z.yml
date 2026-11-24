@@ -1,0 +1,431 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e2]:
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications alt+T"
+    - generic [ref=f3e177]:
+      - list [ref=f3e185]:
+        - listitem [ref=f3e186]:
+          - button [ref=f3e187] [cursor=pointer]
+        - listitem [ref=f3e191]:
+          - link [ref=f3e192] [cursor=pointer]:
+            - /url: /system-user-dashboard
+        - listitem [ref=f3e198]:
+          - link [ref=f3e199] [cursor=pointer]:
+            - /url: /users-licenses
+        - listitem [ref=f3e205]:
+          - link [ref=f3e206] [cursor=pointer]:
+            - /url: /reports
+        - listitem [ref=f3e210]:
+          - link [ref=f3e211] [cursor=pointer]:
+            - /url: /floating-license-configurations
+        - listitem [ref=f3e215]:
+          - link [ref=f3e216] [cursor=pointer]:
+            - /url: /standard-license-configurations
+        - listitem [ref=f3e220]:
+          - link [ref=f3e221] [cursor=pointer]:
+            - /url: /features
+        - listitem [ref=f3e226]:
+          - link [ref=f3e227] [cursor=pointer]:
+            - /url: /profiles
+        - listitem [ref=f3e232]:
+          - link [ref=f3e233] [cursor=pointer]:
+            - /url: /groups
+        - listitem [ref=f3e236]:
+          - link [ref=f3e237] [cursor=pointer]:
+            - /url: /system-users
+        - listitem [ref=f3e241]:
+          - link [ref=f3e242] [cursor=pointer]:
+            - /url: /server-licensing
+        - listitem [ref=f3e246]:
+          - link [ref=f3e247] [cursor=pointer]:
+            - /url: /server-license-import
+      - generic [ref=f3e251]:
+        - banner [ref=f3e252]:
+          - img "Logo" [ref=f3e254]
+          - generic [ref=f3e255]:
+            - button [ref=f3e256] [cursor=pointer]
+            - button [ref=f3e257] [cursor=pointer]
+            - button "as aravi.s@kpit.com" [ref=f3e258] [cursor=pointer]:
+              - generic [ref=f3e259]: as
+              - generic [ref=f3e260]: aravi.s@kpit.com
+        - main [ref=f3e261]:
+          - generic [ref=f3e263]:
+            - heading "System Users" [level=1] [ref=f3e265]
+            - generic [ref=f3e266]:
+              - generic [ref=f3e267]:
+                - textbox "Search system users..." [ref=f3e269]
+                - combobox [ref=f3e282] [cursor=pointer]:
+                  - generic "Profiles" [ref=f3e283]
+                - combobox "Filter by user groups" [expanded] [ref=f3e851] [cursor=pointer]:
+                  - generic "User Groups" [ref=f3e852]
+                - button "Clear All" [disabled]
+              - generic [ref=f3e284]: Showing 55 of 55 system users
+            - generic [ref=f3e286]:
+              - table [ref=f3e289]:
+                - rowgroup [ref=f3e290]:
+                  - row [ref=f3e291]:
+                    - columnheader "Name" [ref=f3e292]
+                    - columnheader "Email" [ref=f3e295]
+                    - columnheader "User Groups" [ref=f3e298]
+                    - columnheader "Profiles" [ref=f3e301]
+                    - columnheader "Actions" [ref=f3e304]
+                - rowgroup [ref=f3e307]:
+                  - row [ref=f3e308]:
+                    - cell "Administrator" [ref=f3e309]
+                    - cell "Default-User" [ref=f3e312]
+                    - cell "LIMAS-Root-Group" [ref=f3e315]:
+                      - generic "LIMAS-Root-Group" [ref=f3e864]
+                    - cell "No profiles" [ref=f3e319]
+                    - cell [ref=f3e323]:
+                      - button "Edit admin" [ref=f3e870] [cursor=pointer]
+                  - row [ref=f3e327]:
+                    - cell "sedfgwefpoi3ldowe" [ref=f3e328]
+                    - cell "Not provided" [ref=f3e331]
+                    - cell "LIMAS-Root-Group" [ref=f3e334]:
+                      - generic "LIMAS-Root-Group" [ref=f3e877]
+                    - cell "No profiles" [ref=f3e338]
+                    - cell [ref=f3e342]:
+                      - button "Edit sedfgwefpoi3ldowe" [ref=f3e883] [cursor=pointer]
+                  - row [ref=f3e346]:
+                    - cell "Tina Bokor" [ref=f3e347]
+                    - cell "tina.bokor@kpit.com" [ref=f3e350]
+                    - cell "MicroFuzzy AGCO1 Show 4 more user groups" [ref=f3e353]:
+                      - generic [ref=f3e889]:
+                        - generic "MicroFuzzy" [ref=f3e890]
+                        - generic "AGCO1" [ref=f3e891]
+                        - button "Show 4 more user groups" [ref=f3e892] [cursor=pointer]: "+4"
+                    - cell "No profiles" [ref=f3e359]
+                    - cell [ref=f3e363]:
+                      - button "Edit TinaB" [ref=f3e898] [cursor=pointer]
+                  - row [ref=f3e367]:
+                    - cell "Stefan Zeppetzauer" [ref=f3e368]
+                    - cell "stefan.zeppetzauer@kpit.com" [ref=f3e371]
+                    - cell "AGCO1 Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241 Show 2 more user groups" [ref=f3e374]:
+                      - generic [ref=f3e904]:
+                        - generic "AGCO1" [ref=f3e905]
+                        - generic "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241" [ref=f3e906]
+                        - button "Show 2 more user groups" [ref=f3e907] [cursor=pointer]: "+2"
+                    - cell "No profiles" [ref=f3e380]
+                    - cell [ref=f3e384]:
+                      - button "Edit StefanZ" [ref=f3e913] [cursor=pointer]
+                  - row [ref=f3e388]:
+                    - cell "Vladimir Arsov" [ref=f3e389]
+                    - cell "vladimir.arsov@kpit.com" [ref=f3e392]
+                    - cell "KPIT Default" [ref=f3e395]:
+                      - generic [ref=f3e919]:
+                        - generic "KPIT" [ref=f3e920]
+                        - generic "Default" [ref=f3e921]
+                    - cell "No profiles" [ref=f3e400]
+                    - cell [ref=f3e404]:
+                      - button "Edit vladimir" [ref=f3e927] [cursor=pointer]
+                  - row [ref=f3e408]:
+                    - cell "Amit H" [ref=f3e409]
+                    - cell "amith3@kpit.com" [ref=f3e412]
+                    - cell "License Library Junit Test AGCO1 Show 5 more user groups" [ref=f3e415]:
+                      - generic [ref=f3e933]:
+                        - generic "License Library Junit Test" [ref=f3e934]
+                        - generic "AGCO1" [ref=f3e935]
+                        - button "Show 5 more user groups" [ref=f3e936] [cursor=pointer]: "+5"
+                    - cell "GM Ebike Service Tool OTX-Authoring Show 32 more profiles" [ref=f3e421]:
+                      - generic [ref=f3e938]:
+                        - generic "GM Ebike Service Tool" [ref=f3e939]
+                        - generic "OTX-Authoring" [ref=f3e940]
+                        - button "Show 32 more profiles" [ref=f3e941] [cursor=pointer]: "+32"
+                    - cell [ref=f3e427]:
+                      - button "Edit amit" [ref=f3e944] [cursor=pointer]
+                  - row [ref=f3e431]:
+                    - cell "Boris Safin" [ref=f3e432]
+                    - cell "boris.safin@kpit.com" [ref=f3e435]
+                    - cell "KPIT" [ref=f3e438]:
+                      - generic "KPIT" [ref=f3e951]
+                    - cell "No profiles" [ref=f3e442]
+                    - cell [ref=f3e446]:
+                      - button "Edit boriss" [ref=f3e957] [cursor=pointer]
+                  - row [ref=f3e450]:
+                    - cell "Test1" [ref=f3e451]
+                    - cell "test1@kpit.com" [ref=f3e454]
+                    - cell "Default" [ref=f3e457]:
+                      - generic "Default" [ref=f3e964]
+                    - cell "No profiles" [ref=f3e461]
+                    - cell [ref=f3e465]:
+                      - button "Edit Test1" [ref=f3e970] [cursor=pointer]
+                  - row [ref=f3e469]:
+                    - cell "Matthias Ziegel" [ref=f3e470]
+                    - cell "matthias.ziegel@kpit.com" [ref=f3e473]
+                    - cell "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241 KPIT Show 2 more user groups" [ref=f3e476]:
+                      - generic [ref=f3e976]:
+                        - generic "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241" [ref=f3e977]
+                        - generic "KPIT" [ref=f3e978]
+                        - button "Show 2 more user groups" [ref=f3e979] [cursor=pointer]: "+2"
+                    - cell "No profiles" [ref=f3e482]
+                    - cell [ref=f3e486]:
+                      - button "Edit matthiasz" [ref=f3e985] [cursor=pointer]
+                  - row [ref=f3e490]:
+                    - cell "Sebastian Frieser" [ref=f3e491]
+                    - cell "sebastian.frieser@kpit.com" [ref=f3e494]
+                    - cell "APAC MicroFuzzy Show 12 more user groups" [ref=f3e497]:
+                      - generic [ref=f3e991]:
+                        - generic "APAC" [ref=f3e992]
+                        - generic "MicroFuzzy" [ref=f3e993]
+                        - button "Show 12 more user groups" [ref=f3e994] [cursor=pointer]: "+12"
+                    - cell "CI-CD Test Runner GM Ebike Service Tool Show 61 more profiles" [ref=f3e503]:
+                      - generic [ref=f3e996]:
+                        - generic "CI-CD Test Runner" [ref=f3e997]
+                        - generic "GM Ebike Service Tool" [ref=f3e998]
+                        - button "Show 61 more profiles" [ref=f3e999] [cursor=pointer]: "+61"
+                    - cell [ref=f3e509]:
+                      - button "Edit SebastianF" [ref=f3e1002] [cursor=pointer]
+                  - row [ref=f3e513]:
+                    - cell "Bartosz Cichowicz" [ref=f3e514]
+                    - cell "bartosz.cichowicz@kpit.com" [ref=f3e517]
+                    - cell "AGCO-Evaluation KPIT Pune Show 10 more user groups" [ref=f3e520]:
+                      - generic [ref=f3e1008]:
+                        - generic "AGCO-Evaluation" [ref=f3e1009]
+                        - generic "KPIT Pune" [ref=f3e1010]
+                        - button "Show 10 more user groups" [ref=f3e1011] [cursor=pointer]: "+10"
+                    - cell "No profiles" [ref=f3e526]
+                    - cell [ref=f3e530]:
+                      - button "Edit bartoszc" [ref=f3e1017] [cursor=pointer]
+                  - row [ref=f3e534]:
+                    - cell "Swathi Prasad" [ref=f3e535]
+                    - cell "swathi.prasad@kpit.com" [ref=f3e538]
+                    - cell "KPIT Pune MicroFuzzy Show 12 more user groups" [ref=f3e541]:
+                      - generic [ref=f3e1023]:
+                        - generic "KPIT Pune" [ref=f3e1024]
+                        - generic "MicroFuzzy" [ref=f3e1025]
+                        - button "Show 12 more user groups" [ref=f3e1026] [cursor=pointer]: "+12"
+                    - cell "OTX-Authoring floating GM eBike EOL Show 9 more profiles" [ref=f3e547]:
+                      - generic [ref=f3e1028]:
+                        - generic "OTX-Authoring floating" [ref=f3e1029]
+                        - generic "GM eBike EOL" [ref=f3e1030]
+                        - button "Show 9 more profiles" [ref=f3e1031] [cursor=pointer]: "+9"
+                    - cell [ref=f3e553]:
+                      - button "Edit swathiprasad" [ref=f3e1034] [cursor=pointer]
+                  - row [ref=f3e557]:
+                    - cell "Prakash Patil" [ref=f3e558]
+                    - cell "prakash.patil@kpit.com" [ref=f3e561]
+                    - cell "MicroFuzzy AGCO1 Show 5 more user groups" [ref=f3e564]:
+                      - generic [ref=f3e1040]:
+                        - generic "MicroFuzzy" [ref=f3e1041]
+                        - generic "AGCO1" [ref=f3e1042]
+                        - button "Show 5 more user groups" [ref=f3e1043] [cursor=pointer]: "+5"
+                    - cell "ECU Comparator Floating Service Tester Show 20 more profiles" [ref=f3e570]:
+                      - generic [ref=f3e1045]:
+                        - generic "ECU Comparator Floating" [ref=f3e1046]
+                        - generic "Service Tester" [ref=f3e1047]
+                        - button "Show 20 more profiles" [ref=f3e1048] [cursor=pointer]: "+20"
+                    - cell [ref=f3e576]:
+                      - button "Edit prakashp" [ref=f3e1051] [cursor=pointer]
+                  - row [ref=f3e580]:
+                    - cell "Tina Bok" [ref=f3e581]
+                    - cell "tina.bokor@googlemail.com" [ref=f3e584]
+                    - cell "MicroFuzzy AGCO1 Show 4 more user groups" [ref=f3e587]:
+                      - generic [ref=f3e1057]:
+                        - generic "MicroFuzzy" [ref=f3e1058]
+                        - generic "AGCO1" [ref=f3e1059]
+                        - button "Show 4 more user groups" [ref=f3e1060] [cursor=pointer]: "+4"
+                    - cell "No profiles" [ref=f3e593]
+                    - cell [ref=f3e597]:
+                      - button "Edit Tina_alt" [ref=f3e1066] [cursor=pointer]
+                  - row [ref=f3e601]:
+                    - cell "Test Test" [ref=f3e602]
+                    - cell "test@test.com" [ref=f3e605]
+                    - cell "LIMAS-Root-Group Default" [ref=f3e608]:
+                      - generic [ref=f3e1072]:
+                        - generic "LIMAS-Root-Group" [ref=f3e1073]
+                        - generic "Default" [ref=f3e1074]
+                    - cell "No profiles" [ref=f3e613]
+                    - cell [ref=f3e617]:
+                      - button "Edit test" [ref=f3e1080] [cursor=pointer]
+              - generic [ref=f3e621]: Showing 15 of 55
+        - contentinfo [ref=f3e278]:
+          - paragraph [ref=f3e281]: © KPIT Technologies Ltd. All rights reserved.
+  - dialog [ref=f3e1315]:
+    - textbox "Search user groups..." [active] [ref=f3e1318]
+    - generic [ref=f3e1319]:
+      - button "Expand All" [ref=f3e1320] [cursor=pointer]
+      - button "Collapse All" [disabled]
+    - generic [ref=f3e1321]:
+      - button "Select All" [ref=f3e1322] [cursor=pointer]
+      - button "Clear Selection" [disabled]
+    - generic [ref=f3e1323]:
+      - generic [ref=f3e1325]:
+        - button "Expand AGCO"
+        - checkbox "Select AGCO" [ref=f3e1326] [cursor=pointer]
+        - button "AGCO" [ref=f3e1327] [cursor=pointer]
+      - generic [ref=f3e1335]:
+        - button "Expand AGCO-Test-Group"
+        - checkbox "Select AGCO-Test-Group" [ref=f3e1336] [cursor=pointer]
+        - button "AGCO-Test-Group" [ref=f3e1337] [cursor=pointer]
+      - generic [ref=f3e1345]:
+        - button "Expand AGCO-Testing"
+        - checkbox "Select AGCO-Testing" [ref=f3e1346] [cursor=pointer]
+        - button "AGCO-Testing" [ref=f3e1347] [cursor=pointer]
+      - generic [ref=f3e1355]:
+        - button "Expand assign_group356789"
+        - checkbox "Select assign_group356789" [ref=f3e1356] [cursor=pointer]
+        - button "assign_group356789" [ref=f3e1357] [cursor=pointer]
+      - generic [ref=f3e1365]:
+        - button "Expand AWTCE- AISIN Japan - QT/220906/6959"
+        - checkbox "Select AWTCE- AISIN Japan - QT/220906/6959" [ref=f3e1366] [cursor=pointer]
+        - button "AWTCE- AISIN Japan - QT/220906/6959" [ref=f3e1367] [cursor=pointer]
+      - generic [ref=f3e1375]:
+        - button "Expand brp_import"
+        - checkbox "Select brp_import" [ref=f3e1376] [cursor=pointer]
+        - button "brp_import" [ref=f3e1377] [cursor=pointer]
+      - generic [ref=f3e1385]:
+        - button "Expand brp_import_qa"
+        - checkbox "Select brp_import_qa" [ref=f3e1386] [cursor=pointer]
+        - button "brp_import_qa" [ref=f3e1387] [cursor=pointer]
+      - generic [ref=f3e1395]:
+        - button "Expand Brp_QA"
+        - checkbox "Select Brp_QA" [ref=f3e1396] [cursor=pointer]
+        - button "Brp_QA" [ref=f3e1397] [cursor=pointer]
+      - generic [ref=f3e1405]:
+        - button "Expand CARIAD_IT Applications (TP-E)"
+        - checkbox "Select CARIAD_IT Applications (TP-E)" [ref=f3e1406] [cursor=pointer]
+        - button "CARIAD_IT Applications (TP-E)" [ref=f3e1407] [cursor=pointer]
+      - generic [ref=f3e1415]:
+        - button "Expand CARIAD_IT Applications (TP-E4)"
+        - checkbox "Select CARIAD_IT Applications (TP-E4)" [ref=f3e1416] [cursor=pointer]
+        - button "CARIAD_IT Applications (TP-E4)" [ref=f3e1417] [cursor=pointer]
+      - generic [ref=f3e1425]:
+        - button "Expand Catapult user"
+        - checkbox "Select Catapult user" [ref=f3e1426] [cursor=pointer]
+        - button "Catapult user" [ref=f3e1427] [cursor=pointer]
+      - generic [ref=f3e1435]:
+        - button "Expand Claas_default"
+        - checkbox "Select Claas_default" [ref=f3e1436] [cursor=pointer]
+        - button "Claas_default" [ref=f3e1437] [cursor=pointer]
+      - generic [ref=f3e1445]:
+        - button "Expand Claas_Germany_Default"
+        - checkbox "Select Claas_Germany_Default" [ref=f3e1446] [cursor=pointer]
+        - button "Claas_Germany_Default" [ref=f3e1447] [cursor=pointer]
+      - generic [ref=f3e1455]:
+        - button "Expand Claas_LMT"
+        - checkbox "Select Claas_LMT" [ref=f3e1456] [cursor=pointer]
+        - button "Claas_LMT" [ref=f3e1457] [cursor=pointer]
+      - generic [ref=f3e1465]:
+        - button "Expand CLAASGROUPTEST"
+        - checkbox "Select CLAASGROUPTEST" [ref=f3e1466] [cursor=pointer]
+        - button "CLAASGROUPTEST" [ref=f3e1467] [cursor=pointer]
+      - generic [ref=f3e1475]:
+        - button "Expand Class_default"
+        - checkbox "Select Class_default" [ref=f3e1476] [cursor=pointer]
+        - button "Class_default" [ref=f3e1477] [cursor=pointer]
+      - generic [ref=f3e1485]:
+        - button "Expand Default" [ref=f3e1486] [cursor=pointer]
+        - checkbox "Select Default" [ref=f3e1487] [cursor=pointer]
+        - button "Default" [ref=f3e1488] [cursor=pointer]
+      - generic [ref=f3e1496]:
+        - button "Expand import_brp_qa"
+        - checkbox "Select import_brp_qa" [ref=f3e1497] [cursor=pointer]
+        - button "import_brp_qa" [ref=f3e1498] [cursor=pointer]
+      - generic [ref=f3e1506]:
+        - button "Expand katapult_test"
+        - checkbox "Select katapult_test" [ref=f3e1507] [cursor=pointer]
+        - button "katapult_test" [ref=f3e1508] [cursor=pointer]
+      - generic [ref=f3e1516]:
+        - button "Expand KPIT" [ref=f3e1517] [cursor=pointer]
+        - checkbox "Select KPIT" [ref=f3e1518] [cursor=pointer]
+        - button "KPIT" [ref=f3e1519] [cursor=pointer]
+      - generic [ref=f3e1527]:
+        - button "Expand KPIT Testing"
+        - checkbox "Select KPIT Testing" [ref=f3e1528] [cursor=pointer]
+        - button "KPIT Testing" [ref=f3e1529] [cursor=pointer]
+      - generic [ref=f3e1537]:
+        - button "Expand KPIT-Testing"
+        - checkbox "Select KPIT-Testing" [ref=f3e1538] [cursor=pointer]
+        - button "KPIT-Testing" [ref=f3e1539] [cursor=pointer]
+      - generic [ref=f3e1547]:
+        - button "Expand License Library Junit Test" [ref=f3e1548] [cursor=pointer]
+        - checkbox "Select License Library Junit Test" [ref=f3e1549] [cursor=pointer]
+        - button "License Library Junit Test" [ref=f3e1550] [cursor=pointer]
+      - generic [ref=f3e1558]:
+        - button "Expand LIMAS-Root-Group"
+        - checkbox "Select LIMAS-Root-Group" [ref=f3e1559] [cursor=pointer]
+        - button "LIMAS-Root-Group" [ref=f3e1560] [cursor=pointer]
+      - generic [ref=f3e1568]:
+        - button "Expand name"
+        - checkbox "Select name" [ref=f3e1569] [cursor=pointer]
+        - button "name" [ref=f3e1570] [cursor=pointer]
+      - generic [ref=f3e1578]:
+        - button "Expand OLA-Root-Group"
+        - checkbox "Select OLA-Root-Group" [ref=f3e1579] [cursor=pointer]
+        - button "OLA-Root-Group" [ref=f3e1580] [cursor=pointer]
+      - generic [ref=f3e1588]:
+        - button "Expand PGRC"
+        - checkbox "Select PGRC" [ref=f3e1589] [cursor=pointer]
+        - button "PGRC" [ref=f3e1590] [cursor=pointer]
+      - generic [ref=f3e1598]:
+        - button "Expand QA Import"
+        - checkbox "Select QA Import" [ref=f3e1599] [cursor=pointer]
+        - button "QA Import" [ref=f3e1600] [cursor=pointer]
+      - generic [ref=f3e1608]:
+        - button "Expand SAT"
+        - checkbox "Select SAT" [ref=f3e1609] [cursor=pointer]
+        - button "SAT" [ref=f3e1610] [cursor=pointer]
+      - generic [ref=f3e1618]:
+        - button "Expand SCB"
+        - checkbox "Select SCB" [ref=f3e1619] [cursor=pointer]
+        - button "SCB" [ref=f3e1620] [cursor=pointer]
+      - generic [ref=f3e1628]:
+        - button "Expand STIHL FLOATING LICENSES"
+        - checkbox "Select STIHL FLOATING LICENSES" [ref=f3e1629] [cursor=pointer]
+        - button "STIHL FLOATING LICENSES" [ref=f3e1630] [cursor=pointer]
+      - generic [ref=f3e1638]:
+        - button "Expand STIHL Testing"
+        - checkbox "Select STIHL Testing" [ref=f3e1639] [cursor=pointer]
+        - button "STIHL Testing" [ref=f3e1640] [cursor=pointer]
+      - generic [ref=f3e1648]:
+        - button "Expand STIHL_QA_ETT"
+        - checkbox "Select STIHL_QA_ETT" [ref=f3e1649] [cursor=pointer]
+        - button "STIHL_QA_ETT" [ref=f3e1650] [cursor=pointer]
+      - generic [ref=f3e1658]:
+        - button "Expand STIHL-TESTING"
+        - checkbox "Select STIHL-TESTING" [ref=f3e1659] [cursor=pointer]
+        - button "STIHL-TESTING" [ref=f3e1660] [cursor=pointer]
+      - generic [ref=f3e1668]:
+        - button "Expand testGroup"
+        - checkbox "Select testGroup" [ref=f3e1669] [cursor=pointer]
+        - button "testGroup" [ref=f3e1670] [cursor=pointer]
+      - generic [ref=f3e1678]:
+        - button "Expand Token Group"
+        - checkbox "Select Token Group" [ref=f3e1679] [cursor=pointer]
+        - button "Token Group" [ref=f3e1680] [cursor=pointer]
+      - generic [ref=f3e1688]:
+        - button "Expand Vaibhav"
+        - checkbox "Select Vaibhav" [ref=f3e1689] [cursor=pointer]
+        - button "Vaibhav" [ref=f3e1690] [cursor=pointer]
+      - generic [ref=f3e1698]:
+        - button "Expand Vaibhav_Group07"
+        - checkbox "Select Vaibhav_Group07" [ref=f3e1699] [cursor=pointer]
+        - button "Vaibhav_Group07" [ref=f3e1700] [cursor=pointer]
+      - generic [ref=f3e1708]:
+        - button "Expand Vaibhav_Group2624"
+        - checkbox "Select Vaibhav_Group2624" [ref=f3e1709] [cursor=pointer]
+        - button "Vaibhav_Group2624" [ref=f3e1710] [cursor=pointer]
+      - generic [ref=f3e1718]:
+        - button "Expand vaibhav02524"
+        - checkbox "Select vaibhav02524" [ref=f3e1719] [cursor=pointer]
+        - button "vaibhav02524" [ref=f3e1720] [cursor=pointer]
+      - generic [ref=f3e1728]:
+        - button "Expand VEG"
+        - checkbox "Select VEG" [ref=f3e1729] [cursor=pointer]
+        - button "VEG" [ref=f3e1730] [cursor=pointer]
+      - generic [ref=f3e1738]:
+        - button "Expand VW - default"
+        - checkbox "Select VW - default" [ref=f3e1739] [cursor=pointer]
+        - button "VW - default" [ref=f3e1740] [cursor=pointer]
+      - generic [ref=f3e1748]:
+        - button "Expand VW_Evaluation_DBDVW_DBDNG"
+        - checkbox "Select VW_Evaluation_DBDVW_DBDNG" [ref=f3e1749] [cursor=pointer]
+        - button "VW_Evaluation_DBDVW_DBDNG" [ref=f3e1750] [cursor=pointer]
+      - generic [ref=f3e1758]:
+        - button "Expand VWGroup" [ref=f3e1759] [cursor=pointer]
+        - checkbox "Select VWGroup" [ref=f3e1760] [cursor=pointer]
+        - button "VWGroup" [ref=f3e1761] [cursor=pointer]
+    - generic [ref=f3e1768]:
+      - generic [ref=f3e1769]: 0 selected
+      - button "Done" [ref=f3e1770] [cursor=pointer]

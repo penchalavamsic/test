@@ -1,0 +1,79 @@
+- generic [ref=f10e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f10e5]:
+    - banner [ref=f10e6]:
+      - img "Logo" [ref=f10e8]
+      - generic [ref=f10e9]:
+        - button [ref=f10e10] [cursor=pointer]
+        - button [ref=f10e11] [cursor=pointer]
+        - button "as" [ref=f10e12] [cursor=pointer]
+    - main [ref=f10e14]:
+      - generic [ref=f10e16]:
+        - generic [ref=f10e17]:
+          - heading "Reports" [level=1] [ref=f10e18]
+          - paragraph [ref=f10e19]: View, filter, and export licensing information.
+        - generic [ref=f10e20]:
+          - button "Standard Licenses Standard and deleted license records" [ref=f10e21] [cursor=pointer]:
+            - generic [ref=f10e25]:
+              - generic [ref=f10e26]: Standard Licenses
+              - generic [ref=f10e27]: Standard and deleted license records
+          - button "Floating Licenses Floating-license usage records" [ref=f10e28] [cursor=pointer]:
+            - generic [ref=f10e33]:
+              - generic [ref=f10e34]: Floating Licenses
+              - generic [ref=f10e35]: Floating-license usage records
+          - button "Floating Configurations Floating-license configuration records" [pressed] [ref=f10e36] [cursor=pointer]:
+            - generic [ref=f10e40]:
+              - generic [ref=f10e41]: Floating Configurations
+              - generic [ref=f10e42]: Floating-license configuration records
+        - generic [ref=f10e1311]:
+          - generic [ref=f10e1312]:
+            - generic [ref=f10e1313]: 0 records
+            - group "Configuration mode" [ref=f10e1314]:
+              - button "Active" [pressed] [ref=f10e1315] [cursor=pointer]
+              - button "Deleted" [ref=f10e1316] [cursor=pointer]
+            - button "Filters" [active] [ref=f10e1317] [cursor=pointer]
+            - button "Export Excel" [ref=f10e1321] [cursor=pointer]
+          - generic [ref=f10e1331]:
+            - generic [ref=f10e1332]: Filters
+            - generic [ref=f10e1334]:
+              - generic [ref=f10e1335]:
+                - text: System Users
+                - searchbox "System Users" [ref=f10e1337]
+              - generic [ref=f10e1338]:
+                - text: Expiration Date
+                - generic [ref=f10e1339]:
+                  - textbox "Expiration Date" [ref=f10e1340]
+                  - button "Open calendar" [ref=f10e1341] [cursor=pointer]
+              - generic [ref=f10e1344]:
+                - text: Maintenance Date
+                - generic [ref=f10e1345]:
+                  - textbox "Maintenance Date" [ref=f10e1346]
+                  - button "Open calendar" [ref=f10e1347] [cursor=pointer]
+              - generic [ref=f10e1350]:
+                - text: User Group
+                - searchbox "Search groups" [ref=f10e1352]
+              - generic [ref=f10e1353]:
+                - text: Product Profile
+                - searchbox "Search profiles" [ref=f10e1355]
+              - generic [ref=f10e1356]:
+                - text: Profile Role
+                - searchbox "Select a profile first" [disabled] [ref=f10e1358]
+              - generic [ref=f10e1359]:
+                - text: Configuration Modified Date
+                - generic [ref=f10e1360]:
+                  - textbox "Configuration Modified Date" [ref=f10e1361]
+                  - button "Open calendar" [ref=f10e1362] [cursor=pointer]
+              - generic [ref=f10e1365]:
+                - text: Configuration Created Date
+                - generic [ref=f10e1366]:
+                  - textbox "Configuration Created Date" [ref=f10e1367]
+                  - button "Open calendar" [ref=f10e1368] [cursor=pointer]
+            - button "Clear" [ref=f10e1372] [cursor=pointer]
+          - generic [ref=f10e1322]:
+            - paragraph [ref=f10e1326]: Unable to load Floating Configuration records
+            - paragraph [ref=f10e1327]: Request failed with status code 500
+            - button "Retry" [ref=f10e1328] [cursor=pointer]
+    - contentinfo [ref=f10e167]:
+      - paragraph [ref=f10e170]: © KPIT Technologies Ltd. All rights reserved.

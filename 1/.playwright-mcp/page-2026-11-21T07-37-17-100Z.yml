@@ -1,0 +1,125 @@
+- generic [ref=f10e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f10e8]:
+    - list [ref=f10e16]:
+      - listitem [ref=f10e17]:
+        - button [ref=f10e18] [cursor=pointer]
+      - listitem [ref=f10e22]:
+        - link [ref=f10e23] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f10e29]:
+        - link [ref=f10e30] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f10e36]:
+        - link [ref=f10e37] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f10e41]:
+        - link [ref=f10e42] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f10e46]:
+        - link [ref=f10e47] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f10e51]:
+        - link [ref=f10e52] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f10e57]:
+        - link [ref=f10e58] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f10e63]:
+        - link [ref=f10e64] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f10e67]:
+        - link [ref=f10e68] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f10e72]:
+        - link [ref=f10e73] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f10e77]:
+        - link [ref=f10e78] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f10e82]:
+      - banner [ref=f10e83]:
+        - img "Logo" [ref=f10e85]
+        - generic [ref=f10e86]:
+          - button [ref=f10e87] [cursor=pointer]
+          - button [ref=f10e88] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f10e89] [cursor=pointer]:
+            - generic [ref=f10e90]: as
+            - generic [ref=f10e91]: aravi.s@kpit.com
+      - main [ref=f10e92]:
+        - generic [ref=f10e115]:
+          - generic [ref=f10e116]:
+            - generic:
+              - generic:
+                - generic [aria-hidden]:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - heading [level=1]: Server License Management
+                        - paragraph: View and manage server license information.
+                      - generic:
+                        - button: Filters
+                        - button: Add Customer
+                  - generic:
+                    - generic:
+                      - generic: Server License
+                      - combobox:
+                        - generic: All Server Licenses
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - paragraph: CLAAS_LMT_DEV
+                          - paragraph: Server license information
+                      - generic:
+                        - generic:
+                          - paragraph: Server Type
+                          - generic: Full License
+                        - generic:
+                          - paragraph: User Groups
+                          - generic: Claas_LMT
+                      - generic:
+                        - button
+                        - button
+                        - button
+            - button "Expand server license overview" [ref=f10e270] [cursor=pointer]
+          - generic [ref=f10e1002]:
+            - generic [ref=f10e1078]:
+              - generic [ref=f10e1079]:
+                - heading "Standard Licenses" [level=2] [ref=f10e1080]
+                - paragraph [ref=f10e1081]: Standard licenses assigned to this server.
+              - generic [ref=f10e1082]: 1 license
+            - generic [ref=f10e1008]:
+              - generic [ref=f10e1009]:
+                - button "Standard 1" [active] [ref=f10e1010] [cursor=pointer]:
+                  - text: Standard
+                  - generic [ref=f10e1011]: "1"
+                - button "Floating 0" [ref=f10e1012] [cursor=pointer]:
+                  - text: Floating
+                  - generic [ref=f10e1013]: "0"
+              - button "Create Standard License" [ref=f10e1083] [cursor=pointer]
+            - generic [ref=f10e1087]:
+              - generic [ref=f10e1088]:
+                - generic [ref=f10e1089]: Standard License
+                - generic [ref=f10e1090]:
+                  - button "Edit Standard License" [ref=f10e1091] [cursor=pointer]
+                  - button "Delete Standard License" [ref=f10e1095] [cursor=pointer]
+              - generic [ref=f10e1099]:
+                - heading "APP-FCDS-USER" [level=3] [ref=f10e1100]
+                - generic [ref=f10e1101]:
+                  - paragraph [ref=f10e1102]: Profile Role
+                  - paragraph [ref=f10e1103]: FULL
+              - generic [ref=f10e1104]:
+                - paragraph [ref=f10e1105]: Licenses
+                - paragraph [ref=f10e1106]: "10"
+              - generic [ref=f10e1107]:
+                - generic [ref=f10e1108]:
+                  - paragraph [ref=f10e1109]: Maintenance
+                  - paragraph [ref=f10e1110]: 30 Dec 2024
+                - generic [ref=f10e1111]:
+                  - paragraph [ref=f10e1112]: Expiration
+                  - paragraph [ref=f10e1113]: 30 Dec 2024
+      - contentinfo [ref=f10e111]:
+        - paragraph [ref=f10e114]: © KPIT Technologies Ltd. All rights reserved.

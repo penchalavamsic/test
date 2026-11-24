@@ -1,0 +1,1990 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic [aria-hidden]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /system-user-dashboard
+                      - listitem:
+                        - link:
+                          - /url: /users-licenses
+                      - listitem:
+                        - link:
+                          - /url: /reports
+                      - listitem:
+                        - link:
+                          - /url: /floating-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /standard-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /features
+                      - listitem:
+                        - link:
+                          - /url: /profiles
+                      - listitem:
+                        - link:
+                          - /url: /groups
+                      - listitem:
+                        - link:
+                          - /url: /system-users
+                      - listitem:
+                        - link:
+                          - /url: /server-licensing
+                      - listitem:
+                        - link:
+                          - /url: /server-license-import
+        - generic:
+          - banner:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+                - generic: aravi.s@kpit.com
+          - main:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=1]: Features
+                  - button: Add Root Feature
+                - generic:
+                  - generic:
+                    - generic:
+                      - button: Expand All
+                      - button: Collapse All
+                    - generic:
+                      - textbox:
+                        - /placeholder: Search by name or ID
+                  - generic:
+                    - generic:
+                      - table:
+                        - rowgroup:
+                          - row:
+                            - columnheader:
+                              - generic: Feature Name
+                            - columnheader:
+                              - generic: Versions
+                            - columnheader:
+                              - generic: Access Levels
+                            - columnheader:
+                              - generic: Used in Profiles
+                            - columnheader:
+                              - generic: Description
+                            - columnheader:
+                              - generic: Actions
+                        - rowgroup:
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Authoring
+                                    - paragraph: com.in2soft.otxSuite.extensions
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 2.8.999
+                                  - generic: 2.7.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Communicator
+                                    - paragraph: com.in2soft.communicator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.5.999
+                                  - generic: 1.5.7
+                                  - generic: 1.5.8
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DatabaseDesigner NG
+                                    - paragraph: com.kpit.dbdng
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 2.04.001
+                                  - generic: 2.04.004
+                                  - generic: 2.06.000
+                                  - generic: 2.05.001
+                                  - generic: 2.04.002
+                                  - generic: 2.03.002
+                                  - generic: 2.05.000
+                                  - generic: 2.99.999
+                                  - generic: 2.03.004
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DatabaseDesigner
+                                    - paragraph: com.kpit.dbd
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.11.000
+                                  - generic: 1.12.001
+                                  - generic: 1.99.999
+                                  - generic: 1.11.001
+                                  - generic: 1.14.001
+                                  - generic: 1.11.002
+                                  - generic: 1.13.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DatabaseDesigner floating
+                                    - paragraph: com.kpit.dbd.floating.DatabaseDesigner
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.12.001
+                                  - generic: 1.11.002
+                                  - generic: 1.11.001
+                                  - generic: 1.14.001
+                                  - generic: 1.13.000
+                                  - generic: 1.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DatabaseDesigner NG floating
+                                    - paragraph: com.kpit.dbdng.floating.DatabaseDesigner NG
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 2.03.002
+                                  - generic: 2.04.002
+                                  - generic: 2.99.999
+                                  - generic: 2.05.001
+                                  - generic: 2.05.000
+                                  - generic: 2.04.001
+                                  - generic: 2.03.004
+                                  - generic: 2.04.004
+                                  - generic: 2.06.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Communicator Floating
+                                    - paragraph: com.in2soft.communicator.floating.Diagnostic Communicator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.5.7
+                                  - generic: 1.5.999
+                                  - generic: 1.5.8
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Authoring Floating
+                                    - paragraph: com.in2soft.otxSuite.extensions.floating.OTX-Authoring
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 2.8.999
+                                  - generic: 2.7.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: Authoring Suite 2
+                                    - paragraph: com.kpit.otx.suite.extensions.authoring_suite
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.00.999
+                                  - generic: 1.29.000
+                                  - generic: 9.99.999
+                                  - generic: 1.31.999
+                                  - generic: 1.27.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 4 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Diagnostic Stack
+                                    - paragraph: com.kpit.diagnosticstack
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 3.99.999
+                                  - generic: 1.12.999
+                                  - generic: 1.99.999
+                                  - generic: 9.99.999
+                            - cell
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: GM Feature Standard
+                                    - paragraph: com.GM.Standard
+                            - cell:
+                              - generic: 1.0.0
+                            - cell
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: ODX Checker NG
+                                    - paragraph: com.kpit.odxcheckerng
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.04.999
+                                  - generic: 2.0.0
+                                  - generic: 2.99.999
+                                  - generic: 1.05.001
+                                  - generic: 1.03.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                                  - generic: Floating
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: ODX Checker NG Floating
+                                    - paragraph: com.kpit.odxcheckerng.floating.ODX Checker NG
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 2.99.999
+                                  - generic: 1.05.001
+                                  - generic: 1.04.999
+                                  - generic: 2.0.0
+                                  - generic: 1.03.999
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: ECU Validator
+                                    - paragraph: com.kpit.ecuvalidator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 1.1.0
+                                  - generic: 2.2.0
+                                  - generic: 9.9.9
+                                  - generic: 2.4.1
+                                  - generic: 1.2.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: Authoring Suite 2 Floating
+                                    - paragraph: com.kpit.otx.suite.extensions.authoring_suite.floating.Authoring Suite 2
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.31.999
+                                  - generic: 1.00.999
+                                  - generic: 1.29.000
+                                  - generic: 1.27.000
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: GM Ebike Service Tool Feature
+                                    - paragraph: com.GM.ServiceTool
+                            - cell:
+                              - generic: 1.0.0
+                            - cell:
+                              - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Engineering Tester
+                                    - paragraph: com.kpit.engineeringtester
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP ECU Comparator
+                                    - paragraph: com.kpit.ecu.comparator
+                            - cell:
+                              - generic: 1.01.00
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP ECU Comparator Floating
+                                    - paragraph: com.kpit.ecu.comparator.floating.ECU Comparator
+                            - cell:
+                              - generic: 1.01.00
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Service Tester
+                                    - paragraph: com.kpit.servicetester
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 3.2.0
+                                  - generic: 3.0.1
+                                  - generic: 1.0.3
+                                  - generic: 1.3.0
+                                  - generic: 1.0.2
+                                  - generic: 3.0.0
+                                  - generic: 3.2.2
+                                  - generic: 1.0.0
+                                  - generic: 9.9.9
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Write
+                                  - generic: Read
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Branding Actia
+                                    - paragraph: com.kpit.branding.actia
+                            - cell:
+                              - generic: 1.00.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: ECU Editor
+                                    - paragraph: com.kpit.ecueditor
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.1.0
+                                  - generic: 9.99.999.999
+                                  - generic: 0.1.0
+                                  - generic: 1.2.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP License Library Test
+                                    - paragraph: com.kpit.LicenseLibrary.junit.test
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 0.1.1
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 4 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP License Library Test Floating
+                                    - paragraph: com.kpit.LicenseLibrary.junit.test.floating.K-DCP License Library Test
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 0.1.1
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                                  - generic: Floating
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: KOEL EOL Tester
+                                    - paragraph: com.kpit.koel
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.1.0.1
+                                  - generic: 4.0.0
+                                  - generic: 2.1.0.1
+                                  - generic: 2.0.0
+                                  - generic: 3.0.0
+                                  - generic: 1.0.0
+                                  - generic: 4.1.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: EOL Tester
+                                  - generic: Read/Write
+                                  - generic: Read
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: ECU Editor Floating
+                                    - paragraph: com.kpit.ecueditor.floating.ECU Editor
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999.999
+                                  - generic: 1.2.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: OLA Service Tester
+                                    - paragraph: com.kpit.ola
+                            - cell:
+                              - generic: 0.0.1
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Read
+                                  - generic: Read/Write
+                                  - generic: EOL Tester
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Database Designer VW
+                                    - paragraph: com.kpit.dbd.vw
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.13.000
+                                  - generic: 1.99.999
+                                  - generic: 1.14.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Database Designer VW Floating
+                                    - paragraph: com.kpit.dbd.vw.floating.DatabaseDesigner VW
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.99.999
+                                  - generic: 1.13.000
+                                  - generic: 1.14.000
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Ola charging module
+                                    - paragraph: com.ola.charging.module
+                            - cell:
+                              - generic: 1.0.0
+                            - cell
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Krypto
+                                    - paragraph: com.kpit.krypto
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.15
+                                  - generic: 1.9.9
+                                  - generic: 1.0.10
+                                  - generic: 1.0.13
+                            - cell
+                            - cell:
+                              - generic: 4 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Service Tester (WABCO)
+                                    - paragraph: com.kpit.tf2
+                            - cell:
+                              - generic: 1.0.0
+                            - cell:
+                              - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DDX
+                                    - paragraph: com.kpit.ddx
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 4 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: STIHL EOL Tester
+                                    - paragraph: com.stihl.eol
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: None
+                                  - generic: Read
+                                  - generic: Write
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: TF2 Features
+                                    - paragraph: com.kpit.tf2.features
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 1.0.2
+                                  - generic: 3.2.0
+                                  - generic: 9.9.9
+                                  - generic: 3.2.2
+                                  - generic: 3.0.1
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Read
+                                  - generic: Write
+                            - cell:
+                              - generic: 5 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: Test
+                                    - paragraph: test.kpit.com
+                            - cell:
+                              - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: STIHL Engineering Tester
+                                    - paragraph: com.STIHL.Engineering
+                            - cell:
+                              - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: STIHL Engineering Tester Floating
+                                    - paragraph: com.STIHL.Engineering.floating.STIHL Engineering Tester
+                            - cell:
+                              - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP VW Cyclone Converter
+                                    - paragraph: com.kpit.cyclone
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                                  - generic: 1.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: GTS Modeler
+                                    - paragraph: com.kpit.gtsmodeler
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTXT Transcompiler
+                                    - paragraph: com.kpit.otx.otxt_transcompiler
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTXT Transcompiler Floating
+                                    - paragraph: com.kpit.otx.otxt_transcompiler.floating.CI-CD OTXT Transcompiler
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD PTX Creator
+                                    - paragraph: com.kpit.otx.ptxcreator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD PTX Creator Floating
+                                    - paragraph: com.kpit.otx.ptxcreator.floating.CI-CD PTX Creator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Floating
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: GTS Trace2Fix
+                                    - paragraph: com.kpit.diagnostics.gts
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Engineering Tester Floating
+                                    - paragraph: com.kpit.engineeringtester.floating.K-DCP Engineering Tester
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD PTX Validator
+                                    - paragraph: com.kpit.ptx.ptx_validator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD PTX Validator Floating
+                                    - paragraph: com.kpit.ptx.ptx_validator.floating.CI-CD PTX Validator
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD i2s Converter
+                                    - paragraph: com.kpit.odx.i2s_converter
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 3.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Test Runner
+                                    - paragraph: com.kpit.testrunner
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD ODX Checker
+                                    - paragraph: com.kpit.odx.odx_checker
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Test Runner Floating
+                                    - paragraph: com.kpit.testrunner.floating.Test Runner
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD i2s Converter Floating
+                                    - paragraph: com.kpit.odx.i2s_converter.floating.CI-CD i2s Converter
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 3.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD ODX Checker Floating
+                                    - paragraph: com.kpit.odx.odx_checker.floating.CI-CD ODX Checker
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Floating
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTX Checker
+                                    - paragraph: com.kpit.otx.otxchecker
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTX Checker Floating
+                                    - paragraph: com.kpit.otx.otxchecker.floating.CI-CD OTX Checker
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DPDU API KION
+                                    - paragraph: com.kpit.dpduapi.kion
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 4.23.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: GTS Modeler Floating
+                                    - paragraph: com.kpit.gtsmodeler.floating.GTS Modeler
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: AGCO ST122 / CAPI / Runtime
+                                    - paragraph: com.AGCO.ST122.Standard
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Write
+                                  - generic: Read
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: DoIPGateway
+                                    - paragraph: com.kpit.doip.gw
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 9.99.999
+                                  - generic: 1.2.0
+                            - cell:
+                              - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Dynamic ECU Simulation
+                                    - paragraph: com.kpit.jssim
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.8.2
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTX2JAVA Converter
+                                    - paragraph: com.kpit.otx2javaconverter
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: CI-CD OTX2JAVA Converter Floating
+                                    - paragraph: com.kpit.otx2javaconverter.floating.CI-CD OTX2JAVA Converter
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 1.0.0
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Viewer
+                                  - generic: Standard
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP DPDU API
+                                    - paragraph: com.kpit.dpduapi.js
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 5.4.1
+                                  - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP Trace2Fix
+                                    - paragraph: com.kpit.trace2fix
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 3 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: APP-WEBTIC-USER
+                                    - paragraph: com.kpit.limas.APP-WEBTIC-USER
+                            - cell:
+                              - generic: 1.0.2
+                            - cell:
+                              - generic: read
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Simulation File Generator
+                                    - paragraph: com.kpit.simulationFileGenerator
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 2 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: Simulation File Generator Floating
+                                    - paragraph: com.kpit.simulationFileGenerator.floating.Simulation File Generator
+                            - cell:
+                              - generic: 9.99.999
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Viewer
+                                  - generic: Standard
+                                  - generic: Floating
+                            - cell:
+                              - generic: 1 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button [disabled]: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP License Library Test Release Floating
+                                    - paragraph: com.kpit.LicenseLibrary.junit.test.release.floating.K-DCP License Library Test Release Floating
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 0.1.1
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 0 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - paragraph: K-DCP License Library Test Release
+                                    - paragraph: com.kpit.LicenseLibrary.junit.test.release
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: 0.1.1
+                                  - generic: 1.0.0
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - generic: Floating
+                                  - generic: Standard
+                                  - generic: Viewer
+                            - cell:
+                              - generic: 0 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button: Delete
+                          - row:
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button
+                                  - generic:
+                                    - paragraph: Test_feature_09
+                                    - paragraph: com.kpit.feature.test
+                            - cell:
+                              - generic: 23.8.0
+                            - cell:
+                              - generic: acess
+                            - cell:
+                              - generic: 0 profiles
+                            - cell
+                            - cell:
+                              - generic:
+                                - generic:
+                                  - button: Add Child Feature
+                                  - button: Edit
+                                  - button: Delete
+          - contentinfo:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - dialog "Add Root Feature" [ref=f13e2352]:
+    - generic [ref=f13e2353]:
+      - heading "Add Root Feature" [level=2] [ref=f13e2354]
+      - paragraph [ref=f13e2355]: Add a new root feature
+    - generic [ref=f13e2356]:
+      - generic [ref=f13e2357]:
+        - text: Feature Name *
+        - textbox "Feature Name *" [ref=f13e2358]:
+          - /placeholder: Enter feature name
+      - generic [ref=f13e2359]:
+        - text: Feature ID *
+        - textbox "e.g., FEAT-001" [ref=f13e2360]
+      - generic [ref=f13e2361]:
+        - generic [ref=f13e2362]:
+          - generic [ref=f13e2363]: Description
+          - generic [ref=f13e2364]: 0 / 1000
+        - textbox "Description" [ref=f13e2365]:
+          - /placeholder: Enter feature description
+      - generic [ref=f13e2366]:
+        - text: Versions
+        - generic [ref=f13e2367]:
+          - textbox "e.g., 1.0, 2.0" [ref=f13e2368]
+          - button "Add" [active] [ref=f13e2369] [cursor=pointer]
+        - generic [ref=f13e2383]:
+          - text: 1.0.0
+          - img [ref=f13e2384] [cursor=pointer]
+      - generic [ref=f13e2370]:
+        - text: Access Levels
+        - generic [ref=f13e2371]:
+          - textbox "e.g., Basic, Premium" [ref=f13e2372]
+          - button "Add" [ref=f13e2373] [cursor=pointer]
+    - generic [ref=f13e2374]:
+      - button "Cancel" [ref=f13e2375] [cursor=pointer]
+      - button "Save" [ref=f13e2376] [cursor=pointer]
+    - button "Close" [ref=f13e2377] [cursor=pointer]

@@ -1,0 +1,125 @@
+- generic [ref=f12e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f12e8]:
+    - list [ref=f12e16]:
+      - listitem [ref=f12e17]:
+        - button [ref=f12e18] [cursor=pointer]
+      - listitem [ref=f12e22]:
+        - link [ref=f12e23] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f12e29]:
+        - link [ref=f12e30] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f12e36]:
+        - link [ref=f12e37] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f12e41]:
+        - link [ref=f12e42] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f12e46]:
+        - link [ref=f12e47] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f12e51]:
+        - link [ref=f12e52] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f12e57]:
+        - link [ref=f12e58] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f12e63]:
+        - link [ref=f12e64] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f12e67]:
+        - link [ref=f12e68] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f12e72]:
+        - link [ref=f12e73] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f12e77]:
+        - link [ref=f12e78] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f12e82]:
+      - banner [ref=f12e83]:
+        - img "Logo" [ref=f12e85]
+        - generic [ref=f12e86]:
+          - button [ref=f12e87] [cursor=pointer]
+          - button [ref=f12e88] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f12e89] [cursor=pointer]:
+            - generic [ref=f12e90]: as
+            - generic [ref=f12e91]: aravi.s@kpit.com
+      - main [ref=f12e92]:
+        - generic [ref=f12e115]:
+          - generic [ref=f12e116]:
+            - generic [ref=f12e119]:
+              - generic [ref=f12e121]:
+                - generic [ref=f12e122]:
+                  - heading "Server License Management" [level=1] [ref=f12e123]
+                  - paragraph [ref=f12e124]: View and manage server license information.
+                - generic [ref=f12e125]:
+                  - button "Filters" [ref=f12e126] [cursor=pointer]
+                  - button "Add Customer" [ref=f12e127] [cursor=pointer]
+              - generic [ref=f12e129]:
+                - generic [ref=f12e130]: Server License
+                - combobox "Filter by Server License" [ref=f12e131] [cursor=pointer]:
+                  - generic [ref=f12e132]: All Server Licenses
+              - generic [ref=f12e335]:
+                - generic [ref=f12e341]:
+                  - paragraph [ref=f12e342]: BRP QA Server
+                  - paragraph [ref=f12e343]: Server license information
+                - generic [ref=f12e344]:
+                  - generic [ref=f12e345]:
+                    - paragraph [ref=f12e346]: Server Type
+                    - generic [ref=f12e347]: Full License
+                  - generic [ref=f12e348]:
+                    - paragraph [ref=f12e349]: User Groups
+                    - generic [ref=f12e350]:
+                      - generic [ref=f12e352]: Vaibhav_Group07
+                      - generic [ref=f12e351]: QA Import
+                      - generic [ref=f12e353]: Vaibhav_Group2624
+                - generic [ref=f12e354]:
+                  - button "Create Server License" [ref=f12e355] [cursor=pointer]
+                  - button "Edit Customer" [ref=f12e356] [cursor=pointer]
+                  - button "Delete Customer" [ref=f12e357] [cursor=pointer]
+            - button "Collapse server license overview" [expanded] [ref=f12e134] [cursor=pointer]
+          - generic [ref=f12e360]:
+            - generic [ref=f12e366]:
+              - generic [ref=f12e367]:
+                - button "Standard 0" [ref=f12e368] [cursor=pointer]:
+                  - text: Standard
+                  - generic [ref=f12e369]: "0"
+                - button "Floating 1" [ref=f12e539] [cursor=pointer]:
+                  - text: Floating
+                  - generic [ref=f12e371]: "1"
+              - button "Create Floating License" [ref=f12e375] [cursor=pointer]
+            - generic [ref=f12e452]:
+              - generic [ref=f12e453]:
+                - generic [ref=f12e454]:
+                  - generic [ref=f12e455]: Floating License
+                  - generic [ref=f12e456]:
+                    - button "Edit Floating License" [ref=f12e457] [cursor=pointer]
+                    - button "Delete Floating License" [ref=f12e461] [cursor=pointer]
+                - heading "Authoring Suite 2" [level=3] [ref=f12e465]
+              - generic [ref=f12e466]:
+                - generic [ref=f12e467]:
+                  - paragraph [ref=f12e468]: Profile Role
+                  - paragraph [ref=f12e469]: 2020-R2
+                - generic [ref=f12e470]:
+                  - paragraph [ref=f12e471]: Group
+                  - paragraph [ref=f12e472]: QA Import
+                - generic [ref=f12e477]:
+                  - paragraph [ref=f12e478]: Licenses
+                  - paragraph [ref=f12e479]: "10"
+                - generic [ref=f12e480]:
+                  - paragraph [ref=f12e481]: Max Checkout
+                  - paragraph [ref=f12e482]: 2h
+              - generic [ref=f12e483]: Checkout unavailable
+              - generic [ref=f12e484]:
+                - generic [ref=f12e485]:
+                  - paragraph [ref=f12e486]: Maintenance
+                  - paragraph [ref=f12e487]: 28 Apr 2024
+                - generic [ref=f12e488]:
+                  - paragraph [ref=f12e489]: Expiration
+                  - paragraph [ref=f12e490]: 28 Apr 2024
+      - contentinfo [ref=f12e111]:
+        - paragraph [ref=f12e114]: © KPIT Technologies Ltd. All rights reserved.

@@ -1,0 +1,368 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic [aria-hidden]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /system-user-dashboard
+                      - listitem:
+                        - link:
+                          - /url: /users-licenses
+                      - listitem:
+                        - link:
+                          - /url: /reports
+                      - listitem:
+                        - link:
+                          - /url: /floating-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /standard-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /features
+                      - listitem:
+                        - link:
+                          - /url: /profiles
+                      - listitem:
+                        - link:
+                          - /url: /groups
+                      - listitem:
+                        - link:
+                          - /url: /system-users
+                      - listitem:
+                        - link:
+                          - /url: /server-licensing
+                      - listitem:
+                        - link:
+                          - /url: /server-license-import
+        - generic:
+          - banner:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+                - generic: aravi.s@kpit.com
+          - main:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: System Users
+                - generic:
+                  - generic:
+                    - generic:
+                      - textbox:
+                        - /placeholder: Search system users...
+                    - generic:
+                      - combobox:
+                        - generic: Profiles
+                    - generic:
+                      - combobox:
+                        - generic: User Groups
+                    - button [disabled]: Clear All
+                  - generic: Showing 55 of 55 system users
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - columnheader:
+                                - generic: Name
+                              - columnheader:
+                                - generic: Email
+                              - columnheader:
+                                - generic: User Groups
+                              - columnheader:
+                                - generic: Profiles
+                              - columnheader:
+                                - generic: Actions
+                          - rowgroup:
+                            - row:
+                              - cell:
+                                - generic: Administrator
+                              - cell:
+                                - generic: Default-User
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: sedfgwefpoi3ldowe
+                              - cell:
+                                - generic: Not provided
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Tina Bokor
+                              - cell:
+                                - generic: tina.bokor@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+4"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Stefan Zeppetzauer
+                              - cell:
+                                - generic: stefan.zeppetzauer@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO1
+                                    - generic: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                                    - button: "+2"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Vladimir Arsov
+                              - cell:
+                                - generic: vladimir.arsov@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT
+                                    - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Amit H
+                              - cell:
+                                - generic: amith3@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: License Library Junit Test
+                                    - generic: AGCO1
+                                    - button: "+5"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: GM Ebike Service Tool
+                                    - generic: OTX-Authoring
+                                    - button: "+32"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Boris Safin
+                              - cell:
+                                - generic: boris.safin@kpit.com
+                              - cell:
+                                - generic: KPIT
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Test1
+                              - cell:
+                                - generic: test1@kpit.com
+                              - cell:
+                                - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Matthias Ziegel
+                              - cell:
+                                - generic: matthias.ziegel@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                                    - generic: KPIT
+                                    - button: "+2"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Sebastian Frieser
+                              - cell:
+                                - generic: sebastian.frieser@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: APAC
+                                    - generic: MicroFuzzy
+                                    - button: "+12"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: CI-CD Test Runner
+                                    - generic: GM Ebike Service Tool
+                                    - button: "+61"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Bartosz Cichowicz
+                              - cell:
+                                - generic: bartosz.cichowicz@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO-Evaluation
+                                    - generic: KPIT Pune
+                                    - button: "+10"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Swathi Prasad
+                              - cell:
+                                - generic: swathi.prasad@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT Pune
+                                    - generic: MicroFuzzy
+                                    - button: "+12"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: OTX-Authoring floating
+                                    - generic: GM eBike EOL
+                                    - button: "+9"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Prakash Patil
+                              - cell:
+                                - generic: prakash.patil@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+5"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: ECU Comparator Floating
+                                    - generic: Service Tester
+                                    - button: "+20"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Tina Bok
+                              - cell:
+                                - generic: tina.bokor@googlemail.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+4"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Test Test
+                              - cell:
+                                - generic: test@test.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: LIMAS-Root-Group
+                                    - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                    - generic: Showing 15 of 55
+          - contentinfo:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - dialog "Edit Assignments" [ref=f3e2236]:
+    - generic [ref=f3e2237]:
+      - heading "Edit Assignments" [level=2] [ref=f3e2238]
+      - paragraph [ref=f3e2239]: Manage Profiles and User Groups for admin.
+    - generic [ref=f3e2241]:
+      - generic [ref=f3e2242]:
+        - text: Profiles
+        - combobox [active] [ref=f3e2243] [cursor=pointer]:
+          - generic "Select profiles" [ref=f3e2244]
+      - generic [ref=f3e2245]:
+        - text: User Groups
+        - combobox [ref=f3e2246] [cursor=pointer]:
+          - generic "LIMAS-Root-Group" [ref=f3e2247]
+        - generic "LIMAS-Root-Group" [ref=f3e2249]
+    - generic [ref=f3e2250]:
+      - button "Cancel" [ref=f3e2251] [cursor=pointer]
+      - button "Update" [ref=f3e2252] [cursor=pointer]
+    - button "Close" [ref=f3e2253] [cursor=pointer]

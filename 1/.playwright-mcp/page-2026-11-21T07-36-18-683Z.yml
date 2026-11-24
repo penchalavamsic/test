@@ -1,0 +1,138 @@
+- generic [ref=f10e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f10e8]:
+    - list [ref=f10e16]:
+      - listitem [ref=f10e17]:
+        - button [ref=f10e18] [cursor=pointer]
+      - listitem [ref=f10e22]:
+        - link [ref=f10e23] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f10e29]:
+        - link [ref=f10e30] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f10e36]:
+        - link [ref=f10e37] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f10e41]:
+        - link [ref=f10e42] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f10e46]:
+        - link [ref=f10e47] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f10e51]:
+        - link [ref=f10e52] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f10e57]:
+        - link [ref=f10e58] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f10e63]:
+        - link [ref=f10e64] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f10e67]:
+        - link [ref=f10e68] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f10e72]:
+        - link [ref=f10e73] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f10e77]:
+        - link [ref=f10e78] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f10e82]:
+      - banner [ref=f10e83]:
+        - img "Logo" [ref=f10e85]
+        - generic [ref=f10e86]:
+          - button [ref=f10e87] [cursor=pointer]
+          - button [ref=f10e88] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f10e89] [cursor=pointer]:
+            - generic [ref=f10e90]: as
+            - generic [ref=f10e91]: aravi.s@kpit.com
+      - main [ref=f10e92]:
+        - generic [ref=f10e115]:
+          - generic [ref=f10e116]:
+            - generic:
+              - generic:
+                - generic [aria-hidden]:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - heading [level=1]: Server License Management
+                        - paragraph: View and manage server license information.
+                      - generic:
+                        - button: Filters
+                        - button: Add Customer
+                  - generic:
+                    - generic:
+                      - generic: Server License
+                      - combobox:
+                        - generic: All Server Licenses
+            - button "Expand server license overview" [ref=f10e270] [cursor=pointer]
+          - generic [ref=f10e135]:
+            - generic [ref=f10e136]:
+              - generic [ref=f10e782]:
+                - generic [ref=f10e788]:
+                  - paragraph [ref=f10e789]: VW_TestingLicense_DBD_VW and DBD NG
+                  - paragraph [ref=f10e790]: Server license information
+                - generic [ref=f10e791]: Full License
+                - generic [ref=f10e793]:
+                  - button "Create Server License" [ref=f10e794] [cursor=pointer]
+                  - button "Edit Customer" [ref=f10e795] [cursor=pointer]
+                  - button "Delete Customer" [ref=f10e796] [cursor=pointer]
+                  - button "Expand section" [ref=f10e797] [cursor=pointer]
+              - generic [ref=f10e800]:
+                - generic [ref=f10e806]:
+                  - paragraph [ref=f10e807]: AATestCustomer
+                  - paragraph [ref=f10e808]: Server license information
+                - generic [ref=f10e809]: Full License
+                - generic [ref=f10e811]:
+                  - button "Create Server License" [ref=f10e812] [cursor=pointer]
+                  - button "Edit Customer" [ref=f10e813] [cursor=pointer]
+                  - button "Delete Customer" [ref=f10e814] [cursor=pointer]
+                  - button "Expand section" [ref=f10e815] [cursor=pointer]
+              - generic [ref=f10e818]:
+                - generic [ref=f10e824]:
+                  - paragraph [ref=f10e825]: AGCO Service Tool License
+                  - paragraph [ref=f10e826]: Server license information
+                - generic [ref=f10e827]: Standard
+                - generic [ref=f10e829]:
+                  - button "Create Server License" [ref=f10e830] [cursor=pointer]
+                  - button "Edit Customer" [ref=f10e831] [cursor=pointer]
+                  - button "Delete Customer" [ref=f10e832] [cursor=pointer]
+                  - button "Expand section" [ref=f10e833] [cursor=pointer]
+              - generic [ref=f10e836]:
+                - generic [ref=f10e842]:
+                  - paragraph [ref=f10e843]: Katapult_customer
+                  - paragraph [ref=f10e844]: Server license information
+                - generic [ref=f10e845]: Full License
+                - generic [ref=f10e847]:
+                  - button "Create Server License" [ref=f10e848] [cursor=pointer]
+                  - button "Edit Customer" [ref=f10e849] [cursor=pointer]
+                  - button "Delete Customer" [ref=f10e850] [cursor=pointer]
+                  - button "Expand section" [ref=f10e851] [cursor=pointer]
+              - generic [ref=f10e854]:
+                - generic [ref=f10e860]:
+                  - paragraph [ref=f10e861]: KPIT Dev server
+                  - paragraph [ref=f10e862]: Server license information
+                - generic [ref=f10e863]: Standard
+                - generic [ref=f10e865]:
+                  - button "Create Server License" [ref=f10e866] [cursor=pointer]
+                  - button "Edit Customer" [ref=f10e867] [cursor=pointer]
+                  - button "Delete Customer" [ref=f10e868] [cursor=pointer]
+                  - button "Expand section" [ref=f10e869] [cursor=pointer]
+            - generic [ref=f10e227]:
+              - paragraph [ref=f10e228]: Showing 11–15 of 23 Server Licenses
+              - generic [ref=f10e229]:
+                - button "Previous" [ref=f10e361] [cursor=pointer]
+                - button "1" [ref=f10e230] [cursor=pointer]
+                - button "2" [ref=f10e231] [cursor=pointer]
+                - button "3" [active] [ref=f10e232] [cursor=pointer]
+                - button "4" [ref=f10e233] [cursor=pointer]
+                - button "5" [ref=f10e234] [cursor=pointer]
+                - button "Next" [ref=f10e235] [cursor=pointer]
+              - generic [ref=f10e236]:
+                - generic [ref=f10e237]: "Page size:"
+                - combobox [ref=f10e238] [cursor=pointer]:
+                  - generic: "5"
+      - contentinfo [ref=f10e111]:
+        - paragraph [ref=f10e114]: © KPIT Technologies Ltd. All rights reserved.

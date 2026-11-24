@@ -1,0 +1,175 @@
+- generic [ref=f6e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f6e4]:
+    - list [ref=f6e12]:
+      - listitem [ref=f6e13]:
+        - button [ref=f6e14] [cursor=pointer]
+      - listitem [ref=f6e18]:
+        - link [ref=f6e19] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f6e25]:
+        - link [ref=f6e26] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f6e32]:
+        - link [ref=f6e33] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f6e37]:
+        - link [ref=f6e38] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f6e42]:
+        - link [ref=f6e43] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f6e47]:
+        - link [ref=f6e48] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f6e53]:
+        - link [ref=f6e54] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f6e59]:
+        - link [ref=f6e60] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f6e63]:
+        - link [ref=f6e64] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f6e68]:
+        - link [ref=f6e69] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f6e73]:
+        - link [ref=f6e74] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f6e78]:
+      - banner [ref=f6e79]:
+        - img "Logo" [ref=f6e81]
+        - generic [ref=f6e82]:
+          - button [ref=f6e83] [cursor=pointer]
+          - button [ref=f6e84] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f6e85] [cursor=pointer]:
+            - generic [ref=f6e86]: as
+            - generic [ref=f6e87]: aravi.s@kpit.com
+      - main [ref=f6e88]:
+        - generic [ref=f6e90]:
+          - generic [ref=f6e91]:
+            - heading "Reports" [level=1] [ref=f6e92]
+            - paragraph [ref=f6e93]: View, filter, and export licensing information.
+          - generic [ref=f6e94]:
+            - button "Standard Licenses Standard and deleted license records" [pressed] [ref=f6e95] [cursor=pointer]:
+              - generic [ref=f6e99]:
+                - generic [ref=f6e100]: Standard Licenses
+                - generic [ref=f6e101]: Standard and deleted license records
+            - button "Floating Licenses Floating-license usage records" [ref=f6e102] [cursor=pointer]:
+              - generic [ref=f6e107]:
+                - generic [ref=f6e108]: Floating Licenses
+                - generic [ref=f6e109]: Floating-license usage records
+            - button "Floating Configurations Floating-license configuration records" [ref=f6e110] [cursor=pointer]:
+              - generic [ref=f6e114]:
+                - generic [ref=f6e115]: Floating Configurations
+                - generic [ref=f6e116]: Floating-license configuration records
+          - generic [ref=f6e117]:
+            - generic [ref=f6e118]:
+              - generic [ref=f6e119]: 4 records
+              - group "License mode" [ref=f6e120]:
+                - button "Active" [pressed] [ref=f6e121] [cursor=pointer]
+                - button "Deleted" [ref=f6e122] [cursor=pointer]
+              - button "Filters" [ref=f6e123] [cursor=pointer]
+              - button "Export Excel" [ref=f6e127] [cursor=pointer]
+            - generic [ref=f6e347]:
+              - generic [ref=f6e348]: Filters
+              - generic [ref=f6e350]:
+                - generic [ref=f6e351]:
+                  - text: Email
+                  - searchbox "Email" [active] [ref=f6e352]: christian.fuss
+                - generic [ref=f6e353]:
+                  - text: Hardware IDs
+                  - searchbox "Search Hardware IDs" [ref=f6e355]
+                - generic [ref=f6e356]:
+                  - text: Expiration Date
+                  - generic [ref=f6e357]:
+                    - textbox "Expiration Date" [ref=f6e358]
+                    - button "Open calendar" [ref=f6e359] [cursor=pointer]
+                - generic [ref=f6e362]:
+                  - text: Maintenance Date
+                  - generic [ref=f6e363]:
+                    - textbox "Maintenance Date" [ref=f6e364]
+                    - button "Open calendar" [ref=f6e365] [cursor=pointer]
+                - generic [ref=f6e368]:
+                  - text: User Group
+                  - searchbox "Search groups" [ref=f6e370]
+                - generic [ref=f6e371]:
+                  - text: Product Profile
+                  - searchbox "Search profiles" [ref=f6e373]
+                - generic [ref=f6e374]:
+                  - text: Profile Role
+                  - searchbox "Select a profile first" [disabled] [ref=f6e376]
+                - generic [ref=f6e377]:
+                  - text: License Created Date
+                  - generic [ref=f6e378]:
+                    - textbox "License Created Date" [ref=f6e379]
+                    - button "Open calendar" [ref=f6e380] [cursor=pointer]
+                - generic [ref=f6e383]:
+                  - text: License Modified Date
+                  - generic [ref=f6e384]:
+                    - textbox "License Modified Date" [ref=f6e385]
+                    - button "Open calendar" [ref=f6e386] [cursor=pointer]
+              - button "Clear" [ref=f6e390] [cursor=pointer]
+            - generic [ref=f6e391]:
+              - generic [ref=f6e392]:
+                - text: "Email: christian.fuss"
+                - 'button "Remove Email: christian.fuss" [ref=f6e393] [cursor=pointer]'
+              - button "Clear all" [ref=f6e397] [cursor=pointer]
+            - generic [ref=f6e128]:
+              - generic [ref=f6e129]: 4 loaded · 4 total
+              - table [ref=f6e398]:
+                - rowgroup [ref=f6e399]:
+                  - row [ref=f6e400]:
+                    - columnheader "User Group" [ref=f6e401]
+                    - columnheader "Profile" [ref=f6e402]
+                    - columnheader "Role" [ref=f6e403]
+                    - columnheader "Email" [ref=f6e404]
+                    - columnheader "Hardware ID" [ref=f6e405]
+                    - columnheader "License Dates" [ref=f6e406]
+                - rowgroup [ref=f6e407]:
+                  - row [ref=f6e408]:
+                    - cell "AdaptiveAutosar" [ref=f6e409]
+                    - cell "Adaptive Autosar" [ref=f6e410]
+                    - cell "UserRole" [ref=f6e411]
+                    - cell "christian.fuss@kpit.com" [ref=f6e412]
+                    - cell "1836236568" [ref=f6e413]
+                    - 'cell "Exp: 15 Jun 2038 Maint: 14 Dec 2026" [ref=f6e414]':
+                      - generic [ref=f6e415]:
+                        - generic [ref=f6e416]: "Exp: 15 Jun 2038"
+                        - generic [ref=f6e417]: "Maint: 14 Dec 2026"
+                  - row [ref=f6e418]:
+                    - cell "AdaptiveAutosar" [ref=f6e419]
+                    - cell "DatabaseDesigner Floating" [ref=f6e420]
+                    - cell "9.99.999" [ref=f6e421]
+                    - cell "christian.fuss@kpit.com" [ref=f6e422]
+                    - cell "1836236568" [ref=f6e423]
+                    - 'cell "Exp: 17 Aug 2028 Maint: 07 Oct 2026" [ref=f6e424]':
+                      - generic [ref=f6e425]:
+                        - generic [ref=f6e426]: "Exp: 17 Aug 2028"
+                        - generic [ref=f6e427]: "Maint: 07 Oct 2026"
+                  - row [ref=f6e428]:
+                    - cell "AdaptiveAutosar" [ref=f6e429]
+                    - cell "Viessmann DDW Test" [ref=f6e430]
+                    - cell "consumer" [ref=f6e431]
+                    - cell "christian.fuss@kpit.com" [ref=f6e432]
+                    - cell "447928749" [ref=f6e433]
+                    - 'cell "Exp: 16 Oct 2029 Maint: 05 Jul 2028" [ref=f6e434]':
+                      - generic [ref=f6e435]:
+                        - generic [ref=f6e436]: "Exp: 16 Oct 2029"
+                        - generic [ref=f6e437]: "Maint: 05 Jul 2028"
+                  - row [ref=f6e438]:
+                    - cell "AdaptiveAutosar" [ref=f6e439]
+                    - cell "Autosar 2" [ref=f6e440]
+                    - cell "UserRole" [ref=f6e441]
+                    - cell "christian.fuss@futomotive.com" [ref=f6e442]
+                    - cell "1106263694" [ref=f6e443]
+                    - 'cell "Exp: 31 Dec 2021 Maint: 31 Dec 2021" [ref=f6e444]':
+                      - generic [ref=f6e445]:
+                        - generic [ref=f6e446]: "Exp: 31 Dec 2021"
+                        - generic [ref=f6e447]: "Maint: 31 Dec 2021"
+              - paragraph [ref=f6e448]: All 4 records loaded
+      - contentinfo [ref=f6e341]:
+        - paragraph [ref=f6e344]: © KPIT Technologies Ltd. All rights reserved.

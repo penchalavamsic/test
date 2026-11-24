@@ -1,0 +1,242 @@
+- generic [ref=f3e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f3e177]:
+    - list [ref=f3e185]:
+      - listitem [ref=f3e186]:
+        - button [ref=f3e187] [cursor=pointer]
+      - listitem [ref=f3e191]:
+        - link [ref=f3e192] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f3e198]:
+        - link [ref=f3e199] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f3e205]:
+        - link [ref=f3e206] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f3e210]:
+        - link [ref=f3e211] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f3e215]:
+        - link [ref=f3e216] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f3e220]:
+        - link [ref=f3e221] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f3e226]:
+        - link [ref=f3e227] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f3e232]:
+        - link [ref=f3e233] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f3e236]:
+        - link [ref=f3e237] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f3e241]:
+        - link [ref=f3e242] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f3e246]:
+        - link [ref=f3e247] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f3e251]:
+      - banner [ref=f3e252]:
+        - img "Logo" [ref=f3e254]
+        - generic [ref=f3e255]:
+          - button [ref=f3e256] [cursor=pointer]
+          - button [ref=f3e257] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f3e258] [cursor=pointer]:
+            - generic [ref=f3e259]: as
+            - generic [ref=f3e260]: aravi.s@kpit.com
+      - main [ref=f3e261]:
+        - generic [ref=f3e263]:
+          - heading "System Users" [level=1] [ref=f3e265]
+          - generic [ref=f3e266]:
+            - generic [ref=f3e267]:
+              - textbox "Search system users..." [ref=f3e269]
+              - combobox [ref=f3e282] [cursor=pointer]:
+                - generic "Profiles" [ref=f3e283]
+              - combobox "Filter by user groups" [ref=f3e851] [cursor=pointer]:
+                - generic "User Groups" [ref=f3e852]
+              - button "Clear All" [disabled]
+            - generic [ref=f3e284]: Showing 55 of 55 system users
+          - generic [ref=f3e286]:
+            - table [ref=f3e289]:
+              - rowgroup [ref=f3e290]:
+                - row [ref=f3e291]:
+                  - columnheader "Name" [ref=f3e292]
+                  - columnheader "Email" [ref=f3e295]
+                  - columnheader "User Groups" [ref=f3e298]
+                  - columnheader "Profiles" [ref=f3e301]
+                  - columnheader "Actions" [ref=f3e304]
+              - rowgroup [ref=f3e307]:
+                - row [ref=f3e308]:
+                  - cell "Administrator" [ref=f3e309]
+                  - cell "Default-User" [ref=f3e312]
+                  - cell "LIMAS-Root-Group" [ref=f3e315]:
+                    - generic "LIMAS-Root-Group" [ref=f3e2269]
+                  - cell "No profiles" [ref=f3e319]
+                  - cell [ref=f3e323]:
+                    - button "Edit admin" [ref=f3e2275] [cursor=pointer]
+                - row [ref=f3e327]:
+                  - cell "sedfgwefpoi3ldowe" [ref=f3e328]
+                  - cell "Not provided" [ref=f3e331]
+                  - cell "LIMAS-Root-Group" [ref=f3e334]:
+                    - generic "LIMAS-Root-Group" [ref=f3e2282]
+                  - cell "No profiles" [ref=f3e338]
+                  - cell [ref=f3e342]:
+                    - button "Edit sedfgwefpoi3ldowe" [ref=f3e2288] [cursor=pointer]
+                - row [ref=f3e2036]:
+                  - cell "Tina Bokor" [ref=f3e347]
+                  - cell "tina.bokor@kpit.com" [ref=f3e350]
+                  - cell "MicroFuzzy AGCO1 Show 4 more user groups" [ref=f3e2041]:
+                    - generic [ref=f3e2294]:
+                      - generic "MicroFuzzy" [ref=f3e2295]
+                      - generic "AGCO1" [ref=f3e2296]
+                      - button "Show 4 more user groups" [ref=f3e2297] [cursor=pointer]: "+4"
+                  - cell "No profiles" [ref=f3e359]
+                  - cell [ref=f3e363]:
+                    - button "Edit TinaB" [ref=f3e2303] [cursor=pointer]
+                - row [ref=f3e367]:
+                  - cell "Stefan Zeppetzauer" [ref=f3e368]
+                  - cell "stefan.zeppetzauer@kpit.com" [ref=f3e371]
+                  - cell "AGCO1 Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241 Show 2 more user groups" [ref=f3e374]:
+                    - generic [ref=f3e2309]:
+                      - generic "AGCO1" [ref=f3e2310]
+                      - generic "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241" [ref=f3e2311]
+                      - button "Show 2 more user groups" [ref=f3e2312] [cursor=pointer]: "+2"
+                  - cell "No profiles" [ref=f3e380]
+                  - cell [ref=f3e384]:
+                    - button "Edit StefanZ" [ref=f3e2318] [cursor=pointer]
+                - row [ref=f3e388]:
+                  - cell "Vladimir Arsov" [ref=f3e389]
+                  - cell "vladimir.arsov@kpit.com" [ref=f3e392]
+                  - cell "KPIT Default" [ref=f3e395]:
+                    - generic [ref=f3e2324]:
+                      - generic "KPIT" [ref=f3e2325]
+                      - generic "Default" [ref=f3e2326]
+                  - cell "No profiles" [ref=f3e400]
+                  - cell [ref=f3e404]:
+                    - button "Edit vladimir" [ref=f3e2332] [cursor=pointer]
+                - row [ref=f3e408]:
+                  - cell "Amit H" [ref=f3e409]
+                  - cell "amith3@kpit.com" [ref=f3e412]
+                  - cell "License Library Junit Test AGCO1 Show 5 more user groups" [ref=f3e415]:
+                    - generic [ref=f3e2338]:
+                      - generic "License Library Junit Test" [ref=f3e2339]
+                      - generic "AGCO1" [ref=f3e2340]
+                      - button "Show 5 more user groups" [ref=f3e2341] [cursor=pointer]: "+5"
+                  - cell "GM Ebike Service Tool OTX-Authoring Show 32 more profiles" [ref=f3e421]:
+                    - generic [ref=f3e2343]:
+                      - generic "GM Ebike Service Tool" [ref=f3e2344]
+                      - generic "OTX-Authoring" [ref=f3e2345]
+                      - button "Show 32 more profiles" [ref=f3e2346] [cursor=pointer]: "+32"
+                  - cell [ref=f3e427]:
+                    - button "Edit amit" [ref=f3e2349] [cursor=pointer]
+                - row [ref=f3e431]:
+                  - cell "Boris Safin" [ref=f3e432]
+                  - cell "boris.safin@kpit.com" [ref=f3e435]
+                  - cell "KPIT" [ref=f3e438]:
+                    - generic "KPIT" [ref=f3e2356]
+                  - cell "No profiles" [ref=f3e442]
+                  - cell [ref=f3e446]:
+                    - button "Edit boriss" [ref=f3e2362] [cursor=pointer]
+                - row [ref=f3e450]:
+                  - cell "Test1" [ref=f3e451]
+                  - cell "test1@kpit.com" [ref=f3e454]
+                  - cell "Default" [ref=f3e457]:
+                    - generic "Default" [ref=f3e2369]
+                  - cell "No profiles" [ref=f3e461]
+                  - cell [ref=f3e465]:
+                    - button "Edit Test1" [ref=f3e2375] [cursor=pointer]
+                - row [ref=f3e469]:
+                  - cell "Matthias Ziegel" [ref=f3e470]
+                  - cell "matthias.ziegel@kpit.com" [ref=f3e473]
+                  - cell "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241 KPIT Show 2 more user groups" [ref=f3e476]:
+                    - generic [ref=f3e2381]:
+                      - generic "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241" [ref=f3e2382]
+                      - generic "KPIT" [ref=f3e2383]
+                      - button "Show 2 more user groups" [ref=f3e2384] [cursor=pointer]: "+2"
+                  - cell "No profiles" [ref=f3e482]
+                  - cell [ref=f3e486]:
+                    - button "Edit matthiasz" [ref=f3e2390] [cursor=pointer]
+                - row [ref=f3e490]:
+                  - cell "Sebastian Frieser" [ref=f3e491]
+                  - cell "sebastian.frieser@kpit.com" [ref=f3e494]
+                  - cell "APAC MicroFuzzy Show 12 more user groups" [ref=f3e497]:
+                    - generic [ref=f3e2396]:
+                      - generic "APAC" [ref=f3e2397]
+                      - generic "MicroFuzzy" [ref=f3e2398]
+                      - button "Show 12 more user groups" [ref=f3e2399] [cursor=pointer]: "+12"
+                  - cell "CI-CD Test Runner GM Ebike Service Tool Show 61 more profiles" [ref=f3e503]:
+                    - generic [ref=f3e2401]:
+                      - generic "CI-CD Test Runner" [ref=f3e2402]
+                      - generic "GM Ebike Service Tool" [ref=f3e2403]
+                      - button "Show 61 more profiles" [ref=f3e2404] [cursor=pointer]: "+61"
+                  - cell [ref=f3e509]:
+                    - button "Edit SebastianF" [ref=f3e2407] [cursor=pointer]
+                - row [ref=f3e513]:
+                  - cell "Bartosz Cichowicz" [ref=f3e514]
+                  - cell "bartosz.cichowicz@kpit.com" [ref=f3e517]
+                  - cell "AGCO-Evaluation KPIT Pune Show 10 more user groups" [ref=f3e520]:
+                    - generic [ref=f3e2413]:
+                      - generic "AGCO-Evaluation" [ref=f3e2414]
+                      - generic "KPIT Pune" [ref=f3e2415]
+                      - button "Show 10 more user groups" [ref=f3e2416] [cursor=pointer]: "+10"
+                  - cell "No profiles" [ref=f3e526]
+                  - cell [ref=f3e530]:
+                    - button "Edit bartoszc" [ref=f3e2422] [cursor=pointer]
+                - row [ref=f3e534]:
+                  - cell "Swathi Prasad" [ref=f3e535]
+                  - cell "swathi.prasad@kpit.com" [ref=f3e538]
+                  - cell "KPIT Pune MicroFuzzy Show 12 more user groups" [ref=f3e541]:
+                    - generic [ref=f3e2428]:
+                      - generic "KPIT Pune" [ref=f3e2429]
+                      - generic "MicroFuzzy" [ref=f3e2430]
+                      - button "Show 12 more user groups" [ref=f3e2431] [cursor=pointer]: "+12"
+                  - cell "OTX-Authoring floating GM eBike EOL Show 9 more profiles" [ref=f3e547]:
+                    - generic [ref=f3e2433]:
+                      - generic "OTX-Authoring floating" [ref=f3e2434]
+                      - generic "GM eBike EOL" [ref=f3e2435]
+                      - button "Show 9 more profiles" [ref=f3e2436] [cursor=pointer]: "+9"
+                  - cell [ref=f3e553]:
+                    - button "Edit swathiprasad" [ref=f3e2439] [cursor=pointer]
+                - row [ref=f3e557]:
+                  - cell "Prakash Patil" [ref=f3e558]
+                  - cell "prakash.patil@kpit.com" [ref=f3e561]
+                  - cell "MicroFuzzy AGCO1 Show 5 more user groups" [ref=f3e564]:
+                    - generic [ref=f3e2445]:
+                      - generic "MicroFuzzy" [ref=f3e2446]
+                      - generic "AGCO1" [ref=f3e2447]
+                      - button "Show 5 more user groups" [ref=f3e2448] [cursor=pointer]: "+5"
+                  - cell "ECU Comparator Floating Service Tester Show 20 more profiles" [ref=f3e570]:
+                    - generic [ref=f3e2450]:
+                      - generic "ECU Comparator Floating" [ref=f3e2451]
+                      - generic "Service Tester" [ref=f3e2452]
+                      - button "Show 20 more profiles" [ref=f3e2453] [cursor=pointer]: "+20"
+                  - cell [ref=f3e576]:
+                    - button "Edit prakashp" [ref=f3e2456] [cursor=pointer]
+                - row [ref=f3e580]:
+                  - cell "Tina Bok" [ref=f3e581]
+                  - cell "tina.bokor@googlemail.com" [ref=f3e584]
+                  - cell "MicroFuzzy AGCO1 Show 4 more user groups" [ref=f3e587]:
+                    - generic [ref=f3e2462]:
+                      - generic "MicroFuzzy" [ref=f3e2463]
+                      - generic "AGCO1" [ref=f3e2464]
+                      - button "Show 4 more user groups" [ref=f3e2465] [cursor=pointer]: "+4"
+                  - cell "No profiles" [ref=f3e593]
+                  - cell [ref=f3e597]:
+                    - button "Edit Tina_alt" [ref=f3e2471] [cursor=pointer]
+                - row [ref=f3e601]:
+                  - cell "Test Test" [ref=f3e602]
+                  - cell "test@test.com" [ref=f3e605]
+                  - cell "LIMAS-Root-Group Default" [ref=f3e608]:
+                    - generic [ref=f3e2477]:
+                      - generic "LIMAS-Root-Group" [ref=f3e2478]
+                      - generic "Default" [ref=f3e2479]
+                  - cell "No profiles" [ref=f3e613]
+                  - cell [ref=f3e617]:
+                    - button "Edit test" [ref=f3e2485] [cursor=pointer]
+            - generic [ref=f3e621]: Showing 15 of 55
+      - contentinfo [ref=f3e278]:
+        - paragraph [ref=f3e281]: © KPIT Technologies Ltd. All rights reserved.

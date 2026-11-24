@@ -1,0 +1,113 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic [aria-hidden]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /system-user-dashboard
+                      - listitem:
+                        - link:
+                          - /url: /users-licenses
+                      - listitem:
+                        - link:
+                          - /url: /reports
+                      - listitem:
+                        - link:
+                          - /url: /floating-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /standard-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /features
+                      - listitem:
+                        - link:
+                          - /url: /profiles
+                      - listitem:
+                        - link:
+                          - /url: /groups
+                      - listitem:
+                        - link:
+                          - /url: /system-users
+                      - listitem:
+                        - link:
+                          - /url: /server-licensing
+                      - listitem:
+                        - link:
+                          - /url: /server-license-import
+        - generic:
+          - banner:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+                - generic: aravi.s@kpit.com
+          - main:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: Floating License Configurations
+                - button: Back
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - paragraph: User Group
+                        - paragraph: float and stand
+                    - generic:
+                      - generic:
+                        - checkbox [disabled]
+                        - generic: Include subgroups
+                      - button: Change Group
+                - generic:
+                  - generic:
+                    - paragraph: 1 configuration
+                  - button
+                  - button
+                  - generic:
+                    - button
+                  - button: Create Configuration
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox
+                      - generic:
+                        - paragraph: DatabaseDesigner
+                        - paragraph: 9.99.999
+                        - paragraph: float and stand
+                      - button
+                    - generic:
+                      - generic:
+                        - paragraph: Capacity
+                        - paragraph: 10 total · 10 available
+                      - generic:
+                        - paragraph: Checkout
+                        - paragraph: Available · 3h max
+                      - generic:
+                        - paragraph: Expiration
+                        - paragraph: 31 Dec 2027
+                      - generic:
+                        - paragraph: Maintenance
+                        - paragraph: 31 Dec 2027
+                - paragraph: All 1 configurations loaded.
+          - contentinfo:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - menu "Actions for DatabaseDesigner" [active] [ref=f2e612]:
+    - menuitem "View details for DatabaseDesigner" [ref=f2e613]: View Details
+    - menuitem "Edit" [ref=f2e614]
+    - separator [ref=f2e615]
+    - menuitem "Delete" [ref=f2e616]

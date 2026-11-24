@@ -1,0 +1,204 @@
+- generic [ref=f11e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f11e4]:
+    - list [ref=f11e12]:
+      - listitem [ref=f11e13]:
+        - button [ref=f11e14] [cursor=pointer]
+      - listitem [ref=f11e18]:
+        - link [ref=f11e19] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f11e25]:
+        - link [ref=f11e26] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f11e32]:
+        - link [ref=f11e33] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f11e37]:
+        - link [ref=f11e38] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f11e42]:
+        - link [ref=f11e43] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f11e47]:
+        - link [ref=f11e48] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f11e53]:
+        - link [ref=f11e54] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f11e59]:
+        - link [ref=f11e60] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f11e63]:
+        - link [ref=f11e64] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f11e68]:
+        - link [ref=f11e69] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f11e73]:
+        - link [ref=f11e74] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f11e78]:
+      - banner [ref=f11e79]:
+        - img "Logo" [ref=f11e81]
+        - generic [ref=f11e82]:
+          - button [ref=f11e83] [cursor=pointer]
+          - button [ref=f11e84] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f11e85] [cursor=pointer]:
+            - generic [ref=f11e86]: as
+            - generic [ref=f11e87]: aravi.s@kpit.com
+      - main [ref=f11e88]:
+        - generic [ref=f11e90]:
+          - generic [ref=f11e91]:
+            - generic [ref=f11e94]:
+              - generic [ref=f11e96]:
+                - generic [ref=f11e97]:
+                  - heading "Server License Management" [level=1] [ref=f11e98]
+                  - paragraph [ref=f11e99]: View and manage server license information.
+                - generic [ref=f11e100]:
+                  - button "Filters" [ref=f11e101] [cursor=pointer]
+                  - button "Add Customer" [ref=f11e102] [cursor=pointer]
+              - generic [ref=f11e104]:
+                - generic [ref=f11e105]: Server License
+                - combobox "Filter by Server License" [ref=f11e106] [cursor=pointer]:
+                  - generic [ref=f11e107]: All Server Licenses
+            - button "Collapse server license overview" [expanded] [ref=f11e109] [cursor=pointer]
+          - generic [ref=f11e110]:
+            - generic [ref=f11e111]:
+              - generic [ref=f11e114]:
+                - generic [ref=f11e120]:
+                  - paragraph [ref=f11e121]: AGCO Test Server License
+                  - paragraph [ref=f11e122]: Server license information
+                - generic [ref=f11e123]: Full License
+                - generic [ref=f11e125]:
+                  - button "Create Server License" [ref=f11e126] [cursor=pointer]
+                  - button "Edit Customer" [ref=f11e127] [cursor=pointer]
+                  - button "Delete Customer" [ref=f11e128] [cursor=pointer]
+                  - button "Expand section" [ref=f11e129] [cursor=pointer]
+              - generic [ref=f11e131]:
+                - generic [ref=f11e132]:
+                  - generic [ref=f11e138]:
+                    - paragraph [ref=f11e139]: BRP QA Server
+                    - paragraph [ref=f11e140]: Server license information
+                  - generic [ref=f11e141]: Full License
+                  - generic [ref=f11e143]:
+                    - button "Create Server License" [ref=f11e144] [cursor=pointer]
+                    - button "Edit Customer" [ref=f11e145] [cursor=pointer]
+                    - button "Delete Customer" [ref=f11e146] [cursor=pointer]
+                    - button "Collapse section" [expanded] [ref=f11e220] [cursor=pointer]
+                - generic [ref=f11e221]:
+                  - generic [ref=f11e222]:
+                    - generic [ref=f11e223]:
+                      - button "Standard 0" [ref=f11e224] [cursor=pointer]:
+                        - text: Standard
+                        - generic [ref=f11e225]: "0"
+                      - button "Floating 2" [active] [ref=f11e226] [cursor=pointer]:
+                        - text: Floating
+                        - generic [ref=f11e227]: "2"
+                    - button "Create Floating License" [ref=f11e231] [cursor=pointer]
+                  - generic [ref=f11e232]:
+                    - generic [ref=f11e235]:
+                      - generic [ref=f11e236]:
+                        - generic [ref=f11e237]:
+                          - generic [ref=f11e238]: Floating License
+                          - generic [ref=f11e239]:
+                            - button "Edit Floating License" [ref=f11e240] [cursor=pointer]
+                            - button "Delete Floating License" [ref=f11e244] [cursor=pointer]
+                        - heading "Authoring Suite 2" [level=3] [ref=f11e248]
+                      - generic [ref=f11e249]:
+                        - generic [ref=f11e250]:
+                          - paragraph [ref=f11e251]: Profile Role
+                          - paragraph [ref=f11e252]: 2020-R2
+                        - generic [ref=f11e253]:
+                          - paragraph [ref=f11e254]: Group
+                          - paragraph [ref=f11e255]: QA Import
+                        - generic [ref=f11e260]:
+                          - paragraph [ref=f11e261]: Licenses
+                          - paragraph [ref=f11e262]: "10"
+                        - generic [ref=f11e263]:
+                          - paragraph [ref=f11e264]: Max Checkout
+                          - paragraph [ref=f11e265]: 2h
+                      - generic [ref=f11e266]: Checkout unavailable
+                      - generic [ref=f11e267]:
+                        - generic [ref=f11e268]:
+                          - paragraph [ref=f11e269]: Maintenance
+                          - paragraph [ref=f11e270]: 28 Apr 2024
+                        - generic [ref=f11e271]:
+                          - paragraph [ref=f11e272]: Expiration
+                          - paragraph [ref=f11e273]: 28 Apr 2024
+                    - generic [ref=f11e276]:
+                      - generic [ref=f11e277]:
+                        - generic [ref=f11e278]:
+                          - generic [ref=f11e279]: Floating License
+                          - generic [ref=f11e280]:
+                            - button "Edit Floating License" [ref=f11e281] [cursor=pointer]
+                            - button "Delete Floating License" [ref=f11e285] [cursor=pointer]
+                        - heading "STIHL EOL Tester" [level=3] [ref=f11e289]
+                      - generic [ref=f11e290]:
+                        - generic [ref=f11e291]:
+                          - paragraph [ref=f11e292]: Profile Role
+                          - paragraph [ref=f11e293]: manager
+                        - generic [ref=f11e294]:
+                          - paragraph [ref=f11e295]: Group
+                          - paragraph [ref=f11e296]: QA Import
+                        - generic [ref=f11e301]:
+                          - paragraph [ref=f11e302]: Licenses
+                          - paragraph [ref=f11e303]: "10"
+                        - generic [ref=f11e304]:
+                          - paragraph [ref=f11e305]: Max Checkout
+                          - paragraph [ref=f11e306]: 2h
+                      - generic [ref=f11e307]: Checkout unavailable
+                      - generic [ref=f11e308]:
+                        - generic [ref=f11e309]:
+                          - paragraph [ref=f11e310]: Maintenance
+                          - paragraph [ref=f11e311]: 28 Apr 2024
+                        - generic [ref=f11e312]:
+                          - paragraph [ref=f11e313]: Expiration
+                          - paragraph [ref=f11e314]: 28 Apr 2024
+              - generic [ref=f11e150]:
+                - generic [ref=f11e156]:
+                  - paragraph [ref=f11e157]: CARIAD_Germany
+                  - paragraph [ref=f11e158]: Server license information
+                - generic [ref=f11e159]: Full License
+                - generic [ref=f11e161]:
+                  - button "Create Server License" [ref=f11e162] [cursor=pointer]
+                  - button "Edit Customer" [ref=f11e163] [cursor=pointer]
+                  - button "Delete Customer" [ref=f11e164] [cursor=pointer]
+                  - button "Expand section" [ref=f11e165] [cursor=pointer]
+              - generic [ref=f11e168]:
+                - generic [ref=f11e174]:
+                  - paragraph [ref=f11e175]: Catapult test
+                  - paragraph [ref=f11e176]: Server license information
+                - generic [ref=f11e177]: Full License
+                - generic [ref=f11e179]:
+                  - button "Create Server License" [ref=f11e180] [cursor=pointer]
+                  - button "Edit Customer" [ref=f11e181] [cursor=pointer]
+                  - button "Delete Customer" [ref=f11e182] [cursor=pointer]
+                  - button "Expand section" [ref=f11e183] [cursor=pointer]
+              - generic [ref=f11e186]:
+                - generic [ref=f11e192]:
+                  - paragraph [ref=f11e193]: CLAAS_Germany
+                  - paragraph [ref=f11e194]: Server license information
+                - generic [ref=f11e195]: Full License
+                - generic [ref=f11e197]:
+                  - button "Create Server License" [ref=f11e198] [cursor=pointer]
+                  - button "Edit Customer" [ref=f11e199] [cursor=pointer]
+                  - button "Delete Customer" [ref=f11e200] [cursor=pointer]
+                  - button "Expand section" [ref=f11e201] [cursor=pointer]
+            - generic [ref=f11e202]:
+              - paragraph [ref=f11e203]: Showing 1–5 of 24 Server Licenses
+              - generic [ref=f11e204]:
+                - button "Previous" [disabled]
+                - button "1" [ref=f11e205] [cursor=pointer]
+                - button "2" [ref=f11e206] [cursor=pointer]
+                - button "3" [ref=f11e207] [cursor=pointer]
+                - button "4" [ref=f11e208] [cursor=pointer]
+                - button "5" [ref=f11e209] [cursor=pointer]
+                - button "Next" [ref=f11e210] [cursor=pointer]
+              - generic [ref=f11e211]:
+                - generic [ref=f11e212]: "Page size:"
+                - combobox [ref=f11e213] [cursor=pointer]:
+                  - generic: "5"
+      - contentinfo [ref=f11e216]:
+        - paragraph [ref=f11e219]: © KPIT Technologies Ltd. All rights reserved.

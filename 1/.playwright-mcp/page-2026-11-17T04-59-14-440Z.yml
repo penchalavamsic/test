@@ -1,0 +1,165 @@
+- generic [ref=f3e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f3e177]:
+    - list [ref=f3e185]:
+      - listitem [ref=f3e186]:
+        - button [ref=f3e187] [cursor=pointer]
+      - listitem [ref=f3e191]:
+        - link [ref=f3e192] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f3e198]:
+        - link [ref=f3e199] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f3e205]:
+        - link [ref=f3e206] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f3e210]:
+        - link [ref=f3e211] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f3e215]:
+        - link [ref=f3e216] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f3e220]:
+        - link [ref=f3e221] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f3e226]:
+        - link [ref=f3e227] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f3e232]:
+        - link [ref=f3e233] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f3e236]:
+        - link [ref=f3e237] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f3e241]:
+        - link [ref=f3e242] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f3e246]:
+        - link [ref=f3e247] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f3e251]:
+      - banner [ref=f3e252]:
+        - img "Logo" [ref=f3e254]
+        - generic [ref=f3e255]:
+          - button [ref=f3e256] [cursor=pointer]
+          - button [ref=f3e257] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f3e258] [cursor=pointer]:
+            - generic [ref=f3e259]: as
+            - generic [ref=f3e260]: aravi.s@kpit.com
+      - main [ref=f3e261]:
+        - generic [ref=f3e263]:
+          - heading "Floating License Configurations" [level=1] [ref=f3e265]
+          - button "Back to User Group selection" [ref=f3e3735] [cursor=pointer]: Back
+          - generic [ref=f3e3737]:
+            - generic [ref=f3e3745]:
+              - paragraph [ref=f3e3746]: User Group
+              - paragraph [ref=f3e3747]: KPIT-Testing
+            - generic [ref=f3e3748]:
+              - generic [ref=f3e3749]:
+                - checkbox "Include subgroups" [disabled] [ref=f3e3750]
+                - generic [ref=f3e3751]: Include subgroups
+              - button "Change Group" [ref=f3e3752] [cursor=pointer]
+          - generic [ref=f3e3753]:
+            - paragraph [ref=f3e3755]: 4 configurations
+            - button "Search" [ref=f3e3756] [cursor=pointer]
+            - button "Filters" [ref=f3e3757] [cursor=pointer]
+            - button "Refresh" [ref=f3e3759] [cursor=pointer]
+            - button "Create Configuration" [ref=f3e3760] [cursor=pointer]
+          - generic [ref=f3e3847]:
+            - generic [ref=f3e3848]: 1 selected
+            - generic [ref=f3e3849]:
+              - button "Select loaded" [ref=f3e3850] [cursor=pointer]
+              - button "Clear" [ref=f3e3851] [cursor=pointer]
+              - button "Dates" [ref=f3e3852] [cursor=pointer]
+              - button "Capacity" [ref=f3e3853] [cursor=pointer]
+              - button "Delete" [ref=f3e3854] [cursor=pointer]
+          - generic [ref=f3e3761]:
+            - generic [ref=f3e3762]:
+              - generic [ref=f3e3763]:
+                - checkbox "Select Diagnostic Communicator" [checked] [active] [ref=f3e3764] [cursor=pointer]
+                - generic [ref=f3e3765]:
+                  - paragraph [ref=f3e3766]: Diagnostic Communicator
+                  - paragraph [ref=f3e3767]: "1.5"
+                  - paragraph [ref=f3e3768]: KPIT-Testing
+                - button "Actions for Diagnostic Communicator" [ref=f3e3769] [cursor=pointer]
+              - generic [ref=f3e3770]:
+                - generic [ref=f3e3771]:
+                  - paragraph [ref=f3e3772]: Capacity
+                  - paragraph [ref=f3e3773]: 0 total · 0 available
+                - generic [ref=f3e3774]:
+                  - paragraph [ref=f3e3775]: Checkout
+                  - paragraph [ref=f3e3776]: Unavailable · 2h max
+                - generic [ref=f3e3777]:
+                  - paragraph [ref=f3e3778]: Expiration
+                  - paragraph [ref=f3e3779]: 31 Dec 2099
+                - generic [ref=f3e3780]:
+                  - paragraph [ref=f3e3781]: Maintenance
+                  - paragraph [ref=f3e3782]: 31 Dec 2099
+            - generic [ref=f3e3783]:
+              - generic [ref=f3e3784]:
+                - checkbox "Select Authoring Suite 2" [ref=f3e3785] [cursor=pointer]
+                - generic [ref=f3e3786]:
+                  - paragraph [ref=f3e3787]: Authoring Suite 2
+                  - paragraph [ref=f3e3788]: Intern
+                  - paragraph [ref=f3e3789]: KPIT-Testing
+                - button "Actions for Authoring Suite 2" [ref=f3e3790] [cursor=pointer]
+              - generic [ref=f3e3791]:
+                - generic [ref=f3e3792]:
+                  - paragraph [ref=f3e3793]: Capacity
+                  - paragraph [ref=f3e3794]: 0 total · 0 available
+                - generic [ref=f3e3795]:
+                  - paragraph [ref=f3e3796]: Checkout
+                  - paragraph [ref=f3e3797]: Unavailable · 2h max
+                - generic [ref=f3e3798]:
+                  - paragraph [ref=f3e3799]: Expiration
+                  - paragraph [ref=f3e3800]: 31 Dec 2099
+                - generic [ref=f3e3801]:
+                  - paragraph [ref=f3e3802]: Maintenance
+                  - paragraph [ref=f3e3803]: 31 Dec 2099
+            - generic [ref=f3e3804]:
+              - generic [ref=f3e3805]:
+                - checkbox "Select DatabaseDesigner" [ref=f3e3806] [cursor=pointer]
+                - generic [ref=f3e3807]:
+                  - paragraph [ref=f3e3808]: DatabaseDesigner
+                  - paragraph [ref=f3e3809]: Intern
+                  - paragraph [ref=f3e3810]: KPIT-Testing
+                - button "Actions for DatabaseDesigner" [ref=f3e3811] [cursor=pointer]
+              - generic [ref=f3e3812]:
+                - generic [ref=f3e3813]:
+                  - paragraph [ref=f3e3814]: Capacity
+                  - paragraph [ref=f3e3815]: 0 total · 0 available
+                - generic [ref=f3e3816]:
+                  - paragraph [ref=f3e3817]: Checkout
+                  - paragraph [ref=f3e3818]: Unavailable · 2h max
+                - generic [ref=f3e3819]:
+                  - paragraph [ref=f3e3820]: Expiration
+                  - paragraph [ref=f3e3821]: 31 Dec 2099
+                - generic [ref=f3e3822]:
+                  - paragraph [ref=f3e3823]: Maintenance
+                  - paragraph [ref=f3e3824]: 31 Dec 2099
+            - generic [ref=f3e3825]:
+              - generic [ref=f3e3826]:
+                - checkbox "Select DatabaseDesigner NG" [ref=f3e3827] [cursor=pointer]
+                - generic [ref=f3e3828]:
+                  - paragraph [ref=f3e3829]: DatabaseDesigner NG
+                  - paragraph [ref=f3e3830]: Intern
+                  - paragraph [ref=f3e3831]: KPIT-Testing
+                - button "Actions for DatabaseDesigner NG" [ref=f3e3832] [cursor=pointer]
+              - generic [ref=f3e3833]:
+                - generic [ref=f3e3834]:
+                  - paragraph [ref=f3e3835]: Capacity
+                  - paragraph [ref=f3e3836]: 0 total · 0 available
+                - generic [ref=f3e3837]:
+                  - paragraph [ref=f3e3838]: Checkout
+                  - paragraph [ref=f3e3839]: Unavailable · 2h max
+                - generic [ref=f3e3840]:
+                  - paragraph [ref=f3e3841]: Expiration
+                  - paragraph [ref=f3e3842]: 31 Dec 2099
+                - generic [ref=f3e3843]:
+                  - paragraph [ref=f3e3844]: Maintenance
+                  - paragraph [ref=f3e3845]: 31 Dec 2099
+          - paragraph [ref=f3e3846]: All 4 configurations loaded.
+      - contentinfo [ref=f3e286]:
+        - paragraph [ref=f3e289]: © KPIT Technologies Ltd. All rights reserved.

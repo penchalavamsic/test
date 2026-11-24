@@ -1,0 +1,73 @@
+- generic [ref=f8e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f8e172]:
+    - list [ref=f8e180]:
+      - listitem [ref=f8e181]:
+        - button [ref=f8e182] [cursor=pointer]
+      - listitem [ref=f8e186]:
+        - link [ref=f8e187] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f8e193]:
+        - link [ref=f8e194] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f8e200]:
+        - link [ref=f8e201] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f8e205]:
+        - link [ref=f8e206] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f8e210]:
+        - link [ref=f8e211] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f8e215]:
+        - link [ref=f8e216] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f8e221]:
+        - link [ref=f8e222] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f8e227]:
+        - link [ref=f8e228] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f8e231]:
+        - link [ref=f8e232] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f8e236]:
+        - link [ref=f8e237] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f8e241]:
+        - link [ref=f8e242] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f8e246]:
+      - banner [ref=f8e247]:
+        - img "Logo" [ref=f8e249]
+        - generic [ref=f8e250]:
+          - button [ref=f8e251] [cursor=pointer]
+          - button [ref=f8e252] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f8e253] [cursor=pointer]:
+            - generic [ref=f8e254]: as
+            - generic [ref=f8e255]: aravi.s@kpit.com
+      - main [ref=f8e256]:
+        - generic [ref=f8e258]:
+          - heading "Floating License Configurations" [level=1] [ref=f8e260]
+          - generic [ref=f8e261]:
+            - generic [ref=f8e262]:
+              - generic [ref=f8e263]:
+                - paragraph [ref=f8e264]: Select a User Group
+                - paragraph [ref=f8e265]: Choose a group to view its Floating License Configurations.
+              - generic [ref=f8e266]:
+                - textbox "Search groups" [active] [ref=f8e267]: KPIT-Testing
+                - button "Clear" [ref=f8e1980] [cursor=pointer]
+              - generic [ref=f8e268]:
+                - button "Expand All" [ref=f8e269] [cursor=pointer]
+                - button "Collapse All" [ref=f8e270] [cursor=pointer]
+            - tree "User Groups" [ref=f8e271]:
+              - button "Expand KPIT-Testing" [ref=f8e1326] [cursor=pointer]:
+                - button "Expand"
+                - generic [ref=f8e1329]: KPIT-Testing
+          - generic [ref=f8e273]:
+            - paragraph [ref=f8e279]: Select a User Group to continue
+            - paragraph [ref=f8e280]: Choose a Group above to view and manage its floating configurations.
+      - contentinfo [ref=f8e281]:
+        - paragraph [ref=f8e284]: © KPIT Technologies Ltd. All rights reserved.

@@ -1,0 +1,157 @@
+- generic [ref=f9e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f9e8]:
+    - list [ref=f9e16]:
+      - listitem [ref=f9e17]:
+        - button [ref=f9e18] [cursor=pointer]
+      - listitem [ref=f9e22]:
+        - link [ref=f9e23] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f9e29]:
+        - link [ref=f9e30] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f9e36]:
+        - link [ref=f9e37] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f9e41]:
+        - link [ref=f9e42] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f9e46]:
+        - link [ref=f9e47] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f9e51]:
+        - link [ref=f9e52] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f9e57]:
+        - link [ref=f9e58] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f9e63]:
+        - link [ref=f9e64] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f9e67]:
+        - link [ref=f9e68] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f9e72]:
+        - link [ref=f9e73] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f9e77]:
+        - link [ref=f9e78] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f9e82]:
+      - banner [ref=f9e83]:
+        - img "Logo" [ref=f9e85]
+        - generic [ref=f9e86]:
+          - button [ref=f9e87] [cursor=pointer]
+          - button [ref=f9e88] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f9e89] [cursor=pointer]:
+            - generic [ref=f9e90]: as
+            - generic [ref=f9e91]: aravi.s@kpit.com
+      - main [ref=f9e92]:
+        - generic [ref=f9e115]:
+          - generic [ref=f9e116]:
+            - generic [ref=f9e119]:
+              - generic [ref=f9e121]:
+                - generic [ref=f9e122]:
+                  - heading "Server License Management" [level=1] [ref=f9e123]
+                  - paragraph [ref=f9e124]: View and manage server license information.
+                - generic [ref=f9e125]:
+                  - button "Filters" [ref=f9e126] [cursor=pointer]
+                  - button "Add Customer" [ref=f9e127] [cursor=pointer]
+              - generic [ref=f9e129]:
+                - generic [ref=f9e130]: Server License
+                - combobox "Filter by Server License" [ref=f9e131] [cursor=pointer]:
+                  - generic [ref=f9e132]: All Server Licenses
+              - generic [ref=f9e242]:
+                - generic [ref=f9e248]:
+                  - paragraph [ref=f9e249]: AATestCustomer
+                  - paragraph [ref=f9e250]: Server license information
+                - generic [ref=f9e251]:
+                  - generic [ref=f9e252]:
+                    - paragraph [ref=f9e253]: Server Type
+                    - generic [ref=f9e254]: Full License
+                  - generic [ref=f9e255]:
+                    - paragraph [ref=f9e256]: User Groups
+                    - generic [ref=f9e257]: testGroup
+                - generic [ref=f9e259]:
+                  - button "Create Server License" [ref=f9e260] [cursor=pointer]
+                  - button "Edit Customer" [expanded] [ref=f9e261] [cursor=pointer]
+                  - button "Delete Customer" [ref=f9e262] [cursor=pointer]
+            - button "Collapse server license overview" [expanded] [ref=f9e134] [cursor=pointer]
+          - region "Edit Customer" [ref=f9e337]:
+            - generic [ref=f9e338]:
+              - heading "Edit Customer" [level=2] [ref=f9e339]
+              - button "Close Edit Customer" [ref=f9e340] [cursor=pointer]
+            - generic [ref=f9e344]:
+              - generic [ref=f9e345]:
+                - generic [ref=f9e346]: Customer name
+                - textbox "Customer name" [ref=f9e347]: AATestCustomer
+              - generic [ref=f9e348]:
+                - generic [ref=f9e349]: Hardware ID
+                - textbox "Hardware ID" [ref=f9e350]: testHardwareiD324
+              - generic [ref=f9e351]:
+                - generic [ref=f9e352]: Server type
+                - radiogroup "Server type" [ref=f9e353]:
+                  - radio "Standard" [ref=f9e354] [cursor=pointer]
+                  - radio "Full License" [checked] [ref=f9e355] [cursor=pointer]
+                  - radio "Hybrid" [ref=f9e356] [cursor=pointer]
+            - generic [ref=f9e357]:
+              - generic [ref=f9e358]:
+                - generic [ref=f9e359]:
+                  - generic [ref=f9e360]: User Groups
+                  - button "Add Group" [ref=f9e361] [cursor=pointer]
+                - generic [ref=f9e364]:
+                  - generic [ref=f9e416]: testGroup
+                  - generic [ref=f9e417]:
+                    - button "Edit group testGroup" [ref=f9e418] [cursor=pointer]
+                    - button "Delete group testGroup" [ref=f9e422] [cursor=pointer]
+              - generic [ref=f9e375]:
+                - generic [ref=f9e376]: System User
+                - generic [ref=f9e377]:
+                  - generic [ref=f9e378]: Not assigned
+                  - generic [ref=f9e379]:
+                    - button "Create System User" [ref=f9e380] [cursor=pointer]
+                    - button "Edit System User — no System User assigned" [disabled] [ref=f9e383]
+                    - button "Delete System User — none assigned" [disabled] [ref=f9e388]
+            - generic [ref=f9e393]:
+              - button "Cancel" [ref=f9e394] [cursor=pointer]
+              - button "Apply" [disabled]
+          - generic [ref=f9e288]:
+            - generic [ref=f9e289]:
+              - generic [ref=f9e290]:
+                - heading "Standard Licenses" [level=2] [ref=f9e291]
+                - paragraph [ref=f9e292]: Standard licenses assigned to this server.
+              - generic [ref=f9e293]: 1 license
+            - generic [ref=f9e294]:
+              - generic [ref=f9e295]:
+                - button "Standard 1" [ref=f9e296] [cursor=pointer]:
+                  - text: Standard
+                  - generic [ref=f9e297]: "1"
+                - button "Floating 0" [ref=f9e298] [cursor=pointer]:
+                  - text: Floating
+                  - generic [ref=f9e299]: "0"
+              - button "Create Standard License" [ref=f9e301] [cursor=pointer]
+            - generic [ref=f9e305]:
+              - generic [ref=f9e306]:
+                - generic [ref=f9e307]: Standard License
+                - generic [ref=f9e308]:
+                  - button "Edit Standard License" [ref=f9e309] [cursor=pointer]
+                  - button "Delete Standard License" [ref=f9e313] [cursor=pointer]
+              - generic [ref=f9e317]:
+                - heading "AGCO ST122 / CAPI / Runtime" [level=3] [ref=f9e318]
+                - generic [ref=f9e319]:
+                  - paragraph [ref=f9e320]: Profile Role
+                  - paragraph [ref=f9e321]: All
+              - generic [ref=f9e322]:
+                - paragraph [ref=f9e323]: Licenses
+                - paragraph [ref=f9e324]: "10"
+              - generic [ref=f9e325]:
+                - generic [ref=f9e326]:
+                  - paragraph [ref=f9e327]: Maintenance
+                  - paragraph [ref=f9e328]: 29 Oct 2026
+                - generic [ref=f9e329]:
+                  - paragraph [ref=f9e330]: Expiration
+                  - paragraph [ref=f9e331]: 29 Oct 2026
+      - contentinfo [ref=f9e111]:
+        - paragraph [ref=f9e114]: © KPIT Technologies Ltd. All rights reserved.

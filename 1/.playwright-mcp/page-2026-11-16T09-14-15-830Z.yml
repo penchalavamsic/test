@@ -1,0 +1,89 @@
+- generic [ref=f4e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f4e5]:
+    - banner [ref=f4e6]:
+      - img "Logo" [ref=f4e8]
+      - generic [ref=f4e9]:
+        - button [ref=f4e10] [cursor=pointer]
+        - button [ref=f4e11] [cursor=pointer]
+        - button "as" [ref=f4e12] [cursor=pointer]
+    - main [ref=f4e14]:
+      - generic [ref=f4e16]:
+        - generic [ref=f4e17]:
+          - heading "Reports" [level=1] [ref=f4e18]
+          - paragraph [ref=f4e19]: View, filter, and export licensing information.
+        - generic [ref=f4e20]:
+          - button "Standard Licenses Standard and deleted license records" [ref=f4e21] [cursor=pointer]:
+            - generic [ref=f4e25]:
+              - generic [ref=f4e26]: Standard Licenses
+              - generic [ref=f4e27]: Standard and deleted license records
+          - button "Floating Licenses Floating-license usage records" [pressed] [ref=f4e28] [cursor=pointer]:
+            - generic [ref=f4e33]:
+              - generic [ref=f4e34]: Floating Licenses
+              - generic [ref=f4e35]: Floating-license usage records
+          - button "Floating Configurations Floating-license configuration records" [ref=f4e36] [cursor=pointer]:
+            - generic [ref=f4e40]:
+              - generic [ref=f4e41]: Floating Configurations
+              - generic [ref=f4e42]: Floating-license configuration records
+        - generic [ref=f4e171]:
+          - generic [ref=f4e172]:
+            - generic [ref=f4e173]: 0 records
+            - group "Floating license mode" [ref=f4e174]:
+              - button "Active" [pressed] [ref=f4e175] [cursor=pointer]
+              - button "Deleted" [ref=f4e176] [cursor=pointer]
+            - button "Filters" [ref=f4e177] [cursor=pointer]
+            - generic [ref=f4e180]:
+              - button "Export Excel" [disabled]
+          - generic [ref=f4e257]:
+            - generic [ref=f4e258]: Filters
+            - generic [ref=f4e260]:
+              - generic [ref=f4e261]:
+                - text: Email
+                - textbox "Email" [ref=f4e262]:
+                  - /placeholder: Enter email
+                  - text: test@kpit.com
+              - generic [ref=f4e263]:
+                - text: Hardware IDs
+                - searchbox "Search Hardware IDs" [ref=f4e265]
+              - generic [ref=f4e266]:
+                - text: Expiration Date
+                - generic [ref=f4e267]:
+                  - textbox "Expiration Date" [ref=f4e268]
+                  - button "Open calendar" [ref=f4e269] [cursor=pointer]
+              - generic [ref=f4e272]:
+                - text: License Created Date
+                - generic [ref=f4e273]:
+                  - textbox "License Created Date" [ref=f4e274]
+                  - button "Open calendar" [ref=f4e275] [cursor=pointer]
+              - generic [ref=f4e278]:
+                - text: Product Profile
+                - searchbox "Search profiles" [ref=f4e280]
+                - generic [ref=f4e314]:
+                  - text: Adaptive Autosar
+                  - button [ref=f4e315] [cursor=pointer]
+              - generic [ref=f4e281]:
+                - text: Profile Role
+                - searchbox "Search roles" [ref=f4e319]
+                - generic [ref=f4e332]:
+                  - text: UserRole
+                  - button [ref=f4e333] [cursor=pointer]
+            - button "Clear" [ref=f4e285] [cursor=pointer]
+          - generic [ref=f4e300]:
+            - generic [ref=f4e301]:
+              - text: "Email: test@kpit.com"
+              - 'button "Remove Email: test@kpit.com" [ref=f4e302] [cursor=pointer]'
+            - generic [ref=f4e320]:
+              - text: "Profiles: 1"
+              - 'button "Remove Profiles: 1" [ref=f4e321] [cursor=pointer]'
+            - generic [ref=f4e337]:
+              - text: "Roles: 1"
+              - 'button "Remove Roles: 1" [ref=f4e338] [cursor=pointer]'
+            - button "Clear all" [ref=f4e306] [cursor=pointer]
+          - generic [ref=f4e182]:
+            - paragraph [ref=f4e186]: No Floating License records found
+            - paragraph [ref=f4e187]: No records are available for the current report and applied filters.
+            - paragraph [ref=f4e188]: 0 loaded · 0 total
+    - contentinfo [ref=f4e167]:
+      - paragraph [ref=f4e170]: © KPIT Technologies Ltd. All rights reserved.

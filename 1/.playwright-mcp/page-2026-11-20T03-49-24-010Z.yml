@@ -1,0 +1,926 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic [aria-hidden]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /system-user-dashboard
+                      - listitem:
+                        - link:
+                          - /url: /users-licenses
+                      - listitem:
+                        - link:
+                          - /url: /reports
+                      - listitem:
+                        - link:
+                          - /url: /floating-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /standard-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /features
+                      - listitem:
+                        - link:
+                          - /url: /profiles
+                      - listitem:
+                        - link:
+                          - /url: /groups
+                      - listitem:
+                        - link:
+                          - /url: /system-users
+                      - listitem:
+                        - link:
+                          - /url: /server-licensing
+                      - listitem:
+                        - link:
+                          - /url: /server-license-import
+        - generic:
+          - banner:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+                - generic: aravi.s@kpit.com
+          - main:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: System Users
+                - generic:
+                  - generic:
+                    - generic:
+                      - textbox:
+                        - /placeholder: Search system users...
+                    - generic:
+                      - combobox:
+                        - generic: Profiles
+                    - generic:
+                      - combobox:
+                        - generic: User Groups
+                    - button [disabled]: Clear All
+                  - generic: Showing 55 of 55 system users
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - columnheader:
+                                - generic: Name
+                              - columnheader:
+                                - generic: Email
+                              - columnheader:
+                                - generic: User Groups
+                              - columnheader:
+                                - generic: Profiles
+                              - columnheader:
+                                - generic: Actions
+                          - rowgroup:
+                            - row:
+                              - cell:
+                                - generic: Administrator
+                              - cell:
+                                - generic: Default-User
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: sedfgwefpoi3ldowe
+                              - cell:
+                                - generic: Not provided
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Tina Bokor
+                              - cell:
+                                - generic: tina.bokor@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+4"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Stefan Zeppetzauer
+                              - cell:
+                                - generic: stefan.zeppetzauer@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO1
+                                    - generic: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                                    - button: "+2"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Vladimir Arsov
+                              - cell:
+                                - generic: vladimir.arsov@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT
+                                    - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Amit H
+                              - cell:
+                                - generic: amith3@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: License Library Junit Test
+                                    - generic: AGCO1
+                                    - button: "+5"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: GM Ebike Service Tool
+                                    - generic: OTX-Authoring
+                                    - button: "+32"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Boris Safin
+                              - cell:
+                                - generic: boris.safin@kpit.com
+                              - cell:
+                                - generic: KPIT
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Test1
+                              - cell:
+                                - generic: test1@kpit.com
+                              - cell:
+                                - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Matthias Ziegel
+                              - cell:
+                                - generic: matthias.ziegel@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                                    - generic: KPIT
+                                    - button: "+2"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Sebastian Frieser
+                              - cell:
+                                - generic: sebastian.frieser@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: APAC
+                                    - generic: MicroFuzzy
+                                    - button: "+12"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: CI-CD Test Runner
+                                    - generic: GM Ebike Service Tool
+                                    - button: "+61"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Bartosz Cichowicz
+                              - cell:
+                                - generic: bartosz.cichowicz@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO-Evaluation
+                                    - generic: KPIT Pune
+                                    - button: "+10"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Swathi Prasad
+                              - cell:
+                                - generic: swathi.prasad@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT Pune
+                                    - generic: MicroFuzzy
+                                    - button: "+12"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: OTX-Authoring floating
+                                    - generic: GM eBike EOL
+                                    - button: "+9"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Prakash Patil
+                              - cell:
+                                - generic: prakash.patil@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+5"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: ECU Comparator Floating
+                                    - generic: Service Tester
+                                    - button: "+20"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Tina Bok
+                              - cell:
+                                - generic: tina.bokor@googlemail.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: MicroFuzzy
+                                    - generic: AGCO1
+                                    - button: "+4"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Test Test
+                              - cell:
+                                - generic: test@test.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: LIMAS-Root-Group
+                                    - generic: Default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Harshal Bonde
+                              - cell:
+                                - generic: harshal.bonde@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: APAC
+                                    - generic: AWTCE- AISIN Japan - QT/220906/6959
+                                    - button: "+13"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: CI-CD Test Runner
+                                    - generic: GM Ebike Service Tool
+                                    - button: "+63"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Sumit Kumar
+                              - cell:
+                                - generic: Sumit.Kumar@kpit.com
+                              - cell:
+                                - generic: KPIT Pune
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: VW user
+                              - cell:
+                                - generic: diagnostics@kpit.com
+                              - cell:
+                                - generic: VW - default
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Volkswagen user
+                              - cell:
+                                - generic: diagnostic@kpit.com
+                              - cell:
+                                - generic: VWGroup
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Preetam Rao
+                              - cell:
+                                - generic: Preetam.Rao@kpit.com
+                              - cell:
+                                - generic: Viessmann
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: updateServerAdmin
+                              - cell:
+                                - generic: Not provided
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Medha Tillu
+                              - cell:
+                                - generic: Medha.Tillu@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO1
+                                    - generic: Actia (Feature "Branding Actia" is mandatory) QT.170623.6154 and QT.171025.6241
+                                    - button: "+3"
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: dG9rZW51c2Vy
+                              - cell:
+                                - generic: Not provided
+                              - cell:
+                                - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Sebastian Frieser
+                              - cell:
+                                - generic: sebastian.f@kpit.com
+                              - cell:
+                                - generic: No groups
+                              - cell:
+                                - generic: No profiles
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Shweta Jadhav
+                              - cell:
+                                - generic: Shweta.Jadhav2@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT Pune
+                                    - generic: GM
+                                    - button: "+1"
+                              - cell:
+                                - generic: GM eBike EOL
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Rakesh Joshi
+                              - cell:
+                                - generic: rakesh.joshi@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: AGCO1
+                                    - generic: GM
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: GM eBike EOL
+                                    - generic: Service Tester
+                                    - button: "+3"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Matthias Steigenberger
+                              - cell:
+                                - generic: matthias.steigenberger@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: KPIT
+                                    - generic: LIMAS-Root-Group
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: GM Ebike Service Tool
+                                    - generic: OTX-Authoring
+                                    - button: "+22"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: offshore Limas
+                              - cell:
+                                - generic: limas-dev@kpit.com
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: APAC
+                                    - generic: License Library Junit Test
+                                    - button: "+12"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: GM Ebike Service Tool
+                                    - generic: OTX-Authoring
+                                    - button: "+31"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: Yogesh Chaubey
+                              - cell:
+                                - generic: Yogesh.Chaubey@kpit.com
+                              - cell:
+                                - generic: KPIT KOEL
+                              - cell:
+                                - generic: KOEL EOL Tester
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                            - row:
+                              - cell:
+                                - generic: stihl eu
+                              - cell:
+                                - generic: stihl2021@stihl.de
+                              - cell:
+                                - generic: STIHL-TESTING
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - generic: STIHL Engineering Tester Floating
+                                    - generic: Diagnostic Communicator floating
+                                    - button: "+3"
+                              - cell:
+                                - generic:
+                                  - generic:
+                                    - button
+                    - generic: Showing 30 of 55
+          - contentinfo:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - dialog [aria-hidden]:
+    - generic:
+      - heading [level=2]: Edit Assignments
+      - paragraph: Manage Profiles and User Groups for Shweta1.
+    - generic:
+      - generic:
+        - generic:
+          - text: Profiles
+          - combobox:
+            - generic: GM eBike EOL
+          - generic: GM eBike EOL
+        - generic:
+          - text: User Groups
+          - combobox [expanded]:
+            - generic: 3 selected
+          - generic:
+            - generic: KPIT Pune
+            - generic: GM
+            - generic: KPIT
+    - generic:
+      - button: Cancel
+      - button: Update
+    - button:
+      - generic: Close
+  - dialog [ref=f3e3416]:
+    - generic [ref=f3e3417]:
+      - combobox [expanded] [active] [ref=f3e3423]
+      - generic [ref=f3e3424]:
+        - button "Select All" [ref=f3e3425] [cursor=pointer]
+        - button "Clear All" [ref=f3e3426] [cursor=pointer]
+      - listbox "Suggestions" [ref=f3e3427]:
+        - group [ref=f3e3429]:
+          - option "Actia (Feature \"Branding Actia\" is mandatory) QT.170623.6154 and QT.171025.6241" [selected] [ref=f3e3430] [cursor=pointer]
+          - option "Actia China - QT/170315/6129 and QT.171108.6244" [ref=f3e3433] [cursor=pointer]
+          - option "AGCO" [ref=f3e3436] [cursor=pointer]
+          - option "AGCO US - QT.171212.6284" [ref=f3e3439] [cursor=pointer]
+          - option "AGCO-Evaluation" [ref=f3e3442] [cursor=pointer]
+          - option "AGCO-Test-Group" [ref=f3e3445] [cursor=pointer]
+          - option "AGCO-Testing" [ref=f3e3448] [cursor=pointer]
+          - option "AGCO1" [ref=f3e3451] [cursor=pointer]
+          - option "ALPSALPINE_Japan_DN/240509/7268" [ref=f3e3454] [cursor=pointer]
+          - option "ANDREAS STIHL AG & Co. KG_DN/250117/7387_2 EOL" [ref=f3e3457] [cursor=pointer]
+          - option "APAC" [ref=f3e3460] [cursor=pointer]
+          - option "APAG" [ref=f3e3463] [cursor=pointer]
+          - option "assign_group356789" [ref=f3e3466] [cursor=pointer]
+          - option "ASTEMO_Japan_DN/250515/7422" [ref=f3e3469] [cursor=pointer]
+          - option "Audi" [ref=f3e3472] [cursor=pointer]
+          - option "AUMOVIO Germany" [ref=f3e3475] [cursor=pointer]
+          - option "AUMOVIO-Germany-DN/260907/7569" [ref=f3e3478] [cursor=pointer]
+          - option "Autoliv - QT.160714.5969" [ref=f3e3481] [cursor=pointer]
+          - option "AVL" [ref=f3e3484] [cursor=pointer]
+          - option "AWTC" [ref=f3e3487] [cursor=pointer]
+          - option "AWTCE - AISIN Japan - QT/220906/6959" [ref=f3e3490] [cursor=pointer]
+          - option "AWTCE- AISIN Japan - QT/220906/6959" [ref=f3e3493] [cursor=pointer]
+          - option "Barbara_Ridder_DN/230911/7123" [ref=f3e3496] [cursor=pointer]
+          - option "Bentley" [ref=f3e3499] [cursor=pointer]
+          - option "Bertrandt" [ref=f3e3502] [cursor=pointer]
+          - option "BFFT - QT.171025.6242" [ref=f3e3505] [cursor=pointer]
+          - option "BHTC - DN/220823/6929" [ref=f3e3508] [cursor=pointer]
+          - option "BHTC_India - QT/171016/6209" [ref=f3e3511] [cursor=pointer]
+          - option "BHTC_Pune_DN/220823/6930" [ref=f3e3514] [cursor=pointer]
+          - option "BorgWarner" [ref=f3e3517] [cursor=pointer]
+          - option "BorgWarner_US - DN/221117/7004" [ref=f3e3520] [cursor=pointer]
+          - option "BorgWarner_USA_DN/250424/7415" [ref=f3e3523] [cursor=pointer]
+          - option "Bosch" [ref=f3e3526] [cursor=pointer]
+          - option "Bosch Engineering GmbH - Heilbronn" [ref=f3e3529] [cursor=pointer]
+          - option "Bosch Hungary - Stefan Schneider" [ref=f3e3532] [cursor=pointer]
+          - option "Bosch Yu - QT/180201/6312" [ref=f3e3535] [cursor=pointer]
+          - option "Bosch_ QT/220812/6925 (Mr. Thomas Daub)" [ref=f3e3538] [cursor=pointer]
+          - option "Bosch_Boran" [ref=f3e3541] [cursor=pointer]
+          - option "Bosch_Coimbatore_DN/230719/7095" [ref=f3e3544] [cursor=pointer]
+          - option "Bosch_DN/210809/6764_DBDVW_Sub" [ref=f3e3547] [cursor=pointer]
+          - option "Bosch_Fadwa - QT/170710/6162 and QT.180321.6337" [ref=f3e3550] [cursor=pointer]
+          - option "Bosch_Germany DN/210929/6823 (Simone Cherry)" [ref=f3e3553] [cursor=pointer]
+          - option "Bosch_Germany_DN/220829/6944_2FL" [ref=f3e3556] [cursor=pointer]
+          - option "Bosch_Germany_Sabrina Kehrer_DN/220718/6916" [ref=f3e3559] [cursor=pointer]
+          - option "Bosch_India" [ref=f3e3562] [cursor=pointer]
+          - option "Bosch_Ridder - QT/171127/6267" [ref=f3e3565] [cursor=pointer]
+          - option "BoschRexroth" [ref=f3e3568] [cursor=pointer]
+          - option "Brain Bee S.p.a." [ref=f3e3571] [cursor=pointer]
+          - option "BRP" [ref=f3e3574] [cursor=pointer]
+          - option "BRP Austria" [ref=f3e3577] [cursor=pointer]
+          - option "BRP_Aftersales_Fagnan - QT.171221.6288" [ref=f3e3580] [cursor=pointer]
+          - option "BRP_Engineering_Sylvain - QT.171221.6289" [ref=f3e3583] [cursor=pointer]
+          - option "brp_import" [ref=f3e3586] [cursor=pointer]
+          - option "brp_import_qa" [ref=f3e3589] [cursor=pointer]
+          - option "BRP_Martial_QT/220407/6887" [ref=f3e3592] [cursor=pointer]
+          - option "BRP_Production_Bisson" [ref=f3e3595] [cursor=pointer]
+          - option "Brp_QA" [ref=f3e3598] [cursor=pointer]
+          - option "BRP_QT/231121/7184" [ref=f3e3601] [cursor=pointer]
+          - option "CAEA_China_DN/250825/7446" [ref=f3e3604] [cursor=pointer]
+          - option "CalAmp - QT.170906.6203" [ref=f3e3607] [cursor=pointer]
+          - option "CARIAD_Germany" [ref=f3e3610] [cursor=pointer]
+          - option "CARIAD_IT Applications (TP-E)" [ref=f3e3613] [cursor=pointer]
+          - option "CARIAD_IT Applications (TP-E4)" [ref=f3e3616] [cursor=pointer]
+          - option "CarUX_Netherlands - QT/230807/7101" [ref=f3e3619] [cursor=pointer]
+          - option "Catapult user" [ref=f3e3622] [cursor=pointer]
+          - option "CLAAS" [ref=f3e3625] [cursor=pointer]
+          - option "Claas_default" [ref=f3e3628] [cursor=pointer]
+          - option "Claas_Germany_Default" [ref=f3e3631] [cursor=pointer]
+          - option "Claas_LMT" [ref=f3e3634] [cursor=pointer]
+          - option "CLAASGROUPTEST" [ref=f3e3637] [cursor=pointer]
+          - option "Class_default" [ref=f3e3640] [cursor=pointer]
+          - option "Conti - Frankfurt - QT/171211/6275" [ref=f3e3643] [cursor=pointer]
+          - option "Conti - Hungary - QT.180109.6291" [ref=f3e3646] [cursor=pointer]
+          - option "Conti China" [ref=f3e3649] [cursor=pointer]
+          - option "Conti Regensburg" [ref=f3e3652] [cursor=pointer]
+          - option "Conti Teves_Perizonius - QT/171211/6275" [ref=f3e3655] [cursor=pointer]
+          - option "Conti_Engineering - CCP" [ref=f3e3658] [cursor=pointer]
+          - option "Conti_Engineering - QT.170301.6126" [ref=f3e3661] [cursor=pointer]
+          - option "Conti_Flach - QT/180208/6316 and QT/180208/6317 and QT/220908/6963" [ref=f3e3664] [cursor=pointer]
+          - option "Conti_Gassner/Wellnhofer" [ref=f3e3667] [cursor=pointer]
+          - option "Conti_Nue - QT.180116.6299" [ref=f3e3670] [cursor=pointer]
+          - option "Conti_Zintl" [ref=f3e3673] [cursor=pointer]
+          - option "Continental" [ref=f3e3676] [cursor=pointer]
+          - option "Cummins" [ref=f3e3679] [cursor=pointer]
+          - option "Cummins_EV_DN/260422/7527_USA" [ref=f3e3682] [cursor=pointer]
+          - option "Cummins-EV-DN/260422/7527_v2-USA" [ref=f3e3685] [cursor=pointer]
+          - option "Cummins-EV-DN/260904/7568-USA" [ref=f3e3688] [cursor=pointer]
+          - option "Cummins-EV-QT/260506/7530-USA" [ref=f3e3691] [cursor=pointer]
+          - option "DAF (PACCAR) - OP/NOV21/0000049662 - 5 SL - ODX Checker NG" [ref=f3e3694] [cursor=pointer]
+          - option "Daimler" [ref=f3e3697] [cursor=pointer]
+          - option "Daimler_India" [ref=f3e3700] [cursor=pointer]
+          - option "Dalian Joynext_China_DN/231019/7176" [ref=f3e3703] [cursor=pointer]
+          - option "Deere" [ref=f3e3706] [cursor=pointer]
+          - option "Default" [ref=f3e3709] [cursor=pointer]
+          - option "Delphi -QT/171121/6265" [ref=f3e3712] [cursor=pointer]
+          - option "Denso -QT/170614/6153" [ref=f3e3715] [cursor=pointer]
+          - option "Denso_Yuzo Harata" [ref=f3e3718] [cursor=pointer]
+          - option "Desay - QT/170112/6116" [ref=f3e3721] [cursor=pointer]
+          - option "Deutz - QT.180301.6331" [ref=f3e3724] [cursor=pointer]
+          - option "DF Nissan" [ref=f3e3727] [cursor=pointer]
+          - option "Diagnostic Training" [ref=f3e3730] [cursor=pointer]
+          - option "Diagnostic Training Bangalore" [ref=f3e3733] [cursor=pointer]
+          - option "DPDUAPI" [ref=f3e3736] [cursor=pointer]
+          - option "DSA" [ref=f3e3739] [cursor=pointer]
+          - option "DSA_CN" [ref=f3e3742] [cursor=pointer]
+          - option "DSA_US - QT.160310.5899" [ref=f3e3745] [cursor=pointer]
+          - option "dSpace" [ref=f3e3748] [cursor=pointer]
+          - option "e-Traction" [ref=f3e3751] [cursor=pointer]
+          - option "ECU Editor_DN/231222/7206_OP/JUN23/0000053188" [ref=f3e3754] [cursor=pointer]
+          - option "EDAG_Germany_DN/260529/7539" [ref=f3e3757] [cursor=pointer]
+          - option "Elausa Electronics_Spain_DN/240724/7289" [ref=f3e3760] [cursor=pointer]
+          - option "Embedeers/CATL" [ref=f3e3763] [cursor=pointer]
+          - option "EMEA" [ref=f3e3766] [cursor=pointer]
+          - option "Encon" [ref=f3e3769] [cursor=pointer]
+          - option "External Trial Licenses" [ref=f3e3772] [cursor=pointer]
+          - option "FAW VW China" [ref=f3e3775] [cursor=pointer]
+          - option "FICOSA - QT.170308.6128" [ref=f3e3778] [cursor=pointer]
+          - option "Fisker_USA_DN.221027.6993" [ref=f3e3781] [cursor=pointer]
+          - option "Flex" [ref=f3e3784] [cursor=pointer]
+          - option "Flex Automotive GmbH - QT.180124.6300" [ref=f3e3787] [cursor=pointer]
+          - option "Flex ODX Training" [ref=f3e3790] [cursor=pointer]
+          - option "Fulscience_China_DN/240306/7251" [ref=f3e3793] [cursor=pointer]
+          - option "GAC" [ref=f3e3796] [cursor=pointer]
+          - option "GM" [ref=f3e3799] [cursor=pointer]
+          - option "GM_DN/231222/7206" [ref=f3e3804] [cursor=pointer]
+          - option "Hang Sheng" [ref=f3e3807] [cursor=pointer]
+          - option "Harman - QT.171019.6228" [ref=f3e3810] [cursor=pointer]
+          - option "Helbako" [ref=f3e3813] [cursor=pointer]
+          - option "Hella Gutmann - QT/171221/6290-DBD_DN/230710/7090_OAS2_FL" [ref=f3e3816] [cursor=pointer]
+          - option "Hella_DBD 2 Dongle_DN/240507/7266" [ref=f3e3819] [cursor=pointer]
+          - option "Hella_OAS2 2 Dongle_DN/240507/7266" [ref=f3e3822] [cursor=pointer]
+          - option "Hella-Texa_OAS2_FL_DN/230710/7090" [ref=f3e3825] [cursor=pointer]
+          - option "HELLA, Pune, India - DN/210921/6785" [ref=f3e3828] [cursor=pointer]
+          - option "Hirschmann" [ref=f3e3831] [cursor=pointer]
+          - option "HUF" [ref=f3e3834] [cursor=pointer]
+          - option "Huizhou Desay_China_DN/230201/7034" [ref=f3e3837] [cursor=pointer]
+          - option "IAV" [ref=f3e3840] [cursor=pointer]
+          - option "IAV - Dennis Tempel - DN/220913/6974" [ref=f3e3843] [cursor=pointer]
+          - option "IAV_Franz Johannes Zenner / Rico Beyer - QT/180208/6322 / QT/220826/6937" [ref=f3e3846] [cursor=pointer]
+          - option "IAV_Germany_DN/230910/7117_v2" [ref=f3e3849] [cursor=pointer]
+          - option "IAV_Liebezeit QT/180208/6321 and QT/180208/6321" [ref=f3e3852] [cursor=pointer]
+          - option "IAV_Marcel Heinig - DN/220913/6974" [ref=f3e3855] [cursor=pointer]
+          - option "IAV_Schuler" [ref=f3e3858] [cursor=pointer]
+          - option "IAV_Tomas Binnewies_DN/220310/6876" [ref=f3e3861] [cursor=pointer]
+          - option "IAV_Tomas Binnewies_DN/221216/7016" [ref=f3e3864] [cursor=pointer]
+          - option "import_brp_qa" [ref=f3e3867] [cursor=pointer]
+          - option "JLR" [ref=f3e3870] [cursor=pointer]
+          - option "JLR_D3M_Offline License" [ref=f3e3873] [cursor=pointer]
+          - option "Joshson Electric DN.190117.6492" [ref=f3e3876] [cursor=pointer]
+          - option "K-DCP Tools (swapped)" [ref=f3e3879] [cursor=pointer]
+          - option "KARMA" [ref=f3e3882] [cursor=pointer]
+          - option "katapult_test" [ref=f3e3885] [cursor=pointer]
+          - option "Kendrion - QT.170629.6158" [ref=f3e3888] [cursor=pointer]
+          - option "KION OP/NOV21/0000049668" [ref=f3e3891] [cursor=pointer]
+          - option "Kostal" [ref=f3e3894] [cursor=pointer]
+          - option "KPIT" [ref=f3e3897] [cursor=pointer]
+          - option "KPIT Bangalore - NOS" [ref=f3e3902] [cursor=pointer]
+          - option "KPIT Germany" [ref=f3e3905] [cursor=pointer]
+          - option "KPIT KOEL" [ref=f3e3908] [cursor=pointer]
+          - option "KPIT Navistar" [ref=f3e3911] [cursor=pointer]
+          - option "KPIT OLA" [ref=f3e3914] [cursor=pointer]
+          - option "KPIT Pune" [ref=f3e3917] [cursor=pointer]
+          - option "KPIT Revolo" [ref=f3e3922] [cursor=pointer]
+          - option "KPIT Testing" [ref=f3e3925] [cursor=pointer]
+          - option "KPIT_Cummins Team" [ref=f3e3928] [cursor=pointer]
+          - option "KPIT_JLR (Cross-Practice_Mohana.Palaniswamy@kpit.com) - QT/220530/6903" [ref=f3e3931] [cursor=pointer]
+          - option "KPIT_Renault_Europe-India Team_QT/230721/7097" [ref=f3e3934] [cursor=pointer]
+          - option "KPIT_Rest" [ref=f3e3937] [cursor=pointer]
+          - option "KPIT-Testing" [ref=f3e3940] [cursor=pointer]
+          - option "Krause" [ref=f3e3943] [cursor=pointer]
+          - option "Krone" [ref=f3e3946] [cursor=pointer]
+          - option "Lamborghini - QT/180301/6330" [ref=f3e3949] [cursor=pointer]
+          - option "LG - Beom Jun Kim - QT.180418.6341" [ref=f3e3952] [cursor=pointer]
+          - option "LG - QT.170223.6125" [ref=f3e3955] [cursor=pointer]
+          - option "License Library Junit Test" [ref=f3e3958] [cursor=pointer]
+          - option "License Library Junit Test Group" [ref=f3e3961] [cursor=pointer]
+          - option "Liebherr" [ref=f3e3964] [cursor=pointer]
+          - option "LIMAS-Root-Group" [ref=f3e3967] [cursor=pointer]
+          - option "Longhorn Auto_China_DN/250221/7396" [ref=f3e3970] [cursor=pointer]
+          - option "Magna - QT/171017/6212" [ref=f3e3973] [cursor=pointer]
+          - option "Magna_Austria" [ref=f3e3976] [cursor=pointer]
+          - option "Mahindra" [ref=f3e3979] [cursor=pointer]
+          - option "MAN" [ref=f3e3982] [cursor=pointer]
+          - option "Marelli Automotive_China_DBD NG_DN/240910/7301" [ref=f3e3985] [cursor=pointer]
+          - option "Marelli Italy" [ref=f3e3988] [cursor=pointer]
+          - option "Marelli_DN/220822/6928" [ref=f3e3991] [cursor=pointer]
+          - option "Marquardt - QT/171120/6264" [ref=f3e3994] [cursor=pointer]
+          - option "Marquardt Switches_China_DN/231130/7186" [ref=f3e3997] [cursor=pointer]
+          - option "Marquardt-Elementum Romania DN/220208/6866" [ref=f3e4000] [cursor=pointer]
+          - option "MicroFuzzy" [ref=f3e4003] [cursor=pointer]
+          - option "MTU - Qt.171019.6229" [ref=f3e4006] [cursor=pointer]
+          - option "NAFTA" [ref=f3e4009] [cursor=pointer]
+          - option "name" [ref=f3e4012] [cursor=pointer]
+          - option "NEVS" [ref=f3e4015] [cursor=pointer]
+          - option "NextEV" [ref=f3e4018] [cursor=pointer]
+          - option "Nissin" [ref=f3e4021] [cursor=pointer]
+          - option "No Floating Config" [ref=f3e4024] [cursor=pointer]
+          - option "No Floating License Test" [ref=f3e4027] [cursor=pointer]
+          - option "NSK_Japan_DN/171116/6261" [ref=f3e4030] [cursor=pointer]
+          - option "NSK_Japan_DN/240416/7261" [ref=f3e4033] [cursor=pointer]
+          - option "OLA Electric India" [ref=f3e4036] [cursor=pointer]
+          - option "OLA-Root-Group" [ref=f3e4039] [cursor=pointer]
+          - option "ONE.ai_US_DN/220425/6891" [ref=f3e4042] [cursor=pointer]
+          - option "Paccar-KPIT user" [ref=f3e4045] [cursor=pointer]
+          - option "PATAC" [ref=f3e4048] [cursor=pointer]
+          - option "PES Eaton M2 and M3" [ref=f3e4051] [cursor=pointer]
+          - option "PGRC" [ref=f3e4054] [cursor=pointer]
+          - option "Porsche" [ref=f3e4057] [cursor=pointer]
+          - option "Preh - QT/170822/6202 and QT/180208/6326" [ref=f3e4060] [cursor=pointer]
+          - option "Preh_Germany_DN/230911/7124" [ref=f3e4063] [cursor=pointer]
+          - option "QA Import" [ref=f3e4066] [cursor=pointer]
+          - option "Rapa" [ref=f3e4069] [cursor=pointer]
+          - option "Redbend" [ref=f3e4072] [cursor=pointer]
+          - option "Renault" [ref=f3e4075] [cursor=pointer]
+          - option "Sanket Kapadnis" [ref=f3e4078] [cursor=pointer]
+          - option "SAT" [ref=f3e4081] [cursor=pointer]
+          - option "SCB" [ref=f3e4084] [cursor=pointer]
+          - option "Schaeffler_Germany - DN/211018/6829 / DN/230524/7073" [ref=f3e4087] [cursor=pointer]
+          - option "Schaeffler_Slovakia_DN/221107/6999" [ref=f3e4090] [cursor=pointer]
+          - option "Schaeffler_Vitesco_Albert Bauer_DN/250919/7482" [ref=f3e4093] [cursor=pointer]
+          - option "SEG Automotive_China_DN/240205/7240" [ref=f3e4096] [cursor=pointer]
+          - option "SEG Automotive_Germany_DN/240205/7240" [ref=f3e4099] [cursor=pointer]
+          - option "Service Tool" [ref=f3e4102] [cursor=pointer]
+          - option "Skoda - QT.170922.6205" [ref=f3e4105] [cursor=pointer]
+          - option "SKODA_Czech Republic_QT/260619/7544" [ref=f3e4108] [cursor=pointer]
+          - option "Skoda_Jaromir Krecl_DN/220829/6946" [ref=f3e4111] [cursor=pointer]
+          - option "Skyworth_China_DN/250929/7491" [ref=f3e4114] [cursor=pointer]
+          - option "SnapOn" [ref=f3e4117] [cursor=pointer]
+          - option "Software Technology Team" [ref=f3e4120] [cursor=pointer]
+          - option "SOMIT Solutions" [ref=f3e4123] [cursor=pointer]
+          - option "Stihl" [ref=f3e4126] [cursor=pointer]
+          - option "STIHL FLOATING LICENSES" [ref=f3e4129] [cursor=pointer]
+          - option "STIHL Testing" [ref=f3e4132] [cursor=pointer]
+          - option "STIHL_QA_ETT" [ref=f3e4135] [cursor=pointer]
+          - option "STIHL-TESTING" [ref=f3e4138] [cursor=pointer]
+          - option "Stoneridge" [ref=f3e4141] [cursor=pointer]
+          - option "Synostik" [ref=f3e4144] [cursor=pointer]
+          - option "Technica" [ref=f3e4147] [cursor=pointer]
+          - option "Test K-DCP products (internal)" [ref=f3e4150] [cursor=pointer]
+          - option "testGroup" [ref=f3e4153] [cursor=pointer]
+          - option "TEXA" [ref=f3e4156] [cursor=pointer]
+          - option "Token Group" [ref=f3e4159] [cursor=pointer]
+          - option "Trial License" [ref=f3e4162] [cursor=pointer]
+          - option "TRW" [ref=f3e4165] [cursor=pointer]
+          - option "TRW Polska - QT.170201.6122" [ref=f3e4168] [cursor=pointer]
+          - option "TRW Radolfzell" [ref=f3e4171] [cursor=pointer]
+          - option "UAES PO from Shanghai Weiler_China_DN/240424/7265" [ref=f3e4174] [cursor=pointer]
+          - option "Umlaut Systems Germany - DN/230918/7160" [ref=f3e4177] [cursor=pointer]
+          - option "Vaibhav" [ref=f3e4180] [cursor=pointer]
+          - option "Vaibhav_Group07" [ref=f3e4183] [cursor=pointer]
+          - option "Vaibhav_Group2624" [ref=f3e4186] [cursor=pointer]
+          - option "vaibhav02524" [ref=f3e4189] [cursor=pointer]
+          - option "Vaillant" [ref=f3e4192] [cursor=pointer]
+          - option "Valeo" [ref=f3e4195] [cursor=pointer]
+          - option "Valeo DE" [ref=f3e4198] [cursor=pointer]
+          - option "Valeo India - QT/180517/6353" [ref=f3e4201] [cursor=pointer]
+          - option "Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174" [ref=f3e4204] [cursor=pointer]
+          - option "Valeo Schalter & Sensoren GMBH_Germany_DN/231010/7174_v2.0" [ref=f3e4207] [cursor=pointer]
+          - option "Valeo_Egypt - QT/180426/6346" [ref=f3e4210] [cursor=pointer]
+          - option "Valeo_Guangzhou Deruic_China_DN/231026/7180" [ref=f3e4213] [cursor=pointer]
+          - option "Valeo_Guangzhou Deruic_China_DN/250409/7409" [ref=f3e4216] [cursor=pointer]
+          - option "Valeo_Spain_PO from Germany_DN/230706/7088" [ref=f3e4219] [cursor=pointer]
+          - option "VEG" [ref=f3e4222] [cursor=pointer]
+          - option "Veoneer_Germany_DN/230628/7084" [ref=f3e4225] [cursor=pointer]
+          - option "Viessmann" [ref=f3e4228] [cursor=pointer]
+          - option "Viessmann Workshop" [ref=f3e4231] [cursor=pointer]
+          - option "Vispiron" [ref=f3e4234] [cursor=pointer]
+          - option "Visteon" [ref=f3e4237] [cursor=pointer]
+          - option "Visteon_US - DN/230103/7019" [ref=f3e4240] [cursor=pointer]
+          - option "Vitesco Technologies - Germany - QT/220823/6932" [ref=f3e4243] [cursor=pointer]
+          - option "Vitesco_Lic DBD NG_FL_DN/250908/7448" [ref=f3e4246] [cursor=pointer]
+          - option "Volkswagen (Anhui)_CHINA_DN/230207/7041" [ref=f3e4249] [cursor=pointer]
+          - option "Volvo" [ref=f3e4252] [cursor=pointer]
+          - option "VW" [ref=f3e4255] [cursor=pointer]
+          - option "VW - default" [ref=f3e4258] [cursor=pointer]
+          - option "VW Russia" [ref=f3e4261] [cursor=pointer]
+          - option "VW Tiers" [ref=f3e4264] [cursor=pointer]
+          - option "VW_Commercial" [ref=f3e4267] [cursor=pointer]
+          - option "VW_CV_DN/221018/6991" [ref=f3e4270] [cursor=pointer]
+          - option "VW_DN/250123/7389_Stephan Alpert_1FL" [ref=f3e4273] [cursor=pointer]
+          - option "VW_Evaluation_DBDVW_DBDNG" [ref=f3e4276] [cursor=pointer]
+          - option "VW_Harms" [ref=f3e4279] [cursor=pointer]
+          - option "VW_Hartmann" [ref=f3e4282] [cursor=pointer]
+          - option "VW_Lips" [ref=f3e4285] [cursor=pointer]
+          - option "VW_Schnier" [ref=f3e4288] [cursor=pointer]
+          - option "VWGroup" [ref=f3e4291] [cursor=pointer]
+          - option "WABCO-ZF" [ref=f3e4294] [cursor=pointer]
+          - option "Webasto - QT/171211/6274" [ref=f3e4297] [cursor=pointer]
+          - option "Wuhan Baohua_China_DN/240129/7235" [ref=f3e4300] [cursor=pointer]
+          - option "XTRONIC - QT.161110.5992" [ref=f3e4303] [cursor=pointer]
+          - option "Xuancheng luxshare_China - DN/230424/7063" [ref=f3e4306] [cursor=pointer]
+          - option "ZF" [ref=f3e4309] [cursor=pointer]
+          - option "ZF Friedrichshafen AG_DN/240110/7222" [ref=f3e4312] [cursor=pointer]
+          - option "ZF Testing" [ref=f3e4315] [cursor=pointer]
+          - option "ZF TRW" [ref=f3e4318] [cursor=pointer]
+          - option "ZF_Dohrmann" [ref=f3e4321] [cursor=pointer]
+          - option "ZF_Germany_Bernhard Morath_DN/220902/6954, DN/230602/7078" [ref=f3e4324] [cursor=pointer]
+          - option "ZF_Germany_DN/220812/6924" [ref=f3e4327] [cursor=pointer]
+          - option "ZF_Italy_Maria Lana_DN/230227/7046" [ref=f3e4330] [cursor=pointer]
+          - option "ZF_Morath - QT.180116.6298" [ref=f3e4333] [cursor=pointer]
+          - option "ZF_Schweinfurt" [ref=f3e4336] [cursor=pointer]
+          - option "ZF_UK" [ref=f3e4339] [cursor=pointer]
+          - option "ZF-China-DN/260624/7546" [ref=f3e4342] [cursor=pointer]
+          - option "ZF/TRW_Gego/Sangitaben_DN/230912/7136" [ref=f3e4345] [cursor=pointer]
+      - generic [ref=f3e4348]:
+        - generic [ref=f3e4349]: 3 selected
+        - button "Done" [ref=f3e4350] [cursor=pointer]

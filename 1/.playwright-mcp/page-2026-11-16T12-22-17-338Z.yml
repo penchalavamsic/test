@@ -1,0 +1,44 @@
+- generic [ref=f10e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f10e5]:
+    - banner [ref=f10e6]:
+      - img "Logo" [ref=f10e8]
+      - generic [ref=f10e9]:
+        - button [ref=f10e10] [cursor=pointer]
+        - button [ref=f10e11] [cursor=pointer]
+        - button "as" [ref=f10e12] [cursor=pointer]
+    - main [ref=f10e14]:
+      - generic [ref=f10e16]:
+        - generic [ref=f10e17]:
+          - heading "Reports" [level=1] [ref=f10e18]
+          - paragraph [ref=f10e19]: View, filter, and export licensing information.
+        - generic [ref=f10e20]:
+          - button "Standard Licenses Standard and deleted license records" [ref=f10e21] [cursor=pointer]:
+            - generic [ref=f10e25]:
+              - generic [ref=f10e26]: Standard Licenses
+              - generic [ref=f10e27]: Standard and deleted license records
+          - button "Floating Licenses Floating-license usage records" [active] [pressed] [ref=f10e28] [cursor=pointer]:
+            - generic [ref=f10e33]:
+              - generic [ref=f10e34]: Floating Licenses
+              - generic [ref=f10e35]: Floating-license usage records
+          - button "Floating Configurations Floating-license configuration records" [ref=f10e36] [cursor=pointer]:
+            - generic [ref=f10e40]:
+              - generic [ref=f10e41]: Floating Configurations
+              - generic [ref=f10e42]: Floating-license configuration records
+        - generic [ref=f10e171]:
+          - generic [ref=f10e172]:
+            - generic [ref=f10e173]: 0 records
+            - group "Floating license mode" [ref=f10e174]:
+              - button "Active" [pressed] [ref=f10e175] [cursor=pointer]
+              - button "Deleted" [ref=f10e176] [cursor=pointer]
+            - button "Filters" [ref=f10e177] [cursor=pointer]
+            - generic [ref=f10e180]:
+              - button "Export Excel" [disabled]
+          - generic [ref=f10e182]:
+            - paragraph [ref=f10e186]: No Floating License records found
+            - paragraph [ref=f10e187]: No records are available for the current report and applied filters.
+            - paragraph [ref=f10e188]: 0 loaded · 0 total
+    - contentinfo [ref=f10e167]:
+      - paragraph [ref=f10e170]: © KPIT Technologies Ltd. All rights reserved.

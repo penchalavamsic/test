@@ -1,0 +1,1519 @@
+- generic [ref=f15e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f15e4]:
+    - list [ref=f15e12]:
+      - listitem [ref=f15e13]:
+        - button [ref=f15e14] [cursor=pointer]
+      - listitem [ref=f15e18]:
+        - link [ref=f15e19] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f15e25]:
+        - link [ref=f15e26] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f15e32]:
+        - link [ref=f15e33] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f15e37]:
+        - link [ref=f15e38] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f15e42]:
+        - link [ref=f15e43] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f15e47]:
+        - link [ref=f15e48] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f15e53]:
+        - link [ref=f15e54] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f15e59]:
+        - link [ref=f15e60] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f15e63]:
+        - link [ref=f15e64] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f15e68]:
+        - link [ref=f15e69] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f15e73]:
+        - link [ref=f15e74] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f15e78]:
+      - banner [ref=f15e79]:
+        - img "Logo" [ref=f15e81]
+        - generic [ref=f15e82]:
+          - button [ref=f15e83] [cursor=pointer]
+          - button [ref=f15e84] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f15e85] [cursor=pointer]:
+            - generic [ref=f15e86]: as
+            - generic [ref=f15e87]: aravi.s@kpit.com
+      - main [ref=f15e88]:
+        - generic [ref=f15e90]:
+          - generic [ref=f15e91]:
+            - heading "Features" [level=1] [ref=f15e93]
+            - button "Add Root Feature" [ref=f15e94] [cursor=pointer]
+          - generic [ref=f15e95]:
+            - generic [ref=f15e96]:
+              - generic [ref=f15e97]:
+                - button "Expand All" [ref=f15e98] [cursor=pointer]
+                - button "Collapse All" [ref=f15e99] [cursor=pointer]
+              - textbox "Search by name or ID" [ref=f15e104]
+            - table [ref=f15e107]:
+              - rowgroup [ref=f15e108]:
+                - row [ref=f15e109]:
+                  - columnheader "Feature Name" [ref=f15e110]
+                  - columnheader "Versions" [ref=f15e112]
+                  - columnheader "Access Levels" [ref=f15e114]
+                  - columnheader "Used in Profiles" [ref=f15e116]
+                  - columnheader "Description" [ref=f15e118]
+                  - columnheader "Actions" [ref=f15e120]
+              - rowgroup [ref=f15e122]:
+                - row [ref=f15e123]:
+                  - cell [ref=f15e124]:
+                    - generic [ref=f15e5925]:
+                      - paragraph [ref=f15e5926]: K-DCP Authoring
+                      - paragraph [ref=f15e5927]: com.in2soft.otxSuite.extensions
+                  - cell "2.7.999 2.8.999" [ref=f15e130]:
+                    - generic [ref=f15e5929]:
+                      - generic [ref=f15e5930] [cursor=pointer]: 2.7.999
+                      - generic [ref=f15e5932] [cursor=pointer]: 2.8.999
+                  - cell "Viewer Standard Floating" [ref=f15e137]:
+                    - generic [ref=f15e5935]:
+                      - generic [ref=f15e5936]: Viewer
+                      - generic [ref=f15e5937]: Standard
+                      - generic [ref=f15e5938]: Floating
+                  - cell "2 profiles" [ref=f15e143]
+                  - cell [ref=f15e147]
+                  - cell [ref=f15e148]:
+                    - generic [ref=f15e5943]:
+                      - button "Add Child Feature" [ref=f15e5944] [cursor=pointer]
+                      - button "Edit" [ref=f15e5945] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e153]:
+                  - cell [ref=f15e154]:
+                    - generic [ref=f15e5948]:
+                      - paragraph [ref=f15e5949]: K-DCP Communicator
+                      - paragraph [ref=f15e5950]: com.in2soft.communicator
+                  - cell "1.5.999 1.5.7 1.5.8" [ref=f15e160]:
+                    - generic [ref=f15e5952]:
+                      - generic [ref=f15e5953] [cursor=pointer]: 1.5.999
+                      - generic [ref=f15e5955] [cursor=pointer]: 1.5.7
+                      - generic [ref=f15e5957] [cursor=pointer]: 1.5.8
+                  - cell "Viewer Floating Standard" [ref=f15e169]:
+                    - generic [ref=f15e5960]:
+                      - generic [ref=f15e5961]: Viewer
+                      - generic [ref=f15e5962]: Floating
+                      - generic [ref=f15e5963]: Standard
+                  - cell "2 profiles" [ref=f15e175]
+                  - cell [ref=f15e179]
+                  - cell [ref=f15e180]:
+                    - generic [ref=f15e5968]:
+                      - button "Add Child Feature" [ref=f15e5969] [cursor=pointer]
+                      - button "Edit" [ref=f15e5970] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e185]:
+                  - cell [ref=f15e186]:
+                    - generic [ref=f15e5973]:
+                      - paragraph [ref=f15e5974]: DatabaseDesigner NG
+                      - paragraph [ref=f15e5975]: com.kpit.dbdng
+                  - cell "2.05.000 2.99.999 2.03.004 2.04.002 2.04.001 2.04.004 2.05.001 2.03.002 2.06.000" [ref=f15e192]:
+                    - generic [ref=f15e5977]:
+                      - generic [ref=f15e5978] [cursor=pointer]: 2.05.000
+                      - generic [ref=f15e5980] [cursor=pointer]: 2.99.999
+                      - generic [ref=f15e5982] [cursor=pointer]: 2.03.004
+                      - generic [ref=f15e5984] [cursor=pointer]: 2.04.002
+                      - generic [ref=f15e5986] [cursor=pointer]: 2.04.001
+                      - generic [ref=f15e5988] [cursor=pointer]: 2.04.004
+                      - generic [ref=f15e5990] [cursor=pointer]: 2.05.001
+                      - generic [ref=f15e5992] [cursor=pointer]: 2.03.002
+                      - generic [ref=f15e5994] [cursor=pointer]: 2.06.000
+                  - cell "Standard Viewer Floating" [ref=f15e213]:
+                    - generic [ref=f15e5997]:
+                      - generic [ref=f15e5998]: Standard
+                      - generic [ref=f15e5999]: Viewer
+                      - generic [ref=f15e6000]: Floating
+                  - cell "2 profiles" [ref=f15e219]
+                  - cell [ref=f15e223]
+                  - cell [ref=f15e224]:
+                    - generic [ref=f15e6005]:
+                      - button "Add Child Feature" [ref=f15e6006] [cursor=pointer]
+                      - button "Edit" [ref=f15e6007] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e229]:
+                  - cell [ref=f15e230]:
+                    - generic [ref=f15e6010]:
+                      - paragraph [ref=f15e6011]: DatabaseDesigner
+                      - paragraph [ref=f15e6012]: com.kpit.dbd
+                  - cell "1.14.001 1.99.999 1.11.001 1.11.000 1.11.002 1.12.001 1.13.000" [ref=f15e236]:
+                    - generic [ref=f15e6014]:
+                      - generic [ref=f15e6015] [cursor=pointer]: 1.14.001
+                      - generic [ref=f15e6017] [cursor=pointer]: 1.99.999
+                      - generic [ref=f15e6019] [cursor=pointer]: 1.11.001
+                      - generic [ref=f15e6021] [cursor=pointer]: 1.11.000
+                      - generic [ref=f15e6023] [cursor=pointer]: 1.11.002
+                      - generic [ref=f15e6025] [cursor=pointer]: 1.12.001
+                      - generic [ref=f15e6027] [cursor=pointer]: 1.13.000
+                  - cell "Standard Viewer Floating" [ref=f15e253]:
+                    - generic [ref=f15e6030]:
+                      - generic [ref=f15e6031]: Standard
+                      - generic [ref=f15e6032]: Viewer
+                      - generic [ref=f15e6033]: Floating
+                  - cell "2 profiles" [ref=f15e259]
+                  - cell [ref=f15e263]
+                  - cell [ref=f15e264]:
+                    - generic [ref=f15e6038]:
+                      - button "Add Child Feature" [ref=f15e6039] [cursor=pointer]
+                      - button "Edit" [ref=f15e6040] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e269]:
+                  - cell [ref=f15e270]:
+                    - generic [ref=f15e6043]:
+                      - paragraph [ref=f15e6044]: DatabaseDesigner floating
+                      - paragraph [ref=f15e6045]: com.kpit.dbd.floating.DatabaseDesigner
+                  - cell "1.11.001 1.12.001 1.13.000 1.11.002 1.14.001 1.99.999" [ref=f15e276]:
+                    - generic [ref=f15e6047]:
+                      - generic [ref=f15e6048] [cursor=pointer]: 1.11.001
+                      - generic [ref=f15e6050] [cursor=pointer]: 1.12.001
+                      - generic [ref=f15e6052] [cursor=pointer]: 1.13.000
+                      - generic [ref=f15e6054] [cursor=pointer]: 1.11.002
+                      - generic [ref=f15e6056] [cursor=pointer]: 1.14.001
+                      - generic [ref=f15e6058] [cursor=pointer]: 1.99.999
+                  - cell "Standard Floating Viewer" [ref=f15e291]:
+                    - generic [ref=f15e6061]:
+                      - generic [ref=f15e6062]: Standard
+                      - generic [ref=f15e6063]: Floating
+                      - generic [ref=f15e6064]: Viewer
+                  - cell "1 profiles" [ref=f15e297]
+                  - cell [ref=f15e301]
+                  - cell [ref=f15e302]:
+                    - generic [ref=f15e6069]:
+                      - button "Add Child Feature" [ref=f15e6070] [cursor=pointer]
+                      - button "Edit" [ref=f15e6071] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e307]:
+                  - cell [ref=f15e308]:
+                    - generic [ref=f15e6074]:
+                      - paragraph [ref=f15e6075]: DatabaseDesigner NG floating
+                      - paragraph [ref=f15e6076]: com.kpit.dbdng.floating.DatabaseDesigner NG
+                  - cell "2.05.001 2.03.002 2.99.999 2.03.004 2.06.000 2.04.001 2.05.000 2.04.004 2.04.002" [ref=f15e314]:
+                    - generic [ref=f15e6078]:
+                      - generic [ref=f15e6079] [cursor=pointer]: 2.05.001
+                      - generic [ref=f15e6081] [cursor=pointer]: 2.03.002
+                      - generic [ref=f15e6083] [cursor=pointer]: 2.99.999
+                      - generic [ref=f15e6085] [cursor=pointer]: 2.03.004
+                      - generic [ref=f15e6087] [cursor=pointer]: 2.06.000
+                      - generic [ref=f15e6089] [cursor=pointer]: 2.04.001
+                      - generic [ref=f15e6091] [cursor=pointer]: 2.05.000
+                      - generic [ref=f15e6093] [cursor=pointer]: 2.04.004
+                      - generic [ref=f15e6095] [cursor=pointer]: 2.04.002
+                  - cell "Floating Standard Viewer" [ref=f15e335]:
+                    - generic [ref=f15e6098]:
+                      - generic [ref=f15e6099]: Floating
+                      - generic [ref=f15e6100]: Standard
+                      - generic [ref=f15e6101]: Viewer
+                  - cell "1 profiles" [ref=f15e341]
+                  - cell [ref=f15e345]
+                  - cell [ref=f15e346]:
+                    - generic [ref=f15e6106]:
+                      - button "Add Child Feature" [ref=f15e6107] [cursor=pointer]
+                      - button "Edit" [ref=f15e6108] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e351]:
+                  - cell [ref=f15e352]:
+                    - generic [ref=f15e6111]:
+                      - paragraph [ref=f15e6112]: K-DCP Communicator Floating
+                      - paragraph [ref=f15e6113]: com.in2soft.communicator.floating.Diagnostic Communicator
+                  - cell "1.5.999 1.5.7 1.5.8" [ref=f15e358]:
+                    - generic [ref=f15e6115]:
+                      - generic [ref=f15e6116] [cursor=pointer]: 1.5.999
+                      - generic [ref=f15e6118] [cursor=pointer]: 1.5.7
+                      - generic [ref=f15e6120] [cursor=pointer]: 1.5.8
+                  - cell "Viewer Standard Floating" [ref=f15e367]:
+                    - generic [ref=f15e6123]:
+                      - generic [ref=f15e6124]: Viewer
+                      - generic [ref=f15e6125]: Standard
+                      - generic [ref=f15e6126]: Floating
+                  - cell "1 profiles" [ref=f15e373]
+                  - cell [ref=f15e377]
+                  - cell [ref=f15e378]:
+                    - generic [ref=f15e6131]:
+                      - button "Add Child Feature" [ref=f15e6132] [cursor=pointer]
+                      - button "Edit" [ref=f15e6133] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e383]:
+                  - cell [ref=f15e384]:
+                    - generic [ref=f15e6136]:
+                      - paragraph [ref=f15e6137]: K-DCP Authoring Floating
+                      - paragraph [ref=f15e6138]: com.in2soft.otxSuite.extensions.floating.OTX-Authoring
+                  - cell "2.7.999 2.8.999" [ref=f15e390]:
+                    - generic [ref=f15e6140]:
+                      - generic [ref=f15e6141] [cursor=pointer]: 2.7.999
+                      - generic [ref=f15e6143] [cursor=pointer]: 2.8.999
+                  - cell "Floating Viewer Standard" [ref=f15e397]:
+                    - generic [ref=f15e6146]:
+                      - generic [ref=f15e6147]: Floating
+                      - generic [ref=f15e6148]: Viewer
+                      - generic [ref=f15e6149]: Standard
+                  - cell "1 profiles" [ref=f15e403]
+                  - cell [ref=f15e407]
+                  - cell [ref=f15e408]:
+                    - generic [ref=f15e6154]:
+                      - button "Add Child Feature" [ref=f15e6155] [cursor=pointer]
+                      - button "Edit" [ref=f15e6156] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e413]:
+                  - cell [ref=f15e414]:
+                    - generic [ref=f15e6158]:
+                      - button [ref=f15e6159] [cursor=pointer]
+                      - generic [ref=f15e6162]:
+                        - paragraph [ref=f15e6163]: Authoring Suite 2
+                        - paragraph [ref=f15e6164]: com.kpit.otx.suite.extensions.authoring_suite
+                  - cell "1.29.000 1.31.999 1.00.999 9.99.999 1.27.000" [ref=f15e423]:
+                    - generic [ref=f15e6166]:
+                      - generic [ref=f15e6167] [cursor=pointer]: 1.29.000
+                      - generic [ref=f15e6169] [cursor=pointer]: 1.31.999
+                      - generic [ref=f15e6173] [cursor=pointer]: 1.00.999
+                      - generic [ref=f15e6175] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e6177] [cursor=pointer]: 1.27.000
+                  - cell "Viewer Standard Floating" [ref=f15e438]:
+                    - generic [ref=f15e6180]:
+                      - generic [ref=f15e6181]: Viewer
+                      - generic [ref=f15e6182]: Standard
+                      - generic [ref=f15e6183]: Floating
+                  - cell "4 profiles" [ref=f15e444]
+                  - cell [ref=f15e448]
+                  - cell [ref=f15e449]:
+                    - generic [ref=f15e6188]:
+                      - button "Add Child Feature" [ref=f15e6189] [cursor=pointer]
+                      - button "Edit" [ref=f15e6190] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e454]:
+                  - cell [ref=f15e455]:
+                    - generic [ref=f15e6193]:
+                      - paragraph [ref=f15e6194]: Diagnostic Stack
+                      - paragraph [ref=f15e6195]: com.kpit.diagnosticstack
+                  - cell "1.99.999 3.99.999 9.99.999 1.12.999" [ref=f15e461]:
+                    - generic [ref=f15e6197]:
+                      - generic [ref=f15e6198] [cursor=pointer]: 1.99.999
+                      - generic [ref=f15e6200] [cursor=pointer]: 3.99.999
+                      - generic [ref=f15e6202] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e6204] [cursor=pointer]: 1.12.999
+                  - cell [ref=f15e472]
+                  - cell "1 profiles" [ref=f15e473]
+                  - cell [ref=f15e477]
+                  - cell [ref=f15e478]:
+                    - generic [ref=f15e6210]:
+                      - button "Add Child Feature" [ref=f15e6211] [cursor=pointer]
+                      - button "Edit" [ref=f15e6212] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e483]:
+                  - cell [ref=f15e484]:
+                    - generic [ref=f15e6215]:
+                      - paragraph [ref=f15e6216]: GM Feature Standard
+                      - paragraph [ref=f15e6217]: com.GM.Standard
+                  - cell "1.0.0" [ref=f15e490]
+                  - cell [ref=f15e495]
+                  - cell "1 profiles" [ref=f15e496]
+                  - cell [ref=f15e500]
+                  - cell [ref=f15e501]:
+                    - generic [ref=f15e6226]:
+                      - button "Add Child Feature" [ref=f15e6227] [cursor=pointer]
+                      - button "Edit" [ref=f15e6228] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e506]:
+                  - cell [ref=f15e507]:
+                    - generic [ref=f15e6231]:
+                      - paragraph [ref=f15e6232]: ODX Checker NG
+                      - paragraph [ref=f15e6233]: com.kpit.odxcheckerng
+                  - cell "9.99.999 1.04.999 2.99.999 1.05.001 2.0.0 1.03.999" [ref=f15e513]:
+                    - generic [ref=f15e6235]:
+                      - generic [ref=f15e6236] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e6238] [cursor=pointer]: 1.04.999
+                      - generic [ref=f15e6240] [cursor=pointer]: 2.99.999
+                      - generic [ref=f15e6242] [cursor=pointer]: 1.05.001
+                      - generic [ref=f15e6244] [cursor=pointer]: 2.0.0
+                      - generic [ref=f15e6246] [cursor=pointer]: 1.03.999
+                  - cell "Viewer Standard Floating" [ref=f15e528]:
+                    - generic [ref=f15e6249]:
+                      - generic [ref=f15e6250]: Viewer
+                      - generic [ref=f15e6251]: Standard
+                      - generic [ref=f15e6252]: Floating
+                  - cell "2 profiles" [ref=f15e534]
+                  - cell [ref=f15e538]
+                  - cell [ref=f15e539]:
+                    - generic [ref=f15e6257]:
+                      - button "Add Child Feature" [ref=f15e6258] [cursor=pointer]
+                      - button "Edit" [ref=f15e6259] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e544]:
+                  - cell [ref=f15e545]:
+                    - generic [ref=f15e6262]:
+                      - paragraph [ref=f15e6263]: ODX Checker NG Floating
+                      - paragraph [ref=f15e6264]: com.kpit.odxcheckerng.floating.ODX Checker NG
+                  - cell "1.05.001 2.0.0 1.03.999 2.99.999 1.04.999 9.99.999" [ref=f15e551]:
+                    - generic [ref=f15e6266]:
+                      - generic [ref=f15e6267] [cursor=pointer]: 1.05.001
+                      - generic [ref=f15e6269] [cursor=pointer]: 2.0.0
+                      - generic [ref=f15e6271] [cursor=pointer]: 1.03.999
+                      - generic [ref=f15e6273] [cursor=pointer]: 2.99.999
+                      - generic [ref=f15e6275] [cursor=pointer]: 1.04.999
+                      - generic [ref=f15e6277] [cursor=pointer]: 9.99.999
+                  - cell "Floating Standard Viewer" [ref=f15e566]:
+                    - generic [ref=f15e6280]:
+                      - generic [ref=f15e6281]: Floating
+                      - generic [ref=f15e6282]: Standard
+                      - generic [ref=f15e6283]: Viewer
+                  - cell "1 profiles" [ref=f15e572]
+                  - cell [ref=f15e576]
+                  - cell [ref=f15e577]:
+                    - generic [ref=f15e6288]:
+                      - button "Add Child Feature" [ref=f15e6289] [cursor=pointer]
+                      - button "Edit" [ref=f15e6290] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e582]:
+                  - cell [ref=f15e583]:
+                    - generic [ref=f15e6293]:
+                      - paragraph [ref=f15e6294]: ECU Validator
+                      - paragraph [ref=f15e6295]: com.kpit.ecuvalidator
+                  - cell "2.2.0 1.0.0 9.9.9 2.4.1 1.1.0 1.2.0" [ref=f15e589]:
+                    - generic [ref=f15e6297]:
+                      - generic [ref=f15e6298] [cursor=pointer]: 2.2.0
+                      - generic [ref=f15e6300] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6302] [cursor=pointer]: 9.9.9
+                      - generic [ref=f15e6304] [cursor=pointer]: 2.4.1
+                      - generic [ref=f15e6306] [cursor=pointer]: 1.1.0
+                      - generic [ref=f15e6308] [cursor=pointer]: 1.2.0
+                  - cell "Floating Viewer Standard" [ref=f15e604]:
+                    - generic [ref=f15e6311]:
+                      - generic [ref=f15e6312]: Floating
+                      - generic [ref=f15e6313]: Viewer
+                      - generic [ref=f15e6314]: Standard
+                  - cell "1 profiles" [ref=f15e610]
+                  - cell [ref=f15e614]
+                  - cell [ref=f15e615]:
+                    - generic [ref=f15e6319]:
+                      - button "Add Child Feature" [ref=f15e6320] [cursor=pointer]
+                      - button "Edit" [ref=f15e6321] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e620]:
+                  - cell [ref=f15e621]:
+                    - generic [ref=f15e6323]:
+                      - button [ref=f15e6324] [cursor=pointer]
+                      - generic [ref=f15e6327]:
+                        - paragraph [ref=f15e6328]: Authoring Suite 2 Floating
+                        - paragraph [ref=f15e6329]: com.kpit.otx.suite.extensions.authoring_suite.floating.Authoring Suite 2
+                  - cell "1.27.000 9.99.999 1.00.999 1.31.999 1.29.000" [ref=f15e630]:
+                    - generic [ref=f15e6331]:
+                      - generic [ref=f15e6332] [cursor=pointer]: 1.27.000
+                      - generic [ref=f15e6334] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e6336] [cursor=pointer]: 1.00.999
+                      - generic [ref=f15e6338] [cursor=pointer]: 1.31.999
+                      - generic [ref=f15e6340] [cursor=pointer]: 1.29.000
+                  - cell "Standard Viewer Floating" [ref=f15e643]:
+                    - generic [ref=f15e6343]:
+                      - generic [ref=f15e6344]: Standard
+                      - generic [ref=f15e6345]: Viewer
+                      - generic [ref=f15e6346]: Floating
+                  - cell "2 profiles" [ref=f15e649]
+                  - cell [ref=f15e653]
+                  - cell [ref=f15e654]:
+                    - generic [ref=f15e6351]:
+                      - button "Add Child Feature" [ref=f15e6352] [cursor=pointer]
+                      - button "Edit" [ref=f15e6353] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e659]:
+                  - cell [ref=f15e660]:
+                    - generic [ref=f15e6356]:
+                      - paragraph [ref=f15e6357]: GM Ebike Service Tool Feature
+                      - paragraph [ref=f15e6358]: com.GM.ServiceTool
+                  - cell "1.0.0" [ref=f15e666]
+                  - cell "Standard" [ref=f15e671]
+                  - cell "1 profiles" [ref=f15e675]
+                  - cell [ref=f15e679]
+                  - cell [ref=f15e680]:
+                    - generic [ref=f15e6370]:
+                      - button "Add Child Feature" [ref=f15e6371] [cursor=pointer]
+                      - button "Edit" [ref=f15e6372] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e685]:
+                  - cell [ref=f15e686]:
+                    - generic [ref=f15e6375]:
+                      - paragraph [ref=f15e6376]: K-DCP Engineering Tester
+                      - paragraph [ref=f15e6377]: com.kpit.engineeringtester
+                  - cell "9.99.999" [ref=f15e692]
+                  - cell "Viewer Standard Floating" [ref=f15e697]:
+                    - generic [ref=f15e6383]:
+                      - generic [ref=f15e6384]: Viewer
+                      - generic [ref=f15e6385]: Standard
+                      - generic [ref=f15e6386]: Floating
+                  - cell "2 profiles" [ref=f15e703]
+                  - cell [ref=f15e707]
+                  - cell [ref=f15e708]:
+                    - generic [ref=f15e6391]:
+                      - button "Add Child Feature" [ref=f15e6392] [cursor=pointer]
+                      - button "Edit" [ref=f15e6393] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e713]:
+                  - cell [ref=f15e714]:
+                    - generic [ref=f15e6396]:
+                      - paragraph [ref=f15e6397]: K-DCP ECU Comparator
+                      - paragraph [ref=f15e6398]: com.kpit.ecu.comparator
+                  - cell "1.01.00" [ref=f15e720]
+                  - cell "Viewer Floating Standard" [ref=f15e725]:
+                    - generic [ref=f15e6404]:
+                      - generic [ref=f15e6405]: Viewer
+                      - generic [ref=f15e6406]: Floating
+                      - generic [ref=f15e6407]: Standard
+                  - cell "2 profiles" [ref=f15e731]
+                  - cell [ref=f15e735]
+                  - cell [ref=f15e736]:
+                    - generic [ref=f15e6412]:
+                      - button "Add Child Feature" [ref=f15e6413] [cursor=pointer]
+                      - button "Edit" [ref=f15e6414] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e741]:
+                  - cell [ref=f15e742]:
+                    - generic [ref=f15e6417]:
+                      - paragraph [ref=f15e6418]: K-DCP ECU Comparator Floating
+                      - paragraph [ref=f15e6419]: com.kpit.ecu.comparator.floating.ECU Comparator
+                  - cell "1.01.00" [ref=f15e748]
+                  - cell "Standard Viewer Floating" [ref=f15e753]:
+                    - generic [ref=f15e6425]:
+                      - generic [ref=f15e6426]: Standard
+                      - generic [ref=f15e6427]: Viewer
+                      - generic [ref=f15e6428]: Floating
+                  - cell "1 profiles" [ref=f15e759]
+                  - cell [ref=f15e763]
+                  - cell [ref=f15e764]:
+                    - generic [ref=f15e6433]:
+                      - button "Add Child Feature" [ref=f15e6434] [cursor=pointer]
+                      - button "Edit" [ref=f15e6435] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e769]:
+                  - cell [ref=f15e770]:
+                    - generic [ref=f15e6438]:
+                      - paragraph [ref=f15e6439]: K-DCP Service Tester
+                      - paragraph [ref=f15e6440]: com.kpit.servicetester
+                  - cell "3.2.2 3.0.0 9.9.9 1.3.0 3.0.1 3.2.0 1.0.3 1.0.0 1.0.2" [ref=f15e776]:
+                    - generic [ref=f15e6442]:
+                      - generic [ref=f15e6443] [cursor=pointer]: 3.2.2
+                      - generic [ref=f15e6447] [cursor=pointer]: 3.0.0
+                      - generic [ref=f15e6451] [cursor=pointer]: 9.9.9
+                      - generic [ref=f15e6455] [cursor=pointer]: 1.3.0
+                      - generic [ref=f15e6459] [cursor=pointer]: 3.0.1
+                      - generic [ref=f15e6463] [cursor=pointer]: 3.2.0
+                      - generic [ref=f15e6467] [cursor=pointer]: 1.0.3
+                      - generic [ref=f15e6469] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6473] [cursor=pointer]: 1.0.2
+                  - cell "Write Read" [ref=f15e813]:
+                    - generic [ref=f15e6478]:
+                      - generic [ref=f15e6479]: Write
+                      - generic [ref=f15e6480]: Read
+                  - cell "2 profiles" [ref=f15e818]
+                  - cell [ref=f15e822]
+                  - cell [ref=f15e823]:
+                    - generic [ref=f15e6485]:
+                      - button "Add Child Feature" [ref=f15e6486] [cursor=pointer]
+                      - button "Edit" [ref=f15e6487] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e828]:
+                  - cell [ref=f15e829]:
+                    - generic [ref=f15e6490]:
+                      - paragraph [ref=f15e6491]: Branding Actia
+                      - paragraph [ref=f15e6492]: com.kpit.branding.actia
+                  - cell "1.00.000" [ref=f15e835]
+                  - cell "Floating Standard Viewer" [ref=f15e840]:
+                    - generic [ref=f15e6498]:
+                      - generic [ref=f15e6499]: Floating
+                      - generic [ref=f15e6500]: Standard
+                      - generic [ref=f15e6501]: Viewer
+                  - cell "1 profiles" [ref=f15e846]
+                  - cell [ref=f15e850]
+                  - cell [ref=f15e851]:
+                    - generic [ref=f15e6506]:
+                      - button "Add Child Feature" [ref=f15e6507] [cursor=pointer]
+                      - button "Edit" [ref=f15e6508] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e856]:
+                  - cell [ref=f15e857]:
+                    - generic [ref=f15e6511]:
+                      - paragraph [ref=f15e6512]: ECU Editor
+                      - paragraph [ref=f15e6513]: com.kpit.ecueditor
+                  - cell "1.2.0 1.1.0 9.99.999.999 0.1.0" [ref=f15e863]:
+                    - generic [ref=f15e6515]:
+                      - generic [ref=f15e6516] [cursor=pointer]: 1.2.0
+                      - generic [ref=f15e6518] [cursor=pointer]: 1.1.0
+                      - generic [ref=f15e6520] [cursor=pointer]: 9.99.999.999
+                      - generic [ref=f15e6522] [cursor=pointer]: 0.1.0
+                  - cell "Floating Viewer Standard" [ref=f15e874]:
+                    - generic [ref=f15e6525]:
+                      - generic [ref=f15e6526]: Floating
+                      - generic [ref=f15e6527]: Viewer
+                      - generic [ref=f15e6528]: Standard
+                  - cell "2 profiles" [ref=f15e880]
+                  - cell [ref=f15e884]
+                  - cell [ref=f15e885]:
+                    - generic [ref=f15e6533]:
+                      - button "Add Child Feature" [ref=f15e6534] [cursor=pointer]
+                      - button "Edit" [ref=f15e6535] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e890]:
+                  - cell [ref=f15e891]:
+                    - generic [ref=f15e6538]:
+                      - paragraph [ref=f15e6539]: K-DCP License Library Test
+                      - paragraph [ref=f15e6540]: com.kpit.LicenseLibrary.junit.test
+                  - cell "1.0.0 0.1.1" [ref=f15e897]:
+                    - generic [ref=f15e6542]:
+                      - generic [ref=f15e6543] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6545] [cursor=pointer]: 0.1.1
+                  - cell "Floating Standard Viewer" [ref=f15e904]:
+                    - generic [ref=f15e6548]:
+                      - generic [ref=f15e6549]: Floating
+                      - generic [ref=f15e6550]: Standard
+                      - generic [ref=f15e6551]: Viewer
+                  - cell "4 profiles" [ref=f15e910]
+                  - cell [ref=f15e914]
+                  - cell [ref=f15e915]:
+                    - generic [ref=f15e6556]:
+                      - button "Add Child Feature" [ref=f15e6557] [cursor=pointer]
+                      - button "Edit" [ref=f15e6558] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e920]:
+                  - cell [ref=f15e921]:
+                    - generic [ref=f15e6561]:
+                      - paragraph [ref=f15e6562]: K-DCP License Library Test Floating
+                      - paragraph [ref=f15e6563]: com.kpit.LicenseLibrary.junit.test.floating.K-DCP License Library Test
+                  - cell "1.0.0 0.1.1" [ref=f15e927]:
+                    - generic [ref=f15e6565]:
+                      - generic [ref=f15e6566] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6568] [cursor=pointer]: 0.1.1
+                  - cell "Viewer Floating Standard" [ref=f15e934]:
+                    - generic [ref=f15e6571]:
+                      - generic [ref=f15e6572]: Viewer
+                      - generic [ref=f15e6573]: Floating
+                      - generic [ref=f15e6574]: Standard
+                  - cell "2 profiles" [ref=f15e940]
+                  - cell [ref=f15e944]
+                  - cell [ref=f15e945]:
+                    - generic [ref=f15e6579]:
+                      - button "Add Child Feature" [ref=f15e6580] [cursor=pointer]
+                      - button "Edit" [ref=f15e6581] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e950]:
+                  - cell [ref=f15e951]:
+                    - generic [ref=f15e6583]:
+                      - button [ref=f15e6584] [cursor=pointer]
+                      - generic [ref=f15e6587]:
+                        - paragraph [ref=f15e6588]: KOEL EOL Tester
+                        - paragraph [ref=f15e6589]: com.kpit.koel
+                  - cell "1.1.0.1 4.1.0 2.0.0 3.0.0 1.0.0 4.0.0 2.1.0.1" [ref=f15e960]:
+                    - generic [ref=f15e6591]:
+                      - generic [ref=f15e6592] [cursor=pointer]: 1.1.0.1
+                      - generic [ref=f15e6594] [cursor=pointer]: 4.1.0
+                      - generic [ref=f15e6598] [cursor=pointer]: 2.0.0
+                      - generic [ref=f15e6602] [cursor=pointer]: 3.0.0
+                      - generic [ref=f15e6606] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6610] [cursor=pointer]: 4.0.0
+                      - generic [ref=f15e6614] [cursor=pointer]: 2.1.0.1
+                  - cell "Read/Write EOL Tester Read" [ref=f15e987]:
+                    - generic [ref=f15e6617]:
+                      - generic [ref=f15e6618]: Read/Write
+                      - generic [ref=f15e6619]: EOL Tester
+                      - generic [ref=f15e6620]: Read
+                  - cell "1 profiles" [ref=f15e993]
+                  - cell [ref=f15e997]
+                  - cell [ref=f15e998]:
+                    - generic [ref=f15e6625]:
+                      - button "Add Child Feature" [ref=f15e6626] [cursor=pointer]
+                      - button "Edit" [ref=f15e6627] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1003]:
+                  - cell [ref=f15e1004]:
+                    - generic [ref=f15e6630]:
+                      - paragraph [ref=f15e6631]: ECU Editor Floating
+                      - paragraph [ref=f15e6632]: com.kpit.ecueditor.floating.ECU Editor
+                  - cell "1.2.0 9.99.999.999" [ref=f15e1010]:
+                    - generic [ref=f15e6634]:
+                      - generic [ref=f15e6635] [cursor=pointer]: 1.2.0
+                      - generic [ref=f15e6637] [cursor=pointer]: 9.99.999.999
+                  - cell "Viewer Standard Floating" [ref=f15e1017]:
+                    - generic [ref=f15e6640]:
+                      - generic [ref=f15e6641]: Viewer
+                      - generic [ref=f15e6642]: Standard
+                      - generic [ref=f15e6643]: Floating
+                  - cell "1 profiles" [ref=f15e1023]
+                  - cell [ref=f15e1027]
+                  - cell [ref=f15e1028]:
+                    - generic [ref=f15e6648]:
+                      - button "Add Child Feature" [ref=f15e6649] [cursor=pointer]
+                      - button "Edit" [ref=f15e6650] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1033]:
+                  - cell [ref=f15e1034]:
+                    - generic [ref=f15e6653]:
+                      - paragraph [ref=f15e6654]: OLA Service Tester
+                      - paragraph [ref=f15e6655]: com.kpit.ola
+                  - cell "0.0.1" [ref=f15e1040]
+                  - cell "Read EOL Tester Read/Write" [ref=f15e1045]:
+                    - generic [ref=f15e6661]:
+                      - generic [ref=f15e6662]: Read
+                      - generic [ref=f15e6663]: EOL Tester
+                      - generic [ref=f15e6664]: Read/Write
+                  - cell "1 profiles" [ref=f15e1051]
+                  - cell [ref=f15e1055]
+                  - cell [ref=f15e1056]:
+                    - generic [ref=f15e6669]:
+                      - button "Add Child Feature" [ref=f15e6670] [cursor=pointer]
+                      - button "Edit" [ref=f15e6671] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1061]:
+                  - cell [ref=f15e1062]:
+                    - generic [ref=f15e6674]:
+                      - paragraph [ref=f15e6675]: Database Designer VW
+                      - paragraph [ref=f15e6676]: com.kpit.dbd.vw
+                  - cell "1.14.000 1.99.999 1.13.000" [ref=f15e1068]:
+                    - generic [ref=f15e6678]:
+                      - generic [ref=f15e6679] [cursor=pointer]: 1.14.000
+                      - generic [ref=f15e6681] [cursor=pointer]: 1.99.999
+                      - generic [ref=f15e6683] [cursor=pointer]: 1.13.000
+                  - cell "Viewer Standard Floating" [ref=f15e1077]:
+                    - generic [ref=f15e6686]:
+                      - generic [ref=f15e6687]: Viewer
+                      - generic [ref=f15e6688]: Standard
+                      - generic [ref=f15e6689]: Floating
+                  - cell "2 profiles" [ref=f15e1083]
+                  - cell [ref=f15e1087]
+                  - cell [ref=f15e1088]:
+                    - generic [ref=f15e6694]:
+                      - button "Add Child Feature" [ref=f15e6695] [cursor=pointer]
+                      - button "Edit" [ref=f15e6696] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1093]:
+                  - cell [ref=f15e1094]:
+                    - generic [ref=f15e6699]:
+                      - paragraph [ref=f15e6700]: Database Designer VW Floating
+                      - paragraph [ref=f15e6701]: com.kpit.dbd.vw.floating.DatabaseDesigner VW
+                  - cell "1.99.999 1.14.000 1.13.000" [ref=f15e1100]:
+                    - generic [ref=f15e6703]:
+                      - generic [ref=f15e6704] [cursor=pointer]: 1.99.999
+                      - generic [ref=f15e6706] [cursor=pointer]: 1.14.000
+                      - generic [ref=f15e6708] [cursor=pointer]: 1.13.000
+                  - cell "Standard Floating Viewer" [ref=f15e1109]:
+                    - generic [ref=f15e6711]:
+                      - generic [ref=f15e6712]: Standard
+                      - generic [ref=f15e6713]: Floating
+                      - generic [ref=f15e6714]: Viewer
+                  - cell "1 profiles" [ref=f15e1115]
+                  - cell [ref=f15e1119]
+                  - cell [ref=f15e1120]:
+                    - generic [ref=f15e6719]:
+                      - button "Add Child Feature" [ref=f15e6720] [cursor=pointer]
+                      - button "Edit" [ref=f15e6721] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1125]:
+                  - cell [ref=f15e1126]:
+                    - generic [ref=f15e6724]:
+                      - paragraph [ref=f15e6725]: Ola charging module
+                      - paragraph [ref=f15e6726]: com.ola.charging.module
+                  - cell "1.0.0" [ref=f15e1132]
+                  - cell [ref=f15e1139]
+                  - cell "1 profiles" [ref=f15e1140]
+                  - cell [ref=f15e1144]
+                  - cell [ref=f15e1145]:
+                    - generic [ref=f15e6737]:
+                      - button "Add Child Feature" [ref=f15e6738] [cursor=pointer]
+                      - button "Edit" [ref=f15e6739] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1150]:
+                  - cell [ref=f15e1151]:
+                    - generic [ref=f15e6742]:
+                      - paragraph [ref=f15e6743]: Krypto
+                      - paragraph [ref=f15e6744]: com.kpit.krypto
+                  - cell "1.0.15 1.0.10 1.0.13 1.9.9" [ref=f15e1157]:
+                    - generic [ref=f15e6746]:
+                      - generic [ref=f15e6747] [cursor=pointer]: 1.0.15
+                      - generic [ref=f15e6749] [cursor=pointer]: 1.0.10
+                      - generic [ref=f15e6751] [cursor=pointer]: 1.0.13
+                      - generic [ref=f15e6753] [cursor=pointer]: 1.9.9
+                  - cell [ref=f15e1168]
+                  - cell "4 profiles" [ref=f15e1169]
+                  - cell [ref=f15e1173]
+                  - cell [ref=f15e1174]:
+                    - generic [ref=f15e6759]:
+                      - button "Add Child Feature" [ref=f15e6760] [cursor=pointer]
+                      - button "Edit" [ref=f15e6761] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1179]:
+                  - cell [ref=f15e1180]:
+                    - generic [ref=f15e6764]:
+                      - paragraph [ref=f15e6765]: K-DCP Service Tester (WABCO)
+                      - paragraph [ref=f15e6766]: com.kpit.tf2
+                  - cell "1.0.0" [ref=f15e1186]
+                  - cell "Standard" [ref=f15e1191]
+                  - cell "1 profiles" [ref=f15e1195]
+                  - cell [ref=f15e1199]
+                  - cell [ref=f15e1200]:
+                    - generic [ref=f15e6778]:
+                      - button "Add Child Feature" [ref=f15e6779] [cursor=pointer]
+                      - button "Edit" [ref=f15e6780] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1205]:
+                  - cell [ref=f15e1206]:
+                    - generic [ref=f15e6783]:
+                      - paragraph [ref=f15e6784]: DDX
+                      - paragraph [ref=f15e6785]: com.kpit.ddx
+                  - cell "9.99.999" [ref=f15e1212]
+                  - cell "Floating Viewer Standard" [ref=f15e1217]:
+                    - generic [ref=f15e6791]:
+                      - generic [ref=f15e6792]: Floating
+                      - generic [ref=f15e6793]: Viewer
+                      - generic [ref=f15e6794]: Standard
+                  - cell "4 profiles" [ref=f15e1223]
+                  - cell [ref=f15e1227]
+                  - cell [ref=f15e1228]:
+                    - generic [ref=f15e6799]:
+                      - button "Add Child Feature" [ref=f15e6800] [cursor=pointer]
+                      - button "Edit" [ref=f15e6801] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1233]:
+                  - cell [ref=f15e1234]:
+                    - generic [ref=f15e6804]:
+                      - paragraph [ref=f15e6805]: STIHL EOL Tester
+                      - paragraph [ref=f15e6806]: com.stihl.eol
+                  - cell "9.99.999" [ref=f15e1240]
+                  - cell "Read Write None" [ref=f15e1245]:
+                    - generic [ref=f15e6812]:
+                      - generic [ref=f15e6813]: Read
+                      - generic [ref=f15e6814]: Write
+                      - generic [ref=f15e6815]: None
+                  - cell "1 profiles" [ref=f15e1251]
+                  - cell [ref=f15e1255]
+                  - cell [ref=f15e1256]:
+                    - generic [ref=f15e6820]:
+                      - button "Add Child Feature" [ref=f15e6821] [cursor=pointer]
+                      - button "Edit" [ref=f15e6822] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1261]:
+                  - cell [ref=f15e1262]:
+                    - generic [ref=f15e6824]:
+                      - button [ref=f15e6825] [cursor=pointer]
+                      - generic [ref=f15e6828]:
+                        - paragraph [ref=f15e6829]: TF2 Features
+                        - paragraph [ref=f15e6830]: com.kpit.tf2.features
+                  - cell "3.2.0 9.9.9 1.0.0 1.0.2 3.2.2 3.0.1" [ref=f15e1271]:
+                    - generic [ref=f15e6832]:
+                      - generic [ref=f15e6833] [cursor=pointer]: 3.2.0
+                      - generic [ref=f15e6835] [cursor=pointer]: 9.9.9
+                      - generic [ref=f15e6837] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6839] [cursor=pointer]: 1.0.2
+                      - generic [ref=f15e6841] [cursor=pointer]: 3.2.2
+                      - generic [ref=f15e6843] [cursor=pointer]: 3.0.1
+                  - cell "Read Write" [ref=f15e1286]:
+                    - generic [ref=f15e6846]:
+                      - generic [ref=f15e6847]: Read
+                      - generic [ref=f15e6848]: Write
+                  - cell "5 profiles" [ref=f15e1291]
+                  - cell [ref=f15e1295]
+                  - cell [ref=f15e1296]:
+                    - generic [ref=f15e6853]:
+                      - button "Add Child Feature" [ref=f15e6854] [cursor=pointer]
+                      - button "Edit" [ref=f15e6855] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1301]:
+                  - cell [ref=f15e1302]:
+                    - generic [ref=f15e6857]:
+                      - button [ref=f15e6858] [cursor=pointer]
+                      - generic [ref=f15e6861]:
+                        - paragraph [ref=f15e6862]: Test
+                        - paragraph [ref=f15e6863]: test.kpit.com
+                  - cell "1.0.0" [ref=f15e1311]
+                  - cell "Viewer Standard" [ref=f15e1316]:
+                    - generic [ref=f15e6869]:
+                      - generic [ref=f15e6870]: Viewer
+                      - generic [ref=f15e6871]: Standard
+                  - cell "1 profiles" [ref=f15e1321]
+                  - cell [ref=f15e1325]
+                  - cell [ref=f15e1326]:
+                    - generic [ref=f15e6876]:
+                      - button "Add Child Feature" [ref=f15e6877] [cursor=pointer]
+                      - button "Edit" [ref=f15e6878] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1331]:
+                  - cell [ref=f15e1332]:
+                    - generic [ref=f15e6881]:
+                      - paragraph [ref=f15e6882]: STIHL Engineering Tester
+                      - paragraph [ref=f15e6883]: com.STIHL.Engineering
+                  - cell "1.0.0" [ref=f15e1338]
+                  - cell "Floating Viewer Standard" [ref=f15e1343]:
+                    - generic [ref=f15e6889]:
+                      - generic [ref=f15e6890]: Floating
+                      - generic [ref=f15e6891]: Viewer
+                      - generic [ref=f15e6892]: Standard
+                  - cell "2 profiles" [ref=f15e1349]
+                  - cell [ref=f15e1353]
+                  - cell [ref=f15e1354]:
+                    - generic [ref=f15e6897]:
+                      - button "Add Child Feature" [ref=f15e6898] [cursor=pointer]
+                      - button "Edit" [ref=f15e6899] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1359]:
+                  - cell [ref=f15e1360]:
+                    - generic [ref=f15e6902]:
+                      - paragraph [ref=f15e6903]: STIHL Engineering Tester Floating
+                      - paragraph [ref=f15e6904]: com.STIHL.Engineering.floating.STIHL Engineering Tester
+                  - cell "1.0.0" [ref=f15e1366]
+                  - cell "Floating Viewer Standard" [ref=f15e1371]:
+                    - generic [ref=f15e6910]:
+                      - generic [ref=f15e6911]: Floating
+                      - generic [ref=f15e6912]: Viewer
+                      - generic [ref=f15e6913]: Standard
+                  - cell "1 profiles" [ref=f15e1377]
+                  - cell [ref=f15e1381]
+                  - cell [ref=f15e1382]:
+                    - generic [ref=f15e6918]:
+                      - button "Add Child Feature" [ref=f15e6919] [cursor=pointer]
+                      - button "Edit" [ref=f15e6920] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1387]:
+                  - cell [ref=f15e1388]:
+                    - generic [ref=f15e6923]:
+                      - paragraph [ref=f15e6924]: K-DCP VW Cyclone Converter
+                      - paragraph [ref=f15e6925]: com.kpit.cyclone
+                  - cell "1.0.0 1.99.999 9.99.999" [ref=f15e1394]:
+                    - generic [ref=f15e6927]:
+                      - generic [ref=f15e6928] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6930] [cursor=pointer]: 1.99.999
+                      - generic [ref=f15e6932] [cursor=pointer]: 9.99.999
+                  - cell "Viewer Standard" [ref=f15e1403]:
+                    - generic [ref=f15e6935]:
+                      - generic [ref=f15e6936]: Viewer
+                      - generic [ref=f15e6937]: Standard
+                  - cell "1 profiles" [ref=f15e1408]
+                  - cell [ref=f15e1412]
+                  - cell [ref=f15e1413]:
+                    - generic [ref=f15e6942]:
+                      - button "Add Child Feature" [ref=f15e6943] [cursor=pointer]
+                      - button "Edit" [ref=f15e6944] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1418]:
+                  - cell [ref=f15e1419]:
+                    - generic [ref=f15e6947]:
+                      - paragraph [ref=f15e6948]: GTS Modeler
+                      - paragraph [ref=f15e6949]: com.kpit.gtsmodeler
+                  - cell "9.99.999" [ref=f15e1425]
+                  - cell "Floating Standard Viewer" [ref=f15e1430]:
+                    - generic [ref=f15e6955]:
+                      - generic [ref=f15e6956]: Floating
+                      - generic [ref=f15e6957]: Standard
+                      - generic [ref=f15e6958]: Viewer
+                  - cell "2 profiles" [ref=f15e1436]
+                  - cell [ref=f15e1440]
+                  - cell [ref=f15e1441]:
+                    - generic [ref=f15e6963]:
+                      - button "Add Child Feature" [ref=f15e6964] [cursor=pointer]
+                      - button "Edit" [ref=f15e6965] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1446]:
+                  - cell [ref=f15e1447]:
+                    - generic [ref=f15e6968]:
+                      - paragraph [ref=f15e6969]: CI-CD OTXT Transcompiler
+                      - paragraph [ref=f15e6970]: com.kpit.otx.otxt_transcompiler
+                  - cell "9.99.999 1.0.0" [ref=f15e1453]:
+                    - generic [ref=f15e6972]:
+                      - generic [ref=f15e6973] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e6975] [cursor=pointer]: 1.0.0
+                  - cell "Floating Standard Viewer" [ref=f15e1460]:
+                    - generic [ref=f15e6978]:
+                      - generic [ref=f15e6979]: Floating
+                      - generic [ref=f15e6980]: Standard
+                      - generic [ref=f15e6981]: Viewer
+                  - cell "2 profiles" [ref=f15e1466]
+                  - cell [ref=f15e1470]
+                  - cell [ref=f15e1471]:
+                    - generic [ref=f15e6986]:
+                      - button "Add Child Feature" [ref=f15e6987] [cursor=pointer]
+                      - button "Edit" [ref=f15e6988] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1476]:
+                  - cell [ref=f15e1477]:
+                    - generic [ref=f15e6991]:
+                      - paragraph [ref=f15e6992]: CI-CD OTXT Transcompiler Floating
+                      - paragraph [ref=f15e6993]: com.kpit.otx.otxt_transcompiler.floating.CI-CD OTXT Transcompiler
+                  - cell "1.0.0 9.99.999" [ref=f15e1483]:
+                    - generic [ref=f15e6995]:
+                      - generic [ref=f15e6996] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e6998] [cursor=pointer]: 9.99.999
+                  - cell "Floating Standard Viewer" [ref=f15e1490]:
+                    - generic [ref=f15e7001]:
+                      - generic [ref=f15e7002]: Floating
+                      - generic [ref=f15e7003]: Standard
+                      - generic [ref=f15e7004]: Viewer
+                  - cell "1 profiles" [ref=f15e1496]
+                  - cell [ref=f15e1500]
+                  - cell [ref=f15e1501]:
+                    - generic [ref=f15e7009]:
+                      - button "Add Child Feature" [ref=f15e7010] [cursor=pointer]
+                      - button "Edit" [ref=f15e7011] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1506]:
+                  - cell [ref=f15e1507]:
+                    - generic [ref=f15e7014]:
+                      - paragraph [ref=f15e7015]: CI-CD PTX Creator
+                      - paragraph [ref=f15e7016]: com.kpit.otx.ptxcreator
+                  - cell "9.99.999 1.0.0" [ref=f15e1513]:
+                    - generic [ref=f15e7018]:
+                      - generic [ref=f15e7019] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7021] [cursor=pointer]: 1.0.0
+                  - cell "Standard Floating Viewer" [ref=f15e1520]:
+                    - generic [ref=f15e7024]:
+                      - generic [ref=f15e7025]: Standard
+                      - generic [ref=f15e7026]: Floating
+                      - generic [ref=f15e7027]: Viewer
+                  - cell "2 profiles" [ref=f15e1526]
+                  - cell [ref=f15e1530]
+                  - cell [ref=f15e1531]:
+                    - generic [ref=f15e7032]:
+                      - button "Add Child Feature" [ref=f15e7033] [cursor=pointer]
+                      - button "Edit" [ref=f15e7034] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1536]:
+                  - cell [ref=f15e1537]:
+                    - generic [ref=f15e7037]:
+                      - paragraph [ref=f15e7038]: CI-CD PTX Creator Floating
+                      - paragraph [ref=f15e7039]: com.kpit.otx.ptxcreator.floating.CI-CD PTX Creator
+                  - cell "1.0.0 9.99.999" [ref=f15e1543]:
+                    - generic [ref=f15e7041]:
+                      - generic [ref=f15e7042] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7044] [cursor=pointer]: 9.99.999
+                  - cell "Floating Standard Viewer" [ref=f15e1550]:
+                    - generic [ref=f15e7047]:
+                      - generic [ref=f15e7048]: Floating
+                      - generic [ref=f15e7049]: Standard
+                      - generic [ref=f15e7050]: Viewer
+                  - cell "1 profiles" [ref=f15e1556]
+                  - cell [ref=f15e1560]
+                  - cell [ref=f15e1561]:
+                    - generic [ref=f15e7055]:
+                      - button "Add Child Feature" [ref=f15e7056] [cursor=pointer]
+                      - button "Edit" [ref=f15e7057] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1566]:
+                  - cell [ref=f15e1567]:
+                    - generic [ref=f15e7060]:
+                      - paragraph [ref=f15e7061]: GTS Trace2Fix
+                      - paragraph [ref=f15e7062]: com.kpit.diagnostics.gts
+                  - cell "9.99.999" [ref=f15e1573]
+                  - cell "Standard Viewer" [ref=f15e1578]:
+                    - generic [ref=f15e7068]:
+                      - generic [ref=f15e7069]: Standard
+                      - generic [ref=f15e7070]: Viewer
+                  - cell "1 profiles" [ref=f15e1583]
+                  - cell [ref=f15e1587]
+                  - cell [ref=f15e1588]:
+                    - generic [ref=f15e7075]:
+                      - button "Add Child Feature" [ref=f15e7076] [cursor=pointer]
+                      - button "Edit" [ref=f15e7077] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1593]:
+                  - cell [ref=f15e1594]:
+                    - generic [ref=f15e7080]:
+                      - paragraph [ref=f15e7081]: K-DCP Engineering Tester Floating
+                      - paragraph [ref=f15e7082]: com.kpit.engineeringtester.floating.K-DCP Engineering Tester
+                  - cell "9.99.999" [ref=f15e1600]
+                  - cell "Floating Standard Viewer" [ref=f15e1605]:
+                    - generic [ref=f15e7088]:
+                      - generic [ref=f15e7089]: Floating
+                      - generic [ref=f15e7090]: Standard
+                      - generic [ref=f15e7091]: Viewer
+                  - cell "1 profiles" [ref=f15e1611]
+                  - cell [ref=f15e1615]
+                  - cell [ref=f15e1616]:
+                    - generic [ref=f15e7096]:
+                      - button "Add Child Feature" [ref=f15e7097] [cursor=pointer]
+                      - button "Edit" [ref=f15e7098] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1621]:
+                  - cell [ref=f15e1622]:
+                    - generic [ref=f15e7101]:
+                      - paragraph [ref=f15e7102]: CI-CD PTX Validator
+                      - paragraph [ref=f15e7103]: com.kpit.ptx.ptx_validator
+                  - cell "1.0.0 9.99.999" [ref=f15e1628]:
+                    - generic [ref=f15e7105]:
+                      - generic [ref=f15e7106] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7108] [cursor=pointer]: 9.99.999
+                  - cell "Standard Viewer" [ref=f15e1635]:
+                    - generic [ref=f15e7111]:
+                      - generic [ref=f15e7112]: Standard
+                      - generic [ref=f15e7113]: Viewer
+                  - cell "2 profiles" [ref=f15e1640]
+                  - cell [ref=f15e1644]
+                  - cell [ref=f15e1645]:
+                    - generic [ref=f15e7118]:
+                      - button "Add Child Feature" [ref=f15e7119] [cursor=pointer]
+                      - button "Edit" [ref=f15e7120] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1650]:
+                  - cell [ref=f15e1651]:
+                    - generic [ref=f15e7123]:
+                      - paragraph [ref=f15e7124]: CI-CD PTX Validator Floating
+                      - paragraph [ref=f15e7125]: com.kpit.ptx.ptx_validator.floating.CI-CD PTX Validator
+                  - cell "1.0.0 9.99.999" [ref=f15e1657]:
+                    - generic [ref=f15e7127]:
+                      - generic [ref=f15e7128] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7130] [cursor=pointer]: 9.99.999
+                  - cell "Floating Standard Viewer" [ref=f15e1664]:
+                    - generic [ref=f15e7133]:
+                      - generic [ref=f15e7134]: Floating
+                      - generic [ref=f15e7135]: Standard
+                      - generic [ref=f15e7136]: Viewer
+                  - cell "1 profiles" [ref=f15e1670]
+                  - cell [ref=f15e1674]
+                  - cell [ref=f15e1675]:
+                    - generic [ref=f15e7141]:
+                      - button "Add Child Feature" [ref=f15e7142] [cursor=pointer]
+                      - button "Edit" [ref=f15e7143] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1680]:
+                  - cell [ref=f15e1681]:
+                    - generic [ref=f15e7146]:
+                      - paragraph [ref=f15e7147]: CI-CD i2s Converter
+                      - paragraph [ref=f15e7148]: com.kpit.odx.i2s_converter
+                  - cell "3.0.0 9.99.999" [ref=f15e1687]:
+                    - generic [ref=f15e7150]:
+                      - generic [ref=f15e7151] [cursor=pointer]: 3.0.0
+                      - generic [ref=f15e7153] [cursor=pointer]: 9.99.999
+                  - cell "Standard Viewer" [ref=f15e1694]:
+                    - generic [ref=f15e7156]:
+                      - generic [ref=f15e7157]: Standard
+                      - generic [ref=f15e7158]: Viewer
+                  - cell "2 profiles" [ref=f15e1699]
+                  - cell [ref=f15e1703]
+                  - cell [ref=f15e1704]:
+                    - generic [ref=f15e7163]:
+                      - button "Add Child Feature" [ref=f15e7164] [cursor=pointer]
+                      - button "Edit" [ref=f15e7165] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1709]:
+                  - cell [ref=f15e1710]:
+                    - generic [ref=f15e7168]:
+                      - paragraph [ref=f15e7169]: Test Runner
+                      - paragraph [ref=f15e7170]: com.kpit.testrunner
+                  - cell "1.0.0 9.99.999" [ref=f15e1716]:
+                    - generic [ref=f15e7172]:
+                      - generic [ref=f15e7173] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7175] [cursor=pointer]: 9.99.999
+                  - cell "Viewer Standard" [ref=f15e1723]:
+                    - generic [ref=f15e7178]:
+                      - generic [ref=f15e7179]: Viewer
+                      - generic [ref=f15e7180]: Standard
+                  - cell "2 profiles" [ref=f15e1728]
+                  - cell [ref=f15e1732]
+                  - cell [ref=f15e1733]:
+                    - generic [ref=f15e7185]:
+                      - button "Add Child Feature" [ref=f15e7186] [cursor=pointer]
+                      - button "Edit" [ref=f15e7187] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1738]:
+                  - cell [ref=f15e1739]:
+                    - generic [ref=f15e7190]:
+                      - paragraph [ref=f15e7191]: CI-CD ODX Checker
+                      - paragraph [ref=f15e7192]: com.kpit.odx.odx_checker
+                  - cell "9.99.999 1.0.0" [ref=f15e1745]:
+                    - generic [ref=f15e7194]:
+                      - generic [ref=f15e7195] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7197] [cursor=pointer]: 1.0.0
+                  - cell "Viewer Standard Floating" [ref=f15e1752]:
+                    - generic [ref=f15e7200]:
+                      - generic [ref=f15e7201]: Viewer
+                      - generic [ref=f15e7202]: Standard
+                      - generic [ref=f15e7203]: Floating
+                  - cell "2 profiles" [ref=f15e1758]
+                  - cell [ref=f15e1762]
+                  - cell [ref=f15e1763]:
+                    - generic [ref=f15e7208]:
+                      - button "Add Child Feature" [ref=f15e7209] [cursor=pointer]
+                      - button "Edit" [ref=f15e7210] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1768]:
+                  - cell [ref=f15e1769]:
+                    - generic [ref=f15e7213]:
+                      - paragraph [ref=f15e7214]: Test Runner Floating
+                      - paragraph [ref=f15e7215]: com.kpit.testrunner.floating.Test Runner
+                  - cell "9.99.999 1.0.0" [ref=f15e1775]:
+                    - generic [ref=f15e7217]:
+                      - generic [ref=f15e7218] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7220] [cursor=pointer]: 1.0.0
+                  - cell "Standard Floating Viewer" [ref=f15e1782]:
+                    - generic [ref=f15e7223]:
+                      - generic [ref=f15e7224]: Standard
+                      - generic [ref=f15e7225]: Floating
+                      - generic [ref=f15e7226]: Viewer
+                  - cell "1 profiles" [ref=f15e1788]
+                  - cell [ref=f15e1792]
+                  - cell [ref=f15e1793]:
+                    - generic [ref=f15e7231]:
+                      - button "Add Child Feature" [ref=f15e7232] [cursor=pointer]
+                      - button "Edit" [ref=f15e7233] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1798]:
+                  - cell [ref=f15e1799]:
+                    - generic [ref=f15e7236]:
+                      - paragraph [ref=f15e7237]: CI-CD i2s Converter Floating
+                      - paragraph [ref=f15e7238]: com.kpit.odx.i2s_converter.floating.CI-CD i2s Converter
+                  - cell "3.0.0 9.99.999" [ref=f15e1805]:
+                    - generic [ref=f15e7240]:
+                      - generic [ref=f15e7241] [cursor=pointer]: 3.0.0
+                      - generic [ref=f15e7243] [cursor=pointer]: 9.99.999
+                  - cell "Standard Viewer Floating" [ref=f15e1812]:
+                    - generic [ref=f15e7246]:
+                      - generic [ref=f15e7247]: Standard
+                      - generic [ref=f15e7248]: Viewer
+                      - generic [ref=f15e7249]: Floating
+                  - cell "1 profiles" [ref=f15e1818]
+                  - cell [ref=f15e1822]
+                  - cell [ref=f15e1823]:
+                    - generic [ref=f15e7254]:
+                      - button "Add Child Feature" [ref=f15e7255] [cursor=pointer]
+                      - button "Edit" [ref=f15e7256] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1828]:
+                  - cell [ref=f15e1829]:
+                    - generic [ref=f15e7259]:
+                      - paragraph [ref=f15e7260]: CI-CD ODX Checker Floating
+                      - paragraph [ref=f15e7261]: com.kpit.odx.odx_checker.floating.CI-CD ODX Checker
+                  - cell "9.99.999 1.0.0" [ref=f15e1835]:
+                    - generic [ref=f15e7263]:
+                      - generic [ref=f15e7264] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7266] [cursor=pointer]: 1.0.0
+                  - cell "Viewer Standard Floating" [ref=f15e1842]:
+                    - generic [ref=f15e7269]:
+                      - generic [ref=f15e7270]: Viewer
+                      - generic [ref=f15e7271]: Standard
+                      - generic [ref=f15e7272]: Floating
+                  - cell "1 profiles" [ref=f15e1848]
+                  - cell [ref=f15e1852]
+                  - cell [ref=f15e1853]:
+                    - generic [ref=f15e7277]:
+                      - button "Add Child Feature" [ref=f15e7278] [cursor=pointer]
+                      - button "Edit" [ref=f15e7279] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1858]:
+                  - cell [ref=f15e1859]:
+                    - generic [ref=f15e7282]:
+                      - paragraph [ref=f15e7283]: CI-CD OTX Checker
+                      - paragraph [ref=f15e7284]: com.kpit.otx.otxchecker
+                  - cell "1.0.0 9.99.999" [ref=f15e1865]:
+                    - generic [ref=f15e7286]:
+                      - generic [ref=f15e7287] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7289] [cursor=pointer]: 9.99.999
+                  - cell "Standard Viewer" [ref=f15e1872]:
+                    - generic [ref=f15e7292]:
+                      - generic [ref=f15e7293]: Standard
+                      - generic [ref=f15e7294]: Viewer
+                  - cell "2 profiles" [ref=f15e1877]
+                  - cell [ref=f15e1881]
+                  - cell [ref=f15e1882]:
+                    - generic [ref=f15e7299]:
+                      - button "Add Child Feature" [ref=f15e7300] [cursor=pointer]
+                      - button "Edit" [ref=f15e7301] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1887]:
+                  - cell [ref=f15e1888]:
+                    - generic [ref=f15e7304]:
+                      - paragraph [ref=f15e7305]: CI-CD OTX Checker Floating
+                      - paragraph [ref=f15e7306]: com.kpit.otx.otxchecker.floating.CI-CD OTX Checker
+                  - cell "1.0.0 9.99.999" [ref=f15e1894]:
+                    - generic [ref=f15e7308]:
+                      - generic [ref=f15e7309] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7311] [cursor=pointer]: 9.99.999
+                  - cell "Viewer Standard Floating" [ref=f15e1901]:
+                    - generic [ref=f15e7314]:
+                      - generic [ref=f15e7315]: Viewer
+                      - generic [ref=f15e7316]: Standard
+                      - generic [ref=f15e7317]: Floating
+                  - cell "1 profiles" [ref=f15e1907]
+                  - cell [ref=f15e1911]
+                  - cell [ref=f15e1912]:
+                    - generic [ref=f15e7322]:
+                      - button "Add Child Feature" [ref=f15e7323] [cursor=pointer]
+                      - button "Edit" [ref=f15e7324] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1917]:
+                  - cell [ref=f15e1918]:
+                    - generic [ref=f15e7327]:
+                      - paragraph [ref=f15e7328]: DPDU API KION
+                      - paragraph [ref=f15e7329]: com.kpit.dpduapi.kion
+                  - cell "4.23.0 9.99.999" [ref=f15e1924]:
+                    - generic [ref=f15e7331]:
+                      - generic [ref=f15e7332] [cursor=pointer]: 4.23.0
+                      - generic [ref=f15e7334] [cursor=pointer]: 9.99.999
+                  - cell "Viewer Standard" [ref=f15e1931]:
+                    - generic [ref=f15e7337]:
+                      - generic [ref=f15e7338]: Viewer
+                      - generic [ref=f15e7339]: Standard
+                  - cell "1 profiles" [ref=f15e1936]
+                  - cell [ref=f15e1940]
+                  - cell [ref=f15e1941]:
+                    - generic [ref=f15e7344]:
+                      - button "Add Child Feature" [ref=f15e7345] [cursor=pointer]
+                      - button "Edit" [ref=f15e7346] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1946]:
+                  - cell [ref=f15e1947]:
+                    - generic [ref=f15e7349]:
+                      - paragraph [ref=f15e7350]: GTS Modeler Floating
+                      - paragraph [ref=f15e7351]: com.kpit.gtsmodeler.floating.GTS Modeler
+                  - cell "9.99.999" [ref=f15e1953]
+                  - cell "Viewer Standard Floating" [ref=f15e1958]:
+                    - generic [ref=f15e7357]:
+                      - generic [ref=f15e7358]: Viewer
+                      - generic [ref=f15e7359]: Standard
+                      - generic [ref=f15e7360]: Floating
+                  - cell "1 profiles" [ref=f15e1964]
+                  - cell [ref=f15e1968]
+                  - cell [ref=f15e1969]:
+                    - generic [ref=f15e7365]:
+                      - button "Add Child Feature" [ref=f15e7366] [cursor=pointer]
+                      - button "Edit" [ref=f15e7367] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e1974]:
+                  - cell [ref=f15e1975]:
+                    - generic [ref=f15e7370]:
+                      - paragraph [ref=f15e7371]: AGCO ST122 / CAPI / Runtime
+                      - paragraph [ref=f15e7372]: com.AGCO.ST122.Standard
+                  - cell "9.99.999" [ref=f15e1981]
+                  - cell "Read Write" [ref=f15e1986]:
+                    - generic [ref=f15e7378]:
+                      - generic [ref=f15e7379]: Read
+                      - generic [ref=f15e7380]: Write
+                  - cell "1 profiles" [ref=f15e1991]
+                  - cell [ref=f15e1995]
+                  - cell [ref=f15e1996]:
+                    - generic [ref=f15e7385]:
+                      - button "Add Child Feature" [ref=f15e7386] [cursor=pointer]
+                      - button "Edit" [ref=f15e7387] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2001]:
+                  - cell [ref=f15e2002]:
+                    - generic [ref=f15e7390]:
+                      - paragraph [ref=f15e7391]: DoIPGateway
+                      - paragraph [ref=f15e7392]: com.kpit.doip.gw
+                  - cell "9.99.999 1.2.0" [ref=f15e2008]:
+                    - generic [ref=f15e7394]:
+                      - generic [ref=f15e7395] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7397] [cursor=pointer]: 1.2.0
+                  - cell "Standard" [ref=f15e2015]
+                  - cell "1 profiles" [ref=f15e2019]
+                  - cell [ref=f15e2023]
+                  - cell [ref=f15e2024]:
+                    - generic [ref=f15e7406]:
+                      - button "Add Child Feature" [ref=f15e7407] [cursor=pointer]
+                      - button "Edit" [ref=f15e7408] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2029]:
+                  - cell [ref=f15e2030]:
+                    - generic [ref=f15e7411]:
+                      - paragraph [ref=f15e7412]: Dynamic ECU Simulation
+                      - paragraph [ref=f15e7413]: com.kpit.jssim
+                  - cell "1.8.2 9.99.999" [ref=f15e2036]:
+                    - generic [ref=f15e7415]:
+                      - generic [ref=f15e7416] [cursor=pointer]: 1.8.2
+                      - generic [ref=f15e7418] [cursor=pointer]: 9.99.999
+                  - cell "Standard" [ref=f15e2043]
+                  - cell "1 profiles" [ref=f15e2047]
+                  - cell [ref=f15e2051]
+                  - cell [ref=f15e2052]:
+                    - generic [ref=f15e7427]:
+                      - button "Add Child Feature" [ref=f15e7428] [cursor=pointer]
+                      - button "Edit" [ref=f15e7429] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2057]:
+                  - cell [ref=f15e2058]:
+                    - generic [ref=f15e7432]:
+                      - paragraph [ref=f15e7433]: CI-CD OTX2JAVA Converter
+                      - paragraph [ref=f15e7434]: com.kpit.otx2javaconverter
+                  - cell "9.99.999 1.0.0" [ref=f15e2064]:
+                    - generic [ref=f15e7436]:
+                      - generic [ref=f15e7437] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7439] [cursor=pointer]: 1.0.0
+                  - cell "Standard Viewer" [ref=f15e2071]:
+                    - generic [ref=f15e7442]:
+                      - generic [ref=f15e7443]: Standard
+                      - generic [ref=f15e7444]: Viewer
+                  - cell "2 profiles" [ref=f15e2076]
+                  - cell [ref=f15e2080]
+                  - cell [ref=f15e2081]:
+                    - generic [ref=f15e7449]:
+                      - button "Add Child Feature" [ref=f15e7450] [cursor=pointer]
+                      - button "Edit" [ref=f15e7451] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2086]:
+                  - cell [ref=f15e2087]:
+                    - generic [ref=f15e7454]:
+                      - paragraph [ref=f15e7455]: CI-CD OTX2JAVA Converter Floating
+                      - paragraph [ref=f15e7456]: com.kpit.otx2javaconverter.floating.CI-CD OTX2JAVA Converter
+                  - cell "1.0.0 9.99.999" [ref=f15e2093]:
+                    - generic [ref=f15e7458]:
+                      - generic [ref=f15e7459] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7461] [cursor=pointer]: 9.99.999
+                  - cell "Viewer Standard Floating" [ref=f15e2100]:
+                    - generic [ref=f15e7464]:
+                      - generic [ref=f15e7465]: Viewer
+                      - generic [ref=f15e7466]: Standard
+                      - generic [ref=f15e7467]: Floating
+                  - cell "1 profiles" [ref=f15e2106]
+                  - cell [ref=f15e2110]
+                  - cell [ref=f15e2111]:
+                    - generic [ref=f15e7472]:
+                      - button "Add Child Feature" [ref=f15e7473] [cursor=pointer]
+                      - button "Edit" [ref=f15e7474] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2116]:
+                  - cell [ref=f15e2117]:
+                    - generic [ref=f15e7477]:
+                      - paragraph [ref=f15e7478]: K-DCP DPDU API
+                      - paragraph [ref=f15e7479]: com.kpit.dpduapi.js
+                  - cell "9.99.999 5.4.1" [ref=f15e2123]:
+                    - generic [ref=f15e7481]:
+                      - generic [ref=f15e7482] [cursor=pointer]: 9.99.999
+                      - generic [ref=f15e7484] [cursor=pointer]: 5.4.1
+                  - cell "Viewer Standard Floating" [ref=f15e2130]:
+                    - generic [ref=f15e7487]:
+                      - generic [ref=f15e7488]: Viewer
+                      - generic [ref=f15e7489]: Standard
+                      - generic [ref=f15e7490]: Floating
+                  - cell "1 profiles" [ref=f15e2136]
+                  - cell [ref=f15e2140]
+                  - cell [ref=f15e2141]:
+                    - generic [ref=f15e7495]:
+                      - button "Add Child Feature" [ref=f15e7496] [cursor=pointer]
+                      - button "Edit" [ref=f15e7497] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2146]:
+                  - cell [ref=f15e2147]:
+                    - generic [ref=f15e7500]:
+                      - paragraph [ref=f15e7501]: K-DCP Trace2Fix
+                      - paragraph [ref=f15e7502]: com.kpit.trace2fix
+                  - cell "9.99.999" [ref=f15e2153]
+                  - cell "Standard Viewer" [ref=f15e2158]:
+                    - generic [ref=f15e7508]:
+                      - generic [ref=f15e7509]: Standard
+                      - generic [ref=f15e7510]: Viewer
+                  - cell "3 profiles" [ref=f15e2163]
+                  - cell [ref=f15e2167]
+                  - cell [ref=f15e2168]:
+                    - generic [ref=f15e7515]:
+                      - button "Add Child Feature" [ref=f15e7516] [cursor=pointer]
+                      - button "Edit" [ref=f15e7517] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2173]:
+                  - cell [ref=f15e2174]:
+                    - generic [ref=f15e7520]:
+                      - paragraph [ref=f15e7521]: APP-WEBTIC-USER
+                      - paragraph [ref=f15e7522]: com.kpit.limas.APP-WEBTIC-USER
+                  - cell "1.0.2" [ref=f15e2180]
+                  - cell "read" [ref=f15e2185]
+                  - cell "1 profiles" [ref=f15e2189]
+                  - cell [ref=f15e2193]
+                  - cell [ref=f15e2194]:
+                    - generic [ref=f15e7534]:
+                      - button "Add Child Feature" [ref=f15e7535] [cursor=pointer]
+                      - button "Edit" [ref=f15e7536] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2199]:
+                  - cell [ref=f15e2200]:
+                    - generic [ref=f15e7539]:
+                      - paragraph [ref=f15e7540]: Simulation File Generator
+                      - paragraph [ref=f15e7541]: com.kpit.simulationFileGenerator
+                  - cell "9.99.999" [ref=f15e2206]
+                  - cell "Floating Viewer Standard" [ref=f15e2211]:
+                    - generic [ref=f15e7547]:
+                      - generic [ref=f15e7548]: Floating
+                      - generic [ref=f15e7549]: Viewer
+                      - generic [ref=f15e7550]: Standard
+                  - cell "2 profiles" [ref=f15e2217]
+                  - cell [ref=f15e2221]
+                  - cell [ref=f15e2222]:
+                    - generic [ref=f15e7555]:
+                      - button "Add Child Feature" [ref=f15e7556] [cursor=pointer]
+                      - button "Edit" [ref=f15e7557] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2227]:
+                  - cell [ref=f15e2228]:
+                    - generic [ref=f15e7560]:
+                      - paragraph [ref=f15e7561]: Simulation File Generator Floating
+                      - paragraph [ref=f15e7562]: com.kpit.simulationFileGenerator.floating.Simulation File Generator
+                  - cell "9.99.999" [ref=f15e2234]
+                  - cell "Viewer Standard Floating" [ref=f15e2239]:
+                    - generic [ref=f15e7568]:
+                      - generic [ref=f15e7569]: Viewer
+                      - generic [ref=f15e7570]: Standard
+                      - generic [ref=f15e7571]: Floating
+                  - cell "1 profiles" [ref=f15e2245]
+                  - cell [ref=f15e2249]
+                  - cell [ref=f15e2250]:
+                    - generic [ref=f15e7576]:
+                      - button "Add Child Feature" [ref=f15e7577] [cursor=pointer]
+                      - button "Edit" [ref=f15e7578] [cursor=pointer]
+                      - button "Delete" [disabled]
+                - row [ref=f15e2255]:
+                  - cell [ref=f15e2256]:
+                    - generic [ref=f15e7581]:
+                      - paragraph [ref=f15e7582]: K-DCP License Library Test Release Floating
+                      - paragraph [ref=f15e7583]: com.kpit.LicenseLibrary.junit.test.release.floating.K-DCP License Library Test Release Floating
+                  - cell "0.1.1 1.0.0" [ref=f15e2262]:
+                    - generic [ref=f15e7585]:
+                      - generic [ref=f15e7586] [cursor=pointer]: 0.1.1
+                      - generic [ref=f15e7588] [cursor=pointer]: 1.0.0
+                  - cell "Standard Viewer Floating" [ref=f15e2269]:
+                    - generic [ref=f15e7591]:
+                      - generic [ref=f15e7592]: Standard
+                      - generic [ref=f15e7593]: Viewer
+                      - generic [ref=f15e7594]: Floating
+                  - cell "0 profiles" [ref=f15e2275]
+                  - cell [ref=f15e2279]
+                  - cell [ref=f15e2280]:
+                    - generic [ref=f15e7599]:
+                      - button "Add Child Feature" [ref=f15e7600] [cursor=pointer]
+                      - button "Edit" [ref=f15e7601] [cursor=pointer]
+                      - button "Delete" [ref=f15e7602] [cursor=pointer]
+                - row [ref=f15e2286]:
+                  - cell [ref=f15e2287]:
+                    - generic [ref=f15e7605]:
+                      - paragraph [ref=f15e7606]: K-DCP License Library Test Release
+                      - paragraph [ref=f15e7607]: com.kpit.LicenseLibrary.junit.test.release
+                  - cell "1.0.0 0.1.1" [ref=f15e2293]:
+                    - generic [ref=f15e7609]:
+                      - generic [ref=f15e7610] [cursor=pointer]: 1.0.0
+                      - generic [ref=f15e7612] [cursor=pointer]: 0.1.1
+                  - cell "Standard Viewer Floating" [ref=f15e2300]:
+                    - generic [ref=f15e7615]:
+                      - generic [ref=f15e7616]: Standard
+                      - generic [ref=f15e7617]: Viewer
+                      - generic [ref=f15e7618]: Floating
+                  - cell "0 profiles" [ref=f15e2306]
+                  - cell [ref=f15e2310]
+                  - cell [ref=f15e2311]:
+                    - generic [ref=f15e7623]:
+                      - button "Add Child Feature" [ref=f15e7624] [cursor=pointer]
+                      - button "Edit" [ref=f15e7625] [cursor=pointer]
+                      - button "Delete" [ref=f15e7626] [cursor=pointer]
+                - row [ref=f15e2317]:
+                  - cell [ref=f15e2318]:
+                    - generic [ref=f15e7628]:
+                      - button [ref=f15e7629] [cursor=pointer]
+                      - generic [ref=f15e7632]:
+                        - paragraph [ref=f15e7633]: Test_feature_09
+                        - paragraph [ref=f15e7634]: com.kpit.feature.test
+                  - cell "23.8.0" [ref=f15e2327]
+                  - cell "acess" [ref=f15e2332]
+                  - cell "0 profiles" [ref=f15e2336]
+                  - cell [ref=f15e2340]
+                  - cell [ref=f15e2341]:
+                    - generic [ref=f15e7646]:
+                      - button "Add Child Feature" [ref=f15e7647] [cursor=pointer]
+                      - button "Edit" [ref=f15e7648] [cursor=pointer]
+                      - button "Delete" [ref=f15e7649] [cursor=pointer]
+      - contentinfo [ref=f15e2347]:
+        - paragraph [ref=f15e2350]: © KPIT Technologies Ltd. All rights reserved.

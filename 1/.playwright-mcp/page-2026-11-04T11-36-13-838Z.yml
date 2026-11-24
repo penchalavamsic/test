@@ -1,0 +1,388 @@
+- generic [ref=f5e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f5e14]:
+    - banner [ref=f5e15]:
+      - img "Logo" [ref=f5e17]
+      - generic [ref=f5e18]:
+        - button [ref=f5e19] [cursor=pointer]
+        - button [ref=f5e20] [cursor=pointer]
+        - button "as" [ref=f5e21] [cursor=pointer]
+    - main [ref=f5e23]:
+      - generic [ref=f5e24]:
+        - button [aria-hidden] [ref=f5e25]
+        - generic [ref=f5e26]:
+          - generic [ref=f5e27]:
+            - generic [ref=f5e34]:
+              - heading "System User Dashboard" [level=1] [ref=f5e35]
+              - paragraph [ref=f5e36]: Monitor pending requests, expiring licenses, and floating seat usage.
+            - button "Import License Request from File" [ref=f5e37] [cursor=pointer]
+          - generic [ref=f5e39]:
+            - button "147 Pending License Requests" [pressed] [ref=f5e40] [cursor=pointer]:
+              - generic [ref=f5e42]:
+                - generic [ref=f5e43]: "147"
+                - paragraph [ref=f5e48]: Pending License Requests
+            - button "53 Expiring Licenses" [ref=f5e49] [cursor=pointer]:
+              - generic [ref=f5e51]:
+                - generic [ref=f5e52]: "53"
+                - paragraph [ref=f5e56]: Expiring Licenses
+            - button "0 Expiring Floating Configurations" [ref=f5e57] [cursor=pointer]:
+              - generic [ref=f5e59]:
+                - generic [ref=f5e60]: "0"
+                - paragraph [ref=f5e72]: Expiring Floating Configurations
+            - button "0 Floating Licenses" [ref=f5e73] [cursor=pointer]:
+              - generic [ref=f5e75]:
+                - generic [ref=f5e76]: "0"
+                - paragraph [ref=f5e80]: Floating Licenses
+          - generic [ref=f5e82]:
+            - generic [ref=f5e84]:
+              - heading "Pending License Requests" [level=3] [ref=f5e85]
+              - paragraph [ref=f5e90]: License requests awaiting review.
+            - generic [ref=f5e91]:
+              - generic [ref=f5e92]:
+                - textbox "Search license requests..." [ref=f5e97]
+                - generic [ref=f5e98]:
+                  - switch "Show License Request History" [ref=f5e99] [cursor=pointer]
+                  - generic [ref=f5e100] [cursor=pointer]: Show License Request History
+              - paragraph [ref=f5e102]: 20 loaded·147 total pending
+              - generic [ref=f5e103]:
+                - generic [ref=f5e450]:
+                  - generic [ref=f5e451]:
+                    - generic [ref=f5e452]:
+                      - generic [ref=f5e453]: User
+                      - paragraph [ref=f5e454]: CycloneSurekha userSurekha
+                      - paragraph [ref=f5e455]: Cyclone_userSurekha@kpit.com
+                    - generic [ref=f5e456]:
+                      - generic [ref=f5e457]: Feature
+                      - paragraph [ref=f5e458]: com.kpit.cyclone
+                      - paragraph [ref=f5e459]: Version 1.9.0
+                    - generic [ref=f5e460]:
+                      - generic [ref=f5e461]: Hardware / Created
+                      - paragraph [ref=f5e462]: "628074654"
+                      - paragraph [ref=f5e463]: 15 May 2024
+                    - generic [ref=f5e464]:
+                      - button "Close" [expanded] [ref=f5e688] [cursor=pointer]
+                      - button "Delete LR-15456" [disabled]
+                  - generic [ref=f5e690]:
+                    - paragraph [ref=f5e691]: License Assignment
+                    - generic [ref=f5e692]:
+                      - generic [ref=f5e693]:
+                        - generic [ref=f5e694]: User Group*
+                        - combobox "User Group*" [ref=f5e695] [cursor=pointer]:
+                          - generic: Select User Group
+                      - generic [ref=f5e698]:
+                        - generic [ref=f5e699]: Profile*
+                        - combobox "Profile*" [ref=f5e700] [cursor=pointer]:
+                          - generic: Select Profile
+                    - generic [ref=f5e703]:
+                      - button "Cancel" [ref=f5e704] [cursor=pointer]
+                      - generic [ref=f5e705]:
+                        - button "Approve Request" [disabled]
+                - generic [ref=f5e468]:
+                  - generic [ref=f5e469]:
+                    - generic [ref=f5e470]: User
+                    - paragraph [ref=f5e471]: tejas jadhav
+                    - paragraph [ref=f5e472]: tejas.jadhav@kpit.com
+                  - generic [ref=f5e473]:
+                    - generic [ref=f5e474]: Feature
+                    - paragraph [ref=f5e475]: com.kpit.cyclone
+                    - paragraph [ref=f5e476]: Version 1.9.0
+                  - generic [ref=f5e477]:
+                    - generic [ref=f5e478]: Hardware / Created
+                    - paragraph [ref=f5e479]: "1706642197"
+                    - paragraph [ref=f5e480]: 27 Mar 2024
+                  - generic [ref=f5e481]:
+                    - button "Approve" [ref=f5e482] [cursor=pointer]
+                    - button "Delete LR-15346" [disabled]
+                - generic [ref=f5e485]:
+                  - generic [ref=f5e486]:
+                    - generic [ref=f5e487]: User
+                    - paragraph [ref=f5e488]: pooja kalase
+                    - paragraph [ref=f5e489]: poojak3@kpit.com
+                  - generic [ref=f5e490]:
+                    - generic [ref=f5e491]: Feature
+                    - paragraph [ref=f5e492]: com.kpit.cyclone
+                    - paragraph [ref=f5e493]: Version 1.9.0
+                  - generic [ref=f5e494]:
+                    - generic [ref=f5e495]: Hardware / Created
+                    - paragraph [ref=f5e496]: "360833031"
+                    - paragraph [ref=f5e497]: 26 Mar 2024
+                  - generic [ref=f5e498]:
+                    - button "Approve" [ref=f5e499] [cursor=pointer]
+                    - button "Delete LR-15341" [disabled]
+                - generic [ref=f5e156]:
+                  - generic [ref=f5e157]:
+                    - generic [ref=f5e158]: User
+                    - paragraph [ref=f5e159]: Onkar Waghe
+                    - paragraph [ref=f5e160]: onkar.waghe_new@kpit.com
+                  - generic [ref=f5e161]:
+                    - generic [ref=f5e162]: Feature
+                    - paragraph [ref=f5e163]: com.kpit.servicetester
+                    - paragraph [ref=f5e164]: Version 1.5.16
+                  - generic [ref=f5e165]:
+                    - generic [ref=f5e166]: Hardware / Created
+                    - paragraph [ref=f5e167]: "1928585105"
+                    - paragraph [ref=f5e168]: 22 Mar 2024
+                  - generic [ref=f5e169]:
+                    - button "Approve" [ref=f5e170] [cursor=pointer]
+                    - button "Delete LR-15332" [disabled]
+                - generic [ref=f5e173]:
+                  - generic [ref=f5e174]:
+                    - generic [ref=f5e175]: User
+                    - paragraph [ref=f5e176]: Namrata Bhosale
+                    - paragraph [ref=f5e177]: namrata88.bhosale@kpit.com
+                  - generic [ref=f5e178]:
+                    - generic [ref=f5e179]: Feature
+                    - paragraph [ref=f5e180]: com.kpit.servicetester
+                    - paragraph [ref=f5e181]: Version 1.5.15
+                  - generic [ref=f5e182]:
+                    - generic [ref=f5e183]: Hardware / Created
+                    - paragraph [ref=f5e184]: "-1198208370"
+                    - paragraph [ref=f5e185]: 14 Mar 2024
+                  - generic [ref=f5e186]:
+                    - button "Approve" [ref=f5e187] [cursor=pointer]
+                    - button "Delete LR-15320" [disabled]
+                - generic [ref=f5e502]:
+                  - generic [ref=f5e503]:
+                    - generic [ref=f5e504]: User
+                    - paragraph [ref=f5e505]: surekha shinde
+                    - paragraph [ref=f5e506]: poojak@kpit.com
+                  - generic [ref=f5e507]:
+                    - generic [ref=f5e508]: Feature
+                    - paragraph [ref=f5e509]: com.kpit.cyclone
+                    - paragraph [ref=f5e510]: Version 1.9.0
+                  - generic [ref=f5e511]:
+                    - generic [ref=f5e512]: Hardware / Created
+                    - paragraph [ref=f5e513]: "360833031"
+                    - paragraph [ref=f5e514]: 07 Mar 2024
+                  - generic [ref=f5e515]:
+                    - button "Approve" [ref=f5e516] [cursor=pointer]
+                    - button "Delete LR-15306" [disabled]
+                - generic [ref=f5e207]:
+                  - generic [ref=f5e208]:
+                    - generic [ref=f5e209]: User
+                    - paragraph [ref=f5e210]: Fahad Khan
+                    - paragraph [ref=f5e211]: fahad.khan@kpit.com
+                  - generic [ref=f5e212]:
+                    - generic [ref=f5e213]: Feature
+                    - paragraph [ref=f5e214]: com.kpit.servicetester
+                    - paragraph [ref=f5e215]: Version 1.5.15
+                  - generic [ref=f5e216]:
+                    - generic [ref=f5e217]: Hardware / Created
+                    - paragraph [ref=f5e218]: "-1198208370"
+                    - paragraph [ref=f5e219]: 29 Feb 2024
+                  - generic [ref=f5e220]:
+                    - button "Approve" [ref=f5e221] [cursor=pointer]
+                    - button "Delete LR-15283" [disabled]
+                - generic [ref=f5e224]:
+                  - generic [ref=f5e225]:
+                    - generic [ref=f5e226]: User
+                    - paragraph [ref=f5e227]: onkar waghe
+                    - paragraph [ref=f5e228]: ZF_Feb_Tamper_detection@kpit.com
+                  - generic [ref=f5e229]:
+                    - generic [ref=f5e230]: Feature
+                    - paragraph [ref=f5e231]: com.kpit.servicetester
+                    - paragraph [ref=f5e232]: Version 1.5.13
+                  - generic [ref=f5e233]:
+                    - generic [ref=f5e234]: Hardware / Created
+                    - paragraph [ref=f5e235]: "-1388966409"
+                    - paragraph [ref=f5e236]: 17 Feb 2024
+                  - generic [ref=f5e237]:
+                    - button "Approve" [ref=f5e238] [cursor=pointer]
+                    - button "Delete LR-15257" [disabled]
+                - generic [ref=f5e519]:
+                  - generic [ref=f5e520]:
+                    - generic [ref=f5e521]: User
+                    - paragraph [ref=f5e522]: Vasanth K
+                    - paragraph [ref=f5e523]: vasanthk@kpit.com
+                  - generic [ref=f5e524]:
+                    - generic [ref=f5e525]: Feature
+                    - paragraph [ref=f5e526]: com.kpit.otx.suite.extensions.authoring_suite
+                    - paragraph [ref=f5e527]: Version 3.8.0
+                  - generic [ref=f5e528]:
+                    - generic [ref=f5e529]: Hardware / Created
+                    - paragraph [ref=f5e530]: "-915515519"
+                    - paragraph [ref=f5e531]: 13 Feb 2024
+                  - generic [ref=f5e532]:
+                    - button "Approve" [ref=f5e533] [cursor=pointer]
+                    - button "Delete LR-15242" [disabled]
+                - generic [ref=f5e536]:
+                  - generic [ref=f5e537]:
+                    - generic [ref=f5e538]: User
+                    - paragraph [ref=f5e539]: vijay sonawale
+                    - paragraph [ref=f5e540]: vijays18@kpit.com
+                  - generic [ref=f5e541]:
+                    - generic [ref=f5e542]: Feature
+                    - paragraph [ref=f5e543]: com.kpit.otx.suite.extensions.authoring_suite
+                    - paragraph [ref=f5e544]: Version 1.35.0
+                  - generic [ref=f5e545]:
+                    - generic [ref=f5e546]: Hardware / Created
+                    - paragraph [ref=f5e547]: "1700441429"
+                    - paragraph [ref=f5e548]: 09 Feb 2024
+                  - generic [ref=f5e549]:
+                    - button "Approve" [ref=f5e550] [cursor=pointer]
+                    - button "Delete LR-15240" [disabled]
+                - generic [ref=f5e553]:
+                  - generic [ref=f5e554]:
+                    - generic [ref=f5e555]: User
+                    - paragraph [ref=f5e556]: vijay sonawale
+                    - paragraph [ref=f5e557]: vijay.sonawale@kpit.com
+                  - generic [ref=f5e558]:
+                    - generic [ref=f5e559]: Feature
+                    - paragraph [ref=f5e560]: com.kpit.otx.suite.extensions.authoring_suite
+                    - paragraph [ref=f5e561]: Version 1.35.0
+                  - generic [ref=f5e562]:
+                    - generic [ref=f5e563]: Hardware / Created
+                    - paragraph [ref=f5e564]: "1700441429"
+                    - paragraph [ref=f5e565]: 30 Jan 2024
+                  - generic [ref=f5e566]:
+                    - button "Approve" [ref=f5e567] [cursor=pointer]
+                    - button "Delete LR-15218" [disabled]
+                - generic [ref=f5e570]:
+                  - generic [ref=f5e571]:
+                    - generic [ref=f5e572]: User
+                    - paragraph [ref=f5e573]: Shital khedkar
+                    - paragraph [ref=f5e574]: shital.khedkar@kpit.com
+                  - generic [ref=f5e575]:
+                    - generic [ref=f5e576]: Feature
+                    - paragraph [ref=f5e577]: com.kpit.dbdng
+                    - paragraph [ref=f5e578]: Version 2.14.001
+                  - generic [ref=f5e579]:
+                    - generic [ref=f5e580]: Hardware / Created
+                    - paragraph [ref=f5e581]: "151546983"
+                    - paragraph [ref=f5e582]: 19 Jan 2024
+                  - generic [ref=f5e583]:
+                    - button "Approve" [ref=f5e584] [cursor=pointer]
+                    - button "Delete LR-15205" [disabled]
+                - generic [ref=f5e587]:
+                  - generic [ref=f5e588]:
+                    - generic [ref=f5e589]: User
+                    - paragraph [ref=f5e590]: gorre bhanu
+                    - paragraph [ref=f5e591]: gorrek@kpit.com
+                  - generic [ref=f5e592]:
+                    - generic [ref=f5e593]: Feature
+                    - paragraph [ref=f5e594]: com.kpit.ecuvalidator
+                    - paragraph [ref=f5e595]: Version 3.1.0
+                  - generic [ref=f5e596]:
+                    - generic [ref=f5e597]: Hardware / Created
+                    - paragraph [ref=f5e598]: "1235525385"
+                    - paragraph [ref=f5e599]: 04 Dec 2023
+                  - generic [ref=f5e600]:
+                    - button "Approve" [ref=f5e601] [cursor=pointer]
+                    - button "Delete LR-15102" [disabled]
+                - generic [ref=f5e604]:
+                  - generic [ref=f5e605]:
+                    - generic [ref=f5e606]: User
+                    - paragraph [ref=f5e607]: gorre bhanu
+                    - paragraph [ref=f5e608]: bhanu.kumar@kpit.com
+                  - generic [ref=f5e609]:
+                    - generic [ref=f5e610]: Feature
+                    - paragraph [ref=f5e611]: com.kpit.ecuvalidator
+                    - paragraph [ref=f5e612]: Version 3.1.0
+                  - generic [ref=f5e613]:
+                    - generic [ref=f5e614]: Hardware / Created
+                    - paragraph [ref=f5e615]: "1235525385"
+                    - paragraph [ref=f5e616]: 04 Dec 2023
+                  - generic [ref=f5e617]:
+                    - button "Approve" [ref=f5e618] [cursor=pointer]
+                    - button "Delete LR-15101" [disabled]
+                - generic [ref=f5e621]:
+                  - generic [ref=f5e622]:
+                    - generic [ref=f5e623]: User
+                    - paragraph [ref=f5e624]: gorre kumar
+                    - paragraph [ref=f5e625]: gorre.kumar@kpit.com
+                  - generic [ref=f5e626]:
+                    - generic [ref=f5e627]: Feature
+                    - paragraph [ref=f5e628]: com.kpit.ecuvalidator
+                    - paragraph [ref=f5e629]: Version 3.1.0
+                  - generic [ref=f5e630]:
+                    - generic [ref=f5e631]: Hardware / Created
+                    - paragraph [ref=f5e632]: "1235525385"
+                    - paragraph [ref=f5e633]: 04 Dec 2023
+                  - generic [ref=f5e634]:
+                    - button "Approve" [ref=f5e635] [cursor=pointer]
+                    - button "Delete LR-15100" [disabled]
+                - generic [ref=f5e360]:
+                  - generic [ref=f5e361]:
+                    - generic [ref=f5e362]: User
+                    - paragraph [ref=f5e363]: swetha thondamanadu
+                    - paragraph [ref=f5e364]: swetha123@kpit.com
+                  - generic [ref=f5e365]:
+                    - generic [ref=f5e366]: Feature
+                    - paragraph [ref=f5e367]: com.kpit.servicetester
+                    - paragraph [ref=f5e368]: Version 1.5.6
+                  - generic [ref=f5e369]:
+                    - generic [ref=f5e370]: Hardware / Created
+                    - paragraph [ref=f5e371]: "-582651339"
+                    - paragraph [ref=f5e372]: 24 Nov 2023
+                  - generic [ref=f5e373]:
+                    - button "Approve" [ref=f5e374] [cursor=pointer]
+                    - button "Delete LR-15059" [disabled]
+                - generic [ref=f5e638]:
+                  - generic [ref=f5e639]:
+                    - generic [ref=f5e640]: User
+                    - paragraph [ref=f5e641]: Dhiraj Jadhav
+                    - paragraph [ref=f5e642]: dhirajj2@kpit.com
+                  - generic [ref=f5e643]:
+                    - generic [ref=f5e644]: Feature
+                    - paragraph [ref=f5e645]: com.kpit.otx.suite.extensions.authoring_suite
+                    - paragraph [ref=f5e646]: Version 3.10.0
+                  - generic [ref=f5e647]:
+                    - generic [ref=f5e648]: Hardware / Created
+                    - paragraph [ref=f5e649]: "1343597046"
+                    - paragraph [ref=f5e650]: 01 Nov 2023
+                  - generic [ref=f5e651]:
+                    - button "Approve" [ref=f5e652] [cursor=pointer]
+                    - button "Delete LR-15018" [disabled]
+                - generic [ref=f5e655]:
+                  - generic [ref=f5e656]:
+                    - generic [ref=f5e657]: User
+                    - paragraph [ref=f5e658]: Divya Singh
+                    - paragraph [ref=f5e659]: divyas12@kpit.com
+                  - generic [ref=f5e660]:
+                    - generic [ref=f5e661]: Feature
+                    - paragraph [ref=f5e662]: com.in2soft.otxSuite.extensions
+                    - paragraph [ref=f5e663]: Version 2.8.0
+                  - generic [ref=f5e664]:
+                    - generic [ref=f5e665]: Hardware / Created
+                    - paragraph [ref=f5e666]: "-326406319"
+                    - paragraph [ref=f5e667]: 12 Oct 2023
+                  - generic [ref=f5e668]:
+                    - button "Approve" [ref=f5e669] [cursor=pointer]
+                    - button "Delete LR-14978" [disabled]
+                - generic [ref=f5e672]:
+                  - generic [ref=f5e673]:
+                    - generic [ref=f5e674]: User
+                    - paragraph [ref=f5e675]: Vaibhav Nagpure
+                    - paragraph [ref=f5e676]: vaibhavn6@kpit.com
+                  - generic [ref=f5e677]:
+                    - generic [ref=f5e678]: Feature
+                    - paragraph [ref=f5e679]: com.kpit.trace2fix
+                    - paragraph [ref=f5e680]: Version 1.0.0
+                  - generic [ref=f5e681]:
+                    - generic [ref=f5e682]: Hardware / Created
+                    - paragraph [ref=f5e683]: "339187201"
+                    - paragraph [ref=f5e684]: 19 Sept 2023
+                  - generic [ref=f5e685]:
+                    - button "Approve" [ref=f5e686] [cursor=pointer]
+                    - button "Delete LR-14893" [disabled]
+                - generic [ref=f5e428]:
+                  - generic [ref=f5e429]:
+                    - generic [ref=f5e430]: User
+                    - paragraph [ref=f5e431]: pratiksha morajkar
+                    - paragraph [ref=f5e432]: pratiksha19@kpit.com
+                  - generic [ref=f5e433]:
+                    - generic [ref=f5e434]: Feature
+                    - paragraph [ref=f5e435]: com.kpit.servicetester
+                    - paragraph [ref=f5e436]: Version 3.0.0
+                  - generic [ref=f5e437]:
+                    - generic [ref=f5e438]: Hardware / Created
+                    - paragraph [ref=f5e439]: "-190460170"
+                    - paragraph [ref=f5e440]: 09 Aug 2023
+                  - generic [ref=f5e441]:
+                    - button "Approve" [ref=f5e442] [cursor=pointer]
+                    - button "Delete LR-14744" [disabled]
+              - generic [ref=f5e444]: More requests will load automatically.
+    - contentinfo [ref=f5e446]:
+      - paragraph [ref=f5e449]: © KPIT Technologies Ltd. All rights reserved.

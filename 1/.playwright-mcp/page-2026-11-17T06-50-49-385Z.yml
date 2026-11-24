@@ -1,0 +1,155 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic [aria-hidden]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /system-user-dashboard
+                      - listitem:
+                        - link:
+                          - /url: /users-licenses
+                      - listitem:
+                        - link:
+                          - /url: /reports
+                      - listitem:
+                        - link:
+                          - /url: /floating-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /standard-license-configurations
+                      - listitem:
+                        - link:
+                          - /url: /features
+                      - listitem:
+                        - link:
+                          - /url: /profiles
+                      - listitem:
+                        - link:
+                          - /url: /groups
+                      - listitem:
+                        - link:
+                          - /url: /system-users
+                      - listitem:
+                        - link:
+                          - /url: /server-licensing
+                      - listitem:
+                        - link:
+                          - /url: /server-license-import
+        - generic:
+          - banner:
+            - generic:
+              - button
+              - button
+              - button:
+                - generic: as
+                - generic: aravi.s@kpit.com
+          - main:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: Floating License Configurations
+                - button: Back
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - paragraph: User Group
+                        - paragraph: KPIT-Testing
+                    - generic:
+                      - generic:
+                        - checkbox [disabled]
+                        - generic: Include subgroups
+                      - button: Change Group
+                - generic:
+                  - generic:
+                    - paragraph: 3 configurations
+                  - button
+                  - button
+                  - generic:
+                    - button
+                  - button: Create Configuration
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox
+                      - generic:
+                        - paragraph: DatabaseDesigner NG
+                        - paragraph: Intern
+                        - paragraph: KPIT-Testing
+                      - button
+                    - generic:
+                      - generic:
+                        - paragraph: Capacity
+                        - paragraph: 0 total · 0 available
+                      - generic:
+                        - paragraph: Checkout
+                        - paragraph: Unavailable · 2h max
+                      - generic:
+                        - paragraph: Expiration
+                        - paragraph: 31 Dec 2099
+                      - generic:
+                        - paragraph: Maintenance
+                        - paragraph: 31 Dec 2099
+                  - generic:
+                    - generic:
+                      - checkbox
+                      - generic:
+                        - paragraph: Authoring Suite 2
+                        - paragraph: Intern
+                        - paragraph: KPIT-Testing
+                      - button
+                    - generic:
+                      - generic:
+                        - paragraph: Capacity
+                        - paragraph: 0 total · 0 available
+                      - generic:
+                        - paragraph: Checkout
+                        - paragraph: Unavailable · 2h max
+                      - generic:
+                        - paragraph: Expiration
+                        - paragraph: 31 Dec 2099
+                      - generic:
+                        - paragraph: Maintenance
+                        - paragraph: 31 Dec 2099
+                  - generic:
+                    - generic:
+                      - checkbox
+                      - generic:
+                        - paragraph: DatabaseDesigner
+                        - paragraph: Intern
+                        - paragraph: KPIT-Testing
+                      - button
+                    - generic:
+                      - generic:
+                        - paragraph: Capacity
+                        - paragraph: 0 total · 0 available
+                      - generic:
+                        - paragraph: Checkout
+                        - paragraph: Unavailable · 2h max
+                      - generic:
+                        - paragraph: Expiration
+                        - paragraph: 31 Dec 2099
+                      - generic:
+                        - paragraph: Maintenance
+                        - paragraph: 31 Dec 2099
+                - paragraph: All 3 configurations loaded.
+          - contentinfo:
+            - generic:
+              - generic:
+                - paragraph: © KPIT Technologies Ltd. All rights reserved.
+  - menu "Actions for DatabaseDesigner" [active] [ref=f12e1906]:
+    - menuitem "View details for DatabaseDesigner" [ref=f12e1907]: View Details
+    - menuitem "Edit" [ref=f12e1908]
+    - separator [ref=f12e1909]
+    - menuitem "Delete" [ref=f12e1910]

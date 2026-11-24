@@ -1,0 +1,85 @@
+- generic [ref=f3e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f3e13]:
+    - list [ref=f3e21]:
+      - listitem [ref=f3e22]:
+        - button [ref=f3e23] [cursor=pointer]
+      - listitem [ref=f3e27]:
+        - link [ref=f3e28] [cursor=pointer]:
+          - /url: /system-user-dashboard
+      - listitem [ref=f3e34]:
+        - link [ref=f3e35] [cursor=pointer]:
+          - /url: /users-licenses
+      - listitem [ref=f3e41]:
+        - link [ref=f3e42] [cursor=pointer]:
+          - /url: /reports
+      - listitem [ref=f3e46]:
+        - link [ref=f3e47] [cursor=pointer]:
+          - /url: /floating-license-configurations
+      - listitem [ref=f3e51]:
+        - link [ref=f3e52] [cursor=pointer]:
+          - /url: /standard-license-configurations
+      - listitem [ref=f3e56]:
+        - link [ref=f3e57] [cursor=pointer]:
+          - /url: /features
+      - listitem [ref=f3e62]:
+        - link [ref=f3e63] [cursor=pointer]:
+          - /url: /profiles
+      - listitem [ref=f3e68]:
+        - link [ref=f3e69] [cursor=pointer]:
+          - /url: /groups
+      - listitem [ref=f3e72]:
+        - link [ref=f3e73] [cursor=pointer]:
+          - /url: /system-users
+      - listitem [ref=f3e77]:
+        - link [ref=f3e78] [cursor=pointer]:
+          - /url: /server-licensing
+      - listitem [ref=f3e82]:
+        - link [ref=f3e83] [cursor=pointer]:
+          - /url: /server-license-import
+    - generic [ref=f3e87]:
+      - banner [ref=f3e88]:
+        - img "Logo" [ref=f3e90]
+        - generic [ref=f3e91]:
+          - button [ref=f3e92] [cursor=pointer]
+          - button [ref=f3e93] [cursor=pointer]
+          - button "as aravi.s@kpit.com" [ref=f3e94] [cursor=pointer]:
+            - generic [ref=f3e95]: as
+            - generic [ref=f3e96]: aravi.s@kpit.com
+      - main [ref=f3e97]:
+        - generic [ref=f3e98]:
+          - button [aria-hidden] [ref=f3e99]
+          - generic [ref=f3e100]:
+            - generic [ref=f3e101]:
+              - generic [ref=f3e108]:
+                - heading "System User Dashboard" [level=1] [ref=f3e109]
+                - paragraph [ref=f3e110]: Monitor pending requests, expiring licenses, and floating seat usage.
+              - button "Import License Request from File" [ref=f3e111] [cursor=pointer]
+            - generic [ref=f3e113]:
+              - button "0 Pending License Requests" [pressed] [ref=f3e114] [cursor=pointer]:
+                - generic [ref=f3e116]:
+                  - generic [ref=f3e117]: "0"
+                  - paragraph [ref=f3e122]: Pending License Requests
+              - button "97 Expiring Licenses" [ref=f3e123] [cursor=pointer]:
+                - generic [ref=f3e125]:
+                  - generic [ref=f3e126]: "97"
+                  - paragraph [ref=f3e130]: Expiring Licenses
+              - button "0 Expiring Floating Configurations" [ref=f3e131] [cursor=pointer]:
+                - generic [ref=f3e133]:
+                  - generic [ref=f3e134]: "0"
+                  - paragraph [ref=f3e146]: Expiring Floating Configurations
+              - button "0 Floating Licenses" [ref=f3e147] [cursor=pointer]:
+                - generic [ref=f3e149]:
+                  - generic [ref=f3e150]: "0"
+                  - paragraph [ref=f3e154]: Floating Licenses
+            - generic [ref=f3e156]:
+              - generic [ref=f3e158]:
+                - heading "Pending License Requests" [level=3] [ref=f3e159]
+                - paragraph [ref=f3e164]: License requests awaiting review.
+              - generic [ref=f3e166]:
+                - paragraph [ref=f3e170]: No pending requests
+                - paragraph [ref=f3e171]: There are no License Requests awaiting review.
+      - contentinfo [ref=f3e172]:
+        - paragraph [ref=f3e175]: © KPIT Technologies Ltd. All rights reserved.

@@ -1,0 +1,42 @@
+- generic [ref=f13e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=f13e5]:
+    - banner [ref=f13e6]:
+      - img "Logo" [ref=f13e8]
+      - generic [ref=f13e9]:
+        - button [ref=f13e10] [cursor=pointer]
+        - button [ref=f13e11] [cursor=pointer]
+        - button "as" [ref=f13e12] [cursor=pointer]
+    - main [ref=f13e14]:
+      - generic [ref=f13e15]:
+        - button [aria-hidden] [ref=f13e16]
+        - generic [ref=f13e17]:
+          - generic [ref=f13e18]:
+            - generic [ref=f13e25]:
+              - heading "System User Dashboard" [level=1] [ref=f13e26]
+              - paragraph [ref=f13e27]: Monitor pending requests, expiring licenses, and floating seat usage.
+            - button "Import License Request from File" [ref=f13e28] [cursor=pointer]
+          - generic [ref=f13e30]:
+            - button "0 Pending License Requests" [pressed] [ref=f13e31] [cursor=pointer]:
+              - generic [ref=f13e33]:
+                - generic [ref=f13e34]: "0"
+                - paragraph [ref=f13e39]: Pending License Requests
+            - button "0 Expiring Licenses" [ref=f13e40] [cursor=pointer]:
+              - generic [ref=f13e42]:
+                - generic [ref=f13e43]: "0"
+                - paragraph [ref=f13e47]: Expiring Licenses
+            - button "0 Expiring Floating Configurations" [ref=f13e48] [cursor=pointer]:
+              - generic [ref=f13e50]:
+                - generic [ref=f13e51]: "0"
+                - paragraph [ref=f13e63]: Expiring Floating Configurations
+            - button "0 Floating Licenses" [ref=f13e64] [cursor=pointer]:
+              - generic [ref=f13e66]:
+                - generic [ref=f13e67]: "0"
+                - paragraph [ref=f13e71]: Floating Licenses
+          - generic [ref=f13e75]:
+            - heading "Pending License Requests" [level=3] [ref=f13e76]
+            - paragraph [ref=f13e81]: License requests awaiting review.
+    - contentinfo [ref=f13e87]:
+      - paragraph [ref=f13e90]: © KPIT Technologies Ltd. All rights reserved.
