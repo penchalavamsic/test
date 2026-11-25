@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-037 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-037 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">20</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">20</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/dcae4829f946ab80.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dcae4829f946ab80.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/dcae4829f946ab80.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d62ed0dda4716e20.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d62ed0dda4716e20.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/d62ed0dda4716e20.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/efa050da05518a5c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/efa050da05518a5c.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/efa050da05518a5c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d359b1ec4c38ee4f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d359b1ec4c38ee4f.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/d359b1ec4c38ee4f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c2f372809d9a1b20.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c2f372809d9a1b20.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/c2f372809d9a1b20.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c0cd63408b622dd9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c0cd63408b622dd9.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/c0cd63408b622dd9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ba0732945136ea0a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ba0732945136ea0a.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/ba0732945136ea0a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4a83c819ea81482f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4a83c819ea81482f.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4a83c819ea81482f.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/47ef4154fff4bda7.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/47ef4154fff4bda7.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/8e483d22196dd723.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.43s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5b97568e515dde79.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5b97568e515dde79.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/5b97568e515dde79.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7b4034e398f9079b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7b4034e398f9079b.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/7b4034e398f9079b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/61aad59dee443053.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/61aad59dee443053.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/61aad59dee443053.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/04eb663addd61dcf.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/04eb663addd61dcf.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d3c20b85ef2fa226.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-729</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-730</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-731</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-732</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-733</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-734</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-735</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-736</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-737</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-738</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-739</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-740</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-741</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-742</a> | <a href="#test-16" onclick="document.getElementById('test-16').classList.add('expanded')">LIMAS-SUD-743</a> | <a href="#test-17" onclick="document.getElementById('test-17').classList.add('expanded')">LIMAS-SUD-744</a> | <a href="#test-18" onclick="document.getElementById('test-18').classList.add('expanded')">LIMAS-SUD-745</a> | <a href="#test-19" onclick="document.getElementById('test-19').classList.add('expanded')">LIMAS-SUD-746</a> | <a href="#test-20" onclick="document.getElementById('test-20').classList.add('expanded')">LIMAS-SUD-747</a> | <a href="#test-21" onclick="document.getElementById('test-21').classList.add('expanded')">LIMAS-SUD-748</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — SUD-037</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-729</span>
+        <span class="test-title-col">expiration radio is not identified by color alone</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.43s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-729-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-729-efc-c-expiration-color-only-identification.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Expiration radio checked state uses more than color alone.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect Expiration radio for non-color checked indicators.<br>   Expected Result: Checked state is indicated by more than color alone.</p><p><h2>Expected Final Result</h2></p><p>Expiration radio checked state uses more than color alone.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/dd3460a0227c1cef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dd3460a0227c1cef.png" alt="0001 Action Click LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 9</span>
+        <p><a href="Evidence/Screenshots/dd3460a0227c1cef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8aebf1557631aa10.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8aebf1557631aa10.png" alt="0002 Assert ToBeVisible LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 12</span>
+        <p><a href="Evidence/Screenshots/8aebf1557631aa10.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7c33bb6caba55710.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7c33bb6caba55710.png" alt="0003 Assert ToHaveAccessibleName LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 13" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveAccessibleName LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 13</span>
+        <p><a href="Evidence/Screenshots/7c33bb6caba55710.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b6b57d34371d562d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b6b57d34371d562d.png" alt="0004 Assert ToBeVisible LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 17" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 729 Efc C Expiration Color Only Identification Spec 17</span>
+        <p><a href="Evidence/Screenshots/b6b57d34371d562d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/53b3f0d14d10b2f1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53b3f0d14d10b2f1.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/53b3f0d14d10b2f1.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/76d13991505a6b2a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/76d13991505a6b2a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/77caa7c637260578.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-729",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-729"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-730</span>
+        <span class="test-title-col">maintenance radio is visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.79s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-730-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-730-efc-c-maintenance-radio-visibility.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio is visible.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Assert Maintenance radio visibility.<br>   Expected Result: Radio "Maintenance" is visible.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio is visible.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/4e1ad115b6b1f898.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4e1ad115b6b1f898.png" alt="0001 Action Click LIMAS SUD 730 Efc C Maintenance Radio Visibility Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 730 Efc C Maintenance Radio Visibility Spec 9</span>
+        <p><a href="Evidence/Screenshots/4e1ad115b6b1f898.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3b3b454e03e8be79.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3b3b454e03e8be79.png" alt="0002 Assert ToBeVisible LIMAS SUD 730 Efc C Maintenance Radio Visibility Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 730 Efc C Maintenance Radio Visibility Spec 12</span>
+        <p><a href="Evidence/Screenshots/3b3b454e03e8be79.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4e7302590779c650.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4e7302590779c650.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4e7302590779c650.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/559b9e458f3fcd8a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/559b9e458f3fcd8a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/bfafc16a6c47cdbe.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-730",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-730"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-731</span>
+        <span class="test-title-col">maintenance radio has type radio</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-731-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-731-efc-c-maintenance-radio-role.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio role is "radio".</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect Maintenance radio accessible role.<br>   Expected Result: Role is "radio".</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio role is "radio".<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/36255d79e6e78d71.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/36255d79e6e78d71.png" alt="0001 Action Click LIMAS SUD 731 Efc C Maintenance Radio Role Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 731 Efc C Maintenance Radio Role Spec 9</span>
+        <p><a href="Evidence/Screenshots/36255d79e6e78d71.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3783bcf997290127.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3783bcf997290127.png" alt="0002 Assert ToHaveAttribute LIMAS SUD 731 Efc C Maintenance Radio Role Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveAttribute LIMAS SUD 731 Efc C Maintenance Radio Role Spec 12</span>
+        <p><a href="Evidence/Screenshots/3783bcf997290127.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2a2465ac4b2eb7fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2a2465ac4b2eb7fe.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2a2465ac4b2eb7fe.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/bf4faff42059883d.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/bf4faff42059883d.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3220119eb5012edb.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-731",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-731"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-732</span>
+        <span class="test-title-col">maintenance radio is not checked by default</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.41s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-732-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-732-efc-c-maintenance-radio-default-unchecked.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio is unchecked by default.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Assert Maintenance radio unchecked state.<br>   Expected Result: Radio "Maintenance" is not checked.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio is unchecked by default.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/cb4f932fdaf00921.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cb4f932fdaf00921.png" alt="0001 Action Click LIMAS SUD 732 Efc C Maintenance Radio Default Unchecked Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 732 Efc C Maintenance Radio Default Unchecked Spec 9</span>
+        <p><a href="Evidence/Screenshots/cb4f932fdaf00921.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/eb692243060eeb60.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/eb692243060eeb60.png" alt="0002 Assert ToBeChecked LIMAS SUD 732 Efc C Maintenance Radio Default Unchecked Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeChecked LIMAS SUD 732 Efc C Maintenance Radio Default Unchecked Spec 12</span>
+        <p><a href="Evidence/Screenshots/eb692243060eeb60.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/67c91e6eb9db5181.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/67c91e6eb9db5181.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/67c91e6eb9db5181.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9ca36b2490084bdb.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9ca36b2490084bdb.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/92910593efe9d3e8.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-732",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-732"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-733</span>
+        <span class="test-title-col">maintenance radio is enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.43s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-733-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-733-efc-c-maintenance-radio-enabled.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio is enabled.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Assert Maintenance radio enabled state.<br>   Expected Result: Radio "Maintenance" is enabled.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio is enabled.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c8f2916f07ce7f98.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c8f2916f07ce7f98.png" alt="0001 Action Click LIMAS SUD 733 Efc C Maintenance Radio Enabled Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 733 Efc C Maintenance Radio Enabled Spec 9</span>
+        <p><a href="Evidence/Screenshots/c8f2916f07ce7f98.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/829329f124ff0f86.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/829329f124ff0f86.png" alt="0002 Assert ToBeEnabled LIMAS SUD 733 Efc C Maintenance Radio Enabled Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeEnabled LIMAS SUD 733 Efc C Maintenance Radio Enabled Spec 12</span>
+        <p><a href="Evidence/Screenshots/829329f124ff0f86.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a830a71f2d30a726.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a830a71f2d30a726.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a830a71f2d30a726.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/342b823fbcd64cda.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/342b823fbcd64cda.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/666ac1c2b79b3bbc.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-733",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-733"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-734</span>
+        <span class="test-title-col">maintenance radio DOM input type is radio</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.35s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-734-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-734-efc-c-maintenance-radio-input-type.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio input type is "radio".</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect input type attribute of Maintenance radio.<br>   Expected Result: Input type is "radio".</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio input type is "radio".<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/4902b8f95b754ba6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4902b8f95b754ba6.png" alt="0001 Action Click LIMAS SUD 734 Efc C Maintenance Radio Input Type Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 734 Efc C Maintenance Radio Input Type Spec 9</span>
+        <p><a href="Evidence/Screenshots/4902b8f95b754ba6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/efbf533739fdc1b3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/efbf533739fdc1b3.png" alt="0002 Assert ToBe LIMAS SUD 734 Efc C Maintenance Radio Input Type Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe LIMAS SUD 734 Efc C Maintenance Radio Input Type Spec 13</span>
+        <p><a href="Evidence/Screenshots/efbf533739fdc1b3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4633c02c524cfbcf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4633c02c524cfbcf.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4633c02c524cfbcf.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/74624ba644902985.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/74624ba644902985.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/239e010144136860.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-734",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-734"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-735</span>
+        <span class="test-title-col">maintenance radio has accessible name Maintenance</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.37s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-735-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-735-efc-c-maintenance-radio-label-association.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio label is properly associated.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect label association for Maintenance radio.<br>   Expected Result: Visible label "Maintenance" is associated with the radio input.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio label is properly associated.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b95ee788ef6f7d06.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b95ee788ef6f7d06.png" alt="0001 Action Click LIMAS SUD 735 Efc C Maintenance Radio Label Association Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 735 Efc C Maintenance Radio Label Association Spec 9</span>
+        <p><a href="Evidence/Screenshots/b95ee788ef6f7d06.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/993ae094e76cc6e4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/993ae094e76cc6e4.png" alt="0002 Assert ToHaveAccessibleName LIMAS SUD 735 Efc C Maintenance Radio Label Association Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveAccessibleName LIMAS SUD 735 Efc C Maintenance Radio Label Association Spec 12</span>
+        <p><a href="Evidence/Screenshots/993ae094e76cc6e4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c25134752fd64151.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c25134752fd64151.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c25134752fd64151.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/2e7dfdde4e8372d7.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/2e7dfdde4e8372d7.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3d9ab7b7bea2db8d.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-735",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-735"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-736</span>
+        <span class="test-title-col">maintenance radio receives keyboard focus</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.43s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-736-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-736-efc-c-maintenance-radio-keyboard-focus.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio receives keyboard focus with visible indicator.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Press Tab once to focus Expiration radio, then press ArrowRight to move to Maintenance radio.<br>   Expected Result: Maintenance radio receives focus and shows visible focus indicator.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio receives keyboard focus with visible indicator.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/4ed99da2f475ea95.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4ed99da2f475ea95.png" alt="0001 Action Click LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 9</span>
+        <p><a href="Evidence/Screenshots/4ed99da2f475ea95.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e7070643adbd9b83.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e7070643adbd9b83.png" alt="0002 Action Focus LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 12" loading="lazy">
+        </a>
+        <span>0002 Action Focus LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 12</span>
+        <p><a href="Evidence/Screenshots/e7070643adbd9b83.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/57d22d598369312b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/57d22d598369312b.png" alt="0003 Assert ToBeFocused LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 13" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeFocused LIMAS SUD 736 Efc C Maintenance Radio Keyboard Focus Spec 13</span>
+        <p><a href="Evidence/Screenshots/57d22d598369312b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2134576f92f25126.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2134576f92f25126.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2134576f92f25126.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/dae98611021d2d6e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/dae98611021d2d6e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/47e19e2a60a24b72.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-736",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-736"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-737</span>
+        <span class="test-title-col">click selects maintenance radio and triggers request</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.27s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-737-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-737-efc-c-maintenance-click-selection.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Space key selects Maintenance radio.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Tab to radio group, ArrowRight to focus Maintenance radio, press Space.<br>   Expected Result: Maintenance radio becomes checked and triggers API request.</p><p><h2>Expected Final Result</h2></p><p>Space key selects Maintenance radio.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a64bd15b4449af4f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a64bd15b4449af4f.png" alt="0001 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 9</span>
+        <p><a href="Evidence/Screenshots/a64bd15b4449af4f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a0e96374bd030a81.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a0e96374bd030a81.png" alt="0002 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 21" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 21</span>
+        <p><a href="Evidence/Screenshots/a0e96374bd030a81.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bcde4763348da47f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bcde4763348da47f.png" alt="0003 Assert ToBeChecked LIMAS SUD 737 Efc C Maintenance Click Selection Spec 23" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeChecked LIMAS SUD 737 Efc C Maintenance Click Selection Spec 23</span>
+        <p><a href="Evidence/Screenshots/bcde4763348da47f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/51ec280bb6743bb3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/51ec280bb6743bb3.png" alt="0004 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 31" loading="lazy">
+        </a>
+        <span>0004 Action Click LIMAS SUD 737 Efc C Maintenance Click Selection Spec 31</span>
+        <p><a href="Evidence/Screenshots/51ec280bb6743bb3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b7238c75a389692e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b7238c75a389692e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b7238c75a389692e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5189af3147b6d1f7.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5189af3147b6d1f7.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/571d2ab5b83e67a8.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-737",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-737"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-738</span>
+        <span class="test-title-col">Space selects maintenance radio and triggers request</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.34s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-738-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-738-efc-c-maintenance-space-selection.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Click selects Maintenance radio.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click Maintenance radio.<br>   Expected Result: Maintenance radio becomes checked.</p><p><h2>Expected Final Result</h2></p><p>Click selects Maintenance radio.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8c1f27d0f4e9a58e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8c1f27d0f4e9a58e.png" alt="0001 Action Click LIMAS SUD 738 Efc C Maintenance Space Selection Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 738 Efc C Maintenance Space Selection Spec 9</span>
+        <p><a href="Evidence/Screenshots/8c1f27d0f4e9a58e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fc1e56a248eb96d7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fc1e56a248eb96d7.png" alt="0002 Action Focus LIMAS SUD 738 Efc C Maintenance Space Selection Spec 17" loading="lazy">
+        </a>
+        <span>0002 Action Focus LIMAS SUD 738 Efc C Maintenance Space Selection Spec 17</span>
+        <p><a href="Evidence/Screenshots/fc1e56a248eb96d7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/02dd598057b427f2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/02dd598057b427f2.png" alt="0003 Action Press LIMAS SUD 738 Efc C Maintenance Space Selection Spec 23" loading="lazy">
+        </a>
+        <span>0003 Action Press LIMAS SUD 738 Efc C Maintenance Space Selection Spec 23</span>
+        <p><a href="Evidence/Screenshots/02dd598057b427f2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/021edab6f5a12cf2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/021edab6f5a12cf2.png" alt="0004 Assert ToBeChecked LIMAS SUD 738 Efc C Maintenance Space Selection Spec 25" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked LIMAS SUD 738 Efc C Maintenance Space Selection Spec 25</span>
+        <p><a href="Evidence/Screenshots/021edab6f5a12cf2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fe82058e94f79d1a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fe82058e94f79d1a.png" alt="0005 Action Focus LIMAS SUD 738 Efc C Maintenance Space Selection Spec 33" loading="lazy">
+        </a>
+        <span>0005 Action Focus LIMAS SUD 738 Efc C Maintenance Space Selection Spec 33</span>
+        <p><a href="Evidence/Screenshots/fe82058e94f79d1a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/20cebfbc55de1a46.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/20cebfbc55de1a46.png" alt="0006 Action Press LIMAS SUD 738 Efc C Maintenance Space Selection Spec 34" loading="lazy">
+        </a>
+        <span>0006 Action Press LIMAS SUD 738 Efc C Maintenance Space Selection Spec 34</span>
+        <p><a href="Evidence/Screenshots/20cebfbc55de1a46.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f75b57d650e4a52f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f75b57d650e4a52f.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/f75b57d650e4a52f.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1b3b5d8d52085cd8.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1b3b5d8d52085cd8.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/2711fba7a142cc72.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-738",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-738"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-739</span>
+        <span class="test-title-col">maintenance radio checked state is announced</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.41s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-739-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-739-efc-c-maintenance-checked-announced.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio checked state is communicated in accessibility tree.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click Maintenance radio.<br>   Expected Result: Loading completes.</p><p>2. Action: Inspect Maintenance radio accessible checked property.<br>   Expected Result: Checked property is "true".</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio checked state is communicated in accessibility tree.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/2720e7c0ab8a2266.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2720e7c0ab8a2266.png" alt="0001 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 9</span>
+        <p><a href="Evidence/Screenshots/2720e7c0ab8a2266.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/69afa32b5d725562.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/69afa32b5d725562.png" alt="0002 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 21" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 21</span>
+        <p><a href="Evidence/Screenshots/69afa32b5d725562.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/64c60f639172d259.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/64c60f639172d259.png" alt="0003 Assert ToBeChecked LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 23" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeChecked LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 23</span>
+        <p><a href="Evidence/Screenshots/64c60f639172d259.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9aea85800ade209e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9aea85800ade209e.png" alt="0004 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 31" loading="lazy">
+        </a>
+        <span>0004 Action Click LIMAS SUD 739 Efc C Maintenance Checked Announced Spec 31</span>
+        <p><a href="Evidence/Screenshots/9aea85800ade209e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a3ecdc790c94c3f2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a3ecdc790c94c3f2.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a3ecdc790c94c3f2.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/3d9bfd38010bf551.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/3d9bfd38010bf551.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ba0e016ea2a5056f.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-739",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-739"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-740</span>
+        <span class="test-title-col">Space on already-checked maintenance radio sends no request</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">6.95s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-740-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-740-efc-c-maintenance-space-on-checked-no-request.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Space on already-checked Maintenance triggers no API request.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Press Space on checked Maintenance radio.<br>   Expected Result: No new API request is triggered.</p><p><h2>Expected Final Result</h2></p><p>Space on already-checked Maintenance triggers no API request.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/530e7b6cbf90157f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/530e7b6cbf90157f.png" alt="0001 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 9</span>
+        <p><a href="Evidence/Screenshots/530e7b6cbf90157f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3f4b0ea9352f1437.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3f4b0ea9352f1437.png" alt="0002 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 22" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 22</span>
+        <p><a href="Evidence/Screenshots/3f4b0ea9352f1437.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ef0cce3f22bb5b6e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ef0cce3f22bb5b6e.png" alt="0003 Action Focus LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 32" loading="lazy">
+        </a>
+        <span>0003 Action Focus LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 32</span>
+        <p><a href="Evidence/Screenshots/ef0cce3f22bb5b6e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9e4c3a62912d115c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9e4c3a62912d115c.png" alt="0004 Action Press LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 33" loading="lazy">
+        </a>
+        <span>0004 Action Press LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 33</span>
+        <p><a href="Evidence/Screenshots/9e4c3a62912d115c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/349ffde035d0006e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/349ffde035d0006e.png" alt="0005 Assert ToBe LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 41" loading="lazy">
+        </a>
+        <span>0005 Assert ToBe LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 41</span>
+        <p><a href="Evidence/Screenshots/349ffde035d0006e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8077a252231925e9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8077a252231925e9.png" alt="0006 Assert ToBe LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 42" loading="lazy">
+        </a>
+        <span>0006 Assert ToBe LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 42</span>
+        <p><a href="Evidence/Screenshots/8077a252231925e9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/de4f96786ec7606b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de4f96786ec7606b.png" alt="0007 Assert ToBeChecked LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 43" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeChecked LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 43</span>
+        <p><a href="Evidence/Screenshots/de4f96786ec7606b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bd6ed33171837932.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bd6ed33171837932.png" alt="0008 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 51" loading="lazy">
+        </a>
+        <span>0008 Action Click LIMAS SUD 740 Efc C Maintenance Space On Checked No Request Spec 51</span>
+        <p><a href="Evidence/Screenshots/bd6ed33171837932.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ff63dfad600f88f5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff63dfad600f88f5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/ff63dfad600f88f5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/93898edcba1f94de.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/93898edcba1f94de.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/f00f1ac87b7fecd2.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-740",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-740"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-741</span>
+        <span class="test-title-col">click on already-checked maintenance radio sends no request</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">5.94s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-741-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-741-efc-c-maintenance-click-on-checked-no-request.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Click on already-checked Maintenance triggers no API request.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click the already-checked Maintenance radio.<br>   Expected Result: No new API request is triggered.</p><p><h2>Expected Final Result</h2></p><p>Click on already-checked Maintenance triggers no API request.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a4da23856ab6c965.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a4da23856ab6c965.png" alt="0001 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 9</span>
+        <p><a href="Evidence/Screenshots/a4da23856ab6c965.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c7d2d5a51bdb82ee.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c7d2d5a51bdb82ee.png" alt="0002 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 22" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 22</span>
+        <p><a href="Evidence/Screenshots/c7d2d5a51bdb82ee.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8047149773010acf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8047149773010acf.png" alt="0003 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 31" loading="lazy">
+        </a>
+        <span>0003 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 31</span>
+        <p><a href="Evidence/Screenshots/8047149773010acf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/09e4ed5759105ee6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/09e4ed5759105ee6.png" alt="0004 Assert ToBe LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBe LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 39</span>
+        <p><a href="Evidence/Screenshots/09e4ed5759105ee6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a604c8af3721e0c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a604c8af3721e0c4.png" alt="0005 Assert ToBe LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToBe LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 40</span>
+        <p><a href="Evidence/Screenshots/a604c8af3721e0c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7ae72dd66a6fa43c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7ae72dd66a6fa43c.png" alt="0006 Assert ToBeChecked LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeChecked LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 41</span>
+        <p><a href="Evidence/Screenshots/7ae72dd66a6fa43c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ff5d4e0dd10878d4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff5d4e0dd10878d4.png" alt="0007 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 49" loading="lazy">
+        </a>
+        <span>0007 Action Click LIMAS SUD 741 Efc C Maintenance Click On Checked No Request Spec 49</span>
+        <p><a href="Evidence/Screenshots/ff5d4e0dd10878d4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8ffda674cba72ff7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ffda674cba72ff7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/8ffda674cba72ff7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d33f45c9660f490a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d33f45c9660f490a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e22da1d3c1807138.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-741",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-741"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-742</span>
+        <span class="test-title-col">maintenance radio unchecked after expiration selected</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.59s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-742-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-742-efc-c-maintenance-unchecked-after-expiration.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio becomes unchecked after Expiration selection.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click Expiration radio.<br>   Expected Result: Maintenance radio becomes unchecked.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio becomes unchecked after Expiration selection.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/01dc434a5b7e4ef8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/01dc434a5b7e4ef8.png" alt="0001 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 9</span>
+        <p><a href="Evidence/Screenshots/01dc434a5b7e4ef8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/64fa91cb189edd69.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/64fa91cb189edd69.png" alt="0002 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 22" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 22</span>
+        <p><a href="Evidence/Screenshots/64fa91cb189edd69.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1fb891a6c11db21c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1fb891a6c11db21c.png" alt="0003 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 31" loading="lazy">
+        </a>
+        <span>0003 Action Click LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 31</span>
+        <p><a href="Evidence/Screenshots/1fb891a6c11db21c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/37c00b2faee85bcd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37c00b2faee85bcd.png" alt="0004 Assert ToBeChecked LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 34" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 34</span>
+        <p><a href="Evidence/Screenshots/37c00b2faee85bcd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cb54975266ed687d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cb54975266ed687d.png" alt="0005 Assert ToBeChecked LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 35" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeChecked LIMAS SUD 742 Efc C Maintenance Unchecked After Expiration Spec 35</span>
+        <p><a href="Evidence/Screenshots/cb54975266ed687d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbfb5c0941f26a93.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbfb5c0941f26a93.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/cbfb5c0941f26a93.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/df49bcb6ac04fc44.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/df49bcb6ac04fc44.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/64adc1fdd89b369a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-742",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-742"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-16">
+    <div class="test-header" onclick="toggleExpand('test-16')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-743</span>
+        <span class="test-title-col">maintenance radio is not identified by color alone</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.46s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-743-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-743-efc-c-maintenance-color-only-identification.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Maintenance radio checked state uses more than color alone.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click Maintenance radio.<br>   Expected Result: Loading completes.</p><p>2. Action: Inspect Maintenance radio for non-color checked indicators.<br>   Expected Result: Checked state is indicated by more than color alone.</p><p><h2>Expected Final Result</h2></p><p>Maintenance radio checked state uses more than color alone.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/659bc69ee0aef6e6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/659bc69ee0aef6e6.png" alt="0001 Action Click LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 9</span>
+        <p><a href="Evidence/Screenshots/659bc69ee0aef6e6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/089d62dc8cb202dd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/089d62dc8cb202dd.png" alt="0002 Assert ToBeVisible LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 12</span>
+        <p><a href="Evidence/Screenshots/089d62dc8cb202dd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2c126eaf0ff004bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2c126eaf0ff004bc.png" alt="0003 Assert ToHaveAccessibleName LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 13" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveAccessibleName LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 13</span>
+        <p><a href="Evidence/Screenshots/2c126eaf0ff004bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e36a8c09309e9f26.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e36a8c09309e9f26.png" alt="0004 Assert ToBeVisible LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 17" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 743 Efc C Maintenance Color Only Identification Spec 17</span>
+        <p><a href="Evidence/Screenshots/e36a8c09309e9f26.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/92bcab9ec8e3f8fc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/92bcab9ec8e3f8fc.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/92bcab9ec8e3f8fc.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4444d212c6bb9133.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4444d212c6bb9133.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/6e1315e6b0190864.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-743",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-743"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-17">
+    <div class="test-header" onclick="toggleExpand('test-17')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-744</span>
+        <span class="test-title-col">radio group container is wrapped in a fieldset</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.43s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-744-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-744-efc-c-filter-group-fieldset.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Filter group is a fieldset with legend.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect filter group container role.<br>   Expected Result: Container role is "group" or "fieldset" with a legend element.</p><p><h2>Expected Final Result</h2></p><p>Filter group is a fieldset with legend.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/dcc6ae292e3e8d6d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dcc6ae292e3e8d6d.png" alt="0001 Action Click LIMAS SUD 744 Efc C Filter Group Fieldset Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 744 Efc C Filter Group Fieldset Spec 9</span>
+        <p><a href="Evidence/Screenshots/dcc6ae292e3e8d6d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ea7d490f8b8ca332.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ea7d490f8b8ca332.png" alt="0002 Assert ToBe LIMAS SUD 744 Efc C Filter Group Fieldset Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe LIMAS SUD 744 Efc C Filter Group Fieldset Spec 12</span>
+        <p><a href="Evidence/Screenshots/ea7d490f8b8ca332.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7a2ef3ac100cac61.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7a2ef3ac100cac61.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7a2ef3ac100cac61.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6040fb25a2985611.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6040fb25a2985611.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/69722d1b5d9d1471.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-744",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-744"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-18">
+    <div class="test-header" onclick="toggleExpand('test-18')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-745</span>
+        <span class="test-title-col">filter group has accessible name Filter by</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-745-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-745-efc-c-filter-group-accessible-name.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Radio group has accessible name "Filter by".</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect radio group accessible name.<br>   Expected Result: Accessible name is "Filter by".</p><p><h2>Expected Final Result</h2></p><p>Radio group has accessible name "Filter by".<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/db7b11189a46ac93.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db7b11189a46ac93.png" alt="0001 Action Click LIMAS SUD 745 Efc C Filter Group Accessible Name Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 745 Efc C Filter Group Accessible Name Spec 9</span>
+        <p><a href="Evidence/Screenshots/db7b11189a46ac93.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/213a7995fd49259c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/213a7995fd49259c.png" alt="0002 Assert ToHaveAccessibleName LIMAS SUD 745 Efc C Filter Group Accessible Name Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveAccessibleName LIMAS SUD 745 Efc C Filter Group Accessible Name Spec 12</span>
+        <p><a href="Evidence/Screenshots/213a7995fd49259c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/de28a697acda1894.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de28a697acda1894.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/de28a697acda1894.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b60161cd802027c9.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b60161cd802027c9.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/75d8203843eb55be.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-745",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-745"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-19">
+    <div class="test-header" onclick="toggleExpand('test-19')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-746</span>
+        <span class="test-title-col">both radios share the same name attribute</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.35s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-746-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-746-efc-c-radios-shared-name.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Both radios share the same input name.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders.</p><p>2. Action: Inspect name attribute on both radio inputs.<br>   Expected Result: Both radios share the same name value.</p><p><h2>Expected Final Result</h2></p><p>Both radios share the same input name.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/d61fe9b9fba00187.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d61fe9b9fba00187.png" alt="0001 Action Click LIMAS SUD 746 Efc C Radios Shared Name Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 746 Efc C Radios Shared Name Spec 9</span>
+        <p><a href="Evidence/Screenshots/d61fe9b9fba00187.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1571215b9c440a81.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1571215b9c440a81.png" alt="0002 Assert ToBe LIMAS SUD 746 Efc C Radios Shared Name Spec 16" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe LIMAS SUD 746 Efc C Radios Shared Name Spec 16</span>
+        <p><a href="Evidence/Screenshots/1571215b9c440a81.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/94c4502db21dd3c2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/94c4502db21dd3c2.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/94c4502db21dd3c2.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ae8a3cf78006cd71.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ae8a3cf78006cd71.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/2a0aff0f3ec6c326.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-746",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-746"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-20">
+    <div class="test-header" onclick="toggleExpand('test-20')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-747</span>
+        <span class="test-title-col">mutual exclusion — only one radio checked by default</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.47s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-747-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-747-efc-c-mutual-exclusion-default.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Both radios are never checked simultaneously.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate and click EFC card.<br>   Expected Result: Section renders, Expiration is checked, Maintenance is unchecked.</p><p>2. Action: Click Maintenance radio.<br>   Expected Result: Maintenance is checked, Expiration is unchecked. Checked count is 1.</p><p><h2>Expected Final Result</h2></p><p>Both radios are never checked simultaneously.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/37162b0a714599c1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37162b0a714599c1.png" alt="0001 Action Click LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 9</span>
+        <p><a href="Evidence/Screenshots/37162b0a714599c1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/823ec273f29627be.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/823ec273f29627be.png" alt="0002 Assert ToBeChecked LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 14" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeChecked LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 14</span>
+        <p><a href="Evidence/Screenshots/823ec273f29627be.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2dc2d96f396b6734.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2dc2d96f396b6734.png" alt="0003 Assert ToBeChecked LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 15" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeChecked LIMAS SUD 747 Efc C Mutual Exclusion Default Spec 15</span>
+        <p><a href="Evidence/Screenshots/2dc2d96f396b6734.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cc8685262d980774.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cc8685262d980774.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/cc8685262d980774.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/8b3202c2c8088c41.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/8b3202c2c8088c41.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c5fbace17c6695f4.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-747",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-747"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-21">
+    <div class="test-header" onclick="toggleExpand('test-21')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-748</span>
+        <span class="test-title-col">mutual exclusion — only maintenance checked after selection</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.53s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-037</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-748-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-748-efc-c-mutual-exclusion-after-maintenance.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Only Maintenance is checked after selecting it.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \</p><p><h2>Preconditions</h2></p><p>Dashboard loaded, EFC section selected, Expiration radio checked, zero-data state visible.</p><p><h2>Test Steps</h2></p><p>1. Action: Click Maintenance radio.<br>   Expected Result: Only Maintenance is checked; Expiration is unchecked.</p><p><h2>Expected Final Result</h2></p><p>Only Maintenance is checked after selecting it.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/adbc3d5d1f195434.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/adbc3d5d1f195434.png" alt="0001 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 9</span>
+        <p><a href="Evidence/Screenshots/adbc3d5d1f195434.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6d917e3078645f4f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6d917e3078645f4f.png" alt="0002 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 21" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 21</span>
+        <p><a href="Evidence/Screenshots/6d917e3078645f4f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2d118af399940f4d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2d118af399940f4d.png" alt="0003 Assert ToBeChecked LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 25" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeChecked LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 25</span>
+        <p><a href="Evidence/Screenshots/2d118af399940f4d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/adbb5d6b377e88e9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/adbb5d6b377e88e9.png" alt="0004 Assert ToBeChecked LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 26" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 26</span>
+        <p><a href="Evidence/Screenshots/adbb5d6b377e88e9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3e2126e0c4b67038.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3e2126e0c4b67038.png" alt="0005 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 33" loading="lazy">
+        </a>
+        <span>0005 Action Click LIMAS SUD 748 Efc C Mutual Exclusion After Maintenance Spec 33</span>
+        <p><a href="Evidence/Screenshots/3e2126e0c4b67038.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e7fa68f6b4bfa757.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e7fa68f6b4bfa757.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/e7fa68f6b4bfa757.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/2514a5baa50f8ffa.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/2514a5baa50f8ffa.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/5164b8341508db3a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/m/December%2025%2C%202026/67",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/flconfig/e/December%2025%2C%202026/67",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-748",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-748"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
