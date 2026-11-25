@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-024 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-024 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">6</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">5</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">1</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.20s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/33c6ff8f05fdffbf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/33c6ff8f05fdffbf.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/33c6ff8f05fdffbf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d62ed0dda4716e20.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d62ed0dda4716e20.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/d62ed0dda4716e20.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1cf8200b5f531a94.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1cf8200b5f531a94.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/1cf8200b5f531a94.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e536c8b7407d2906.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e536c8b7407d2906.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/e536c8b7407d2906.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ce1cd39e93406e18.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ce1cd39e93406e18.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/ce1cd39e93406e18.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6ca5c324965a8cca.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6ca5c324965a8cca.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/6ca5c324965a8cca.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/769721bd648aa711.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/769721bd648aa711.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/769721bd648aa711.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9d261cbe8bbc0641.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9d261cbe8bbc0641.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/9d261cbe8bbc0641.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/3fbcbeaeb49a308e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/3fbcbeaeb49a308e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c7e078913c5a0af9.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.47s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b9bce51f1a586681.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9bce51f1a586681.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/b9bce51f1a586681.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8ea138bc4634db1c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ea138bc4634db1c.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/8ea138bc4634db1c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f7feeb0d0c6b01cf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f7feeb0d0c6b01cf.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/f7feeb0d0c6b01cf.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/29d2cda30f451a27.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/29d2cda30f451a27.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e7b77df25a05262f.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-461</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-462</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-463</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-464</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-465</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-466</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — SUD-024</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-461</span>
+        <span class="test-title-col">Every Extend Button Has The Same Accessible Name</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">11.88s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-461-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-461-extend-button-accessible-name-not-unique.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Every Extend Button Has The Same Accessible Name\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every Extend button has the same accessible name.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Every Extend Button Has The Same Accessible Name\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Read the accessible names of all Extend buttons.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>Every Extend button has the same accessible name.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/edfce90a5726eb9c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/edfce90a5726eb9c.png" alt="0001 Assert ToContain LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 7</span>
+        <p><a href="Evidence/Screenshots/edfce90a5726eb9c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9d20bbf5ee1f94bd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9d20bbf5ee1f94bd.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/9d20bbf5ee1f94bd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/182bdd1b421730a7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/182bdd1b421730a7.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/182bdd1b421730a7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6983c7632c06b477.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6983c7632c06b477.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/6983c7632c06b477.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/406287b2745da85f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/406287b2745da85f.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/406287b2745da85f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4dbae84d5d29279d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4dbae84d5d29279d.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/4dbae84d5d29279d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/31ec4e447e512307.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/31ec4e447e512307.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/31ec4e447e512307.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/73dea23163cc4c01.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/73dea23163cc4c01.png" alt="0008 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0008 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/73dea23163cc4c01.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0e0b99c339a22509.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0e0b99c339a22509.png" alt="0009 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0009 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/0e0b99c339a22509.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0522d1730fd4e865.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0522d1730fd4e865.png" alt="0010 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0010 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/0522d1730fd4e865.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/12fb5e0bb142d570.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/12fb5e0bb142d570.png" alt="0011 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0011 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/12fb5e0bb142d570.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5a6de46af6f2355f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5a6de46af6f2355f.png" alt="0012 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0012 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/5a6de46af6f2355f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/20ad986abf9ce287.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/20ad986abf9ce287.png" alt="0013 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0013 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/20ad986abf9ce287.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d0a799a8cd98bc63.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d0a799a8cd98bc63.png" alt="0014 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0014 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/d0a799a8cd98bc63.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/416324b8b652e3ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/416324b8b652e3ff.png" alt="0015 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0015 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/416324b8b652e3ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7311f9b6f5cceb44.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7311f9b6f5cceb44.png" alt="0016 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0016 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7311f9b6f5cceb44.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/87c1a1c73664a40e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/87c1a1c73664a40e.png" alt="0017 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0017 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/87c1a1c73664a40e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8286a7ffc62f0956.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8286a7ffc62f0956.png" alt="0018 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0018 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/8286a7ffc62f0956.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1516f88a6f585b3d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1516f88a6f585b3d.png" alt="0019 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0019 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/1516f88a6f585b3d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e11b9c692216df1e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e11b9c692216df1e.png" alt="0020 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0020 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e11b9c692216df1e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/809e78f808beb09f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/809e78f808beb09f.png" alt="0021 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0021 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/809e78f808beb09f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/066d5cba6a950fe4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/066d5cba6a950fe4.png" alt="0022 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0022 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/066d5cba6a950fe4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e2c6cc7c9c63a7a2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e2c6cc7c9c63a7a2.png" alt="0023 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0023 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e2c6cc7c9c63a7a2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1439d6aae93f1c66.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1439d6aae93f1c66.png" alt="0024 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0024 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/1439d6aae93f1c66.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e312000c765eb051.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e312000c765eb051.png" alt="0025 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0025 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e312000c765eb051.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1d1490257a78059d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1d1490257a78059d.png" alt="0026 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0026 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/1d1490257a78059d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/67cedee7a0663848.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/67cedee7a0663848.png" alt="0027 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0027 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/67cedee7a0663848.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/42a699368e6687c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/42a699368e6687c5.png" alt="0028 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0028 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/42a699368e6687c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32e78baa2a4691ab.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32e78baa2a4691ab.png" alt="0029 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0029 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/32e78baa2a4691ab.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/96d163db7214bf1e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/96d163db7214bf1e.png" alt="0030 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0030 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/96d163db7214bf1e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5de8a073e71e9feb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5de8a073e71e9feb.png" alt="0031 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0031 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/5de8a073e71e9feb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6acb2001d3a30b16.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6acb2001d3a30b16.png" alt="0032 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0032 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/6acb2001d3a30b16.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32e62d36c4fb0317.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32e62d36c4fb0317.png" alt="0033 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0033 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/32e62d36c4fb0317.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7a8f79a049f06d6e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7a8f79a049f06d6e.png" alt="0034 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0034 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7a8f79a049f06d6e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3916f729fd38a8e0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3916f729fd38a8e0.png" alt="0035 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0035 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/3916f729fd38a8e0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a21413c7ba7ffb46.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a21413c7ba7ffb46.png" alt="0036 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0036 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/a21413c7ba7ffb46.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ca08fd216e4bb55.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ca08fd216e4bb55.png" alt="0037 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0037 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/9ca08fd216e4bb55.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2d24951f260a7878.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2d24951f260a7878.png" alt="0038 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0038 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2d24951f260a7878.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/37bb9aaf7314a155.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37bb9aaf7314a155.png" alt="0039 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0039 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/37bb9aaf7314a155.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e17b4e637d7d34b4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e17b4e637d7d34b4.png" alt="0040 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0040 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e17b4e637d7d34b4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c33632c1d8f132c6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c33632c1d8f132c6.png" alt="0041 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0041 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/c33632c1d8f132c6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fd1199f272bc2d3f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd1199f272bc2d3f.png" alt="0042 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0042 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/fd1199f272bc2d3f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a3b995dd134f9699.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a3b995dd134f9699.png" alt="0043 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0043 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/a3b995dd134f9699.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7db33f1e244e4ec3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7db33f1e244e4ec3.png" alt="0044 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0044 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7db33f1e244e4ec3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/da152e8613b58405.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/da152e8613b58405.png" alt="0045 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0045 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/da152e8613b58405.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/462f5cf2a4f95d6f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/462f5cf2a4f95d6f.png" alt="0046 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0046 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/462f5cf2a4f95d6f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/57a9a7c968e2a778.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/57a9a7c968e2a778.png" alt="0047 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0047 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/57a9a7c968e2a778.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/830c90dd996bbe0e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/830c90dd996bbe0e.png" alt="0048 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0048 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/830c90dd996bbe0e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e12e44f5d352c1f4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e12e44f5d352c1f4.png" alt="0049 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0049 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e12e44f5d352c1f4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ac6a7319d8e639a4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ac6a7319d8e639a4.png" alt="0050 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0050 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/ac6a7319d8e639a4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8aee50613fae0414.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8aee50613fae0414.png" alt="0051 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0051 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/8aee50613fae0414.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e181e73c8a1b62d4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e181e73c8a1b62d4.png" alt="0052 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0052 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e181e73c8a1b62d4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/69b764b98475f02f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/69b764b98475f02f.png" alt="0053 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0053 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/69b764b98475f02f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fd7e645a3261f781.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd7e645a3261f781.png" alt="0054 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0054 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/fd7e645a3261f781.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/22d19bd0f2670d03.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/22d19bd0f2670d03.png" alt="0055 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0055 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/22d19bd0f2670d03.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b7aa218d3ce103a2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b7aa218d3ce103a2.png" alt="0056 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0056 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/b7aa218d3ce103a2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6d67b7faca984ffe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6d67b7faca984ffe.png" alt="0057 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0057 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/6d67b7faca984ffe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6c1d5b8da4fb827e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6c1d5b8da4fb827e.png" alt="0058 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0058 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/6c1d5b8da4fb827e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9a92201f21a0b86f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9a92201f21a0b86f.png" alt="0059 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0059 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/9a92201f21a0b86f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/94b6504d0ff82bb2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/94b6504d0ff82bb2.png" alt="0060 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0060 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/94b6504d0ff82bb2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/341469d70bee04e1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/341469d70bee04e1.png" alt="0061 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0061 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/341469d70bee04e1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8a4e4e7255d3c909.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8a4e4e7255d3c909.png" alt="0062 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0062 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/8a4e4e7255d3c909.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7b5b1066ee7aec73.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7b5b1066ee7aec73.png" alt="0063 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0063 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7b5b1066ee7aec73.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/de542a1dd63684f7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de542a1dd63684f7.png" alt="0064 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0064 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/de542a1dd63684f7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/79818ea88224acb1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/79818ea88224acb1.png" alt="0065 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0065 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/79818ea88224acb1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cd333a1d0d47fc90.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cd333a1d0d47fc90.png" alt="0066 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0066 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/cd333a1d0d47fc90.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/915dd03ac9289ce5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/915dd03ac9289ce5.png" alt="0067 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0067 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/915dd03ac9289ce5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/52dc9b850b9fc689.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/52dc9b850b9fc689.png" alt="0068 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0068 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/52dc9b850b9fc689.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b795b64051a07391.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b795b64051a07391.png" alt="0069 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0069 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/b795b64051a07391.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0fc5ff5a6f3a4533.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0fc5ff5a6f3a4533.png" alt="0070 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0070 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/0fc5ff5a6f3a4533.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ef83e0827d391637.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ef83e0827d391637.png" alt="0071 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0071 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/ef83e0827d391637.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/af078fd2bedada15.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/af078fd2bedada15.png" alt="0072 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0072 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/af078fd2bedada15.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/951e4a51f897e502.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/951e4a51f897e502.png" alt="0073 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0073 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/951e4a51f897e502.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e07563a7e375f784.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e07563a7e375f784.png" alt="0074 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0074 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e07563a7e375f784.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0075 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0075 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0076 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0076 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0077 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0077 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0078 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0078 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0079 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0079 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0080 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0080 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0081 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0081 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0082 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0082 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0083 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0083 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ea82e993f18d263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ea82e993f18d263.png" alt="0084 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0084 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/2ea82e993f18d263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7587008c3bd0c41d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7587008c3bd0c41d.png" alt="0085 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0085 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7587008c3bd0c41d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a1c4fab059a12c51.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a1c4fab059a12c51.png" alt="0086 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0086 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/a1c4fab059a12c51.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7b84394fe1b552f7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7b84394fe1b552f7.png" alt="0087 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0087 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/7b84394fe1b552f7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1c5d6b19c62f14b2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1c5d6b19c62f14b2.png" alt="0088 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0088 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/1c5d6b19c62f14b2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4c6ee37517b81911.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4c6ee37517b81911.png" alt="0089 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0089 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/4c6ee37517b81911.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/49e827913a789419.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/49e827913a789419.png" alt="0090 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0090 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/49e827913a789419.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb70da3c56e63041.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb70da3c56e63041.png" alt="0091 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0091 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/fb70da3c56e63041.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f18f09d6c943d5fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f18f09d6c943d5fb.png" alt="0092 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0092 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/f18f09d6c943d5fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e16a303653076cc5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e16a303653076cc5.png" alt="0093 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0093 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/e16a303653076cc5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c9f2cfbeeae613dc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c9f2cfbeeae613dc.png" alt="0094 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0094 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/c9f2cfbeeae613dc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ff2f7e8b5f131f8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ff2f7e8b5f131f8.png" alt="0095 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0095 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/9ff2f7e8b5f131f8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5d46f3cfcf2705e2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5d46f3cfcf2705e2.png" alt="0096 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0096 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/5d46f3cfcf2705e2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5435af70d1176e85.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5435af70d1176e85.png" alt="0097 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0097 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/5435af70d1176e85.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ab14b5e142c84ec2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ab14b5e142c84ec2.png" alt="0098 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0098 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/ab14b5e142c84ec2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/09f96be060809214.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/09f96be060809214.png" alt="0099 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0099 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/09f96be060809214.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ee0d78e9655ef3b2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ee0d78e9655ef3b2.png" alt="0100 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0100 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/ee0d78e9655ef3b2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/973c94a226f8f47f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/973c94a226f8f47f.png" alt="0101 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0101 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/973c94a226f8f47f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/209060d7f58b5f92.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/209060d7f58b5f92.png" alt="0102 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0102 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/209060d7f58b5f92.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/54296d04df5df327.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/54296d04df5df327.png" alt="0103 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0103 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/54296d04df5df327.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ae2f4ebaf5b41d47.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ae2f4ebaf5b41d47.png" alt="0104 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17" loading="lazy">
+        </a>
+        <span>0104 Assert ToBe LIMAS SUD 461 Extend Button Accessible Name Not Unique Spec 17</span>
+        <p><a href="Evidence/Screenshots/ae2f4ebaf5b41d47.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a68bfffc66640e96.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a68bfffc66640e96.png" alt="0105 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0105 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/a68bfffc66640e96.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f748724b8aa96192.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f748724b8aa96192.png" alt="0106 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0106 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/f748724b8aa96192.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/460b591244dc1d32.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/460b591244dc1d32.png" alt="0107 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0107 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/460b591244dc1d32.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2e31a50861aaa0e8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2e31a50861aaa0e8.png" alt="0108 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0108 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/2e31a50861aaa0e8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/840e328c25e22398.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/840e328c25e22398.png" alt="0109 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0109 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/840e328c25e22398.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/04c7b755e1eeb6af.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/04c7b755e1eeb6af.png" alt="0110 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0110 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/04c7b755e1eeb6af.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/be60c1e535d5f6ae.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/be60c1e535d5f6ae.png" alt="0111 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0111 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/be60c1e535d5f6ae.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7afb29a91181075b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7afb29a91181075b.png" alt="0112 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0112 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/7afb29a91181075b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/301c7af033b19543.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/301c7af033b19543.png" alt="0113 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0113 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/301c7af033b19543.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e7969f8d33ac7d8b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e7969f8d33ac7d8b.png" alt="0114 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0114 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/e7969f8d33ac7d8b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7a7ddec2879bf6fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7a7ddec2879bf6fe.png" alt="0115 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0115 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/7a7ddec2879bf6fe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/99301d2194fc2045.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/99301d2194fc2045.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/99301d2194fc2045.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/66783fa3506b0578.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/66783fa3506b0578.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d86bbc73de13f4e2.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-461",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-461"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-462</span>
+        <span class="test-title-col">Extend Button Is Keyboard Focusable</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.51s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-462-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-462-extend-button-keyboard-focusable.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Extend Button Is Keyboard Focusable\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Extend button is keyboard focusable.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Extend Button Is Keyboard Focusable\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Read the tabIndex of the Extend button.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>The Extend button is keyboard focusable.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/cc88fcfda4def6fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cc88fcfda4def6fe.png" alt="0001 Assert ToContain LIMAS SUD 462 Extend Button Keyboard Focusable Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 462 Extend Button Keyboard Focusable Spec 7</span>
+        <p><a href="Evidence/Screenshots/cc88fcfda4def6fe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6b41c40f38b227f8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6b41c40f38b227f8.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/6b41c40f38b227f8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/19d48e38b9afe126.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/19d48e38b9afe126.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/19d48e38b9afe126.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b47614325e417134.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b47614325e417134.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/b47614325e417134.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5aeb80ac93bc0159.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5aeb80ac93bc0159.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/5aeb80ac93bc0159.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c653da3400bdcbee.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c653da3400bdcbee.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/c653da3400bdcbee.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/33fd570d5c65b41e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/33fd570d5c65b41e.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/33fd570d5c65b41e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" alt="0008 Assert ToBe LIMAS SUD 462 Extend Button Keyboard Focusable Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToBe LIMAS SUD 462 Extend Button Keyboard Focusable Spec 18</span>
+        <p><a href="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9d7ff1db8265ba3a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9d7ff1db8265ba3a.png" alt="0009 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0009 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/9d7ff1db8265ba3a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/af804db546d82cd8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/af804db546d82cd8.png" alt="0010 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/af804db546d82cd8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a719efc0dea641d9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a719efc0dea641d9.png" alt="0011 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0011 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/a719efc0dea641d9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/729828b5536fbffc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/729828b5536fbffc.png" alt="0012 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/729828b5536fbffc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1a757d19faa6fba7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1a757d19faa6fba7.png" alt="0013 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0013 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/1a757d19faa6fba7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c3811bc242a79ade.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c3811bc242a79ade.png" alt="0014 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0014 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/c3811bc242a79ade.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbebd8007e7a9f0e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbebd8007e7a9f0e.png" alt="0015 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/cbebd8007e7a9f0e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1fb8fced9cd4c318.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1fb8fced9cd4c318.png" alt="0016 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0016 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/1fb8fced9cd4c318.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/088f9a07112bca59.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/088f9a07112bca59.png" alt="0017 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0017 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/088f9a07112bca59.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5670d54e0e6bbfc8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5670d54e0e6bbfc8.png" alt="0018 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0018 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/5670d54e0e6bbfc8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5824413c143e96c1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5824413c143e96c1.png" alt="0019 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0019 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/5824413c143e96c1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e3094f9b90aa63e5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e3094f9b90aa63e5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/e3094f9b90aa63e5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4e67f2bbf6817213.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4e67f2bbf6817213.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/866c7557dc2708b2.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-462",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-462"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-463</span>
+        <span class="test-title-col">Extend Button Has Visible Focus Indicator</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">3.80s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-463-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-463-extend-button-focus-indicator.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Extend Button Has Visible Focus Indicator\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>A focus indicator is rendered on the Extend button.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Extend License Button\" → \"Extend Button Has Visible Focus Indicator\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Focus the Extend button.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>A focus indicator is rendered on the Extend button.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/7853f3bd3b8250fc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7853f3bd3b8250fc.png" alt="0001 Assert ToContain LIMAS SUD 463 Extend Button Focus Indicator Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 463 Extend Button Focus Indicator Spec 7</span>
+        <p><a href="Evidence/Screenshots/7853f3bd3b8250fc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3eb92bccc04984df.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3eb92bccc04984df.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/3eb92bccc04984df.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7480e1adbed6cf56.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7480e1adbed6cf56.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/7480e1adbed6cf56.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f26545372367d7b5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f26545372367d7b5.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/f26545372367d7b5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/26baa086e0cdf3f5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/26baa086e0cdf3f5.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/26baa086e0cdf3f5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aa1f730081d71b4f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aa1f730081d71b4f.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/aa1f730081d71b4f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/20a6d884747271e7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/20a6d884747271e7.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/20a6d884747271e7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/db812377730b69cc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db812377730b69cc.png" alt="0008 Action Focus LIMAS SUD 463 Extend Button Focus Indicator Spec 17" loading="lazy">
+        </a>
+        <span>0008 Action Focus LIMAS SUD 463 Extend Button Focus Indicator Spec 17</span>
+        <p><a href="Evidence/Screenshots/db812377730b69cc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/49df1b5748fd65cb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/49df1b5748fd65cb.png" alt="0009 Assert ToBe LIMAS SUD 463 Extend Button Focus Indicator Spec 22" loading="lazy">
+        </a>
+        <span>0009 Assert ToBe LIMAS SUD 463 Extend Button Focus Indicator Spec 22</span>
+        <p><a href="Evidence/Screenshots/49df1b5748fd65cb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/91f27bf66bc5f99f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/91f27bf66bc5f99f.png" alt="0010 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0010 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/91f27bf66bc5f99f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/66159589e4a43946.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/66159589e4a43946.png" alt="0011 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0011 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/66159589e4a43946.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3a6f4a5f6ede54ac.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3a6f4a5f6ede54ac.png" alt="0012 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0012 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/3a6f4a5f6ede54ac.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fa1046154eb1e919.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fa1046154eb1e919.png" alt="0013 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/fa1046154eb1e919.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8739107a998ffd79.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8739107a998ffd79.png" alt="0014 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0014 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/8739107a998ffd79.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/02db439488364a99.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/02db439488364a99.png" alt="0015 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0015 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/02db439488364a99.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4254ecc934e318fc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4254ecc934e318fc.png" alt="0016 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0016 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/4254ecc934e318fc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bdf374e48c66f7b5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bdf374e48c66f7b5.png" alt="0017 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0017 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/bdf374e48c66f7b5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4bb2e38e91e7563b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4bb2e38e91e7563b.png" alt="0018 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0018 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/4bb2e38e91e7563b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/091159239c097b91.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/091159239c097b91.png" alt="0019 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0019 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/091159239c097b91.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9e71bfcf9b9b7597.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9e71bfcf9b9b7597.png" alt="0020 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0020 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/9e71bfcf9b9b7597.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/431453ba02e8ffe3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/431453ba02e8ffe3.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/431453ba02e8ffe3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e6c5d1a30728305c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e6c5d1a30728305c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/e6c5d1a30728305c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/93f6eb8c726f6364.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/93f6eb8c726f6364.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/388f5fd235691fe7.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-463",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-463"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><ul class="error-fields"><li><strong>Failure:</strong> expect(received).toBe(expected) // Object.is equality</li><li><strong>Expected:</strong> true</li></ul><pre><code>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+
+  21 |         return (cs.outlineStyle !== &#39;none&#39; &amp;&amp; parseFloat(cs.outlineWidth) &gt; 0) || cs.boxShadow !== &#39;none&#39;;
+  22 |       });
+&gt; 23 |       await recordEvidence(&#39;assert-toBe-LIMAS-SUD-463-extend-button-focus-indicator.spec-22&#39;, async () =&gt; expect(hasFocus).toBe(true));
+     |                                                                                                                            ^
+  24 |     } finally {
+  25 |       await flow.restoreExpiringSearchState();
+  26 |     }
+    at operation (tests\system-user-dashboard\LIMAS-SUD-463-extend-button-focus-indicator.spec.ts:23:124)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at tests\system-user-dashboard\LIMAS-SUD-463-extend-button-focus-indicator.spec.ts:23:27<br><code>indicator.spec.ts:23:124</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-464</span>
+        <span class="test-title-col">Cards Lack Unique Accessible Names</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.16s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-464-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-464-a11y-card-no-accessible-name.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"Cards Lack Unique Accessible Names\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Record cards lack unique accessible names.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"Cards Lack Unique Accessible Names\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Inspect card attributes.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>Record cards lack unique accessible names.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9deb7d1671e7db96.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9deb7d1671e7db96.png" alt="0001 Assert ToContain LIMAS SUD 464 A11y Card No Accessible Name Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 464 A11y Card No Accessible Name Spec 7</span>
+        <p><a href="Evidence/Screenshots/9deb7d1671e7db96.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9bf3641c517e5fc0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9bf3641c517e5fc0.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/9bf3641c517e5fc0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8d80ebd699172a99.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8d80ebd699172a99.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/8d80ebd699172a99.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ba5d5d9d86c33bab.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ba5d5d9d86c33bab.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/ba5d5d9d86c33bab.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7714271eb50f0cfe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7714271eb50f0cfe.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/7714271eb50f0cfe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b8b2af26c70d040f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b8b2af26c70d040f.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/b8b2af26c70d040f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ae2f55e6bd7f676b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ae2f55e6bd7f676b.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/ae2f55e6bd7f676b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c57d10008b60f903.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c57d10008b60f903.png" alt="0008 Assert ToBeNull LIMAS SUD 464 A11y Card No Accessible Name Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeNull LIMAS SUD 464 A11y Card No Accessible Name Spec 18</span>
+        <p><a href="Evidence/Screenshots/c57d10008b60f903.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a191dea84ae35a6d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a191dea84ae35a6d.png" alt="0009 Assert ToBeNull LIMAS SUD 464 A11y Card No Accessible Name Spec 19" loading="lazy">
+        </a>
+        <span>0009 Assert ToBeNull LIMAS SUD 464 A11y Card No Accessible Name Spec 19</span>
+        <p><a href="Evidence/Screenshots/a191dea84ae35a6d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d317418b718ce385.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d317418b718ce385.png" alt="0010 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0010 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/d317418b718ce385.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b6fdd92102b0f757.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b6fdd92102b0f757.png" alt="0011 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0011 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/b6fdd92102b0f757.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3a7d1de825329c1b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3a7d1de825329c1b.png" alt="0012 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0012 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/3a7d1de825329c1b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3ca9940e927be407.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3ca9940e927be407.png" alt="0013 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/3ca9940e927be407.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d73766446170b714.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d73766446170b714.png" alt="0014 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0014 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/d73766446170b714.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8b39bffe50fe7394.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8b39bffe50fe7394.png" alt="0015 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0015 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/8b39bffe50fe7394.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6aee67dae2e7678b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6aee67dae2e7678b.png" alt="0016 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0016 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/6aee67dae2e7678b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b1c1e83434d12364.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b1c1e83434d12364.png" alt="0017 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0017 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/b1c1e83434d12364.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/de9f6cc0d3210b7c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de9f6cc0d3210b7c.png" alt="0018 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0018 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/de9f6cc0d3210b7c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ca638d1affd944ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ca638d1affd944ff.png" alt="0019 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0019 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/ca638d1affd944ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/594427b610ac46e4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/594427b610ac46e4.png" alt="0020 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0020 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/594427b610ac46e4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aa82776b8d5227d4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aa82776b8d5227d4.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/aa82776b8d5227d4.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d74d55ac6180d755.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d74d55ac6180d755.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/404ababa3089ef54.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-464",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-464"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-465</span>
+        <span class="test-title-col">User Name And Email Are Not Semantically Distinct</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.82s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-465-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-465-a11y-user-email-not-semantically-distinct.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"User Name And Email Are Not Semantically Distinct\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>User name and email are not programmatically distinct.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"User Name And Email Are Not Semantically Distinct\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Inspect the name and email elements.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>User name and email are not programmatically distinct.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6dc2cba7ee00e5b7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6dc2cba7ee00e5b7.png" alt="0001 Assert ToContain LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 7</span>
+        <p><a href="Evidence/Screenshots/6dc2cba7ee00e5b7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3dee1ea9875dc280.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3dee1ea9875dc280.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/3dee1ea9875dc280.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/06009ce66c4de9ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/06009ce66c4de9ff.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/06009ce66c4de9ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c4693f1ace46f3d7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c4693f1ace46f3d7.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/c4693f1ace46f3d7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bb3b0319d670f0bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bb3b0319d670f0bc.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/bb3b0319d670f0bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a4c36a4875c220fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a4c36a4875c220fb.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/a4c36a4875c220fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4bb4742e1665a854.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4bb4742e1665a854.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/4bb4742e1665a854.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/84ec0514bda7963f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/84ec0514bda7963f.png" alt="0008 Assert ToBeNull LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeNull LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 18</span>
+        <p><a href="Evidence/Screenshots/84ec0514bda7963f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6a71ec613ad9343.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6a71ec613ad9343.png" alt="0009 Assert ToBeNull LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 19" loading="lazy">
+        </a>
+        <span>0009 Assert ToBeNull LIMAS SUD 465 A11y User Email Not Semantically Distinct Spec 19</span>
+        <p><a href="Evidence/Screenshots/c6a71ec613ad9343.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5b9082e6cbc1f4d2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5b9082e6cbc1f4d2.png" alt="0010 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0010 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/5b9082e6cbc1f4d2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/29421da425e19663.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/29421da425e19663.png" alt="0011 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0011 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/29421da425e19663.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a501a91b463efa7c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a501a91b463efa7c.png" alt="0012 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0012 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/a501a91b463efa7c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4ad7ecbb67a36072.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4ad7ecbb67a36072.png" alt="0013 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/4ad7ecbb67a36072.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e20b7a811b4ffeb8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e20b7a811b4ffeb8.png" alt="0014 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0014 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/e20b7a811b4ffeb8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0ebd8e4516c99d8c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0ebd8e4516c99d8c.png" alt="0015 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0015 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/0ebd8e4516c99d8c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0de1d557313de6ea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0de1d557313de6ea.png" alt="0016 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0016 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/0de1d557313de6ea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/46189b83c11d7178.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/46189b83c11d7178.png" alt="0017 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0017 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/46189b83c11d7178.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ff0c388e7ad6aa76.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff0c388e7ad6aa76.png" alt="0018 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0018 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/ff0c388e7ad6aa76.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bea4e6aaee1d9a38.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bea4e6aaee1d9a38.png" alt="0019 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0019 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/bea4e6aaee1d9a38.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fd35ac5ba9ae7f03.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd35ac5ba9ae7f03.png" alt="0020 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0020 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/fd35ac5ba9ae7f03.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b977600724ce2bf7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b977600724ce2bf7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b977600724ce2bf7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1a7f82913f32af5b.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1a7f82913f32af5b.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ae51aa74c7240435.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-465",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-465"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-466</span>
+        <span class="test-title-col">In-Card Labels Are Not Associated With Values</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.69s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-466-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-466-a11y-field-labels-not-associated.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"In-Card Labels Are Not Associated With Values\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>In-card labels are not associated with their values.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"Record Card Accessibility\" → \"In-Card Labels Are Not Associated With Values\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Authenticate as SUPER_USER_ADMIN_USER and open the System User Dashboard.<br>2. Click the Expiring Licenses summary card and wait for the section to load.<br>3. Inspect Exp: and Maint: elements.<br>4. Restore the default filter state.</p><p><h2>Expected Final Result</h2></p><p>In-card labels are not associated with their values.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/2001986265a69021.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2001986265a69021.png" alt="0001 Assert ToContain LIMAS SUD 466 A11y Field Labels Not Associated Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 466 A11y Field Labels Not Associated Spec 7</span>
+        <p><a href="Evidence/Screenshots/2001986265a69021.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/053bd4daa49a71de.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/053bd4daa49a71de.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/053bd4daa49a71de.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8ad816f783a6ce7c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ad816f783a6ce7c.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/8ad816f783a6ce7c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dff11f9dfb70cf2f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dff11f9dfb70cf2f.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/dff11f9dfb70cf2f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1140148a2667a23c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1140148a2667a23c.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/1140148a2667a23c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d00e7a630c07bf6b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d00e7a630c07bf6b.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/d00e7a630c07bf6b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1617d33d2dbcf007.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1617d33d2dbcf007.png" alt="0007 Assert ToBeDefined Expiring Licenses Flow 99" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeDefined Expiring Licenses Flow 99</span>
+        <p><a href="Evidence/Screenshots/1617d33d2dbcf007.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7d29284f5cd49f86.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7d29284f5cd49f86.png" alt="0008 Assert ToBe LIMAS SUD 466 A11y Field Labels Not Associated Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToBe LIMAS SUD 466 A11y Field Labels Not Associated Spec 18</span>
+        <p><a href="Evidence/Screenshots/7d29284f5cd49f86.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2e133ea9774e60ad.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2e133ea9774e60ad.png" alt="0009 Assert ToBe LIMAS SUD 466 A11y Field Labels Not Associated Spec 19" loading="lazy">
+        </a>
+        <span>0009 Assert ToBe LIMAS SUD 466 A11y Field Labels Not Associated Spec 19</span>
+        <p><a href="Evidence/Screenshots/2e133ea9774e60ad.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6895f006c9b32bc6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6895f006c9b32bc6.png" alt="0010 Action Fill System User Dashboard Page 550" loading="lazy">
+        </a>
+        <span>0010 Action Fill System User Dashboard Page 550</span>
+        <p><a href="Evidence/Screenshots/6895f006c9b32bc6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9a765b3a13b74a27.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9a765b3a13b74a27.png" alt="0011 Assert ToHaveValue System User Dashboard Page 551" loading="lazy">
+        </a>
+        <span>0011 Assert ToHaveValue System User Dashboard Page 551</span>
+        <p><a href="Evidence/Screenshots/9a765b3a13b74a27.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4ddd5af281a77464.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4ddd5af281a77464.png" alt="0012 Action Fill System User Dashboard Page 582" loading="lazy">
+        </a>
+        <span>0012 Action Fill System User Dashboard Page 582</span>
+        <p><a href="Evidence/Screenshots/4ddd5af281a77464.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0fecad6ccd84a5cb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0fecad6ccd84a5cb.png" alt="0013 Assert ToHaveValue System User Dashboard Page 583" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue System User Dashboard Page 583</span>
+        <p><a href="Evidence/Screenshots/0fecad6ccd84a5cb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/53288c89a6e885d0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53288c89a6e885d0.png" alt="0014 Action Check System User Dashboard Page 530" loading="lazy">
+        </a>
+        <span>0014 Action Check System User Dashboard Page 530</span>
+        <p><a href="Evidence/Screenshots/53288c89a6e885d0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7ac91501e3955491.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7ac91501e3955491.png" alt="0015 Assert ToBeChecked System User Dashboard Page 531" loading="lazy">
+        </a>
+        <span>0015 Assert ToBeChecked System User Dashboard Page 531</span>
+        <p><a href="Evidence/Screenshots/7ac91501e3955491.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3caef233a7c3049b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3caef233a7c3049b.png" alt="0016 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0016 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/3caef233a7c3049b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e165be754fb1effd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e165be754fb1effd.png" alt="0017 Assert ToBeChecked Expiring Licenses Flow 89" loading="lazy">
+        </a>
+        <span>0017 Assert ToBeChecked Expiring Licenses Flow 89</span>
+        <p><a href="Evidence/Screenshots/e165be754fb1effd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/66df9585d4171247.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/66df9585d4171247.png" alt="0018 Assert ToBeChecked Expiring Licenses Flow 90" loading="lazy">
+        </a>
+        <span>0018 Assert ToBeChecked Expiring Licenses Flow 90</span>
+        <p><a href="Evidence/Screenshots/66df9585d4171247.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dc65c5233651de4c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dc65c5233651de4c.png" alt="0019 Assert ToHaveValue Expiring Licenses Flow 91" loading="lazy">
+        </a>
+        <span>0019 Assert ToHaveValue Expiring Licenses Flow 91</span>
+        <p><a href="Evidence/Screenshots/dc65c5233651de4c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1cda0a41121f8223.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1cda0a41121f8223.png" alt="0020 Assert ToHaveValue Expiring Licenses Flow 92" loading="lazy">
+        </a>
+        <span>0020 Assert ToHaveValue Expiring Licenses Flow 92</span>
+        <p><a href="Evidence/Screenshots/1cda0a41121f8223.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32dc8356d7163409.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32dc8356d7163409.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/32dc8356d7163409.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6cf998365980e286.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6cf998365980e286.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/df1526fc06c26a91.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-466",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-466"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>

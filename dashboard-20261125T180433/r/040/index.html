@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-024 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-024 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">14</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">14</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">5.33s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/33c6ff8f05fdffbf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/33c6ff8f05fdffbf.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/33c6ff8f05fdffbf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d94114b76bd46de5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d94114b76bd46de5.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/d94114b76bd46de5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2870d7d40402850b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2870d7d40402850b.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/2870d7d40402850b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e536c8b7407d2906.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e536c8b7407d2906.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/e536c8b7407d2906.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e902f2bcb471f369.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e902f2bcb471f369.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/e902f2bcb471f369.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b9a75a0cdc3454c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9a75a0cdc3454c9.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/b9a75a0cdc3454c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/50263ecc0938a7e7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/50263ecc0938a7e7.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/50263ecc0938a7e7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e0122e61c0a93bbf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e0122e61c0a93bbf.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/e0122e61c0a93bbf.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d09b9cc56dbf7877.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d09b9cc56dbf7877.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3f3069741bd4cf53.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.17s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b9bce51f1a586681.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9bce51f1a586681.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/b9bce51f1a586681.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e3e8e6eb187ef444.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e3e8e6eb187ef444.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/e3e8e6eb187ef444.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4930e306830a11c3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4930e306830a11c3.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4930e306830a11c3.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/47ad5228b8ddd316.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/47ad5228b8ddd316.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/cc2bf347a7cbd4cc.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-467</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-468</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-469</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-470</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-471</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-472</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-473</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-474</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-475</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-476</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-477</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-478</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-479</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-480</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — SUD-024</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-467</span>
+        <span class="test-title-col">User Licenses Button Is Visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">5.95s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-467-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-467-user-licenses-button-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Visible\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button is visible.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Visible\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Look for the User Licenses button in the Expiring Licenses section.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button is visible.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/f29bb8926d7d63f7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f29bb8926d7d63f7.png" alt="0001 Assert ToContain LIMAS SUD 467 User Licenses Button Visible Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 467 User Licenses Button Visible Spec 7</span>
+        <p><a href="Evidence/Screenshots/f29bb8926d7d63f7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/53ed33c37aa04abb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53ed33c37aa04abb.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/53ed33c37aa04abb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ee8fed0e8199242c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ee8fed0e8199242c.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/ee8fed0e8199242c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c9fa1193eadd1122.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c9fa1193eadd1122.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/c9fa1193eadd1122.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1436fdb9aa7a8370.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1436fdb9aa7a8370.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/1436fdb9aa7a8370.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2e4c80c40933bd14.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2e4c80c40933bd14.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/2e4c80c40933bd14.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c02161d681e641dd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c02161d681e641dd.png" alt="0007 Assert ToBeVisible LIMAS SUD 467 User Licenses Button Visible Spec 14" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible LIMAS SUD 467 User Licenses Button Visible Spec 14</span>
+        <p><a href="Evidence/Screenshots/c02161d681e641dd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/95d230db8ec40b9f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/95d230db8ec40b9f.png" alt="0008 Assert ToHaveURL LIMAS SUD 467 User Licenses Button Visible Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 467 User Licenses Button Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/95d230db8ec40b9f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/304ec1ca9a3a45d6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/304ec1ca9a3a45d6.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/304ec1ca9a3a45d6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3422553a6cab99fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3422553a6cab99fb.png" alt="0010 Assert ToBeChecked LIMAS SUD 467 User Licenses Button Visible Spec 22" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 467 User Licenses Button Visible Spec 22</span>
+        <p><a href="Evidence/Screenshots/3422553a6cab99fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/18581b707b21e0c1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/18581b707b21e0c1.png" alt="0011 Assert ToBeChecked LIMAS SUD 467 User Licenses Button Visible Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 467 User Licenses Button Visible Spec 23</span>
+        <p><a href="Evidence/Screenshots/18581b707b21e0c1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32e78baa2a4691ab.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32e78baa2a4691ab.png" alt="0012 Assert ToHaveValue LIMAS SUD 467 User Licenses Button Visible Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 467 User Licenses Button Visible Spec 24</span>
+        <p><a href="Evidence/Screenshots/32e78baa2a4691ab.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbe9cc3a4bc546ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbe9cc3a4bc546ff.png" alt="0013 Assert ToHaveValue LIMAS SUD 467 User Licenses Button Visible Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 467 User Licenses Button Visible Spec 25</span>
+        <p><a href="Evidence/Screenshots/cbe9cc3a4bc546ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/92652128c27121a8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/92652128c27121a8.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/92652128c27121a8.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ddd64fa2cc9611f4.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ddd64fa2cc9611f4.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/00285896e053a9b3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-467",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-467"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-468</span>
+        <span class="test-title-col">User Licenses Button Has Role Button</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.24s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-468-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-468-user-licenses-button-role-a11y.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Role Button\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button has the implicit role button.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Role Button\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Locate the User Licenses button by its role.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button has the implicit role button.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c86c770ffb57c1cf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c86c770ffb57c1cf.png" alt="0001 Assert ToContain LIMAS SUD 468 User Licenses Button Role A11y Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 468 User Licenses Button Role A11y Spec 7</span>
+        <p><a href="Evidence/Screenshots/c86c770ffb57c1cf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/75bf5702fa557f8b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/75bf5702fa557f8b.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/75bf5702fa557f8b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/74960a8325a6cb01.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/74960a8325a6cb01.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/74960a8325a6cb01.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/78408f71851bc8c0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/78408f71851bc8c0.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/78408f71851bc8c0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/db0f68422f706720.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db0f68422f706720.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/db0f68422f706720.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d80318511c9b3077.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d80318511c9b3077.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/d80318511c9b3077.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0c44ee7df05da009.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0c44ee7df05da009.png" alt="0007 Assert ToHaveRole LIMAS SUD 468 User Licenses Button Role A11y Spec 14" loading="lazy">
+        </a>
+        <span>0007 Assert ToHaveRole LIMAS SUD 468 User Licenses Button Role A11y Spec 14</span>
+        <p><a href="Evidence/Screenshots/0c44ee7df05da009.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d89d8d91cca9d982.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d89d8d91cca9d982.png" alt="0008 Assert ToHaveURL LIMAS SUD 468 User Licenses Button Role A11y Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 468 User Licenses Button Role A11y Spec 18</span>
+        <p><a href="Evidence/Screenshots/d89d8d91cca9d982.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b3841ae72d4d78af.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b3841ae72d4d78af.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/b3841ae72d4d78af.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/27d6a9640a96dc8b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/27d6a9640a96dc8b.png" alt="0010 Assert ToBeChecked LIMAS SUD 468 User Licenses Button Role A11y Spec 22" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 468 User Licenses Button Role A11y Spec 22</span>
+        <p><a href="Evidence/Screenshots/27d6a9640a96dc8b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d42dfd4643017729.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d42dfd4643017729.png" alt="0011 Assert ToBeChecked LIMAS SUD 468 User Licenses Button Role A11y Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 468 User Licenses Button Role A11y Spec 23</span>
+        <p><a href="Evidence/Screenshots/d42dfd4643017729.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/336e9b8e5a9e530c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/336e9b8e5a9e530c.png" alt="0012 Assert ToHaveValue LIMAS SUD 468 User Licenses Button Role A11y Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 468 User Licenses Button Role A11y Spec 24</span>
+        <p><a href="Evidence/Screenshots/336e9b8e5a9e530c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/efae2b64f3d72e04.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/efae2b64f3d72e04.png" alt="0013 Assert ToHaveValue LIMAS SUD 468 User Licenses Button Role A11y Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 468 User Licenses Button Role A11y Spec 25</span>
+        <p><a href="Evidence/Screenshots/efae2b64f3d72e04.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/08e63d53c9bb9df1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/08e63d53c9bb9df1.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/08e63d53c9bb9df1.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9335d1557db6b8aa.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9335d1557db6b8aa.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e1339bba1aa62eda.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-468",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-468"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-469</span>
+        <span class="test-title-col">User Licenses Button Has Accessible Name User Licenses</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.23s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-469-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-469-user-licenses-button-accessible-name.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Accessible Name User Licenses\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button exposes the accessible name User Licenses.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Accessible Name User Licenses\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Read the accessible name.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button exposes the accessible name User Licenses.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/49a705f6121104fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/49a705f6121104fe.png" alt="0001 Assert ToContain LIMAS SUD 469 User Licenses Button Accessible Name Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 469 User Licenses Button Accessible Name Spec 7</span>
+        <p><a href="Evidence/Screenshots/49a705f6121104fe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/17a0d630d1f75997.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/17a0d630d1f75997.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/17a0d630d1f75997.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6ec80eb364ec41c2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6ec80eb364ec41c2.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/6ec80eb364ec41c2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6f71a8bcdc5013eb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6f71a8bcdc5013eb.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/6f71a8bcdc5013eb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/632869230a19b204.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/632869230a19b204.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/632869230a19b204.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/977304771fa9648b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/977304771fa9648b.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/977304771fa9648b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/458eaa27063fc02c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/458eaa27063fc02c.png" alt="0007 Assert ToHaveAccessibleName LIMAS SUD 469 User Licenses Button Accessible Name Spec 14" loading="lazy">
+        </a>
+        <span>0007 Assert ToHaveAccessibleName LIMAS SUD 469 User Licenses Button Accessible Name Spec 14</span>
+        <p><a href="Evidence/Screenshots/458eaa27063fc02c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/26c73f45802b204f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/26c73f45802b204f.png" alt="0008 Assert ToHaveURL LIMAS SUD 469 User Licenses Button Accessible Name Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 469 User Licenses Button Accessible Name Spec 18</span>
+        <p><a href="Evidence/Screenshots/26c73f45802b204f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/70eaeb4dc9bdad03.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/70eaeb4dc9bdad03.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/70eaeb4dc9bdad03.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e8eb4ecbf7aafbbb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e8eb4ecbf7aafbbb.png" alt="0010 Assert ToBeChecked LIMAS SUD 469 User Licenses Button Accessible Name Spec 22" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 469 User Licenses Button Accessible Name Spec 22</span>
+        <p><a href="Evidence/Screenshots/e8eb4ecbf7aafbbb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/16930f4e9f6d305f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/16930f4e9f6d305f.png" alt="0011 Assert ToBeChecked LIMAS SUD 469 User Licenses Button Accessible Name Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 469 User Licenses Button Accessible Name Spec 23</span>
+        <p><a href="Evidence/Screenshots/16930f4e9f6d305f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b5592d1f662ac38d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b5592d1f662ac38d.png" alt="0012 Assert ToHaveValue LIMAS SUD 469 User Licenses Button Accessible Name Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 469 User Licenses Button Accessible Name Spec 24</span>
+        <p><a href="Evidence/Screenshots/b5592d1f662ac38d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9eac3ed7e2dd4406.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9eac3ed7e2dd4406.png" alt="0013 Assert ToHaveValue LIMAS SUD 469 User Licenses Button Accessible Name Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 469 User Licenses Button Accessible Name Spec 25</span>
+        <p><a href="Evidence/Screenshots/9eac3ed7e2dd4406.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c9550625161af7e7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c9550625161af7e7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c9550625161af7e7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/674fb8711ba782c6.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/674fb8711ba782c6.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/8072028d10a5035b.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-469",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-469"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-470</span>
+        <span class="test-title-col">User Licenses Button Is Enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.01s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-470-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-470-user-licenses-button-enabled.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Enabled\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button is enabled.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Enabled\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Check the enabled state.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button is enabled.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/16487ffe3f685ee4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/16487ffe3f685ee4.png" alt="0001 Assert ToContain LIMAS SUD 470 User Licenses Button Enabled Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 470 User Licenses Button Enabled Spec 7</span>
+        <p><a href="Evidence/Screenshots/16487ffe3f685ee4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f0dae51d89f687b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f0dae51d89f687b.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/9f0dae51d89f687b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9d3608406faba82d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9d3608406faba82d.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/9d3608406faba82d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5fdd9655791b8bc1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5fdd9655791b8bc1.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/5fdd9655791b8bc1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b98e56236ad65ebf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b98e56236ad65ebf.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/b98e56236ad65ebf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/abf1cd02e7803607.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/abf1cd02e7803607.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/abf1cd02e7803607.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5a76023ec542b8a1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5a76023ec542b8a1.png" alt="0007 Assert ToBeEnabled LIMAS SUD 470 User Licenses Button Enabled Spec 14" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeEnabled LIMAS SUD 470 User Licenses Button Enabled Spec 14</span>
+        <p><a href="Evidence/Screenshots/5a76023ec542b8a1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" alt="0008 Assert ToHaveURL LIMAS SUD 470 User Licenses Button Enabled Spec 18" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 470 User Licenses Button Enabled Spec 18</span>
+        <p><a href="Evidence/Screenshots/9f5df5fd5fe3c1bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3d882954a70b5c8e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3d882954a70b5c8e.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/3d882954a70b5c8e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7227fdbaa3fb9e70.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7227fdbaa3fb9e70.png" alt="0010 Assert ToBeChecked LIMAS SUD 470 User Licenses Button Enabled Spec 22" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 470 User Licenses Button Enabled Spec 22</span>
+        <p><a href="Evidence/Screenshots/7227fdbaa3fb9e70.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d519e4dab4c52503.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d519e4dab4c52503.png" alt="0011 Assert ToBeChecked LIMAS SUD 470 User Licenses Button Enabled Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 470 User Licenses Button Enabled Spec 23</span>
+        <p><a href="Evidence/Screenshots/d519e4dab4c52503.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/76562f136e5cf4c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/76562f136e5cf4c4.png" alt="0012 Assert ToHaveValue LIMAS SUD 470 User Licenses Button Enabled Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 470 User Licenses Button Enabled Spec 24</span>
+        <p><a href="Evidence/Screenshots/76562f136e5cf4c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5d0c98ce21aed1e1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5d0c98ce21aed1e1.png" alt="0013 Assert ToHaveValue LIMAS SUD 470 User Licenses Button Enabled Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 470 User Licenses Button Enabled Spec 25</span>
+        <p><a href="Evidence/Screenshots/5d0c98ce21aed1e1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5865e222e6a8b63f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5865e222e6a8b63f.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/5865e222e6a8b63f.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d213b0983e74f8df.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d213b0983e74f8df.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/cb1b3cff51235ea7.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-470",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-470"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-471</span>
+        <span class="test-title-col">User Licenses Button Is Keyboard Focusable</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.02s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-471-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-471-user-licenses-button-keyboard-focusable.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Keyboard Focusable\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button is keyboard focusable.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Is Keyboard Focusable\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Focus the button and check tabIndex.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button is keyboard focusable.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8d7675605878a9b0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8d7675605878a9b0.png" alt="0001 Assert ToContain LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 7</span>
+        <p><a href="Evidence/Screenshots/8d7675605878a9b0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9eccb8e154ed6231.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9eccb8e154ed6231.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/9eccb8e154ed6231.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5a0ed291b4a7ce0c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5a0ed291b4a7ce0c.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/5a0ed291b4a7ce0c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f8f1202c7f1afa33.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f8f1202c7f1afa33.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/f8f1202c7f1afa33.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4de162b8370d07ca.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4de162b8370d07ca.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/4de162b8370d07ca.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1140148a2667a23c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1140148a2667a23c.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/1140148a2667a23c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b99c0bd7e37c7ba5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b99c0bd7e37c7ba5.png" alt="0007 Action Focus LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Focus LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 14</span>
+        <p><a href="Evidence/Screenshots/b99c0bd7e37c7ba5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ab8287613c352a2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ab8287613c352a2.png" alt="0008 Assert ToBe LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 16" loading="lazy">
+        </a>
+        <span>0008 Assert ToBe LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 16</span>
+        <p><a href="Evidence/Screenshots/9ab8287613c352a2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8c2a94254bb1002a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8c2a94254bb1002a.png" alt="0009 Assert ToHaveURL LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 20" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 20</span>
+        <p><a href="Evidence/Screenshots/8c2a94254bb1002a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/37509754a9744046.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37509754a9744046.png" alt="0010 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0010 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/37509754a9744046.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/81a42286ed92b9d0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/81a42286ed92b9d0.png" alt="0011 Assert ToBeChecked LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 24" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 24</span>
+        <p><a href="Evidence/Screenshots/81a42286ed92b9d0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0c1006684a06b436.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0c1006684a06b436.png" alt="0012 Assert ToBeChecked LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 25" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 25</span>
+        <p><a href="Evidence/Screenshots/0c1006684a06b436.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2c0ebaec723b4197.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2c0ebaec723b4197.png" alt="0013 Assert ToHaveValue LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 26" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 26</span>
+        <p><a href="Evidence/Screenshots/2c0ebaec723b4197.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/28b306c351089774.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/28b306c351089774.png" alt="0014 Assert ToHaveValue LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 27" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 471 User Licenses Button Keyboard Focusable Spec 27</span>
+        <p><a href="Evidence/Screenshots/28b306c351089774.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c36a7e1fba171ed0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c36a7e1fba171ed0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c36a7e1fba171ed0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/58f410e2da24296e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/58f410e2da24296e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/2c0571b980ceb2b3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-471",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-471"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-472</span>
+        <span class="test-title-col">User Licenses Button Has Visible Focus Indicator</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.30s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-472-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-472-user-licenses-button-focus-indicator.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Visible Focus Indicator\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>A focus indicator is rendered on the User Licenses button.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button\" → \"User Licenses Button Has Visible Focus Indicator\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Focus the button and inspect computed styles.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>A focus indicator is rendered on the User Licenses button.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b11752ef7be1c86f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b11752ef7be1c86f.png" alt="0001 Assert ToContain LIMAS SUD 472 User Licenses Button Focus Indicator Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 472 User Licenses Button Focus Indicator Spec 7</span>
+        <p><a href="Evidence/Screenshots/b11752ef7be1c86f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0a5365b10759a842.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0a5365b10759a842.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/0a5365b10759a842.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/57a8b3326e02d46e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/57a8b3326e02d46e.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/57a8b3326e02d46e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/089220349db6e184.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/089220349db6e184.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/089220349db6e184.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1bcc0e99cb231acf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1bcc0e99cb231acf.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/1bcc0e99cb231acf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/09ba22bf2522b10f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/09ba22bf2522b10f.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/09ba22bf2522b10f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dd4003ae706f2bd6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dd4003ae706f2bd6.png" alt="0007 Action Focus LIMAS SUD 472 User Licenses Button Focus Indicator Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Focus LIMAS SUD 472 User Licenses Button Focus Indicator Spec 14</span>
+        <p><a href="Evidence/Screenshots/dd4003ae706f2bd6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bcf5b1e194c600b1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bcf5b1e194c600b1.png" alt="0008 Action Keyboard Focus User Licenses" loading="lazy">
+        </a>
+        <span>0008 Action Keyboard Focus User Licenses</span>
+        <p><a href="Evidence/Screenshots/bcf5b1e194c600b1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5008f2da479cd780.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5008f2da479cd780.png" alt="0009 Assert User Licenses Keyboard Focus" loading="lazy">
+        </a>
+        <span>0009 Assert User Licenses Keyboard Focus</span>
+        <p><a href="Evidence/Screenshots/5008f2da479cd780.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/91b6d32a13695397.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/91b6d32a13695397.png" alt="0010 Assert ToBe LIMAS SUD 472 User Licenses Button Focus Indicator Spec 19" loading="lazy">
+        </a>
+        <span>0010 Assert ToBe LIMAS SUD 472 User Licenses Button Focus Indicator Spec 19</span>
+        <p><a href="Evidence/Screenshots/91b6d32a13695397.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/df27961bb044a04f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/df27961bb044a04f.png" alt="0011 Assert ToHaveURL LIMAS SUD 472 User Licenses Button Focus Indicator Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToHaveURL LIMAS SUD 472 User Licenses Button Focus Indicator Spec 23</span>
+        <p><a href="Evidence/Screenshots/df27961bb044a04f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ca9d28198e8f4ca1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ca9d28198e8f4ca1.png" alt="0012 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0012 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/ca9d28198e8f4ca1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/04ebad3a3511e8d7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/04ebad3a3511e8d7.png" alt="0013 Assert ToBeChecked LIMAS SUD 472 User Licenses Button Focus Indicator Spec 27" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 472 User Licenses Button Focus Indicator Spec 27</span>
+        <p><a href="Evidence/Screenshots/04ebad3a3511e8d7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c89a407e63fe73f6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c89a407e63fe73f6.png" alt="0014 Assert ToBeChecked LIMAS SUD 472 User Licenses Button Focus Indicator Spec 28" loading="lazy">
+        </a>
+        <span>0014 Assert ToBeChecked LIMAS SUD 472 User Licenses Button Focus Indicator Spec 28</span>
+        <p><a href="Evidence/Screenshots/c89a407e63fe73f6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f98ba8e5c8bb257.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f98ba8e5c8bb257.png" alt="0015 Assert ToHaveValue LIMAS SUD 472 User Licenses Button Focus Indicator Spec 29" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 472 User Licenses Button Focus Indicator Spec 29</span>
+        <p><a href="Evidence/Screenshots/9f98ba8e5c8bb257.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e2035ca44366b262.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e2035ca44366b262.png" alt="0016 Assert ToHaveValue LIMAS SUD 472 User Licenses Button Focus Indicator Spec 30" loading="lazy">
+        </a>
+        <span>0016 Assert ToHaveValue LIMAS SUD 472 User Licenses Button Focus Indicator Spec 30</span>
+        <p><a href="Evidence/Screenshots/e2035ca44366b262.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/52c40d2a1b0afcdb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/52c40d2a1b0afcdb.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/52c40d2a1b0afcdb.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6f43fbedf20bcbc3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6f43fbedf20bcbc3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c7ea18eaa8063424.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-472",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-472"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-473</span>
+        <span class="test-title-col">External Navigation Icon SVG Is Visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.82s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-473-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-473-user-licenses-button-svg-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button Icon\" → \"External Navigation Icon SVG Is Visible\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses button contains a visible SVG icon.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button Icon\" → \"External Navigation Icon SVG Is Visible\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Inspect the SVG inside the button.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The User Licenses button contains a visible SVG icon.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/d1240fa5eee89a61.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d1240fa5eee89a61.png" alt="0001 Assert ToContain LIMAS SUD 473 User Licenses Button Svg Visible Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 473 User Licenses Button Svg Visible Spec 7</span>
+        <p><a href="Evidence/Screenshots/d1240fa5eee89a61.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/663ab865c5d9f907.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/663ab865c5d9f907.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/663ab865c5d9f907.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e150f188df79eb14.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e150f188df79eb14.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/e150f188df79eb14.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/481a74e7b5abb428.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/481a74e7b5abb428.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/481a74e7b5abb428.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c4e3a8fb03ca156d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c4e3a8fb03ca156d.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/c4e3a8fb03ca156d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/42bfbb1309614fb5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/42bfbb1309614fb5.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/42bfbb1309614fb5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ae2596b3c5682e53.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ae2596b3c5682e53.png" alt="0007 Assert ToBeVisible LIMAS SUD 473 User Licenses Button Svg Visible Spec 15" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible LIMAS SUD 473 User Licenses Button Svg Visible Spec 15</span>
+        <p><a href="Evidence/Screenshots/ae2596b3c5682e53.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/948412dc6c3b5dce.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/948412dc6c3b5dce.png" alt="0008 Assert ToHaveURL LIMAS SUD 473 User Licenses Button Svg Visible Spec 19" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 473 User Licenses Button Svg Visible Spec 19</span>
+        <p><a href="Evidence/Screenshots/948412dc6c3b5dce.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c33f4f21e40b55c2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c33f4f21e40b55c2.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/c33f4f21e40b55c2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/37cf6a2c931ba6ef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37cf6a2c931ba6ef.png" alt="0010 Assert ToBeChecked LIMAS SUD 473 User Licenses Button Svg Visible Spec 23" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 473 User Licenses Button Svg Visible Spec 23</span>
+        <p><a href="Evidence/Screenshots/37cf6a2c931ba6ef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dbe7a9c79eedb51e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dbe7a9c79eedb51e.png" alt="0011 Assert ToBeChecked LIMAS SUD 473 User Licenses Button Svg Visible Spec 24" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 473 User Licenses Button Svg Visible Spec 24</span>
+        <p><a href="Evidence/Screenshots/dbe7a9c79eedb51e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/859f8fb3d2824129.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/859f8fb3d2824129.png" alt="0012 Assert ToHaveValue LIMAS SUD 473 User Licenses Button Svg Visible Spec 25" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 473 User Licenses Button Svg Visible Spec 25</span>
+        <p><a href="Evidence/Screenshots/859f8fb3d2824129.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/126fd745ddfe4baa.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/126fd745ddfe4baa.png" alt="0013 Assert ToHaveValue LIMAS SUD 473 User Licenses Button Svg Visible Spec 26" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 473 User Licenses Button Svg Visible Spec 26</span>
+        <p><a href="Evidence/Screenshots/126fd745ddfe4baa.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f8b16eed1f0a0052.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f8b16eed1f0a0052.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/f8b16eed1f0a0052.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/311b09d11eef015b.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/311b09d11eef015b.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/da4c3d48eed8a355.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-473",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-473"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-474</span>
+        <span class="test-title-col">External Navigation Icon Is Not Aria-Hidden</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.95s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-474-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-474-user-licenses-button-svg-not-aria-hidden.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button Icon\" → \"External Navigation Icon Is Not Aria-Hidden\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The external navigation icon is not aria-hidden.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Button Icon\" → \"External Navigation Icon Is Not Aria-Hidden\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Read aria-hidden on the SVG.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The external navigation icon is not aria-hidden.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b543fa136cdc43d4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b543fa136cdc43d4.png" alt="0001 Assert ToContain LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 7</span>
+        <p><a href="Evidence/Screenshots/b543fa136cdc43d4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ed5f3d9de0f32daa.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ed5f3d9de0f32daa.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/ed5f3d9de0f32daa.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fd3a539ec3f18c1e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd3a539ec3f18c1e.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/fd3a539ec3f18c1e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bce25e9a2c258864.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bce25e9a2c258864.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/bce25e9a2c258864.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aa297f5ba62113e2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aa297f5ba62113e2.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/aa297f5ba62113e2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4cee104729e00994.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4cee104729e00994.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/4cee104729e00994.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/69b09595117aa116.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/69b09595117aa116.png" alt="0007 Assert ToBeNull LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 15" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeNull LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 15</span>
+        <p><a href="Evidence/Screenshots/69b09595117aa116.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4666fb228c06678d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4666fb228c06678d.png" alt="0008 Assert ToHaveURL LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 19" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveURL LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 19</span>
+        <p><a href="Evidence/Screenshots/4666fb228c06678d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bb48e518431d9d1e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bb48e518431d9d1e.png" alt="0009 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0009 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/bb48e518431d9d1e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2a25052deb93bbc0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2a25052deb93bbc0.png" alt="0010 Assert ToBeChecked LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 23" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeChecked LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 23</span>
+        <p><a href="Evidence/Screenshots/2a25052deb93bbc0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d1f1b5594ce0b9bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d1f1b5594ce0b9bc.png" alt="0011 Assert ToBeChecked LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 24" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 24</span>
+        <p><a href="Evidence/Screenshots/d1f1b5594ce0b9bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0ad74999b058468c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0ad74999b058468c.png" alt="0012 Assert ToHaveValue LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 25" loading="lazy">
+        </a>
+        <span>0012 Assert ToHaveValue LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 25</span>
+        <p><a href="Evidence/Screenshots/0ad74999b058468c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6a24f5d868efe3d8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6a24f5d868efe3d8.png" alt="0013 Assert ToHaveValue LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 26" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 474 User Licenses Button Svg Not Aria Hidden Spec 26</span>
+        <p><a href="Evidence/Screenshots/6a24f5d868efe3d8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dc8b8107d84b5ed4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dc8b8107d84b5ed4.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/dc8b8107d84b5ed4.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/8b6cbc09234e9eee.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/8b6cbc09234e9eee.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/5024ae8623ed6044.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-474",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-474"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-475</span>
+        <span class="test-title-col">Clicking Navigates To User And License Hub</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.53s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-475-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-475-user-licenses-click-navigates.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Clicking Navigates To User And License Hub\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The browser navigates to /users-licenses after clicking User Licenses.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Clicking Navigates To User And License Hub\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Click the User Licenses button.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The browser navigates to /users-licenses after clicking User Licenses.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b56f37b274fdb8fc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b56f37b274fdb8fc.png" alt="0001 Assert ToContain LIMAS SUD 475 User Licenses Click Navigates Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 475 User Licenses Click Navigates Spec 7</span>
+        <p><a href="Evidence/Screenshots/b56f37b274fdb8fc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/42511aeb59a0c1e4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/42511aeb59a0c1e4.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/42511aeb59a0c1e4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b095a3783c72e681.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b095a3783c72e681.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/b095a3783c72e681.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2f55d2f2af4252c6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2f55d2f2af4252c6.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/2f55d2f2af4252c6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/88682d5023b1aae3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/88682d5023b1aae3.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/88682d5023b1aae3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ac97f534d22779e7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ac97f534d22779e7.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/ac97f534d22779e7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/024917cbd65a82c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/024917cbd65a82c9.png" alt="0007 Action Click LIMAS SUD 475 User Licenses Click Navigates Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Click LIMAS SUD 475 User Licenses Click Navigates Spec 14</span>
+        <p><a href="Evidence/Screenshots/024917cbd65a82c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f4c272b466d1b144.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f4c272b466d1b144.png" alt="0008 Action GoBack LIMAS SUD 475 User Licenses Click Navigates Spec 17" loading="lazy">
+        </a>
+        <span>0008 Action GoBack LIMAS SUD 475 User Licenses Click Navigates Spec 17</span>
+        <p><a href="Evidence/Screenshots/f4c272b466d1b144.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13c9888bce78a611.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13c9888bce78a611.png" alt="0009 Assert ToHaveURL LIMAS SUD 475 User Licenses Click Navigates Spec 19" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL LIMAS SUD 475 User Licenses Click Navigates Spec 19</span>
+        <p><a href="Evidence/Screenshots/13c9888bce78a611.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b48925c3e409989d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b48925c3e409989d.png" alt="0010 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0010 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/b48925c3e409989d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e49ff701c538a4ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e49ff701c538a4ff.png" alt="0011 Assert ToBeChecked LIMAS SUD 475 User Licenses Click Navigates Spec 23" loading="lazy">
+        </a>
+        <span>0011 Assert ToBeChecked LIMAS SUD 475 User Licenses Click Navigates Spec 23</span>
+        <p><a href="Evidence/Screenshots/e49ff701c538a4ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/31a5ab3a81256f44.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/31a5ab3a81256f44.png" alt="0012 Assert ToBeChecked LIMAS SUD 475 User Licenses Click Navigates Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 475 User Licenses Click Navigates Spec 24</span>
+        <p><a href="Evidence/Screenshots/31a5ab3a81256f44.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1816f1c60ec4686c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1816f1c60ec4686c.png" alt="0013 Assert ToHaveValue LIMAS SUD 475 User Licenses Click Navigates Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToHaveValue LIMAS SUD 475 User Licenses Click Navigates Spec 25</span>
+        <p><a href="Evidence/Screenshots/1816f1c60ec4686c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ecfadf5169ab3213.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ecfadf5169ab3213.png" alt="0014 Assert ToHaveValue LIMAS SUD 475 User Licenses Click Navigates Spec 26" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 475 User Licenses Click Navigates Spec 26</span>
+        <p><a href="Evidence/Screenshots/ecfadf5169ab3213.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f35d8d219a99f878.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f35d8d219a99f878.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/f35d8d219a99f878.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/fe3eaa3d691b3fed.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/fe3eaa3d691b3fed.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/30cecbcbe62d54fc.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-475",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-475"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-476</span>
+        <span class="test-title-col">Enter Key Activates The Button And Navigates</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.06s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-476-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-476-user-licenses-keyboard-enter-navigates.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Enter Key Activates The Button And Navigates\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Enter key activation navigates to /users-licenses.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Enter Key Activates The Button And Navigates\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Focus the User Licenses button and press Enter.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>Enter key activation navigates to /users-licenses.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/4860256afa9fd802.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4860256afa9fd802.png" alt="0001 Assert ToContain LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 7</span>
+        <p><a href="Evidence/Screenshots/4860256afa9fd802.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/168754f2cbe36525.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/168754f2cbe36525.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/168754f2cbe36525.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32dd05a12b2993fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32dd05a12b2993fb.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/32dd05a12b2993fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b7ef301c74982077.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b7ef301c74982077.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/b7ef301c74982077.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8d22182201f50861.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8d22182201f50861.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/8d22182201f50861.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1140148a2667a23c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1140148a2667a23c.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/1140148a2667a23c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d94b9faaf0c566c1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d94b9faaf0c566c1.png" alt="0007 Action Focus LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Focus LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 14</span>
+        <p><a href="Evidence/Screenshots/d94b9faaf0c566c1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/024917cbd65a82c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/024917cbd65a82c9.png" alt="0008 Action Press LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 15" loading="lazy">
+        </a>
+        <span>0008 Action Press LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 15</span>
+        <p><a href="Evidence/Screenshots/024917cbd65a82c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbcd9cd7334b36b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbcd9cd7334b36b6.png" alt="0009 Action GoBack LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 18" loading="lazy">
+        </a>
+        <span>0009 Action GoBack LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 18</span>
+        <p><a href="Evidence/Screenshots/cbcd9cd7334b36b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/90bcba8a86307439.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/90bcba8a86307439.png" alt="0010 Assert ToHaveURL LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 20" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveURL LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 20</span>
+        <p><a href="Evidence/Screenshots/90bcba8a86307439.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/53b24e3ea4cabb29.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53b24e3ea4cabb29.png" alt="0011 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0011 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/53b24e3ea4cabb29.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1b501d07e6829c25.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1b501d07e6829c25.png" alt="0012 Assert ToBeChecked LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 24</span>
+        <p><a href="Evidence/Screenshots/1b501d07e6829c25.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2a914ceccb68901c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2a914ceccb68901c.png" alt="0013 Assert ToBeChecked LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 25</span>
+        <p><a href="Evidence/Screenshots/2a914ceccb68901c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bf05d9d6ec61ff43.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bf05d9d6ec61ff43.png" alt="0014 Assert ToHaveValue LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 26" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 26</span>
+        <p><a href="Evidence/Screenshots/bf05d9d6ec61ff43.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/58263de9d26c156c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/58263de9d26c156c.png" alt="0015 Assert ToHaveValue LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 27" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 476 User Licenses Keyboard Enter Navigates Spec 27</span>
+        <p><a href="Evidence/Screenshots/58263de9d26c156c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4e747360ffd42fdc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4e747360ffd42fdc.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4e747360ffd42fdc.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/aef2b75e1ddc49ad.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/aef2b75e1ddc49ad.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/903135e8a3d8588a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-476",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-476"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-477</span>
+        <span class="test-title-col">Space Key Activates The Button And Navigates</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.15s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-477-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-477-user-licenses-keyboard-space-navigates.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Space Key Activates The Button And Navigates\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Space key activation navigates to /users-licenses.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Space Key Activates The Button And Navigates\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Focus the User Licenses button and press Space.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>Space key activation navigates to /users-licenses.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/fa27e021ad637485.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fa27e021ad637485.png" alt="0001 Assert ToContain LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 7</span>
+        <p><a href="Evidence/Screenshots/fa27e021ad637485.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6d3fd19e07f1936e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6d3fd19e07f1936e.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/6d3fd19e07f1936e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1eed3bb2fa3fa271.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1eed3bb2fa3fa271.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/1eed3bb2fa3fa271.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5fc450e85363d922.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5fc450e85363d922.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/5fc450e85363d922.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b42cd25ff8cbe90e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b42cd25ff8cbe90e.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/b42cd25ff8cbe90e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1889a1d94e991224.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1889a1d94e991224.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/1889a1d94e991224.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2dde3a74ff592ea8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2dde3a74ff592ea8.png" alt="0007 Action Focus LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Focus LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 14</span>
+        <p><a href="Evidence/Screenshots/2dde3a74ff592ea8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/024917cbd65a82c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/024917cbd65a82c9.png" alt="0008 Action Press LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 15" loading="lazy">
+        </a>
+        <span>0008 Action Press LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 15</span>
+        <p><a href="Evidence/Screenshots/024917cbd65a82c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9c062b750f0895f7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9c062b750f0895f7.png" alt="0009 Action GoBack LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 18" loading="lazy">
+        </a>
+        <span>0009 Action GoBack LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 18</span>
+        <p><a href="Evidence/Screenshots/9c062b750f0895f7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/47d30fceacceb9ef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/47d30fceacceb9ef.png" alt="0010 Assert ToHaveURL LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 20" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveURL LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 20</span>
+        <p><a href="Evidence/Screenshots/47d30fceacceb9ef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2f47c8cc39582ead.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2f47c8cc39582ead.png" alt="0011 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0011 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/2f47c8cc39582ead.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/49a00191b93702da.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/49a00191b93702da.png" alt="0012 Assert ToBeChecked LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 24</span>
+        <p><a href="Evidence/Screenshots/49a00191b93702da.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9155237eb159cfef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9155237eb159cfef.png" alt="0013 Assert ToBeChecked LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 25</span>
+        <p><a href="Evidence/Screenshots/9155237eb159cfef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/532e6cd8193c525e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/532e6cd8193c525e.png" alt="0014 Assert ToHaveValue LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 26" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 26</span>
+        <p><a href="Evidence/Screenshots/532e6cd8193c525e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/66c10bf21762861a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/66c10bf21762861a.png" alt="0015 Assert ToHaveValue LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 27" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 477 User Licenses Keyboard Space Navigates Spec 27</span>
+        <p><a href="Evidence/Screenshots/66c10bf21762861a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4f1f4350a31a0bf6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4f1f4350a31a0bf6.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4f1f4350a31a0bf6.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/932d4adc04a0137c.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/932d4adc04a0137c.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/f64c8d0e0e5abfde.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-477",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-477"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-478</span>
+        <span class="test-title-col">Destination Page Has Heading User And License Hub</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.18s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-478-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-478-user-licenses-destination-heading.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Destination Page Has Heading User And License Hub\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The destination page shows "User &amp; License Hub" as the main heading.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Destination Page Has Heading User And License Hub\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Click User Licenses and wait for the page to load.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The destination page shows "User &amp; License Hub" as the main heading.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/16487ffe3f685ee4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/16487ffe3f685ee4.png" alt="0001 Assert ToContain LIMAS SUD 478 User Licenses Destination Heading Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 478 User Licenses Destination Heading Spec 7</span>
+        <p><a href="Evidence/Screenshots/16487ffe3f685ee4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6c2f702429902f95.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6c2f702429902f95.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/6c2f702429902f95.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/af2250baa6c95816.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/af2250baa6c95816.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/af2250baa6c95816.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bc4db958c37229d3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bc4db958c37229d3.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/bc4db958c37229d3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5aeb80ac93bc0159.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5aeb80ac93bc0159.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/5aeb80ac93bc0159.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5fd76d728e33b247.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5fd76d728e33b247.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/5fd76d728e33b247.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/024917cbd65a82c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/024917cbd65a82c9.png" alt="0007 Action Click LIMAS SUD 478 User Licenses Destination Heading Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Click LIMAS SUD 478 User Licenses Destination Heading Spec 14</span>
+        <p><a href="Evidence/Screenshots/024917cbd65a82c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/47dced453d834b17.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/47dced453d834b17.png" alt="0008 Assert ToBeVisible LIMAS SUD 478 User Licenses Destination Heading Spec 16" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible LIMAS SUD 478 User Licenses Destination Heading Spec 16</span>
+        <p><a href="Evidence/Screenshots/47dced453d834b17.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d409da29905a4adb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d409da29905a4adb.png" alt="0009 Action GoBack LIMAS SUD 478 User Licenses Destination Heading Spec 18" loading="lazy">
+        </a>
+        <span>0009 Action GoBack LIMAS SUD 478 User Licenses Destination Heading Spec 18</span>
+        <p><a href="Evidence/Screenshots/d409da29905a4adb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/328efd811af8543a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/328efd811af8543a.png" alt="0010 Assert ToHaveURL LIMAS SUD 478 User Licenses Destination Heading Spec 20" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveURL LIMAS SUD 478 User Licenses Destination Heading Spec 20</span>
+        <p><a href="Evidence/Screenshots/328efd811af8543a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/45fa768c7e9939df.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/45fa768c7e9939df.png" alt="0011 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0011 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/45fa768c7e9939df.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13776db6df4c2b4f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13776db6df4c2b4f.png" alt="0012 Assert ToBeChecked LIMAS SUD 478 User Licenses Destination Heading Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 478 User Licenses Destination Heading Spec 24</span>
+        <p><a href="Evidence/Screenshots/13776db6df4c2b4f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ff09ebbaa9b51298.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff09ebbaa9b51298.png" alt="0013 Assert ToBeChecked LIMAS SUD 478 User Licenses Destination Heading Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 478 User Licenses Destination Heading Spec 25</span>
+        <p><a href="Evidence/Screenshots/ff09ebbaa9b51298.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aa297f5ba62113e2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aa297f5ba62113e2.png" alt="0014 Assert ToHaveValue LIMAS SUD 478 User Licenses Destination Heading Spec 26" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 478 User Licenses Destination Heading Spec 26</span>
+        <p><a href="Evidence/Screenshots/aa297f5ba62113e2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4cee104729e00994.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4cee104729e00994.png" alt="0015 Assert ToHaveValue LIMAS SUD 478 User Licenses Destination Heading Spec 27" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 478 User Licenses Destination Heading Spec 27</span>
+        <p><a href="Evidence/Screenshots/4cee104729e00994.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b892f85fd855c8cd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b892f85fd855c8cd.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b892f85fd855c8cd.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/e6e2a3420ae03367.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/e6e2a3420ae03367.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d6b6ee62c1e12290.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-478",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-478"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-479</span>
+        <span class="test-title-col">Navigation Occurs In The Same Tab</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.17s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-479-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-479-user-licenses-same-tab.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Navigation Occurs In The Same Tab\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Navigation occurs in the same tab.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Navigation Occurs In The Same Tab\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Count open pages before and after clicking.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>Navigation occurs in the same tab.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/133682542206adae.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/133682542206adae.png" alt="0001 Assert ToContain LIMAS SUD 479 User Licenses Same Tab Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 479 User Licenses Same Tab Spec 7</span>
+        <p><a href="Evidence/Screenshots/133682542206adae.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f7ad0476e80cc8f0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f7ad0476e80cc8f0.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/f7ad0476e80cc8f0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5180d435ee5ae3e2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5180d435ee5ae3e2.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/5180d435ee5ae3e2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/71d77e2d2014a8f1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/71d77e2d2014a8f1.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/71d77e2d2014a8f1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9c0594d06707d9e3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9c0594d06707d9e3.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/9c0594d06707d9e3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f432d8909dabe34.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f432d8909dabe34.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/9f432d8909dabe34.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/024917cbd65a82c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/024917cbd65a82c9.png" alt="0007 Action Click LIMAS SUD 479 User Licenses Same Tab Spec 15" loading="lazy">
+        </a>
+        <span>0007 Action Click LIMAS SUD 479 User Licenses Same Tab Spec 15</span>
+        <p><a href="Evidence/Screenshots/024917cbd65a82c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/356bef7e883b1476.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/356bef7e883b1476.png" alt="0008 Assert ToBe LIMAS SUD 479 User Licenses Same Tab Spec 17" loading="lazy">
+        </a>
+        <span>0008 Assert ToBe LIMAS SUD 479 User Licenses Same Tab Spec 17</span>
+        <p><a href="Evidence/Screenshots/356bef7e883b1476.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a3fe353ca8b3b423.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a3fe353ca8b3b423.png" alt="0009 Action GoBack LIMAS SUD 479 User Licenses Same Tab Spec 19" loading="lazy">
+        </a>
+        <span>0009 Action GoBack LIMAS SUD 479 User Licenses Same Tab Spec 19</span>
+        <p><a href="Evidence/Screenshots/a3fe353ca8b3b423.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/26af90341e65bfc4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/26af90341e65bfc4.png" alt="0010 Assert ToHaveURL LIMAS SUD 479 User Licenses Same Tab Spec 21" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveURL LIMAS SUD 479 User Licenses Same Tab Spec 21</span>
+        <p><a href="Evidence/Screenshots/26af90341e65bfc4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/286fddea7e8f4601.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/286fddea7e8f4601.png" alt="0011 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0011 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/286fddea7e8f4601.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6767e7f1fd98d146.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6767e7f1fd98d146.png" alt="0012 Assert ToBeChecked LIMAS SUD 479 User Licenses Same Tab Spec 25" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 479 User Licenses Same Tab Spec 25</span>
+        <p><a href="Evidence/Screenshots/6767e7f1fd98d146.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4c0f6731149854b9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4c0f6731149854b9.png" alt="0013 Assert ToBeChecked LIMAS SUD 479 User Licenses Same Tab Spec 26" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 479 User Licenses Same Tab Spec 26</span>
+        <p><a href="Evidence/Screenshots/4c0f6731149854b9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e45b8d9fb6d2fb48.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e45b8d9fb6d2fb48.png" alt="0014 Assert ToHaveValue LIMAS SUD 479 User Licenses Same Tab Spec 27" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 479 User Licenses Same Tab Spec 27</span>
+        <p><a href="Evidence/Screenshots/e45b8d9fb6d2fb48.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/db21cee70294e712.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db21cee70294e712.png" alt="0015 Assert ToHaveValue LIMAS SUD 479 User Licenses Same Tab Spec 28" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 479 User Licenses Same Tab Spec 28</span>
+        <p><a href="Evidence/Screenshots/db21cee70294e712.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2f55d2f2af4252c6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2f55d2f2af4252c6.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2f55d2f2af4252c6.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d5cacdbbb8498fcc.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d5cacdbbb8498fcc.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/7f3a78fb4e5e927d.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-479",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-479"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-480</span>
+        <span class="test-title-col">Authenticated Session Remains Active After Navigation</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.16s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-024</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-480-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-480-user-licenses-session-preserved.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Authenticated Session Remains Active After Navigation\"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The session remains active after navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of \"System User Dashboard\" → \"Expiring Licenses\" → \"User Licenses Navigation\" → \"Authenticated Session Remains Active After Navigation\"</p><p><h2>Preconditions</h2></p><p>Dashboard is loaded as SUPER_USER_ADMIN_USER, Expiring Licenses card selected, Expiration selected, Expires before empty, Search empty.</p><p><h2>Test Steps</h2></p><p>1. Navigate to the System User Dashboard and select Expiring Licenses.<br>2. Click User Licenses and check the page.<br>3. Return to the System User Dashboard.<br>4. Click the Expiring Licenses summary card.<br>5. Verify Expiration is selected.<br>6. Verify Maintenance is unselected.<br>7. Verify Expires Before is empty.<br>8. Verify Search is empty.</p><p><h2>Expected Final Result</h2></p><p>The session remains active after navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/543c954cb84c3844.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/543c954cb84c3844.png" alt="0001 Assert ToContain LIMAS SUD 480 User Licenses Session Preserved Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToContain LIMAS SUD 480 User Licenses Session Preserved Spec 7</span>
+        <p><a href="Evidence/Screenshots/543c954cb84c3844.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8ef5327add8f0f5d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ef5327add8f0f5d.png" alt="0002 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0002 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/8ef5327add8f0f5d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ea33441948d17b8e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ea33441948d17b8e.png" alt="0003 Assert ToHaveText System User Dashboard Page 602" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText System User Dashboard Page 602</span>
+        <p><a href="Evidence/Screenshots/ea33441948d17b8e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e6e9e367fba51177.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e6e9e367fba51177.png" alt="0004 Assert ToBeChecked Expiring Licenses Flow 39" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeChecked Expiring Licenses Flow 39</span>
+        <p><a href="Evidence/Screenshots/e6e9e367fba51177.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/46707f21adfb176e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/46707f21adfb176e.png" alt="0005 Assert ToHaveValue Expiring Licenses Flow 40" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveValue Expiring Licenses Flow 40</span>
+        <p><a href="Evidence/Screenshots/46707f21adfb176e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7357321f977c7092.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7357321f977c7092.png" alt="0006 Assert ToHaveValue Expiring Licenses Flow 41" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveValue Expiring Licenses Flow 41</span>
+        <p><a href="Evidence/Screenshots/7357321f977c7092.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/05bdbd3201a33015.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/05bdbd3201a33015.png" alt="0007 Action Click LIMAS SUD 480 User Licenses Session Preserved Spec 14" loading="lazy">
+        </a>
+        <span>0007 Action Click LIMAS SUD 480 User Licenses Session Preserved Spec 14</span>
+        <p><a href="Evidence/Screenshots/05bdbd3201a33015.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1bee1db8c5ee322a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1bee1db8c5ee322a.png" alt="0008 Assert ToContain LIMAS SUD 480 User Licenses Session Preserved Spec 16" loading="lazy">
+        </a>
+        <span>0008 Assert ToContain LIMAS SUD 480 User Licenses Session Preserved Spec 16</span>
+        <p><a href="Evidence/Screenshots/1bee1db8c5ee322a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b04f73a2b93fc3f1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b04f73a2b93fc3f1.png" alt="0009 Action GoBack LIMAS SUD 480 User Licenses Session Preserved Spec 18" loading="lazy">
+        </a>
+        <span>0009 Action GoBack LIMAS SUD 480 User Licenses Session Preserved Spec 18</span>
+        <p><a href="Evidence/Screenshots/b04f73a2b93fc3f1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/22ab192911eaa8d9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/22ab192911eaa8d9.png" alt="0010 Assert ToHaveURL LIMAS SUD 480 User Licenses Session Preserved Spec 20" loading="lazy">
+        </a>
+        <span>0010 Assert ToHaveURL LIMAS SUD 480 User Licenses Session Preserved Spec 20</span>
+        <p><a href="Evidence/Screenshots/22ab192911eaa8d9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/52e2705c983b1e8f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/52e2705c983b1e8f.png" alt="0011 Action Click System User Dashboard Page 509" loading="lazy">
+        </a>
+        <span>0011 Action Click System User Dashboard Page 509</span>
+        <p><a href="Evidence/Screenshots/52e2705c983b1e8f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7f793ec1f4318599.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7f793ec1f4318599.png" alt="0012 Assert ToBeChecked LIMAS SUD 480 User Licenses Session Preserved Spec 24" loading="lazy">
+        </a>
+        <span>0012 Assert ToBeChecked LIMAS SUD 480 User Licenses Session Preserved Spec 24</span>
+        <p><a href="Evidence/Screenshots/7f793ec1f4318599.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/49e827913a789419.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/49e827913a789419.png" alt="0013 Assert ToBeChecked LIMAS SUD 480 User Licenses Session Preserved Spec 25" loading="lazy">
+        </a>
+        <span>0013 Assert ToBeChecked LIMAS SUD 480 User Licenses Session Preserved Spec 25</span>
+        <p><a href="Evidence/Screenshots/49e827913a789419.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b47614325e417134.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b47614325e417134.png" alt="0014 Assert ToHaveValue LIMAS SUD 480 User Licenses Session Preserved Spec 26" loading="lazy">
+        </a>
+        <span>0014 Assert ToHaveValue LIMAS SUD 480 User Licenses Session Preserved Spec 26</span>
+        <p><a href="Evidence/Screenshots/b47614325e417134.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2372f3db4eff24f0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2372f3db4eff24f0.png" alt="0015 Assert ToHaveValue LIMAS SUD 480 User Licenses Session Preserved Spec 27" loading="lazy">
+        </a>
+        <span>0015 Assert ToHaveValue LIMAS SUD 480 User Licenses Session Preserved Spec 27</span>
+        <p><a href="Evidence/Screenshots/2372f3db4eff24f0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c653da3400bdcbee.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c653da3400bdcbee.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c653da3400bdcbee.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1f98185812503076.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1f98185812503076.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/f5a343d4e8dc45df.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-480",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-480"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
