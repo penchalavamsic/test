@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — floating-license-configurations — FLC-001 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — floating-license-configurations — FLC-001 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">20</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">19</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">1</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.73s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/495e818a5b52cc72.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/495e818a5b52cc72.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/495e818a5b52cc72.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dd755400ba234408.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dd755400ba234408.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/dd755400ba234408.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f576e6c6cea69348.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f576e6c6cea69348.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/f576e6c6cea69348.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0b9a6e9341c0b93f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0b9a6e9341c0b93f.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/0b9a6e9341c0b93f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9742ffe9573e1d34.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9742ffe9573e1d34.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/9742ffe9573e1d34.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f067f827f82cca10.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f067f827f82cca10.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/f067f827f82cca10.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f623f146f341083f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f623f146f341083f.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/f623f146f341083f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c0079644e98843db.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c0079644e98843db.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c0079644e98843db.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/40ff2b96c8e9321e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/40ff2b96c8e9321e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e61c8d7c038dcea6.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.44s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/21722431154a7b0b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/21722431154a7b0b.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/21722431154a7b0b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f9458a13bb97c23a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f9458a13bb97c23a.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/f9458a13bb97c23a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bfa384bf76595f2e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bfa384bf76595f2e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/bfa384bf76595f2e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1cc6ab6657d956fc.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1cc6ab6657d956fc.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3fadb52ad9e04c7e.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-0" onclick="document.getElementById('test-0').classList.add('expanded')">LIMAS-SUD-1808</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-1809</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-1810</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-1811</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-1812</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-1813</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-1814</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-1815</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-1816</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-1817</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-1818</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-1819</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-1820</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-1821</a> | <a href="#test-16" onclick="document.getElementById('test-16').classList.add('expanded')">LIMAS-SUD-1822</a> | <a href="#test-17" onclick="document.getElementById('test-17').classList.add('expanded')">LIMAS-SUD-1823</a> | <a href="#test-18" onclick="document.getElementById('test-18').classList.add('expanded')">LIMAS-SUD-1824</a> | <a href="#test-19" onclick="document.getElementById('test-19').classList.add('expanded')">LIMAS-SUD-1825</a> | <a href="#test-20" onclick="document.getElementById('test-20').classList.add('expanded')">LIMAS-SUD-1826</a> | <a href="#test-21" onclick="document.getElementById('test-21').classList.add('expanded')">LIMAS-SUD-1827</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — FLC-001</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1808</span>
+        <span class="test-title-col">Navigate to /floating-license-configurations via sidebar</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">47.44s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1808/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify navigation to Floating License Configurations via sidebar</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify navigation to Floating License Configurations via sidebar</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/d8e0ef1a8c79a90a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d8e0ef1a8c79a90a.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/d8e0ef1a8c79a90a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fc58f77aa2594123.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fc58f77aa2594123.png" alt="0002 Assert ToMatch Floating License Configurations Group Selection Spec 26" loading="lazy">
+        </a>
+        <span>0002 Assert ToMatch Floating License Configurations Group Selection Spec 26</span>
+        <p><a href="Evidence/Screenshots/fc58f77aa2594123.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/823295b8cec57d9c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/823295b8cec57d9c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/823295b8cec57d9c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/27cf0ccb9b415251.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/27cf0ccb9b415251.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/bffc285ea35eca96.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1808",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1808"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1809</span>
+        <span class="test-title-col">Page heading is &quot;Floating License Configurations&quot; h1</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">41.70s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1809/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify page heading is 'Floating License Configurations' h1</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify page heading is 'Floating License Configurations' h1</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/7fb9517fbe0c05bd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7fb9517fbe0c05bd.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/7fb9517fbe0c05bd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/29b9de6ee79e3654.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/29b9de6ee79e3654.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 38" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 38</span>
+        <p><a href="Evidence/Screenshots/29b9de6ee79e3654.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbea2cb02134a2a3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbea2cb02134a2a3.png" alt="0003 Assert ToHaveText Floating License Configurations Group Selection Spec 39" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveText Floating License Configurations Group Selection Spec 39</span>
+        <p><a href="Evidence/Screenshots/cbea2cb02134a2a3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="0004 Assert ToBe Floating License Configurations Group Selection Spec 41" loading="lazy">
+        </a>
+        <span>0004 Assert ToBe Floating License Configurations Group Selection Spec 41</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/343ea83c794752ec.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/343ea83c794752ec.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c87a1c66f02061d1.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1809",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1809"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1810</span>
+        <span class="test-title-col">&quot;Select a User Group&quot; heading is visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">40.61s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1810/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify 'Select a User Group' heading is visible</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify 'Select a User Group' heading is visible</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/75bb5f5632722682.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/75bb5f5632722682.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/75bb5f5632722682.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e15c7f511bca5e83.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e15c7f511bca5e83.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 53" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 53</span>
+        <p><a href="Evidence/Screenshots/e15c7f511bca5e83.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/50c3ce3a118a3c9f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/50c3ce3a118a3c9f.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/50c3ce3a118a3c9f.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f5b801d585a0f431.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f5b801d585a0f431.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/0cffdf0aebaed8e3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1810",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1810"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1811</span>
+        <span class="test-title-col">Instructional text is visible in group-selection panel</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">39.78s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1811/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify instructional text in group-selection panel</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify instructional text in group-selection panel</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/e4509d8c8bace3f1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e4509d8c8bace3f1.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/e4509d8c8bace3f1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6131b72bb405609a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6131b72bb405609a.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 65" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 65</span>
+        <p><a href="Evidence/Screenshots/6131b72bb405609a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c84780be065fb1b8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c84780be065fb1b8.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c84780be065fb1b8.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4ccbe2f36a179eda.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4ccbe2f36a179eda.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/bdcc6ef7a40de063.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1811",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1811"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1812</span>
+        <span class="test-title-col">Group Search input is visible and initially empty</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">50.85s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1812/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify Group Search input visibility and initial empty state</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify Group Search input visibility and initial empty state</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/648e42b979ea1a36.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/648e42b979ea1a36.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/648e42b979ea1a36.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 77" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 77</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="0003 Assert ToBeEnabled Floating License Configurations Group Selection Spec 78" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeEnabled Floating License Configurations Group Selection Spec 78</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="0004 Assert ToBe Floating License Configurations Group Selection Spec 79" loading="lazy">
+        </a>
+        <span>0004 Assert ToBe Floating License Configurations Group Selection Spec 79</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9561e43ffcb73197.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9561e43ffcb73197.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/efe0c89e65f3fd18.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1812",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1812"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1813</span>
+        <span class="test-title-col">Expand All and Collapse All buttons are visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">50.91s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1813/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify Expand All and Collapse All buttons are visible</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify Expand All and Collapse All buttons are visible</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/fd6e269ecfaf246b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd6e269ecfaf246b.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/fd6e269ecfaf246b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/280f413bce87e3d3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/280f413bce87e3d3.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 91" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 91</span>
+        <p><a href="Evidence/Screenshots/280f413bce87e3d3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/604ea5155d642f22.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/604ea5155d642f22.png" alt="0003 Assert ToBeVisible Floating License Configurations Group Selection Spec 92" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible Floating License Configurations Group Selection Spec 92</span>
+        <p><a href="Evidence/Screenshots/604ea5155d642f22.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6437c108e4d5a7a6.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6437c108e4d5a7a6.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/af2343c602fb1134.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1813",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1813"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1814</span>
+        <span class="test-title-col">Group tree container is visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">47.01s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1814/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify group tree container is visible</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify group tree container is visible</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6ab4037d4e075ed6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6ab4037d4e075ed6.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/6ab4037d4e075ed6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ba601d2098c39862.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ba601d2098c39862.png" alt="0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 104" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible Floating License Configurations Group Selection Spec 104</span>
+        <p><a href="Evidence/Screenshots/ba601d2098c39862.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d66765c2e76f7f28.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d66765c2e76f7f28.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/d66765c2e76f7f28.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/8f31e5ce4faf875f.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/8f31e5ce4faf875f.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c404151da0387517.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1814",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1814"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1815</span>
+        <span class="test-title-col">No group is selected initially</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">72.53s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1815/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify no group is selected initially</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify no group is selected initially</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5b022ad603a36970.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5b022ad603a36970.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/5b022ad603a36970.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/85151c85c8a6bccf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/85151c85c8a6bccf.png" alt="0002 Assert ToBe Floating License Configurations Group Selection Spec 116" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe Floating License Configurations Group Selection Spec 116</span>
+        <p><a href="Evidence/Screenshots/85151c85c8a6bccf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/edc52e8fc6712d14.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/edc52e8fc6712d14.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/edc52e8fc6712d14.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/c9b4b6c3491e4290.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/c9b4b6c3491e4290.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/4323d2169d451d22.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1815",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1815"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1816</span>
+        <span class="test-title-col">Tree items are rendered with role=&quot;treeitem&quot;</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">56.75s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1816/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify tree items render with role treeitem</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify tree items render with role treeitem</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/519159b8bfba9a97.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/519159b8bfba9a97.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/519159b8bfba9a97.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/858ad531ac9b99f3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/858ad531ac9b99f3.png" alt="0002 Assert ToBeGreaterThan Floating License Configurations Group Selection Spec 134" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeGreaterThan Floating License Configurations Group Selection Spec 134</span>
+        <p><a href="Evidence/Screenshots/858ad531ac9b99f3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fc0d26b80aa644a3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fc0d26b80aa644a3.png" alt="0003 Assert ToHaveAttribute Floating License Configurations Group Selection Spec 136" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveAttribute Floating License Configurations Group Selection Spec 136</span>
+        <p><a href="Evidence/Screenshots/fc0d26b80aa644a3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d8a9fd5db6740fb4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d8a9fd5db6740fb4.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/d8a9fd5db6740fb4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7ad186212ae416b0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7ad186212ae416b0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7ad186212ae416b0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/059f8d5ab387e15c.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/059f8d5ab387e15c.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/2daa066dfe7025b3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1816",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1816"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><ul class="error-fields"><li><strong>Failure:</strong> expect(locator).toHaveAttribute(expected) failed</li><li><strong>Locator:</strong> <code>getByRole(&#39;tree&#39;, { name: &#39;User Groups&#39; }).locator(&#39;button[type=&quot;button&quot;]&#39;).first()</code></li><li><strong>Expected:</strong> &quot;treeitem&quot;</li><li><strong>Timeout:</strong> 30000ms</li></ul><pre><code>Error: expect(locator).toHaveAttribute(expected) failed
+
+Locator:  getByRole(&#39;tree&#39;, { name: &#39;User Groups&#39; }).locator(&#39;button[type=&quot;button&quot;]&#39;).first()
+Expected: &quot;treeitem&quot;
+Received: &quot;&quot;
+Timeout:  30000ms
+
+Call log:
+  - Expect &quot;toHaveAttribute&quot; getByRole(&#39;tree&#39;, { name: &#39;User Groups&#39; }).locator(&#39;button[type=&quot;button&quot;]&#39;).first() with timeout 30000ms
+  - waiting for getByRole(&#39;tree&#39;, { name: &#39;User Groups&#39; }).locator(&#39;button[type=&quot;button&quot;]&#39;).first()
+    60 × locator resolved to &lt;button type=&quot;button&quot; class=&quot;flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-sm transition-colors duration-150 text-foreground hover:bg-[#A8E600]/90 hover:text-gray-900&quot;&gt;…&lt;/button&gt;
+       - unexpected value &quot;null&quot;
+
+
+  136 |       await recordEvidence(&#39;assert-toBeGreaterThan-floating-license-configurations-group-selection.spec-134&#39;, async () =&gt; expect(count).toBeGreaterThan(0));
+  137 |       const first = flc.getTreeItems().first();
+&gt; 138 |       await recordEvidence(&#39;assert-toHaveAttribute-floating-license-configurations-group-selection.spec-136&#39;, async () =&gt; expect(first).toHaveAttribute(&#39;role&#39;, &#39;treeitem&#39;));
+      |                                                                                                                                         ^
+  139 |     });
+  140 |
+  141 |     test(&#39;LIMAS-SUD-1817: Parent groups are rendered with expand chevron&#39;, async ({ page }) =&gt; {
+    at operation (tests\floating-license-configurations\floating-license-configurations-group-selection.spec.ts:138:137)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at tests\floating-license-configurations\floating-license-configurations-group-selection.spec.ts:138:27<br><code>selection.spec.ts:138:137</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1817</span>
+        <span class="test-title-col">Parent groups are rendered with expand chevron</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">23.49s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1817/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify parent groups render with expand chevron</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify parent groups render with expand chevron</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/e303b2994918b0b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e303b2994918b0b6.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/e303b2994918b0b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8245e35c7b5ea2ec.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8245e35c7b5ea2ec.png" alt="0002 Assert ToBe Floating License Configurations Group Selection Spec 151" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe Floating License Configurations Group Selection Spec 151</span>
+        <p><a href="Evidence/Screenshots/8245e35c7b5ea2ec.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/644cf43719296203.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/644cf43719296203.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/644cf43719296203.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/2a5b19714b72dd75.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/2a5b19714b72dd75.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/cbd23a796165199a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1817",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1817"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1818</span>
+        <span class="test-title-col">Children become visible after expanding a parent group</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">29.27s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1818/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify children become visible after expanding parent group</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify children become visible after expanding parent group</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c7b3c8c0e177b007.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c7b3c8c0e177b007.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/c7b3c8c0e177b007.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/175bfd807a4d8b0d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/175bfd807a4d8b0d.png" alt="0002 Action Click Floating License Configurations Page 375" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 375</span>
+        <p><a href="Evidence/Screenshots/175bfd807a4d8b0d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/25629e3b653eb352.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/25629e3b653eb352.png" alt="0003 Assert ToBeGreaterThan Floating License Configurations Group Selection Spec 172" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Floating License Configurations Group Selection Spec 172</span>
+        <p><a href="Evidence/Screenshots/25629e3b653eb352.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1c6ee305859f464d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1c6ee305859f464d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/1c6ee305859f464d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/fca2a490832fbe26.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/fca2a490832fbe26.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/af60dfdd23b6087b.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1818",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1818"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1819</span>
+        <span class="test-title-col">Children are hidden after collapsing a parent group</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">21.78s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1819/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify children are hidden after collapsing parent group</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify children are hidden after collapsing parent group</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8ca3264afb3cb139.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ca3264afb3cb139.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/8ca3264afb3cb139.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3fac2584c41993c2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3fac2584c41993c2.png" alt="0002 Action Click Floating License Configurations Page 375" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 375</span>
+        <p><a href="Evidence/Screenshots/3fac2584c41993c2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f842d698d942186c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f842d698d942186c.png" alt="0003 Action Click Floating License Configurations Page 381" loading="lazy">
+        </a>
+        <span>0003 Action Click Floating License Configurations Page 381</span>
+        <p><a href="Evidence/Screenshots/f842d698d942186c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f45b1fd4c1b98e8b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f45b1fd4c1b98e8b.png" alt="0004 Assert ToBeLessThan Floating License Configurations Group Selection Spec 195" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeLessThan Floating License Configurations Group Selection Spec 195</span>
+        <p><a href="Evidence/Screenshots/f45b1fd4c1b98e8b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/39bf5ef95c71c874.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/39bf5ef95c71c874.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/39bf5ef95c71c874.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/8d8264d03dfd15da.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/8d8264d03dfd15da.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/039114da3c9163ff.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1819",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1819"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1820</span>
+        <span class="test-title-col">Collapsed parent has aria-expanded=&quot;false&quot;</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">17.09s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1820/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify collapsed parent has aria-expanded false</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify collapsed parent has aria-expanded false</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/90870e4e2d7743b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/90870e4e2d7743b6.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/90870e4e2d7743b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/347ef59f591ff4be.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/347ef59f591ff4be.png" alt="0002 Assert ToBe Floating License Configurations Group Selection Spec 211" loading="lazy">
+        </a>
+        <span>0002 Assert ToBe Floating License Configurations Group Selection Spec 211</span>
+        <p><a href="Evidence/Screenshots/347ef59f591ff4be.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7177948c82dfb403.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7177948c82dfb403.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7177948c82dfb403.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b3b7dc173d8f5153.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b3b7dc173d8f5153.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3fe69c2e150b1b3e.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1820",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1820"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1821</span>
+        <span class="test-title-col">Search input accepts text and filters the tree</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">17.56s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1821/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify search input filters the group tree</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify search input filters the group tree</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/fc92c7fbcac17455.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fc92c7fbcac17455.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/fc92c7fbcac17455.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c715d7c9409d8573.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c715d7c9409d8573.png" alt="0002 Action Fill Floating License Configurations Page 321" loading="lazy">
+        </a>
+        <span>0002 Action Fill Floating License Configurations Page 321</span>
+        <p><a href="Evidence/Screenshots/c715d7c9409d8573.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ef4dae5f15d47dfc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ef4dae5f15d47dfc.png" alt="0003 Assert ToBeLessThanOrEqual Floating License Configurations Group Selection Spec 236" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeLessThanOrEqual Floating License Configurations Group Selection Spec 236</span>
+        <p><a href="Evidence/Screenshots/ef4dae5f15d47dfc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ca98c5efe792d4c3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ca98c5efe792d4c3.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/ca98c5efe792d4c3.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1da4353a499731d8.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1da4353a499731d8.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/1ed2b4d3fa2c5e5a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1821",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1821"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-16">
+    <div class="test-header" onclick="toggleExpand('test-16')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1822</span>
+        <span class="test-title-col">Search with exact group name shows that group</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">20.67s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1822/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify exact group name search shows that group</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify exact group name search shows that group</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5b7f244271921940.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5b7f244271921940.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/5b7f244271921940.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/12e6a4c7f882aeb8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/12e6a4c7f882aeb8.png" alt="0002 Action Fill Floating License Configurations Page 321" loading="lazy">
+        </a>
+        <span>0002 Action Fill Floating License Configurations Page 321</span>
+        <p><a href="Evidence/Screenshots/12e6a4c7f882aeb8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aa2cab869882116e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aa2cab869882116e.png" alt="0003 Assert ToBe Floating License Configurations Group Selection Spec 257" loading="lazy">
+        </a>
+        <span>0003 Assert ToBe Floating License Configurations Group Selection Spec 257</span>
+        <p><a href="Evidence/Screenshots/aa2cab869882116e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d524a3427d0e164b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d524a3427d0e164b.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/d524a3427d0e164b.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/281d3e28cba14cd2.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/281d3e28cba14cd2.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d08359cc77c942fb.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1822",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1822"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-17">
+    <div class="test-header" onclick="toggleExpand('test-17')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1823</span>
+        <span class="test-title-col">Clearing search restores the full tree</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">20.91s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1823/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify clearing search restores the full group tree</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify clearing search restores the full group tree</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/1701ba5d7a5a7a15.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1701ba5d7a5a7a15.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/1701ba5d7a5a7a15.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/73b9d7b3d8596708.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/73b9d7b3d8596708.png" alt="0002 Action Fill Floating License Configurations Page 321" loading="lazy">
+        </a>
+        <span>0002 Action Fill Floating License Configurations Page 321</span>
+        <p><a href="Evidence/Screenshots/73b9d7b3d8596708.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bacb0d20421294ef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bacb0d20421294ef.png" alt="0003 Action Fill Floating License Configurations Page 327" loading="lazy">
+        </a>
+        <span>0003 Action Fill Floating License Configurations Page 327</span>
+        <p><a href="Evidence/Screenshots/bacb0d20421294ef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ace35a44d79c57fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ace35a44d79c57fb.png" alt="0004 Assert ToBe Floating License Configurations Group Selection Spec 279" loading="lazy">
+        </a>
+        <span>0004 Assert ToBe Floating License Configurations Group Selection Spec 279</span>
+        <p><a href="Evidence/Screenshots/ace35a44d79c57fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5f448be41b470ce0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5f448be41b470ce0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/5f448be41b470ce0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/97ed7cfa19a8c989.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/97ed7cfa19a8c989.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/08a01ff92929b90a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1823",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1823"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-18">
+    <div class="test-header" onclick="toggleExpand('test-18')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1824</span>
+        <span class="test-title-col">No-match state when search returns no results</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">34.76s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1824/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify no-match state when search returns no results</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify no-match state when search returns no results</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/aab8300c65c04251.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aab8300c65c04251.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/aab8300c65c04251.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e9226e43a28219f8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e9226e43a28219f8.png" alt="0002 Action Fill Floating License Configurations Page 321" loading="lazy">
+        </a>
+        <span>0002 Action Fill Floating License Configurations Page 321</span>
+        <p><a href="Evidence/Screenshots/e9226e43a28219f8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/baed25e786d41654.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/baed25e786d41654.png" alt="0003 Assert ToBe Floating License Configurations Group Selection Spec 294" loading="lazy">
+        </a>
+        <span>0003 Assert ToBe Floating License Configurations Group Selection Spec 294</span>
+        <p><a href="Evidence/Screenshots/baed25e786d41654.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a9eeabb9cca5587b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a9eeabb9cca5587b.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a9eeabb9cca5587b.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6f1d8110a105ea43.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6f1d8110a105ea43.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/4921cc73cbcbb173.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1824",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1824"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-19">
+    <div class="test-header" onclick="toggleExpand('test-19')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1825</span>
+        <span class="test-title-col">Expand All expands all parent groups</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">25.39s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1825/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify Expand All expands all parent groups</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify Expand All expands all parent groups</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/58761a383e8fd08d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/58761a383e8fd08d.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/58761a383e8fd08d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d8dca137fdd3257d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d8dca137fdd3257d.png" alt="0002 Action Click Floating License Configurations Page 337" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 337</span>
+        <p><a href="Evidence/Screenshots/d8dca137fdd3257d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2285c0986e7b0d61.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2285c0986e7b0d61.png" alt="0003 Assert ToBeGreaterThanOrEqual Floating License Configurations Group Selection Spec 316" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThanOrEqual Floating License Configurations Group Selection Spec 316</span>
+        <p><a href="Evidence/Screenshots/2285c0986e7b0d61.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d9093e394d014dd3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d9093e394d014dd3.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/d9093e394d014dd3.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5cc4194be6067b7f.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5cc4194be6067b7f.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/24b24a6067c056e4.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1825",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1825"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-20">
+    <div class="test-header" onclick="toggleExpand('test-20')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1826</span>
+        <span class="test-title-col">Collapse All collapses all expanded groups</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">23.75s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1826/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify Collapse All collapses all expanded groups</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify Collapse All collapses all expanded groups</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/d6c6cc0d7a4136fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d6c6cc0d7a4136fb.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/d6c6cc0d7a4136fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3695b3eb16409f64.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3695b3eb16409f64.png" alt="0002 Action Click Floating License Configurations Page 337" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 337</span>
+        <p><a href="Evidence/Screenshots/3695b3eb16409f64.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/932cdee40dcc3904.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/932cdee40dcc3904.png" alt="0003 Action Click Floating License Configurations Page 341" loading="lazy">
+        </a>
+        <span>0003 Action Click Floating License Configurations Page 341</span>
+        <p><a href="Evidence/Screenshots/932cdee40dcc3904.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4c206ef56b270a96.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4c206ef56b270a96.png" alt="0004 Assert ToBeLessThan Floating License Configurations Group Selection Spec 336" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeLessThan Floating License Configurations Group Selection Spec 336</span>
+        <p><a href="Evidence/Screenshots/4c206ef56b270a96.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/92c9c91aabca48d2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/92c9c91aabca48d2.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/92c9c91aabca48d2.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/16f182363ce5449a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/16f182363ce5449a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/270a5237950fb253.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1826",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1826"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-21">
+    <div class="test-header" onclick="toggleExpand('test-21')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1827</span>
+        <span class="test-title-col">Repeated Expand All does not cause errors</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">22.89s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-001</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1827/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-group-selection.spec.ts</span>
+      </div>
+      
+      <div class="test-plan"><h4>Purpose</h4><p>To verify repeated Expand All does not cause errors</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify repeated Expand All does not cause errors</p><p><h2>Preconditions</h2></p><p></p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6c79bf34c1a4d606.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6c79bf34c1a4d606.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/6c79bf34c1a4d606.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cdf2030d448dc869.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cdf2030d448dc869.png" alt="0002 Action Click Floating License Configurations Page 337" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 337</span>
+        <p><a href="Evidence/Screenshots/cdf2030d448dc869.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d769490a9625bf1b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d769490a9625bf1b.png" alt="0003 Action Click Floating License Configurations Page 337" loading="lazy">
+        </a>
+        <span>0003 Action Click Floating License Configurations Page 337</span>
+        <p><a href="Evidence/Screenshots/d769490a9625bf1b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/afa7edcb486f1888.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/afa7edcb486f1888.png" alt="0004 Assert ToBeVisible Floating License Configurations Group Selection Spec 353" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible Floating License Configurations Group Selection Spec 353</span>
+        <p><a href="Evidence/Screenshots/afa7edcb486f1888.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/34525dad4efe3caf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/34525dad4efe3caf.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/34525dad4efe3caf.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d9a98722a1e37b0a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d9a98722a1e37b0a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ed42f750c0bfc003.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1827",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1827"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
