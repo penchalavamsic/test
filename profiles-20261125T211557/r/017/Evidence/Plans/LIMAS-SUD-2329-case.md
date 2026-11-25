@@ -1,0 +1,15 @@
+# Purpose
+
+Add Feature Opens Feature Selection Popover
+
+# Preconditions
+
+Authenticated as SUPER_USER_ADMIN_USER
+
+# Test Steps
+
+
+
+# Expected Final Result
+
+
