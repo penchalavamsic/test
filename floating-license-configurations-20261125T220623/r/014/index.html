@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — floating-license-configurations — FLC-006 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — floating-license-configurations — FLC-006 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">20</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">10</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">10</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.50s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/ae39e30229fc6e91.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ae39e30229fc6e91.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/ae39e30229fc6e91.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7d4125140233750b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7d4125140233750b.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/7d4125140233750b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7e3eb506f589008c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7e3eb506f589008c.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/7e3eb506f589008c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ccf9c8f95fbc7bfc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ccf9c8f95fbc7bfc.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/ccf9c8f95fbc7bfc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/60e75f961b572752.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/60e75f961b572752.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/60e75f961b572752.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/73777d48a434044f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/73777d48a434044f.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/73777d48a434044f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c5e32e1e7ee379b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c5e32e1e7ee379b6.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/c5e32e1e7ee379b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6af7ed438e27263e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6af7ed438e27263e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/6af7ed438e27263e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b04bc35ed75c3741.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b04bc35ed75c3741.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/58b4e29e77178564.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.34s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b9bce51f1a586681.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9bce51f1a586681.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/b9bce51f1a586681.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fd91e591e70a374c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fd91e591e70a374c.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/fd91e591e70a374c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/195a94d05637b115.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/195a94d05637b115.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/195a94d05637b115.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b41af47295cc98fe.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b41af47295cc98fe.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/65f0ccdb97e52b76.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-0" onclick="document.getElementById('test-0').classList.add('expanded')">LIMAS-SUD-1908</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-1909</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-1910</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-1911</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-1912</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-1913</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-1914</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-1915</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-1916</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-1917</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-1918</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-1919</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-1920</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-1921</a> | <a href="#test-16" onclick="document.getElementById('test-16').classList.add('expanded')">LIMAS-SUD-1922</a> | <a href="#test-17" onclick="document.getElementById('test-17').classList.add('expanded')">LIMAS-SUD-1923</a> | <a href="#test-18" onclick="document.getElementById('test-18').classList.add('expanded')">LIMAS-SUD-1924</a> | <a href="#test-19" onclick="document.getElementById('test-19').classList.add('expanded')">LIMAS-SUD-1925</a> | <a href="#test-20" onclick="document.getElementById('test-20').classList.add('expanded')">LIMAS-SUD-1926</a> | <a href="#test-21" onclick="document.getElementById('test-21').classList.add('expanded')">LIMAS-SUD-1927</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — FLC-006</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1908</span>
+        <span class="test-title-col">Capacity button opens inline panel with Update Capacity heading</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.07s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1908/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/de7c5085887b67d0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de7c5085887b67d0.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/de7c5085887b67d0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1a441fd072ce89d4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1a441fd072ce89d4.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/1a441fd072ce89d4.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/893b401ca5e0f02d.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/893b401ca5e0f02d.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/cee7af4b9dea9dd9.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1908",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1908"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1909</span>
+        <span class="test-title-col">Capacity panel contains Number of Licenses and Max Checkout Time inputs</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.39s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1909/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/536c7bbe7a271f54.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/536c7bbe7a271f54.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/536c7bbe7a271f54.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/55507da84b7d4c81.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/55507da84b7d4c81.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/55507da84b7d4c81.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/316d6026a3ffbb34.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/316d6026a3ffbb34.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ff1a8d51d6ff213f.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1909",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1909"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1910</span>
+        <span class="test-title-col">Capacity has numeric-only input elements (spinbutton role)</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.95s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1910/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6129c78120e2cb01.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6129c78120e2cb01.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/6129c78120e2cb01.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f58c8ffe557958a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f58c8ffe557958a.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/9f58c8ffe557958a.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/94e233f366d9ba76.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/94e233f366d9ba76.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ada9ace81cfec28e.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1910",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1910"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1911</span>
+        <span class="test-title-col">Capacity panel has Cancel and Update Capacity controls</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.63s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1911/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c7e8cbdfd2b5751a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c7e8cbdfd2b5751a.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/c7e8cbdfd2b5751a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1006205a6ec48ba7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1006205a6ec48ba7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/1006205a6ec48ba7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/682ded73285f9c39.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/682ded73285f9c39.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/de8df6956aca1400.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1911",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1911"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1912</span>
+        <span class="test-title-col">Cancel closes Capacity panel and leaves selections unchanged</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.80s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1912/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6413b0bd70556599.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6413b0bd70556599.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/6413b0bd70556599.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5c2569ed18e11a6d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5c2569ed18e11a6d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/5c2569ed18e11a6d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5a707b8f7f0d7ed3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5a707b8f7f0d7ed3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ab9a88e6b64d68d8.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1912",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1912"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1913</span>
+        <span class="test-title-col">Reopening Capacity panel after Cancel shows form in default state</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.46s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1913/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Capacity Panel</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Capacity Panel</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/2ae7ee170a6f3fa7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ae7ee170a6f3fa7.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/2ae7ee170a6f3fa7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/160215709ea9668b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/160215709ea9668b.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/160215709ea9668b.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/57cfe68b89fb3426.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/57cfe68b89fb3426.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/18a38c8d2b4c9d52.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1913",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1913"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1914</span>
+        <span class="test-title-col">Delete button triggers immediate destructive action with no confirmation</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.76s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1914/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Delete Action</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Delete Action</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/faaa83a6fc235973.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/faaa83a6fc235973.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/faaa83a6fc235973.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3bfbb5993fcefdd6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3bfbb5993fcefdd6.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/3bfbb5993fcefdd6.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/074fa66573cbb9e9.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/074fa66573cbb9e9.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/6fc93f6c4a1d0bdf.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1914",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1914"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1915</span>
+        <span class="test-title-col">Delete does not produce a confirmation dialog</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.82s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1915/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Delete Action</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Delete Action</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/928188a7ed703d04.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/928188a7ed703d04.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/928188a7ed703d04.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f4b6c23d28cb40f4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f4b6c23d28cb40f4.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/f4b6c23d28cb40f4.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ec26e8f09855076f.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ec26e8f09855076f.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d5562c364035727a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1915",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1915"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1916</span>
+        <span class="test-title-col">Full restore to clean state after bulk-actions exploration</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.87s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1916/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-bulk-actions.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Safe Restoration</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-D</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-D</p><p><h2>Preconditions</h2></p><p>Safe Restoration</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/58761a383e8fd08d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/58761a383e8fd08d.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/58761a383e8fd08d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7915eb2f7646cf88.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7915eb2f7646cf88.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7915eb2f7646cf88.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9d5bb840b548a69b.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9d5bb840b548a69b.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/356f295e6f54629f.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1916",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1916"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1917</span>
+        <span class="test-title-col">Create Configuration button opens inline form with heading</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.01s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1917/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Form Shell and Layout</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Form Shell and Layout</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/bac208677eb63243.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bac208677eb63243.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/bac208677eb63243.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1d3fdc7e625f488e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1d3fdc7e625f488e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e1ff2117bead6473.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1917",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1917"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   async openCreateForm(): Promise&lt;void&gt; {
+&gt; 782 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+      |                                                                                                                              ^
+  783 |     await this.createFormHeading.waitFor();
+  784 |   }
+  785 |
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:26:17<br><code>create.spec.ts:26:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1918</span>
+        <span class="test-title-col">Create form has Cancel button in the header area</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.17s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1918/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Form Shell and Layout</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Form Shell and Layout</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/58bfb598c5b59b6b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/58bfb598c5b59b6b.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/58bfb598c5b59b6b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f476d2f6218e9edb.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f476d2f6218e9edb.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/cf88b58114b42f5a.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1918",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1918"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   async openCreateForm(): Promise&lt;void&gt; {
+&gt; 782 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+      |                                                                                                                              ^
+  783 |     await this.createFormHeading.waitFor();
+  784 |   }
+  785 |
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:42:17<br><code>create.spec.ts:42:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1919</span>
+        <span class="test-title-col">Create form is inline panel, not a modal dialog</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.14s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1919/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Form Shell and Layout</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Form Shell and Layout</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b29e1526dad8dea2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b29e1526dad8dea2.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/b29e1526dad8dea2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/da5292f090a0327a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/da5292f090a0327a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/a2dcb96a88a11406.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1919",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1919"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   async openCreateForm(): Promise&lt;void&gt; {
+&gt; 782 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+      |                                                                                                                              ^
+  783 |     await this.createFormHeading.waitFor();
+  784 |   }
+  785 |
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:56:17<br><code>create.spec.ts:56:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1920</span>
+        <span class="test-title-col">Create form shows labels for all top-level fields</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">31.73s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1920/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Form Shell and Layout</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Form Shell and Layout</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b201582e61af7377.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b201582e61af7377.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/b201582e61af7377.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9dad57c99f97fd95.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9dad57c99f97fd95.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ac4c6d7273618d71.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1920",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1920"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   async openCreateForm(): Promise&lt;void&gt; {
+&gt; 782 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+      |                                                                                                                              ^
+  783 |     await this.createFormHeading.waitFor();
+  784 |   }
+  785 |
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:72:17<br><code>create.spec.ts:72:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1921</span>
+        <span class="test-title-col">Create form has Reset and Save Configuration buttons at the bottom</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.60s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1921/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Form Shell and Layout</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Form Shell and Layout</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/58761a383e8fd08d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/58761a383e8fd08d.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/58761a383e8fd08d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/334763a45e7da00d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/334763a45e7da00d.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/334763a45e7da00d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/932f683b7cbbc7a2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/932f683b7cbbc7a2.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/932f683b7cbbc7a2.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4f432c1dadd753a4.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4f432c1dadd753a4.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/fd62506d45b33524.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1921",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1921"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:94:17<br><code>create.spec.ts:94:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-16">
+    <div class="test-header" onclick="toggleExpand('test-16')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1922</span>
+        <span class="test-title-col">User Group field is prepopulated with the currently selected group</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.81s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1922/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>User Group Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>User Group Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9bb9b149930115e6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9bb9b149930115e6.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/9bb9b149930115e6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/804b011416f0a7bd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/804b011416f0a7bd.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/804b011416f0a7bd.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5e55067f7f8c20d1.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5e55067f7f8c20d1.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/9a10bde1826bec56.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1922",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1922"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-17">
+    <div class="test-header" onclick="toggleExpand('test-17')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1923</span>
+        <span class="test-title-col">User Group combobox is editable and has options populated</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.38s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1923/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>User Group Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>User Group Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/7462897e91ca3c35.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7462897e91ca3c35.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/7462897e91ca3c35.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/29267b59a8b6254e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/29267b59a8b6254e.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/29267b59a8b6254e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/56fa45aac1525aeb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/56fa45aac1525aeb.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/56fa45aac1525aeb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/63512d9135be2bdc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/63512d9135be2bdc.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/63512d9135be2bdc.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/c1b947f0e9395734.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/c1b947f0e9395734.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e2617d5e025e2f23.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1923",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1923"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:132:17<br><code>create.spec.ts:132:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-18">
+    <div class="test-header" onclick="toggleExpand('test-18')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1924</span>
+        <span class="test-title-col">User Group field has a label</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.38s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1924/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>User Group Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>User Group Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/ff10febbf40aa1ac.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff10febbf40aa1ac.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/ff10febbf40aa1ac.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/334763a45e7da00d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/334763a45e7da00d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/334763a45e7da00d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/e72d53fe3d64a1a7.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/e72d53fe3d64a1a7.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/b0cd0379f442627b.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1924",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1924"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:150:17<br><code>create.spec.ts:150:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-19">
+    <div class="test-header" onclick="toggleExpand('test-19')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1925</span>
+        <span class="test-title-col">Product Profile combobox starts with placeholder &quot;Select a profileâ€¦&quot;</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.83s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1925/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Product Profile Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Product Profile Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/860eeabf7a924f2a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/860eeabf7a924f2a.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/860eeabf7a924f2a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c6732b70610adf42.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6732b70610adf42.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c6732b70610adf42.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/bda35d7e8c322a8a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/bda35d7e8c322a8a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/8224451f3f85ab6d.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1925",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1925"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:170:17<br><code>create.spec.ts:170:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-20">
+    <div class="test-header" onclick="toggleExpand('test-20')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1926</span>
+        <span class="test-title-col">Product Profile options list is populated</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">32.62s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1926/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Product Profile Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Product Profile Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a0c5207c8c6803b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a0c5207c8c6803b6.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/a0c5207c8c6803b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5d9afe322c311fe6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5d9afe322c311fe6.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/5d9afe322c311fe6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/25db43a83b5e0e85.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/25db43a83b5e0e85.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/25db43a83b5e0e85.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/34b5065eebc3ba85.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/34b5065eebc3ba85.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/34b5065eebc3ba85.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/c900c9e55811a987.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/c900c9e55811a987.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e7575eef97744e26.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1926",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1926"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:187:17<br><code>create.spec.ts:187:17</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-21">
+    <div class="test-header" onclick="toggleExpand('test-21')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-1927</span>
+        <span class="test-title-col">Product Profile field shows required indicator (*)</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">31.98s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> floating-license-configurations — FLC-006</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-1927/workbook-case.md</span>
+        <span><strong>Spec:</strong> floating-license-configurations/floating-license-configurations-create.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Product Profile Field</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Floating License Configurations FLC-E</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Read-only</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Floating License Configurations FLC-E</p><p><h2>Preconditions</h2></p><p>Product Profile Field</p><p><h2>Test Steps</h2></p><p>Floating License Configurations</p><p><h2>Expected Final Result</h2></p><p>Read-only<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/1ad6b9061514eccd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1ad6b9061514eccd.png" alt="0001 Action Click Floating License Configurations Page 298" loading="lazy">
+        </a>
+        <span>0001 Action Click Floating License Configurations Page 298</span>
+        <p><a href="Evidence/Screenshots/1ad6b9061514eccd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="0002 Action Click Floating License Configurations Page 781" loading="lazy">
+        </a>
+        <span>0002 Action Click Floating License Configurations Page 781</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/fb6b4d4bd2aae4c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7be9c495a8603e5a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7be9c495a8603e5a.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7be9c495a8603e5a.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f2c1ef7c4b8455fd.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f2c1ef7c4b8455fd.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/5e20d8f6584cc5d0.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 502<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/usergroups",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-1927",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-1927"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><pre><code>TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole(&#39;button&#39;, { name: /Create Configuration/i })
+
+
+   at pages\floating-license-configurations.page.ts:782
+
+  780 |
+  781 |   // ─── FLC-E: Create Configuration Form ───────────────────────
+&gt; 782 |
+      | ^
+  783 |   async openCreateForm(): Promise&lt;void&gt; {
+  784 |     await recordEvidence(&#39;action-click-floating-license-configurations.page-781&#39;, async () =&gt; this.createConfigurationButton.click());
+  785 |     await this.createFormHeading.waitFor();
+    at operation (tests\pages\floating-license-configurations.page.ts:782:126)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at FloatingLicenseConfigurationsPage.openCreateForm (tests\pages\floating-license-configurations.page.ts:782:25)
+    at tests\floating-license-configurations\floating-license-configurations-create.spec.ts:204:17<br><code>create.spec.ts:204:17</code></code></pre></div>
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
