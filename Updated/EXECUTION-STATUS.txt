@@ -1,0 +1,94 @@
+LIMAS TEST EXECUTION STATUS
+Snapshot: 26 Nov 2026, 00:54:05 IST
+STATUS: STOPPED BY USER. No further tests are running.
+
+1. OVERALL RESULT
+Planned test cases: 2599
+Passed: 1601
+Failed: 108
+Skipped: 183
+Not started / remaining: 707
+Actually executed (passed + failed): 1709
+Excluded at your request: 230 Server Licensing cases/navigation checks
+Each case is counted once using its latest result. Earlier failed attempts are retained.
+Skipped means the test was not performed; it is not a pass.
+
+2. BATCHES
+Planned batches: 134
+Batches with execution finished: 97
+Partly executed batches: 0
+Batches not started: 37
+Batches with remaining execution: 37
+Recorded run attempts, including reruns: 205
+Finished execution does not mean all tests passed or all report packaging finished.
+
+3. USER & LICENSE HUB
+18 of 28 batches finished test execution. 10 batches remain.
+288 passed; 41 failed; 31 skipped; 196 not started.
+Last batch: ULH-018. Tests finished; portable report packaging was interrupted by the stop request.
+Remaining Hub batches: ULH-019, ULH-020, ULH-021, ULH-022, ULH-023, ULH-024, ULH-025, ULH-026, ULH-027, ULH-028
+
+4. TAB-BY-TAB SUMMARY
+Sign-in / Authentication: 33 passed / 0 failed / 0 skipped / 0 remaining. Batches 2/2 executed.
+System User Dashboard: 857 passed / 37 failed / 22 skipped / 0 remaining. Batches 46/46 executed.
+Profiles: 185 passed / 6 failed / 8 skipped / 0 remaining. Batches 10/10 executed.
+User & License Hub: 288 passed / 41 failed / 31 skipped / 196 remaining. Batches 18/28 executed.
+Reports: 1 passed / 19 failed / 0 skipped / 306 remaining. Batches 1/17 executed.
+Features: 155 passed / 2 failed / 6 skipped / 0 remaining. Batches 9/9 executed.
+Floating License Configurations: 82 passed / 3 failed / 116 skipped / 0 remaining. Batches 11/11 executed.
+Standard License Configurations: 0 passed / 0 failed / 0 skipped / 20 remaining. Batches 0/1 executed.
+System Users: 0 passed / 0 failed / 0 skipped / 53 remaining. Batches 0/3 executed.
+User Groups: 0 passed / 0 failed / 0 skipped / 132 remaining. Batches 0/7 executed.
+
+5. FAILED CASES
+108 latest failures remain. They include documented UI findings, requirement mismatches, automation limitations, and cases still awaiting review.
+Documented UI / requirement finding: 54
+Review pending: 25
+Requirement review: 27
+Automation / verification limitation: 2
+See execution-status/03-failed-cases.csv for every ID, explanation and evidence reference.
+Examples: Dashboard account shows an identifier instead of the required email; Hub Edit buttons lack accessible names; Hub initial user selection does not meet auto-selection expectations; cancelled Add License retains an unsaved Hardware ID.
+Recent Edit License failures were not all reviewed before stopping. Do not treat every failure as a confirmed product defect.
+
+6. SKIPPED CASES
+Mutation gate not enabled: 32
+Data or UI prerequisite unavailable: 119
+Other documented skip: 5
+Required test fixture unavailable: 27
+See execution-status/04-skipped-cases.csv for the precise reason for every skipped case.
+Missing configurations/data, disabled mutation gates, and absent controlled failure fixtures are separate reasons.
+
+7. WHAT REMAINS
+User & License Hub: 196 cases in 10 batches.
+Reports: 306 cases in 16 batches.
+Standard License Configurations: 20 cases in 1 batches.
+System Users: 53 cases in 3 batches.
+User Groups: 132 cases in 7 batches.
+Additionally: review unresolved failures, rerun repaired cases only if execution is resumed, finish interrupted report packaging, and finish full evidence path/privacy validation.
+No automatic resume or further test execution has been scheduled.
+
+8. EVIDENCE AND PORTABILITY
+Existing screenshots, videos, traces and reports are retained. Some identical files share storage locally; every file path remains present.
+Dashboard review folder: test-runs/super-admin-live-20261125/delivery/dashboard-20261125T180433/
+Dashboard package validation: 51,806 local links checked. Relocated sample: 94 screenshots and 22 videos loaded successfully.
+The duplicate dashboard ZIP was removed to save space; the complete extracted review folder remains.
+Full cleanup/validation of every raw run and the final all-tab delivery is NOT complete. Background evidence processing was stopped as requested.
+ULH-018 report packaging is incomplete; available raw results and individual report ZIPs are retained.
+Do not describe the entire project as fully portable or GitHub-ready yet.
+These status documents contain relative references, without machine-specific absolute paths.
+
+9. FILE GUIDE
+Open EXECUTION-STATUS.html for the readable report with sections and search.
+EXECUTION-STATUS.txt is this plain-text summary.
+execution-status/01-tab-summary.csv — one row per tab
+execution-status/02-all-batches.csv — every planned batch
+execution-status/03-failed-cases.csv — all latest failures
+execution-status/04-skipped-cases.csv — every skip and reason
+execution-status/05-remaining-cases.csv — cases not executed
+execution-status/06-all-case-results.csv — all 2,599 latest outcomes
+execution-status/07-run-attempts.csv — baseline and rerun history, packaging status
+execution-status/08-remaining-batches.csv — only batches with remaining cases
+execution-status/status-data.json — machine-readable snapshot
+
+
+AUTHORIZED FOLLOW-UP: LIMAS-SUD-151 was executed once for Test User, LR-15803. Default group; ECU Validator; role 1.0.0; expiration and maintenance 3 December 2026. RESULT: FAILED. POST /limas/api/users returned 201; PUT /limas/api/users returned 500. The UI displayed an approval error. Independent fresh navigation confirmed the request remains pending; Test User exists with 0 licenses. No second submission was made. Earlier skipped evidence is retained. Dashboard totals: 857 passed, 37 failed, 22 skipped.
