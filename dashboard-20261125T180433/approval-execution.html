@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Test User approval result</title><style>body{font:16px system-ui;max-width:1100px;margin:32px auto;line-height:1.5}pre{white-space:pre-wrap}img{max-width:100%;border:1px solid #ccc}h1{color:#b42318}</style></head><body><a href="index.html">Dashboard results</a><h1>Test User approval — failed</h1><pre>LIMAS-SUD-151 — Test User approval
+Result: FAILED (executed; no longer skipped).
+Request: LR-15803; user: Test User.
+Group: Default; profile: ECU Validator; role: 1.0.0.
+Expiration and maintenance: 3 December 2026.
+Approve Request was clicked exactly once. POST /limas/api/users returned 201 and created the user; the following PUT /limas/api/users returned HTTP 500.
+The UI displayed: Failed to approve the request. Please try again.
+Independent fresh navigation confirmed that the request remains pending; User &amp; License Hub shows Test User in Default group with 0 licenses. No second approval was submitted.
+The first response attachment captured the preliminary user creation call. The failed PUT is present in the trace and summarized in approval-outcome.json. The response observer was narrowed afterward for future runs; the original failing result was preserved.
+The previous skipped attempt remains linked for history.
+Dashboard: 916 cases; 857 passed; 37 failed; 22 skipped.
+All tabs: 2,599 planned; 1,601 passed; 108 failed; 183 skipped; 707 remaining. Bulk execution remains stopped.
+Open approval-execution.html for evidence links.
+</pre><p><a href="r/083/index.html#test-0">Complete execution screenshots, video, and trace</a> · <a href="observations/approval-test-user/approval-outcome.json">API outcome summary</a></p><h2>approval failure</h2><a href="observations/approval-test-user/approval-failure.png"><img src="observations/approval-test-user/approval-failure.png"></a><h2>request still pending after fresh navigation</h2><a href="observations/approval-test-user/request-still-pending-after-fresh-navigation.png"><img src="observations/approval-test-user/request-still-pending-after-fresh-navigation.png"></a><h2>test user after failed approval</h2><a href="observations/approval-test-user/test-user-after-failed-approval.png"><img src="observations/approval-test-user/test-user-after-failed-approval.png"></a></body></html>

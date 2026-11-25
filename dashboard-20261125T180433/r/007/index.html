@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-004 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-004 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">20</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">20</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">3.85s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8440a5fe7e8f870c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8440a5fe7e8f870c.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/8440a5fe7e8f870c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f39f700ec1d2d549.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f39f700ec1d2d549.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/f39f700ec1d2d549.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/14b2f7a4860997c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/14b2f7a4860997c9.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/14b2f7a4860997c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/42b5b8c85c5641a8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/42b5b8c85c5641a8.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/42b5b8c85c5641a8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/308d93bb92aeeaa0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/308d93bb92aeeaa0.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/308d93bb92aeeaa0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b46a82b4b9c88439.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b46a82b4b9c88439.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/b46a82b4b9c88439.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/713638a7204ef296.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/713638a7204ef296.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/713638a7204ef296.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/89004ea467cb3adb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/89004ea467cb3adb.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/89004ea467cb3adb.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/131803cf5931fddf.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/131803cf5931fddf.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/b6d5fdd850dc6338.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.33s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/568967319246eb57.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/568967319246eb57.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/568967319246eb57.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/484506d0dcb0f231.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/484506d0dcb0f231.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/484506d0dcb0f231.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6e97782018309da9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6e97782018309da9.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/6e97782018309da9.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/c1e737572aa964e9.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/c1e737572aa964e9.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/26b82a7c0a5b1549.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-061</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-062</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-063</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-064</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-065</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-066</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-067</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-068</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-069</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-070</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-071</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-072</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-073</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-074</a> | <a href="#test-16" onclick="document.getElementById('test-16').classList.add('expanded')">LIMAS-SUD-075</a> | <a href="#test-17" onclick="document.getElementById('test-17').classList.add('expanded')">LIMAS-SUD-076</a> | <a href="#test-18" onclick="document.getElementById('test-18').classList.add('expanded')">LIMAS-SUD-077</a> | <a href="#test-19" onclick="document.getElementById('test-19').classList.add('expanded')">LIMAS-SUD-078</a> | <a href="#test-20" onclick="document.getElementById('test-20').classList.add('expanded')">LIMAS-SUD-079</a> | <a href="#test-21" onclick="document.getElementById('test-21').classList.add('expanded')">LIMAS-SUD-080</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — SUD-004</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-061</span>
+        <span class="test-title-col">should have the history switch enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.00s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-061-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-061-history-switch-enabled.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "History Switch" → "Switch Enabled"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The history switch is enabled and ready for interaction.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "History Switch" → "Switch Enabled"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: The Pending License Requests section is visible.<br>2. Action: Locate the history switch.<br>Expected Result: The switch is visible.<br>3. Action: Assert the switch is enabled.<br>Expected Result: <code>.toBeEnabled()</code> passes on the switch.</p><p><h2>Expected Final Result</h2></p><p>The history switch is enabled and ready for interaction.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/841007ca96d0c671.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/841007ca96d0c671.png" alt="0001 Assert ToBeEnabled LIMAS SUD 061 History Switch Enabled Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeEnabled LIMAS SUD 061 History Switch Enabled Spec 9</span>
+        <p><a href="Evidence/Screenshots/841007ca96d0c671.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c94bd9509405f02d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c94bd9509405f02d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/c94bd9509405f02d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ef4bbb220a791346.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ef4bbb220a791346.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/a7f47354f99db6f7.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-061",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-061"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-062</span>
+        <span class="test-title-col">should have the history switch initially unchecked</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.62s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-062-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-062-history-switch-unchecked.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "History Switch" → "Initially Unchecked"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The history switch is initially unchecked on page load.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "History Switch" → "Initially Unchecked"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: The Pending License Requests section is visible.<br>2. Action: Locate the history switch.<br>Expected Result: The switch is visible.<br>3. Action: Assert the switch has <code>aria-checked="false"</code>.<br>Expected Result: The switch is unchecked.</p><p><h2>Expected Final Result</h2></p><p>The history switch is initially unchecked on page load.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a116e577f56a27b7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a116e577f56a27b7.png" alt="0001 Assert ToHaveAttribute LIMAS SUD 062 History Switch Unchecked Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToHaveAttribute LIMAS SUD 062 History Switch Unchecked Spec 9</span>
+        <p><a href="Evidence/Screenshots/a116e577f56a27b7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/acff2ac1a5069f40.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/acff2ac1a5069f40.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/acff2ac1a5069f40.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/67632d8366826dba.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/67632d8366826dba.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3a9fd9520cb97bb3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-062",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-062"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-063</span>
+        <span class="test-title-col">should display the loaded·total pending count format</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.15s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-063-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-063-count-display-format.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Count Display" → "Loaded·Total Format Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The count display shows the loaded/total format, visible on the page.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Count Display" → "Loaded·Total Format Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: The Pending License Requests section is visible with data loaded.<br>2. Action: Locate the count display text.<br>Expected Result: Text matching the pattern <code>/\d+\s*loaded[·•]\d+\s*total\s+pending/</code> is visible on the page.</p><p><h2>Expected Final Result</h2></p><p>The count display shows the loaded/total format, visible on the page.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/cdd7b236df78bb9e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cdd7b236df78bb9e.png" alt="0001 Assert ToBeVisible LIMAS SUD 063 Count Display Format Spec 11" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 063 Count Display Format Spec 11</span>
+        <p><a href="Evidence/Screenshots/cdd7b236df78bb9e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/72e552fc55009372.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/72e552fc55009372.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/72e552fc55009372.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4d17f09211c9f6ed.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4d17f09211c9f6ed.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/995cfc3b935819dd.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-063",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-063"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-064</span>
+        <span class="test-title-col">should have loaded and total counts as numbers &gt;= 0</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.54s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-064-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-064-count-numeric.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Count Display" → "Counts are Non-Negative Numbers"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Both count values are valid non-negative integers with loaded count not exceeding the total.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Count Display" → "Counts are Non-Negative Numbers"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: The count display is visible.<br>2. Action: Extract the "loaded" number from the count display text.<br>Expected Result: The loaded value is a non-negative integer.<br>3. Action: Extract the "total pending" number from the count display text.<br>Expected Result: The total value is a non-negative integer.<br>4. Action: Compare loaded and total counts.<br>Expected Result: loaded ≤ total pending.</p><p><h2>Expected Final Result</h2></p><p>Both count values are valid non-negative integers with loaded count not exceeding the total.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/95b69c7a86c99874.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/95b69c7a86c99874.png" alt="0001 Assert ToBeVisible LIMAS SUD 064 Count Numeric Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 064 Count Numeric Spec 10</span>
+        <p><a href="Evidence/Screenshots/95b69c7a86c99874.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/615ca62fe35215a8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/615ca62fe35215a8.png" alt="0002 Assert ToBeTruthy LIMAS SUD 064 Count Numeric Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeTruthy LIMAS SUD 064 Count Numeric Spec 13</span>
+        <p><a href="Evidence/Screenshots/615ca62fe35215a8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbd0c2e93c03a18b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbd0c2e93c03a18b.png" alt="0003 Assert ToBeNull LIMAS SUD 064 Count Numeric Spec 17" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeNull LIMAS SUD 064 Count Numeric Spec 17</span>
+        <p><a href="Evidence/Screenshots/cbd0c2e93c03a18b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/463dea469fa9aba4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/463dea469fa9aba4.png" alt="0004 Assert ToBeGreaterThanOrEqual LIMAS SUD 064 Count Numeric Spec 22" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeGreaterThanOrEqual LIMAS SUD 064 Count Numeric Spec 22</span>
+        <p><a href="Evidence/Screenshots/463dea469fa9aba4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/71c92e176feb2a9b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/71c92e176feb2a9b.png" alt="0005 Assert ToBeGreaterThanOrEqual LIMAS SUD 064 Count Numeric Spec 23" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeGreaterThanOrEqual LIMAS SUD 064 Count Numeric Spec 23</span>
+        <p><a href="Evidence/Screenshots/71c92e176feb2a9b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/371aa71e8caa0de5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/371aa71e8caa0de5.png" alt="0006 Assert ToBeLessThanOrEqual LIMAS SUD 064 Count Numeric Spec 24" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeLessThanOrEqual LIMAS SUD 064 Count Numeric Spec 24</span>
+        <p><a href="Evidence/Screenshots/371aa71e8caa0de5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6589a7ab541f3be7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6589a7ab541f3be7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/6589a7ab541f3be7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/337796def2c0a2cf.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/337796def2c0a2cf.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/7a39ea8262c09ea5.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-064",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-064"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-065</span>
+        <span class="test-title-col">should display the license request table with at least one row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.34s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-065-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-065-table-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table" → "Request Rows Present"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The data table is visible and contains at least one pending license request row.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table" → "Request Rows Present"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: The Pending License Requests section is visible.<br>2. Action: Locate the table element by its role.<br>Expected Result: A table with role="table" is visible.<br>3. Action: Count the data rows in the table (excluding the header row).<br>Expected Result: At least 1 data row exists — <code>count() &gt; 1</code> (accounting for header row) or at least one row with Approve/Delete buttons.</p><p><h2>Expected Final Result</h2></p><p>The data table is visible and contains at least one pending license request row.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/0df79b3d681f3d3d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0df79b3d681f3d3d.png" alt="0001 Assert ToBeVisible LIMAS SUD 065 Table Visible Spec 15" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 065 Table Visible Spec 15</span>
+        <p><a href="Evidence/Screenshots/0df79b3d681f3d3d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3583874c3e652b1d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3583874c3e652b1d.png" alt="0002 Assert ToBeGreaterThan LIMAS SUD 065 Table Visible Spec 18" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeGreaterThan LIMAS SUD 065 Table Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/3583874c3e652b1d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1f18c72feaeba33d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1f18c72feaeba33d.png" alt="0003 Assert ToBeGreaterThan LIMAS SUD 065 Table Visible Spec 21" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan LIMAS SUD 065 Table Visible Spec 21</span>
+        <p><a href="Evidence/Screenshots/1f18c72feaeba33d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0761cc03616eb6a3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0761cc03616eb6a3.png" alt="0004 Assert ToBeVisible LIMAS SUD 065 Table Visible Spec 24" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 065 Table Visible Spec 24</span>
+        <p><a href="Evidence/Screenshots/0761cc03616eb6a3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/babb87cbd5e21c2c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/babb87cbd5e21c2c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/babb87cbd5e21c2c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ceec5cf6f79dde86.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ceec5cf6f79dde86.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/19fd314372e25cb2.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-065",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-065"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-066</span>
+        <span class="test-title-col">should display User column heading in the request table</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.31s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-066-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-066-user-column-heading.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "User Column Heading"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The "User" column heading is visible in the Pending License Requests table header.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "User Column Heading"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the Pending License Requests table is rendered.<br>Expected Result: At least one row or the table header is visible.<br>2. Action: Locate the column header with exact text "User" within the table.<br>Expected Result: The header cell or element with text "User" is visible and belongs to the table header row.</p><p><h2>Expected Final Result</h2></p><p>The "User" column heading is visible in the Pending License Requests table header.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/06a56fa74e7e9969.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/06a56fa74e7e9969.png" alt="0001 Assert ToBeVisible LIMAS SUD 066 User Column Heading Spec 16" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 066 User Column Heading Spec 16</span>
+        <p><a href="Evidence/Screenshots/06a56fa74e7e9969.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9bee34fefcfa03c3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9bee34fefcfa03c3.png" alt="0002 Assert ToHaveText LIMAS SUD 066 User Column Heading Spec 17" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveText LIMAS SUD 066 User Column Heading Spec 17</span>
+        <p><a href="Evidence/Screenshots/9bee34fefcfa03c3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7d5aafbf4440ed8c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7d5aafbf4440ed8c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7d5aafbf4440ed8c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/12e9c4057cd96eb3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/12e9c4057cd96eb3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e16c34893a3452ed.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-066",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-066"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-067</span>
+        <span class="test-title-col">should display Feature column heading in the request table</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.29s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-067-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-067-feature-column-heading.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Feature Column Heading"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The "Feature" column heading is visible in the Pending License Requests table header.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Feature Column Heading"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the Pending License Requests table is rendered.<br>Expected Result: At least one row or the table header is visible.<br>2. Action: Locate the column header with exact text "Feature" within the table.<br>Expected Result: The header cell or element with text "Feature" is visible and belongs to the table header row.</p><p><h2>Expected Final Result</h2></p><p>The "Feature" column heading is visible in the Pending License Requests table header.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/183c1403ba06fa9c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/183c1403ba06fa9c.png" alt="0001 Assert ToBeVisible LIMAS SUD 067 Feature Column Heading Spec 14" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 067 Feature Column Heading Spec 14</span>
+        <p><a href="Evidence/Screenshots/183c1403ba06fa9c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/134e1a620b364429.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/134e1a620b364429.png" alt="0002 Assert ToHaveText LIMAS SUD 067 Feature Column Heading Spec 15" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveText LIMAS SUD 067 Feature Column Heading Spec 15</span>
+        <p><a href="Evidence/Screenshots/134e1a620b364429.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5ef8c00eb3de8a6b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5ef8c00eb3de8a6b.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/5ef8c00eb3de8a6b.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/61b96271077159b6.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/61b96271077159b6.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/23ea7b7b8f74adf3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-067",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-067"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-068</span>
+        <span class="test-title-col">should display Hardware / Created column heading in the request table</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.30s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-068-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-068-hardware-created-column-heading.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Hardware / Created Column Heading"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The "Hardware / Created" column heading is visible in the Pending License Requests table header.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Hardware / Created Column Heading"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the Pending License Requests table is rendered.<br>Expected Result: At least one row or the table header is visible.<br>2. Action: Locate the column header with text "Hardware / Created" within the table.<br>Expected Result: The header cell or element containing "Hardware / Created" is visible and belongs to the table header row.</p><p><h2>Expected Final Result</h2></p><p>The "Hardware / Created" column heading is visible in the Pending License Requests table header.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/073f099e5e26c1b4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/073f099e5e26c1b4.png" alt="0001 Assert ToBeVisible LIMAS SUD 068 Hardware Created Column Heading Spec 15" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 068 Hardware Created Column Heading Spec 15</span>
+        <p><a href="Evidence/Screenshots/073f099e5e26c1b4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb403b53c9afb7c9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb403b53c9afb7c9.png" alt="0002 Assert ToHaveText LIMAS SUD 068 Hardware Created Column Heading Spec 16" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveText LIMAS SUD 068 Hardware Created Column Heading Spec 16</span>
+        <p><a href="Evidence/Screenshots/fb403b53c9afb7c9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ea28f4a614cbf40.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ea28f4a614cbf40.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/9ea28f4a614cbf40.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6aa01047e7f054cd.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6aa01047e7f054cd.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/a9d1799555bbbfe1.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-068",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-068"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-069</span>
+        <span class="test-title-col">should display Actions column heading in the request table</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.27s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-069-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-069-actions-column-heading.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Actions Column Heading"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The "Actions" column heading is visible — or the Actions column is confirmed present in the Pending License Requests table.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Columns" → "Actions Column Heading"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table has rendered.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the Pending License Requests table is rendered.<br>Expected Result: At least one row or the table header is visible.<br>2. Action: Locate the column header with exact text "Actions" within the table.<br>Expected Result: The header cell or element with text "Actions" is visible and belongs to the table header row. If the column has no text header, verify the column itself is present in the table.</p><p><h2>Expected Final Result</h2></p><p>The "Actions" column heading is visible — or the Actions column is confirmed present in the Pending License Requests table.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/53e1768af5a9858d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53e1768af5a9858d.png" alt="0001 Assert ToBeVisible LIMAS SUD 069 Actions Column Heading Spec 14" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 069 Actions Column Heading Spec 14</span>
+        <p><a href="Evidence/Screenshots/53e1768af5a9858d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4f1fe7710c950774.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4f1fe7710c950774.png" alt="0002 Assert ToHaveText LIMAS SUD 069 Actions Column Heading Spec 15" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveText LIMAS SUD 069 Actions Column Heading Spec 15</span>
+        <p><a href="Evidence/Screenshots/4f1fe7710c950774.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/841a3dac8be444d5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/841a3dac8be444d5.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/841a3dac8be444d5.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/15afa5c5e79b3372.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/15afa5c5e79b3372.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/278e680da9a90d81.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-069",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-069"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-070</span>
+        <span class="test-title-col">should display at least one user name in a row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.64s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-070-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-070-user-name-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "User Name Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays a non-empty user name paragraph.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "User Name Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists in the pending requests section.<br>2. Action: In the first data row, locate the User column cell and verify it contains a paragraph with a non-empty user name.<br>Expected Result: The user name paragraph is visible and contains text (not empty, not whitespace-only).</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays a non-empty user name paragraph.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/46e3d7645dca6e00.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/46e3d7645dca6e00.png" alt="0001 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 15" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 15</span>
+        <p><a href="Evidence/Screenshots/46e3d7645dca6e00.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9435747fc8c04807.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9435747fc8c04807.png" alt="0002 Assert ToBeGreaterThan LIMAS SUD 070 User Name Visible Spec 18" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeGreaterThan LIMAS SUD 070 User Name Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/9435747fc8c04807.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c88144aa612e550d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c88144aa612e550d.png" alt="0003 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 21" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 21</span>
+        <p><a href="Evidence/Screenshots/c88144aa612e550d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/62347558612be31e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/62347558612be31e.png" alt="0004 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 24" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 24</span>
+        <p><a href="Evidence/Screenshots/62347558612be31e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/601eed222e86f15c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/601eed222e86f15c.png" alt="0005 Assert ToBeGreaterThan LIMAS SUD 070 User Name Visible Spec 26" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeGreaterThan LIMAS SUD 070 User Name Visible Spec 26</span>
+        <p><a href="Evidence/Screenshots/601eed222e86f15c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b14d2681bf82a22c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b14d2681bf82a22c.png" alt="0006 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 30" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeVisible LIMAS SUD 070 User Name Visible Spec 30</span>
+        <p><a href="Evidence/Screenshots/b14d2681bf82a22c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2fe68f1db9c05326.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2fe68f1db9c05326.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2fe68f1db9c05326.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b4fa355f2d0ca16b.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b4fa355f2d0ca16b.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/e6b2709a375cd3a9.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-070",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-070"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-071</span>
+        <span class="test-title-col">should display at least one email with @ in a row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.59s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-071-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-071-user-email-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "User Email Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays an email paragraph containing <code>@</code>.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "User Email Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists.<br>2. Action: In the first data row, locate the User column cell and verify it contains a paragraph whose text includes <code>@</code>.<br>Expected Result: The email paragraph is visible and its text content contains the <code>@</code> character.</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays an email paragraph containing <code>@</code>.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/94d866e2b1543c0d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/94d866e2b1543c0d.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 071 User Email Visible Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 071 User Email Visible Spec 10</span>
+        <p><a href="Evidence/Screenshots/94d866e2b1543c0d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ffb765327ae1608b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ffb765327ae1608b.png" alt="0002 Assert ToBeVisible LIMAS SUD 071 User Email Visible Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 071 User Email Visible Spec 13</span>
+        <p><a href="Evidence/Screenshots/ffb765327ae1608b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aab1e8aea0dd7b8f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aab1e8aea0dd7b8f.png" alt="0003 Assert ToBeVisible LIMAS SUD 071 User Email Visible Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 071 User Email Visible Spec 16</span>
+        <p><a href="Evidence/Screenshots/aab1e8aea0dd7b8f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1cb11066d2043c52.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1cb11066d2043c52.png" alt="0004 Assert ToBeGreaterThan LIMAS SUD 071 User Email Visible Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeGreaterThan LIMAS SUD 071 User Email Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/1cb11066d2043c52.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/816e88ddfcd0f995.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/816e88ddfcd0f995.png" alt="0005 Assert ToContain LIMAS SUD 071 User Email Visible Spec 19" loading="lazy">
+        </a>
+        <span>0005 Assert ToContain LIMAS SUD 071 User Email Visible Spec 19</span>
+        <p><a href="Evidence/Screenshots/816e88ddfcd0f995.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b14d2681bf82a22c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b14d2681bf82a22c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b14d2681bf82a22c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/effa4580da70074c.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/effa4580da70074c.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/fc2345624d605f96.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-071",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-071"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-072</span>
+        <span class="test-title-col">should display at least one feature name in a row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.39s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-072-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-072-feature-name-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Feature Name Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays a non-empty feature name paragraph.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Feature Name Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists.<br>2. Action: In the first data row, locate the Feature column cell and verify it contains a paragraph with a non-empty feature name.<br>Expected Result: The feature name paragraph is visible and contains text (not empty).</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays a non-empty feature name paragraph.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9afd3ec760c55768.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9afd3ec760c55768.png" alt="0001 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 9</span>
+        <p><a href="Evidence/Screenshots/9afd3ec760c55768.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5dd088d6113d3907.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5dd088d6113d3907.png" alt="0002 Assert ToBeGreaterThan LIMAS SUD 072 Feature Name Visible Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeGreaterThan LIMAS SUD 072 Feature Name Visible Spec 12</span>
+        <p><a href="Evidence/Screenshots/5dd088d6113d3907.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bee695ee5c870cf8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bee695ee5c870cf8.png" alt="0003 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 15" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 15</span>
+        <p><a href="Evidence/Screenshots/bee695ee5c870cf8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cdcb20055d8d27e4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cdcb20055d8d27e4.png" alt="0004 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 072 Feature Name Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/cdcb20055d8d27e4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4b2c1b7ef01c1dae.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4b2c1b7ef01c1dae.png" alt="0005 Assert ToBeGreaterThan LIMAS SUD 072 Feature Name Visible Spec 20" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeGreaterThan LIMAS SUD 072 Feature Name Visible Spec 20</span>
+        <p><a href="Evidence/Screenshots/4b2c1b7ef01c1dae.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fc545afcc80efca7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fc545afcc80efca7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/fc545afcc80efca7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/632a53452452e2e3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/632a53452452e2e3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/54571014561004f3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-072",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-072"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-073</span>
+        <span class="test-title-col">should display at least one version in Version N.N.N format</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-073-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-073-feature-version-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Feature Version Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays a version paragraph matching the <code>Version N.N.N</code> pattern.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Feature Version Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists.<br>2. Action: In the first data row, locate the Feature column cell and verify it contains a paragraph whose text matches a <code>Version</code> prefix followed by a dotted-number pattern.<br>Expected Result: The version paragraph is visible and its text matches <code>/Version \d+\.\d+\.\d+/</code>.</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays a version paragraph matching the <code>Version N.N.N</code> pattern.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/2f69f75e8d0b911f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2f69f75e8d0b911f.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 073 Feature Version Visible Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 073 Feature Version Visible Spec 10</span>
+        <p><a href="Evidence/Screenshots/2f69f75e8d0b911f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8be67edaa67b034b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8be67edaa67b034b.png" alt="0002 Assert ToBeVisible LIMAS SUD 073 Feature Version Visible Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 073 Feature Version Visible Spec 13</span>
+        <p><a href="Evidence/Screenshots/8be67edaa67b034b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bad72b22a065d988.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bad72b22a065d988.png" alt="0003 Assert ToBeVisible LIMAS SUD 073 Feature Version Visible Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 073 Feature Version Visible Spec 16</span>
+        <p><a href="Evidence/Screenshots/bad72b22a065d988.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d3cfa16444aafa15.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d3cfa16444aafa15.png" alt="0004 Assert ToMatch LIMAS SUD 073 Feature Version Visible Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToMatch LIMAS SUD 073 Feature Version Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/d3cfa16444aafa15.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ea3c163b58784046.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ea3c163b58784046.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/ea3c163b58784046.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/09e9004b9a69fde9.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/09e9004b9a69fde9.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/c4d0db94094916d7.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-073",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-073"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-074</span>
+        <span class="test-title-col">should display at least one quoted numeric hardware ID in a row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.52s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-074-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-074-hardware-id-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Hardware ID Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays a hardware ID paragraph containing a quoted numeric value.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Hardware ID Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists.<br>2. Action: In the first data row, locate the Hardware / Created column cell and verify it contains a paragraph whose text is a quoted numeric string (digits inside double quotes).<br>Expected Result: The hardware ID paragraph is visible and matches the pattern of a quoted number.</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays a hardware ID paragraph containing a quoted numeric value.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/f8e779993560165f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f8e779993560165f.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 074 Hardware Id Visible Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 074 Hardware Id Visible Spec 10</span>
+        <p><a href="Evidence/Screenshots/f8e779993560165f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fb84f0c52742a06b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fb84f0c52742a06b.png" alt="0002 Assert ToBeVisible LIMAS SUD 074 Hardware Id Visible Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 074 Hardware Id Visible Spec 13</span>
+        <p><a href="Evidence/Screenshots/fb84f0c52742a06b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/768330969fbf3713.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/768330969fbf3713.png" alt="0003 Assert ToBeVisible LIMAS SUD 074 Hardware Id Visible Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 074 Hardware Id Visible Spec 16</span>
+        <p><a href="Evidence/Screenshots/768330969fbf3713.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/de12bdf0fcc42fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/de12bdf0fcc42fea.png" alt="0004 Assert ToBeGreaterThan LIMAS SUD 074 Hardware Id Visible Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeGreaterThan LIMAS SUD 074 Hardware Id Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/de12bdf0fcc42fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5681a03792219818.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5681a03792219818.png" alt="0005 Assert ToMatch LIMAS SUD 074 Hardware Id Visible Spec 19" loading="lazy">
+        </a>
+        <span>0005 Assert ToMatch LIMAS SUD 074 Hardware Id Visible Spec 19</span>
+        <p><a href="Evidence/Screenshots/5681a03792219818.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a100a421537cf5f9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a100a421537cf5f9.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a100a421537cf5f9.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9dae6069ab191e70.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9dae6069ab191e70.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/af9ebb29cd0fb9da.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-074",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-074"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-16">
+    <div class="test-header" onclick="toggleExpand('test-16')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-075</span>
+        <span class="test-title-col">should display at least one date in DD Mon YYYY format</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.46s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-075-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-075-created-date-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Created Date Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>At least one row in the pending requests table displays a date paragraph matching the <code>DD Mon YYYY</code> pattern.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Created Date Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one table row exists.<br>2. Action: In the first data row, locate the Hardware / Created column cell and verify it contains a paragraph whose text matches the <code>DD Mon YYYY</code> date format.<br>Expected Result: The date paragraph is visible and matches the pattern of two digits, a three-letter month abbreviation, and a four-digit year.</p><p><h2>Expected Final Result</h2></p><p>At least one row in the pending requests table displays a date paragraph matching the <code>DD Mon YYYY</code> pattern.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/809046d674151971.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/809046d674151971.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 075 Created Date Visible Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 075 Created Date Visible Spec 10</span>
+        <p><a href="Evidence/Screenshots/809046d674151971.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/595af3e64482c0cb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/595af3e64482c0cb.png" alt="0002 Assert ToBeVisible LIMAS SUD 075 Created Date Visible Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 075 Created Date Visible Spec 13</span>
+        <p><a href="Evidence/Screenshots/595af3e64482c0cb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8fee86ee090c8c2e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8fee86ee090c8c2e.png" alt="0003 Assert ToBeVisible LIMAS SUD 075 Created Date Visible Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 075 Created Date Visible Spec 16</span>
+        <p><a href="Evidence/Screenshots/8fee86ee090c8c2e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7fb72cb803056041.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7fb72cb803056041.png" alt="0004 Assert ToMatch LIMAS SUD 075 Created Date Visible Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToMatch LIMAS SUD 075 Created Date Visible Spec 18</span>
+        <p><a href="Evidence/Screenshots/7fb72cb803056041.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/733f297de3293269.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/733f297de3293269.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/733f297de3293269.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f7ed56097003dc63.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f7ed56097003dc63.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/fc13a9342d47b36c.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-075",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-075"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-17">
+    <div class="test-header" onclick="toggleExpand('test-17')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-076</span>
+        <span class="test-title-col">should display an Approve button in each visible row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.60s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-076-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-076-approve-button-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Approve Button Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every visible data row in the pending requests table contains a visible "Approve" button.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Approve Button Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one data row exists.<br>2. Action: For each visible data row, locate the "Approve" button by its accessible name or role.<br>Expected Result: Every visible data row contains a visible "Approve" button.</p><p><h2>Expected Final Result</h2></p><p>Every visible data row in the pending requests table contains a visible "Approve" button.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9abd80660d42313c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9abd80660d42313c.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 076 Approve Button Visible Spec 11" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 076 Approve Button Visible Spec 11</span>
+        <p><a href="Evidence/Screenshots/9abd80660d42313c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/32f9a3f8b807a2dc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/32f9a3f8b807a2dc.png" alt="0002 Assert ToBeVisible LIMAS SUD 076 Approve Button Visible Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 076 Approve Button Visible Spec 13</span>
+        <p><a href="Evidence/Screenshots/32f9a3f8b807a2dc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f716d9aabfedd67b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f716d9aabfedd67b.png" alt="0003 Dashboard Loaded" loading="lazy">
+        </a>
+        <span>0003 Dashboard Loaded</span>
+        <p><a href="Evidence/Screenshots/f716d9aabfedd67b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/463dea469fa9aba4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/463dea469fa9aba4.png" alt="0004 Assert ToBeGreaterThan LIMAS SUD 076 Approve Button Visible Spec 19" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeGreaterThan LIMAS SUD 076 Approve Button Visible Spec 19</span>
+        <p><a href="Evidence/Screenshots/463dea469fa9aba4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8e13600836e35bf6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8e13600836e35bf6.png" alt="0005 Assert ToBeVisible LIMAS SUD 076 Approve Button Visible Spec 23" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeVisible LIMAS SUD 076 Approve Button Visible Spec 23</span>
+        <p><a href="Evidence/Screenshots/8e13600836e35bf6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8c160c6494a7aebc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8c160c6494a7aebc.png" alt="0006 All Rows Verified" loading="lazy">
+        </a>
+        <span>0006 All Rows Verified</span>
+        <p><a href="Evidence/Screenshots/8c160c6494a7aebc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cbc8a7b4550ded88.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cbc8a7b4550ded88.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/cbc8a7b4550ded88.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/a7e5628433aa0d3c.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/a7e5628433aa0d3c.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ec719f6dc5ba0fb3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-076",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-076"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-18">
+    <div class="test-header" onclick="toggleExpand('test-18')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-077</span>
+        <span class="test-title-col">should ensure Approve button is enabled in each visible row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.47s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-077-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-077-approve-button-enabled.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Approve Button Enabled"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every visible Approve button in the pending requests table is enabled.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Approve Button Enabled"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one data row exists with an Approve button.<br>2. Action: For each visible data row, verify the "Approve" button is enabled.<br>Expected Result: Every visible Approve button has no <code>disabled</code> attribute and is enabled for interaction.</p><p><h2>Expected Final Result</h2></p><p>Every visible Approve button in the pending requests table is enabled.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9b6f1614733b3712.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9b6f1614733b3712.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 077 Approve Button Enabled Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 077 Approve Button Enabled Spec 10</span>
+        <p><a href="Evidence/Screenshots/9b6f1614733b3712.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/815252cbca3b934d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/815252cbca3b934d.png" alt="0002 Assert ToBeVisible LIMAS SUD 077 Approve Button Enabled Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 077 Approve Button Enabled Spec 12</span>
+        <p><a href="Evidence/Screenshots/815252cbca3b934d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6bac3a1b7507b490.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6bac3a1b7507b490.png" alt="0003 Assert ToBeGreaterThan LIMAS SUD 077 Approve Button Enabled Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan LIMAS SUD 077 Approve Button Enabled Spec 16</span>
+        <p><a href="Evidence/Screenshots/6bac3a1b7507b490.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8d41267c887522df.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8d41267c887522df.png" alt="0004 Assert ToBeEnabled LIMAS SUD 077 Approve Button Enabled Spec 20" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeEnabled LIMAS SUD 077 Approve Button Enabled Spec 20</span>
+        <p><a href="Evidence/Screenshots/8d41267c887522df.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/23b91e897b80527e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/23b91e897b80527e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/23b91e897b80527e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b429a38232bfd3b3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b429a38232bfd3b3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/73de63975a0a7336.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-077",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-077"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-19">
+    <div class="test-header" onclick="toggleExpand('test-19')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-078</span>
+        <span class="test-title-col">should display a Delete button with accessible name in each visible row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.47s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-078-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-078-delete-button-visible.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Delete Button Visible"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every visible data row in the pending requests table contains a visible Delete button with an accessible name.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Delete Button Visible"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one data row exists.<br>2. Action: For each visible data row, locate a button whose accessible name starts with "Delete".<br>Expected Result: Every visible data row contains a visible Delete button with an accessible name.</p><p><h2>Expected Final Result</h2></p><p>Every visible data row in the pending requests table contains a visible Delete button with an accessible name.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a2d8e9bf7a32908a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a2d8e9bf7a32908a.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 078 Delete Button Visible Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 078 Delete Button Visible Spec 10</span>
+        <p><a href="Evidence/Screenshots/a2d8e9bf7a32908a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c782da16f7942097.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c782da16f7942097.png" alt="0002 Assert ToBeVisible LIMAS SUD 078 Delete Button Visible Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 078 Delete Button Visible Spec 12</span>
+        <p><a href="Evidence/Screenshots/c782da16f7942097.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a9aff21680214c38.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a9aff21680214c38.png" alt="0003 Assert ToBeGreaterThan LIMAS SUD 078 Delete Button Visible Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan LIMAS SUD 078 Delete Button Visible Spec 16</span>
+        <p><a href="Evidence/Screenshots/a9aff21680214c38.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a4fac548f676eeed.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a4fac548f676eeed.png" alt="0004 Assert ToBeVisible LIMAS SUD 078 Delete Button Visible Spec 20" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 078 Delete Button Visible Spec 20</span>
+        <p><a href="Evidence/Screenshots/a4fac548f676eeed.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/334e3c228a31a4bc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/334e3c228a31a4bc.png" alt="0005 Assert ToHaveAccessibleName LIMAS SUD 078 Delete Button Visible Spec 21" loading="lazy">
+        </a>
+        <span>0005 Assert ToHaveAccessibleName LIMAS SUD 078 Delete Button Visible Spec 21</span>
+        <p><a href="Evidence/Screenshots/334e3c228a31a4bc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bef67ff1ab45e7d9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bef67ff1ab45e7d9.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/bef67ff1ab45e7d9.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/cdf83f1856c4ea61.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/cdf83f1856c4ea61.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/f7bda992c8e0c874.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-078",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-078"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-20">
+    <div class="test-header" onclick="toggleExpand('test-20')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-079</span>
+        <span class="test-title-col">should ensure Delete button is enabled in each visible row</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.41s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-079-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-079-delete-button-enabled.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Delete Button Enabled"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every visible Delete button in the pending requests table is enabled.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Actions Column" → "Delete Button Enabled"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with at least one row.<br>Expected Result: At least one data row exists with a Delete button.<br>2. Action: For each visible data row, verify the "Delete" button is enabled.<br>Expected Result: Every visible Delete button has no <code>disabled</code> attribute and is enabled for interaction.</p><p><h2>Expected Final Result</h2></p><p>Every visible Delete button in the pending requests table is enabled.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a9efdd33c4f387e1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a9efdd33c4f387e1.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 079 Delete Button Enabled Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 079 Delete Button Enabled Spec 10</span>
+        <p><a href="Evidence/Screenshots/a9efdd33c4f387e1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/19d8eb893b65311b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/19d8eb893b65311b.png" alt="0002 Assert ToBeVisible LIMAS SUD 079 Delete Button Enabled Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 079 Delete Button Enabled Spec 12</span>
+        <p><a href="Evidence/Screenshots/19d8eb893b65311b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/aadbfefc6419b71f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/aadbfefc6419b71f.png" alt="0003 Assert ToBeGreaterThan LIMAS SUD 079 Delete Button Enabled Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan LIMAS SUD 079 Delete Button Enabled Spec 16</span>
+        <p><a href="Evidence/Screenshots/aadbfefc6419b71f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cfc8015d1c7b2287.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cfc8015d1c7b2287.png" alt="0004 Assert ToBeEnabled LIMAS SUD 079 Delete Button Enabled Spec 20" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeEnabled LIMAS SUD 079 Delete Button Enabled Spec 20</span>
+        <p><a href="Evidence/Screenshots/cfc8015d1c7b2287.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/53692f1ea412c435.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53692f1ea412c435.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/53692f1ea412c435.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5fcce44fce62e61d.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5fcce44fce62e61d.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3b03c679121de709.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-079",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-079"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-21">
+    <div class="test-header" onclick="toggleExpand('test-21')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-080</span>
+        <span class="test-title-col">should format every date as DD Mon YYYY</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.31s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-004</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-080-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-080-date-format-consistency.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Date Format Consistency"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Every created date in the pending requests table consistently matches the <code>DD Mon YYYY</code> format.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Pending License Requests" → "Table Row Data" → "Date Format Consistency"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The "Pending License Requests" tab is active and the table contains at least one row.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and ensure the request table has rendered with data rows.<br>Expected Result: At least one data row exists.<br>2. Action: For each visible data row, locate the date paragraph in the Hardware / Created column and verify its text matches the <code>DD Mon YYYY</code> format.<br>Expected Result: Every date paragraph matches the pattern <code>\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}</code>.</p><p><h2>Expected Final Result</h2></p><p>Every created date in the pending requests table consistently matches the <code>DD Mon YYYY</code> format.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/57610ce3b34158d8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/57610ce3b34158d8.png" alt="0001 Assert ToBeGreaterThan LIMAS SUD 080 Date Format Consistency Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeGreaterThan LIMAS SUD 080 Date Format Consistency Spec 10</span>
+        <p><a href="Evidence/Screenshots/57610ce3b34158d8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/823b1433c5e6efcf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/823b1433c5e6efcf.png" alt="0002 Assert ToBeVisible LIMAS SUD 080 Date Format Consistency Spec 12" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 080 Date Format Consistency Spec 12</span>
+        <p><a href="Evidence/Screenshots/823b1433c5e6efcf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3bcdba3d0fdd461c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3bcdba3d0fdd461c.png" alt="0003 Assert ToBeGreaterThan LIMAS SUD 080 Date Format Consistency Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan LIMAS SUD 080 Date Format Consistency Spec 16</span>
+        <p><a href="Evidence/Screenshots/3bcdba3d0fdd461c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/174de205af05ffea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/174de205af05ffea.png" alt="0004 Assert ToMatch LIMAS SUD 080 Date Format Consistency Spec 23" loading="lazy">
+        </a>
+        <span>0004 Assert ToMatch LIMAS SUD 080 Date Format Consistency Spec 23</span>
+        <p><a href="Evidence/Screenshots/174de205af05ffea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/00a0e5d44fc20be0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/00a0e5d44fc20be0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/00a0e5d44fc20be0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4adaec8323f1ae29.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4adaec8323f1ae29.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/8b824f6730f33788.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-080",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-080"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>

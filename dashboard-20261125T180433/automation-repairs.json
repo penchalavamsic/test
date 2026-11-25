@@ -1,0 +1,173 @@
+{
+  "repairs": [
+    {
+      "ids": [
+        "LIMAS-SUD-441",
+        "LIMAS-SUD-442",
+        "LIMAS-SUD-443",
+        "LIMAS-SUD-444",
+        "LIMAS-SUD-445",
+        "LIMAS-SUD-446",
+        "LIMAS-SUD-447",
+        "LIMAS-SUD-448",
+        "LIMAS-SUD-449",
+        "LIMAS-SUD-450",
+        "LIMAS-SUD-451",
+        "LIMAS-SUD-452",
+        "LIMAS-SUD-453",
+        "LIMAS-SUD-454",
+        "LIMAS-SUD-455",
+        "LIMAS-SUD-456",
+        "LIMAS-SUD-457",
+        "LIMAS-SUD-458",
+        "LIMAS-SUD-459",
+        "LIMAS-SUD-460",
+        "LIMAS-SUD-461",
+        "LIMAS-SUD-462",
+        "LIMAS-SUD-463",
+        "LIMAS-SUD-464",
+        "LIMAS-SUD-465",
+        "LIMAS-SUD-466"
+      ],
+      "change": "Resolve the containing license card before matching its email or hardware text. Inspect the first matching card for sample field assertions; email is not assumed unique.",
+      "reason": "Live UI had 97 Extend buttons; zero buttons contain email text, while 56 cards matched the first sampled email.",
+      "assertions": "Visibility, field content, semantics and keyboard expectations preserved.",
+      "verification": "All 26 record-field cases passed across the card-locator rerun and separate keyboard-focus rerun.",
+      "evidence": "observations/dashboard-expiring-card-lookup.json"
+    },
+    {
+      "area": "Dashboard extension runtime data",
+      "change": "Generate current, future and past dates from the actual execution date using the existing day-offset constants.",
+      "reason": "The helper called 2026-11-06 current, while the independently observed browser date is 2026-11-25. There is no frozen clock in the test configuration.",
+      "assertions": "Date acceptance and validation expectations remain unchanged.",
+      "evidence": "observations/dashboard-extension-dialog.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-463"
+      ],
+      "change": "Reach the Extend button by keyboard before checking its visible focus outline.",
+      "reason": "Live UI shows no focus-visible outline after programmatic focus in mouse modality; Shift+Tab/Tab produces a visible 2px outline and ring.",
+      "assertions": "Existing outline-or-shadow assertion retained; explicit keyboard-focus assertion added.",
+      "evidence": "observations/dashboard-extend-focus-indicator.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-467",
+        "LIMAS-SUD-468",
+        "LIMAS-SUD-469",
+        "LIMAS-SUD-470",
+        "LIMAS-SUD-471",
+        "LIMAS-SUD-472",
+        "LIMAS-SUD-473",
+        "LIMAS-SUD-474",
+        "LIMAS-SUD-475",
+        "LIMAS-SUD-476",
+        "LIMAS-SUD-477",
+        "LIMAS-SUD-478",
+        "LIMAS-SUD-479",
+        "LIMAS-SUD-480"
+      ],
+      "change": "Only navigate Back during cleanup when the case actually left the Dashboard. Use keyboard navigation for the User Licenses focus-indicator check.",
+      "reason": "Non-navigation cases called Back from their initial Dashboard entry, leaving about:blank and timing out during cleanup. Independent keyboard check confirmed the focus ring.",
+      "assertions": "Control visibility, semantics and navigation expectations retained.",
+      "evidence": "observations/dashboard-user-licenses-cleanup.json",
+      "verification": "All 14 User Licenses cases passed on rerun."
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-483",
+        "LIMAS-SUD-484",
+        "LIMAS-SUD-485",
+        "LIMAS-SUD-493",
+        "LIMAS-SUD-495",
+        "LIMAS-SUD-496",
+        "LIMAS-SUD-498",
+        "LIMAS-SUD-499"
+      ],
+      "change": "Use exact date labels to distinguish inputs from calendar buttons. Allow locating the background Extend button for the three explicit modal-background checks.",
+      "reason": "Date substring locators matched two controls. Opening the modal applies aria-hidden to the background while buttons remain visually present.",
+      "assertions": "Visibility, enabled state, accessible name and initial focus expectations retained. The background accessible-name check still fails in independent observation.",
+      "evidence": "observations/dashboard-extension-modal-locators.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-524",
+        "LIMAS-SUD-541",
+        "LIMAS-SUD-549",
+        "LIMAS-SUD-563"
+      ],
+      "change": "Attempt invalid native-control input through keyboard typing rather than Playwright fill, which rejects malformed values before dispatching UI input.",
+      "reason": "Independent keyboard observation shows native date and number inputs reject the alphabetic characters and retain an empty value.",
+      "assertions": "Original value and aria-invalid expectations retained. The case expecting a number input to retain abc is expected to remain a failed requirement mismatch.",
+      "evidence": "observations/dashboard-native-invalid-input.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-635",
+        "LIMAS-SUD-636"
+      ],
+      "change": "Implemented previously empty failure-scenario bodies using browser-scoped HTTP 500 interception, a response-status assertion, visible failure toast and dialog-retention assertions.",
+      "verification": "Both controlled HTTP 500 scenarios passed; simulated response mode is recorded in test annotations.",
+      "evidence": "observations/dashboard-extension-controlled-failure.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-637",
+        "LIMAS-SUD-643"
+      ],
+      "change": "Use actual keyboard focus for Apply; assert the visible zero badge directly instead of a word-boundary regex against concatenated card text.",
+      "reason": "UI verification showed a visible focus ring during keyboard navigation and a separate DIV containing 0; concatenated text was 0Expiring Floating Configurations.",
+      "assertions": "Visible focus and zero-count requirements retained.",
+      "evidence": "observations/dashboard-summary-count-and-apply-focus.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-642",
+        "LIMAS-SUD-661",
+        "LIMAS-SUD-688",
+        "LIMAS-SUD-711",
+        "LIMAS-SUD-768",
+        "LIMAS-SUD-778"
+      ],
+      "change": "Check the native button role through toHaveRole and accept whitespace before the count separator.",
+      "reason": "The live card is a native button with aria-pressed. The rendered count is exactly 0 loaded · 0 total configurations; the old regex omitted whitespace before the middle dot.",
+      "assertions": "Button semantics, aria-pressed and zero loaded/total configuration counts retained.",
+      "evidence": "system-user-dashboard/SUD-034_2026-11-25T17-34-55-758Z_245ca75e"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-793",
+        "LIMAS-SUD-795",
+        "LIMAS-SUD-800",
+        "LIMAS-SUD-813",
+        "LIMAS-SUD-860",
+        "LIMAS-SUD-861",
+        "LIMAS-SUD-863",
+        "LIMAS-SUD-880"
+      ],
+      "change": "Correct absent-attribute checks, native role/tabIndex properties, date-segment navigation, and invalid-date keyboard input. Check separate icons rather than counting the associated label as an icon.",
+      "reason": "Independent DOM and keyboard checks confirmed absent placeholder, label-only date sibling, native button semantics and planned control order. Invalid-date action now uses real typing; a synchronized follow-up found no GET, and 813 remains failed.",
+      "assertions": "Original no-placeholder, no-separate-icon, date-after-radio, button/search order, keyboard focusability, and successful default request requirements retained.",
+      "evidence": "observations/dashboard-efc-date-controls.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-885",
+        "LIMAS-SUD-893"
+      ],
+      "change": "Match the whitespace in the floating-license count. Populate the date before testing clear, as explicitly required by plan 893.",
+      "reason": "Independent live check observed 0 loaded · 0 total licenses and successful GETs for both setting and clearing a future date. Original test attempted to clear an already empty input.",
+      "evidence": "observations/dashboard-floating-date-clear.json"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-860"
+      ],
+      "change": "Focus the date input as specified by the plan, rather than clicking and opening its native picker. Traverse internal native date segments before asserting the next controls.",
+      "evidence": "observations/dashboard-efc-date-controls.json",
+      "assertions": "Date → Floating License Configurations button → search order preserved."
+    }
+  ],
+  "updatedAt": "2026-11-25T17:54:14.205Z"
+}

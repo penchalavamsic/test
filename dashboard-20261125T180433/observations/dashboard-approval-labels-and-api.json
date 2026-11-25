@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-11-25T16:57:43.645Z",
+  "before": [
+    {
+      "text": "Show License Request History",
+      "for": "show-history"
+    },
+    {
+      "text": "User Group*",
+      "for": "approval-group-15803"
+    },
+    {
+      "text": "Profile*",
+      "for": "approval-profile-15803"
+    }
+  ],
+  "after": [
+    {
+      "text": "Show License Request History",
+      "for": "show-history"
+    },
+    {
+      "text": "User Group*",
+      "for": "approval-group-15803"
+    },
+    {
+      "text": "Profile*",
+      "for": "approval-profile-15803"
+    },
+    {
+      "text": "Expiration Date*",
+      "for": "approval-expiration-15803"
+    },
+    {
+      "text": "Maintenance Date*",
+      "for": "approval-maintenance-15803"
+    }
+  ],
+  "dates": [
+    {
+      "id": "approval-expiration-15803",
+      "disabled": false,
+      "required": false,
+      "ariaRequired": null,
+      "labels": [
+        "Expiration Date*"
+      ]
+    },
+    {
+      "id": "approval-maintenance-15803",
+      "disabled": true,
+      "required": false,
+      "ariaRequired": null,
+      "labels": [
+        "Maintenance Date*"
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "path": "/limas/api/request/pending",
+      "status": 200
+    },
+    {
+      "path": "/limas/api/request/processed",
+      "status": 200
+    }
+  ]
+}

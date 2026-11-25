@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-002 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — system-user-dashboard — SUD-002 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">19</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">18</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">1</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">4.77s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8753e6a5a0437b81.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8753e6a5a0437b81.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/8753e6a5a0437b81.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/be86b23d2731848e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/be86b23d2731848e.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/be86b23d2731848e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/efa050da05518a5c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/efa050da05518a5c.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/efa050da05518a5c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cf748a341be02a44.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cf748a341be02a44.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/cf748a341be02a44.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/02711ef28ad0bee3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/02711ef28ad0bee3.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/02711ef28ad0bee3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/be4e54f6cba761f4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/be4e54f6cba761f4.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/be4e54f6cba761f4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/03e9bfe74f3f4d69.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/03e9bfe74f3f4d69.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/03e9bfe74f3f4d69.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d0b3ba4d489719b0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d0b3ba4d489719b0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/d0b3ba4d489719b0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/79d923aaa9082dd8.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/79d923aaa9082dd8.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d69219be1e087ed5.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.36s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/a84941f7c5f82592.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a84941f7c5f82592.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/a84941f7c5f82592.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/70d38aaf314c4613.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/70d38aaf314c4613.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/70d38aaf314c4613.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/902a40172bdb7e59.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/902a40172bdb7e59.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/902a40172bdb7e59.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/fd2b992a46d633e0.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/fd2b992a46d633e0.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/acbb474c42b3ec10.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-021</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-022</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-023</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-024</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-025</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-026</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-027</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-028</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-029</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-030</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-031</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-032</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-033</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-034</a> | <a href="#test-16" onclick="document.getElementById('test-16').classList.add('expanded')">LIMAS-SUD-035</a> | <a href="#test-17" onclick="document.getElementById('test-17').classList.add('expanded')">LIMAS-SUD-036</a> | <a href="#test-18" onclick="document.getElementById('test-18').classList.add('expanded')">LIMAS-SUD-037</a> | <a href="#test-19" onclick="document.getElementById('test-19').classList.add('expanded')">LIMAS-SUD-038</a> | <a href="#test-20" onclick="document.getElementById('test-20').classList.add('expanded')">LIMAS-SUD-039</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — SUD-002</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-021</span>
+        <span class="test-title-col">should toggle from light to dark and restore original theme</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.74s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-021-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-021-light-to-dark-theme.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code> in light theme.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Theme Control" → "Light to Dark Switch"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Clicking the theme control switches to dark theme (html.dark added, sun icon visible). After restoration, the original light theme is re-applied.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Theme Control" → "Light to Dark Switch"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code> in light theme.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and confirm light theme.<br>Expected Result: Dashboard loaded with light theme (no <code>dark</code> class, moon icon visible).<br>2. Action: Click the theme control button.<br>Expected Result: The <code>dark</code> class is added to <code>&lt;html&gt;</code>, the moon icon is replaced by the sun icon.<br>3. Action: Verify all header elements remain visible in dark theme.<br>Expected Result: LIMAS logo, header controls, and dashboard heading "System User Dashboard" remain visible.<br>4. Action: Restore original light theme by clicking the theme control again.<br>Expected Result: The <code>dark</code> class is removed from `&lt;ht</p><p><h2>Expected Final Result</h2></p><p>Clicking the theme control switches to dark theme (html.dark added, sun icon visible). After restoration, the original light theme is re-applied.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/ce042fc673cc8267.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ce042fc673cc8267.png" alt="0001 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 10" loading="lazy">
+        </a>
+        <span>0001 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 10</span>
+        <p><a href="Evidence/Screenshots/ce042fc673cc8267.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5c9ac2b507e486cc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5c9ac2b507e486cc.png" alt="0002 Action Click LIMAS SUD 021 Light To Dark Theme Spec 13" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 021 Light To Dark Theme Spec 13</span>
+        <p><a href="Evidence/Screenshots/5c9ac2b507e486cc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4a786e66e2950d81.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4a786e66e2950d81.png" alt="0003 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 14" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 14</span>
+        <p><a href="Evidence/Screenshots/4a786e66e2950d81.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/37cdff4a0599adc2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/37cdff4a0599adc2.png" alt="0004 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 17" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 17</span>
+        <p><a href="Evidence/Screenshots/37cdff4a0599adc2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9f4fbce81da14912.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f4fbce81da14912.png" alt="0005 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 18" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 18</span>
+        <p><a href="Evidence/Screenshots/9f4fbce81da14912.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/530bc1c445bf163f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/530bc1c445bf163f.png" alt="0006 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 19" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 19</span>
+        <p><a href="Evidence/Screenshots/530bc1c445bf163f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/26eb076bc574200a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/26eb076bc574200a.png" alt="0007 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 20" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible LIMAS SUD 021 Light To Dark Theme Spec 20</span>
+        <p><a href="Evidence/Screenshots/26eb076bc574200a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e3832185efbc6256.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e3832185efbc6256.png" alt="0008 Action Click LIMAS SUD 021 Light To Dark Theme Spec 23" loading="lazy">
+        </a>
+        <span>0008 Action Click LIMAS SUD 021 Light To Dark Theme Spec 23</span>
+        <p><a href="Evidence/Screenshots/e3832185efbc6256.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d64839a8d0124eb9.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d64839a8d0124eb9.png" alt="0009 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 24" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveClass LIMAS SUD 021 Light To Dark Theme Spec 24</span>
+        <p><a href="Evidence/Screenshots/d64839a8d0124eb9.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/04eb3410f3f7461a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/04eb3410f3f7461a.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/04eb3410f3f7461a.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/014b93a62b6a6bb5.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/014b93a62b6a6bb5.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ea4808c7696bdaef.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASlight.svg",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-021",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-021"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-022</span>
+        <span class="test-title-col">should show moon icon in light and sun icon in dark theme</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">2.20s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-022-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-022-theme-state-indicator.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code> in light theme.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Theme Control" → "Theme State Indicator"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The theme control icon correctly reflects the current theme: moon for light, sun for dark.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Theme Control" → "Theme State Indicator"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code> in light theme.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and confirm light theme.<br>Expected Result: Dashboard loaded, moon icon (lucide-moon) is visible.<br>2. Action: Click the theme control button.<br>Expected Result: Sun icon (lucide-sun) is now visible; moon icon is hidden.<br>3. Action: Click the theme control again to restore light theme.<br>Expected Result: Moon icon (lucide-moon) is visible again; sun icon is hidden.</p><p><h2>Expected Final Result</h2></p><p>The theme control icon correctly reflects the current theme: moon for light, sun for dark.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/f04acc0d6e12b5ea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f04acc0d6e12b5ea.png" alt="0001 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 12" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 12</span>
+        <p><a href="Evidence/Screenshots/f04acc0d6e12b5ea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/60a80484fee5ce36.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/60a80484fee5ce36.png" alt="0002 Action Click LIMAS SUD 022 Theme State Indicator Spec 15" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 022 Theme State Indicator Spec 15</span>
+        <p><a href="Evidence/Screenshots/60a80484fee5ce36.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/147aa2535695db79.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/147aa2535695db79.png" alt="0003 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 16</span>
+        <p><a href="Evidence/Screenshots/147aa2535695db79.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/213b1c5903bea0a1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/213b1c5903bea0a1.png" alt="0004 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 17" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 17</span>
+        <p><a href="Evidence/Screenshots/213b1c5903bea0a1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d09e2cb54dc88623.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d09e2cb54dc88623.png" alt="0005 Action Click LIMAS SUD 022 Theme State Indicator Spec 20" loading="lazy">
+        </a>
+        <span>0005 Action Click LIMAS SUD 022 Theme State Indicator Spec 20</span>
+        <p><a href="Evidence/Screenshots/d09e2cb54dc88623.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0338e75d2a95bf87.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0338e75d2a95bf87.png" alt="0006 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 21" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 21</span>
+        <p><a href="Evidence/Screenshots/0338e75d2a95bf87.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/36d1408d9b5f25a3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/36d1408d9b5f25a3.png" alt="0007 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 22" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeAttached LIMAS SUD 022 Theme State Indicator Spec 22</span>
+        <p><a href="Evidence/Screenshots/36d1408d9b5f25a3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6043e1e167f68367.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6043e1e167f68367.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/6043e1e167f68367.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/5305984152145110.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/5305984152145110.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/f7797cb6cbec1436.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASlight.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-022",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-022"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-023</span>
+        <span class="test-title-col">should show account button with initials in header</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.54s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-023-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-023-account-control-visibility.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Visibility"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The account control (initials avatar button) is visible and enabled.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Visibility"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Locate the account button via its accessible name (initials "as").<br>Expected Result: The account button with name "as" is visible and enabled.</p><p><h2>Expected Final Result</h2></p><p>The account control (initials avatar button) is visible and enabled.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5a5dd1b42c9def47.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5a5dd1b42c9def47.png" alt="0001 Assert ToBeVisible LIMAS SUD 023 Account Control Visibility Spec 7" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 023 Account Control Visibility Spec 7</span>
+        <p><a href="Evidence/Screenshots/5a5dd1b42c9def47.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8c5c7e923ee3bb1a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8c5c7e923ee3bb1a.png" alt="0002 Assert ToBeEnabled LIMAS SUD 023 Account Control Visibility Spec 8" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeEnabled LIMAS SUD 023 Account Control Visibility Spec 8</span>
+        <p><a href="Evidence/Screenshots/8c5c7e923ee3bb1a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/abca0396b6f9843c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/abca0396b6f9843c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/abca0396b6f9843c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/db6216e607fb7fb5.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/db6216e607fb7fb5.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/925aa60463f48e5e.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-023",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-023"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-024</span>
+        <span class="test-title-col">should show non-empty account text in header</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">31.38s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-024-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-024-account-text.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Account Text Visibility"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The account control displays visible, non-empty account text.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Account Text Visibility"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Locate the account button and verify it contains non-empty text.<br>Expected Result: The account button text is not empty and contains an email-like value.</p><p><h2>Expected Final Result</h2></p><p>The account control displays visible, non-empty account text.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/74ed5986e8ac1d6c.png" alt="0001 Assert ToBeVisible LIMAS SUD 024 Account Text Spec 8" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 024 Account Text Spec 8</span>
+        <p><a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/74ed5986e8ac1d6c.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/74ed5986e8ac1d6c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/74ed5986e8ac1d6c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f31460e38338c064.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f31460e38338c064.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/9e447a4e60fed5dd.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-024",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-024"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><ul class="error-fields"><li><strong>Failure:</strong> element(s) not found</li><li><strong>Locator:</strong> <code>locator(&#39;header, [role=&quot;banner&quot;]&#39;).getByText(/[^\s@]+@[^\s@]+\.[^\s@]+/)</code></li><li><strong>Expected:</strong> visible</li><li><strong>Timeout:</strong> 30000ms</li></ul><pre><code>Error: expect(locator).toBeVisible() failed
+
+Locator: locator(&#39;header, [role=&quot;banner&quot;]&#39;).getByText(/[^\s@]+@[^\s@]+\.[^\s@]+/)
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
+Call log:
+  - Expect &quot;toBeVisible&quot; locator(&#39;header, [role=&quot;banner&quot;]&#39;).getByText(/[^\s@]+@[^\s@]+\.[^\s@]+/) with timeout 30000ms
+  - waiting for locator(&#39;header, [role=&quot;banner&quot;]&#39;).getByText(/[^\s@]+@[^\s@]+\.[^\s@]+/)
+
+
+   7 |     const dashboard = new SystemUserDashboardPage(page);
+   8 |     // Account text element contains the email — just assert it&#39;s visible and non-empty
+&gt;  9 |     await recordEvidence(&#39;assert-toBeVisible-LIMAS-SUD-024-account-text.spec-8&#39;, async () =&gt; expect(dashboard.accountText).toBeVisible());
+     |                                                                                                                            ^
+  10 |
+  11 |     const text = await dashboard.userButton.textContent();
+  12 |     await recordEvidence(&#39;assert-toBeNull-LIMAS-SUD-024-account-text.spec-11&#39;, async () =&gt; expect(text).not.toBeNull());
+    at operation (tests\system-user-dashboard\LIMAS-SUD-024-account-text.spec.ts:9:124)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at tests\system-user-dashboard\LIMAS-SUD-024-account-text.spec.ts:9:25<br><code>text.spec.ts:9:124</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-025</span>
+        <span class="test-title-col">should open user menu with Logout option visible and enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.60s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-025-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-025-user-menu.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "User Menu Opening"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Clicking the account button opens a user menu with a visible and enabled Logout option.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "User Menu Opening"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Click the account button.<br>Expected Result: A menu with role "menu" appears containing a menuitem.<br>3. Action: Verify the Logout menuitem is visible and enabled.<br>Expected Result: The menuitem "Logout" is visible and enabled. Do not click Logout.</p><p><h2>Expected Final Result</h2></p><p>Clicking the account button opens a user menu with a visible and enabled Logout option.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/3a788097ccbcb5bb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3a788097ccbcb5bb.png" alt="0001 Action Click LIMAS SUD 025 User Menu Spec 7" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 025 User Menu Spec 7</span>
+        <p><a href="Evidence/Screenshots/3a788097ccbcb5bb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/69d4b281126fc546.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/69d4b281126fc546.png" alt="0002 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 10</span>
+        <p><a href="Evidence/Screenshots/69d4b281126fc546.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/887cb321c2b3eef6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/887cb321c2b3eef6.png" alt="0003 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 12" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 12</span>
+        <p><a href="Evidence/Screenshots/887cb321c2b3eef6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cfd2ace3811e86a6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cfd2ace3811e86a6.png" alt="0004 Assert ToBeEnabled LIMAS SUD 025 User Menu Spec 13" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeEnabled LIMAS SUD 025 User Menu Spec 13</span>
+        <p><a href="Evidence/Screenshots/cfd2ace3811e86a6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b508be60c000a74d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b508be60c000a74d.png" alt="0005 Action Press LIMAS SUD 025 User Menu Spec 16" loading="lazy">
+        </a>
+        <span>0005 Action Press LIMAS SUD 025 User Menu Spec 16</span>
+        <p><a href="Evidence/Screenshots/b508be60c000a74d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4e23932f87431a23.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4e23932f87431a23.png" alt="0006 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 17" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeVisible LIMAS SUD 025 User Menu Spec 17</span>
+        <p><a href="Evidence/Screenshots/4e23932f87431a23.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/513e91250f565555.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/513e91250f565555.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/513e91250f565555.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/67aa2de8dbc0a49f.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/67aa2de8dbc0a49f.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/5c5eca4463b56aad.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-025",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-025"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-026</span>
+        <span class="test-title-col">should close user menu on Escape and preserve authenticated session</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.62s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-026-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-026-user-menu-closing.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Menu Closing &amp; Session Stability"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Closing the user menu does not disrupt the authenticated session; the dashboard route and heading remain intact.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Header" → "Account Control" → "Menu Closing &amp; Session Stability"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Click the account button to open the user menu.<br>Expected Result: Menu with role "menu" appears.<br>3. Action: Press Escape to close the user menu.<br>Expected Result: The menu is no longer visible. The page URL still contains <code>/system-user-dashboard</code>.<br>4. Action: Verify the dashboard heading is still visible.<br>Expected Result: The "System User Dashboard" heading remains visible, confirming session persistence.</p><p><h2>Expected Final Result</h2></p><p>Closing the user menu does not disrupt the authenticated session; the dashboard route and heading remain intact.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b1847f6c1ebbb1e1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b1847f6c1ebbb1e1.png" alt="0001 Action Click LIMAS SUD 026 User Menu Closing Spec 7" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 026 User Menu Closing Spec 7</span>
+        <p><a href="Evidence/Screenshots/b1847f6c1ebbb1e1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/faaacb929a0c3263.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/faaacb929a0c3263.png" alt="0002 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 10</span>
+        <p><a href="Evidence/Screenshots/faaacb929a0c3263.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3286621eb8e86e1a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3286621eb8e86e1a.png" alt="0003 Action Press LIMAS SUD 026 User Menu Closing Spec 13" loading="lazy">
+        </a>
+        <span>0003 Action Press LIMAS SUD 026 User Menu Closing Spec 13</span>
+        <p><a href="Evidence/Screenshots/3286621eb8e86e1a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/97337f0612669e14.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/97337f0612669e14.png" alt="0004 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 14" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 14</span>
+        <p><a href="Evidence/Screenshots/97337f0612669e14.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b7ddcf20ee5fee76.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b7ddcf20ee5fee76.png" alt="0005 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 18" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeVisible LIMAS SUD 026 User Menu Closing Spec 18</span>
+        <p><a href="Evidence/Screenshots/b7ddcf20ee5fee76.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a295abd6a6196835.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a295abd6a6196835.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a295abd6a6196835.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/e6d0fef7e2a2754a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/e6d0fef7e2a2754a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/960135ab4a6f16ac.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-026",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-026"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-027</span>
+        <span class="test-title-col">should show the sidebar container, nav list, and 11 navigation items on page load</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.17s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-027-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-027-sidebar-dialog-visibility.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar is in its collapsed (closed) state.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Sidebar Dialog" → "Visibility after Ctrl+B"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>Pressing Ctrl+B opens a shadcn Sheet dialog containing a 12-item navigation list with the toggle button as the first entry.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Sidebar Dialog" → "Visibility after Ctrl+B"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar is in its collapsed (closed) state.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible. The sidebar dialog is not present in the DOM or is hidden.<br>2. Action: Press Ctrl+B to open the sidebar.<br>Expected Result: A <code>dialog</code> element with <code>role="dialog"</code> appears in the DOM and is visible.<br>3. Action: Locate the <code>&lt;ul&gt;</code> with <code>role="list"</code> inside the dialog.<br>Expected Result: The list contains 12 <code>&lt;li&gt;</code> items (1 toggle button + 11 navigation links).<br>4. Action: Verify the first item is the Toggle Sidebar button with a panel-left-close icon.<br>Expected Result: Th</p><p><h2>Expected Final Result</h2></p><p>Pressing Ctrl+B opens a shadcn Sheet dialog containing a 12-item navigation list with the toggle button as the first entry.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6647fa2e0e8b08be.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6647fa2e0e8b08be.png" alt="0001 Assert ToBeVisible LIMAS SUD 027 Sidebar Dialog Visibility Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 027 Sidebar Dialog Visibility Spec 9</span>
+        <p><a href="Evidence/Screenshots/6647fa2e0e8b08be.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/23e7cdac361a159f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/23e7cdac361a159f.png" alt="0002 Assert ToBeVisible LIMAS SUD 027 Sidebar Dialog Visibility Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 027 Sidebar Dialog Visibility Spec 10</span>
+        <p><a href="Evidence/Screenshots/23e7cdac361a159f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5e012a4bb2ccbc4e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5e012a4bb2ccbc4e.png" alt="0003 Assert ToHaveCount LIMAS SUD 027 Sidebar Dialog Visibility Spec 16" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveCount LIMAS SUD 027 Sidebar Dialog Visibility Spec 16</span>
+        <p><a href="Evidence/Screenshots/5e012a4bb2ccbc4e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/20fb749cc95fcb9a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/20fb749cc95fcb9a.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/20fb749cc95fcb9a.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/7d8d745ae12dd3b9.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/7d8d745ae12dd3b9.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/b1829d76b1bada16.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-027",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-027"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-028</span>
+        <span class="test-title-col">should document that no accessible trigger button with sidebar/menu name exists, and sidebar is always visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.36s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-028-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-028-sidebar-trigger-mechanism.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar is in its collapsed (closed) state.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Sidebar Trigger" → "Trigger Mechanism &amp; Accessibility"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The sidebar trigger is keyboard-only (Ctrl+B); no accessible button is present in the collapsed state. The fallback test strategy uses <code>page.keyboard.press('Control+b')</code>.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Sidebar Trigger" → "Trigger Mechanism &amp; Accessibility"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar is in its collapsed (closed) state.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Search the DOM for any button with an accessible name related to opening a sidebar (aria-label containing "sidebar", "menu", "toggle", or "open").<br>Expected Result: No button with a sidebar-related accessible name is found.<br>3. Action: Search the DOM for a button with a panel-left-open or similar icon.<br>Expected Result: No such button is locatable via standard accessible selectors.<br>4. Action: Press Ctrl+B and confirm the sidebar dialog opens.<br>Expected Re</p><p><h2>Expected Final Result</h2></p><p>The sidebar trigger is keyboard-only (Ctrl+B); no accessible button is present in the collapsed state. The fallback test strategy uses <code>page.keyboard.press('Control+b')</code>.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c70394a8b1b67f88.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c70394a8b1b67f88.png" alt="0001 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 12" loading="lazy">
+        </a>
+        <span>0001 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 12</span>
+        <p><a href="Evidence/Screenshots/c70394a8b1b67f88.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2b5136022be0fae4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2b5136022be0fae4.png" alt="0002 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 13" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 13</span>
+        <p><a href="Evidence/Screenshots/2b5136022be0fae4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bee48464b1cdc557.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bee48464b1cdc557.png" alt="0003 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 14" loading="lazy">
+        </a>
+        <span>0003 Assert ToHaveCount LIMAS SUD 028 Sidebar Trigger Mechanism Spec 14</span>
+        <p><a href="Evidence/Screenshots/bee48464b1cdc557.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/904c772cc0eb327c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/904c772cc0eb327c.png" alt="0004 Assert ToBeVisible LIMAS SUD 028 Sidebar Trigger Mechanism Spec 18" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 028 Sidebar Trigger Mechanism Spec 18</span>
+        <p><a href="Evidence/Screenshots/904c772cc0eb327c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/046984846d338e93.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/046984846d338e93.png" alt="0005 Assert ToBeVisible LIMAS SUD 028 Sidebar Trigger Mechanism Spec 26" loading="lazy">
+        </a>
+        <span>0005 Assert ToBeVisible LIMAS SUD 028 Sidebar Trigger Mechanism Spec 26</span>
+        <p><a href="Evidence/Screenshots/046984846d338e93.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/71c92e176feb2a9b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/71c92e176feb2a9b.png" alt="0006 Assert ToBeEnabled LIMAS SUD 028 Sidebar Trigger Mechanism Spec 27" loading="lazy">
+        </a>
+        <span>0006 Assert ToBeEnabled LIMAS SUD 028 Sidebar Trigger Mechanism Spec 27</span>
+        <p><a href="Evidence/Screenshots/71c92e176feb2a9b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4108ea8226017a77.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4108ea8226017a77.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4108ea8226017a77.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/55b865d88309fab8.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/55b865d88309fab8.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/03da0c99528b8c82.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-028",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-028"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-029</span>
+        <span class="test-title-col">should show the toggle button inside the sidebar container as visible and enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.19s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-029-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-029-sidebar-toggle-button.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open (after Ctrl+B).</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Toggle Button" → "Visibility &amp; Enabled State"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Toggle Sidebar button is the first item in the sidebar list, visible and enabled when the dialog is open.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Toggle Button" → "Visibility &amp; Enabled State"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open (after Ctrl+B).</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible.<br>3. Action: Locate the first <code>&lt;li&gt;</code> item in the sidebar list and inspect its button.<br>Expected Result: The first <code>&lt;li&gt;</code> contains a button with a panel-left-close icon and text "Toggle Sidebar".<br>4. Action: Verify the button is visible and not disabled.<br>Expected Result: The button is visible and has no <code>disabled</code> attribute or <code>aria-disabled="true"</code>.</p><p><h2>Expected Final Result</h2></p><p>The Toggle Sidebar button is the first item in the sidebar list, visible and enabled when the dialog is open.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/d9cf7209ed62e1e8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d9cf7209ed62e1e8.png" alt="0001 Assert ToBeVisible LIMAS SUD 029 Sidebar Toggle Button Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 029 Sidebar Toggle Button Spec 9</span>
+        <p><a href="Evidence/Screenshots/d9cf7209ed62e1e8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/72e552fc55009372.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/72e552fc55009372.png" alt="0002 Assert ToBeVisible LIMAS SUD 029 Sidebar Toggle Button Spec 17" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 029 Sidebar Toggle Button Spec 17</span>
+        <p><a href="Evidence/Screenshots/72e552fc55009372.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9efeb823861a861a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9efeb823861a861a.png" alt="0003 Assert ToBeEnabled LIMAS SUD 029 Sidebar Toggle Button Spec 18" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeEnabled LIMAS SUD 029 Sidebar Toggle Button Spec 18</span>
+        <p><a href="Evidence/Screenshots/9efeb823861a861a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e80b7b1fe9e4c271.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e80b7b1fe9e4c271.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/e80b7b1fe9e4c271.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/86887ab0ef722ce7.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/86887ab0ef722ce7.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/1fc334548a633ba3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-029",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-029"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-030</span>
+        <span class="test-title-col">should mark the current page link with aria-current=&quot;page&quot;</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.17s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-030-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-030-active-nav-indicator.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Active Indicator" → "aria-current on Current Page"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The System User Dashboard sidebar link is marked with <code>aria-current="page"</code> and is the only link with this attribute.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Active Indicator" → "aria-current on Current Page"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link pointing to <code>/system-user-dashboard</code>.<br>Expected Result: The link has <code>href="/system-user-dashboard"</code>.<br>4. Action: Check the <code>aria-current</code> attribute on that link.<br>Expected Result: <code>aria-current="page"</code> is set on the System User Dashboard nav link.<br>5. Action: Confirm no other nav link has <code>aria-current</code>.<br>Expecte</p><p><h2>Expected Final Result</h2></p><p>The System User Dashboard sidebar link is marked with <code>aria-current="page"</code> and is the only link with this attribute.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/93e0e406046a490a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/93e0e406046a490a.png" alt="0001 Assert ToBeVisible LIMAS SUD 030 Active Nav Indicator Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 030 Active Nav Indicator Spec 9</span>
+        <p><a href="Evidence/Screenshots/93e0e406046a490a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0998e33a6ae5e206.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0998e33a6ae5e206.png" alt="0002 Assert ToHaveAttribute LIMAS SUD 030 Active Nav Indicator Spec 17" loading="lazy">
+        </a>
+        <span>0002 Assert ToHaveAttribute LIMAS SUD 030 Active Nav Indicator Spec 17</span>
+        <p><a href="Evidence/Screenshots/0998e33a6ae5e206.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/94f422ce9d70081d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/94f422ce9d70081d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/94f422ce9d70081d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/fe737ac9c48027c0.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/fe737ac9c48027c0.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/938c47094f9aabb6.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-030",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-030"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-031</span>
+        <span class="test-title-col">should click System User Dashboard link and stay on same route</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.89s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-031-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-031-nav-system-user-dashboard.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "System User Dashboard" → "Link Visibility &amp; aria-current"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The System User Dashboard nav link is present with <code>href="/system-user-dashboard"</code> and <code>aria-current="page"</code>.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "System User Dashboard" → "Link Visibility &amp; aria-current"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible.<br>3. Action: Locate the nav link with <code>href="/system-user-dashboard"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Verify the link has <code>aria-current="page"</code>.<br>Expected Result: <code>aria-current="page"</code> is set, confirming this is the current route.</p><p><h2>Expected Final Result</h2></p><p>The System User Dashboard nav link is present with <code>href="/system-user-dashboard"</code> and <code>aria-current="page"</code>.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/241534e91c38da36.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/241534e91c38da36.png" alt="0001 Assert ToBeVisible LIMAS SUD 031 Nav System User Dashboard Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 031 Nav System User Dashboard Spec 9</span>
+        <p><a href="Evidence/Screenshots/241534e91c38da36.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ae912d320fe167b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ae912d320fe167b.png" alt="0002 Assert ToBeVisible LIMAS SUD 031 Nav System User Dashboard Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 031 Nav System User Dashboard Spec 10</span>
+        <p><a href="Evidence/Screenshots/9ae912d320fe167b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cfc0b33b0c91c565.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cfc0b33b0c91c565.png" alt="0003 Action Click LIMAS SUD 031 Nav System User Dashboard Spec 11" loading="lazy">
+        </a>
+        <span>0003 Action Click LIMAS SUD 031 Nav System User Dashboard Spec 11</span>
+        <p><a href="Evidence/Screenshots/cfc0b33b0c91c565.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a251915102fab8c0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a251915102fab8c0.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/a251915102fab8c0.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d03e7401955ae1fd.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d03e7401955ae1fd.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/ff56bd35aaad92ec.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-031",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-031"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-032</span>
+        <span class="test-title-col">should navigate to /users-licenses and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.59s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-032-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-032-nav-user-licenses.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "User Licenses" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Licenses link is visible in the sidebar, navigates to <code>/users-licenses</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "User Licenses" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/users-licenses"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the User Licenses link.<br>Expected Result: The browser navigates to <code>/users-licenses</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>a</p><p><h2>Expected Final Result</h2></p><p>The User Licenses link is visible in the sidebar, navigates to </code>/users-licenses`, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/e9ad4d4bd79d64fd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e9ad4d4bd79d64fd.png" alt="0001 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 9</span>
+        <p><a href="Evidence/Screenshots/e9ad4d4bd79d64fd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4a2ad9edebcb6641.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4a2ad9edebcb6641.png" alt="0002 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 10</span>
+        <p><a href="Evidence/Screenshots/4a2ad9edebcb6641.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1c6ba96927cee5f5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1c6ba96927cee5f5.png" alt="0003 Action Click LIMAS SUD 032 Nav User Licenses Spec 11" loading="lazy">
+        </a>
+        <span>0003 Action Click LIMAS SUD 032 Nav User Licenses Spec 11</span>
+        <p><a href="Evidence/Screenshots/1c6ba96927cee5f5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a41cbdf4f5e5309c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a41cbdf4f5e5309c.png" alt="0004 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 15" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 032 Nav User Licenses Spec 15</span>
+        <p><a href="Evidence/Screenshots/a41cbdf4f5e5309c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b8f580d812e18efb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b8f580d812e18efb.png" alt="0005 Action Click LIMAS SUD 032 Nav User Licenses Spec 16" loading="lazy">
+        </a>
+        <span>0005 Action Click LIMAS SUD 032 Nav User Licenses Spec 16</span>
+        <p><a href="Evidence/Screenshots/b8f580d812e18efb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1b129237227eadc3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1b129237227eadc3.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/1b129237227eadc3.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/b86a2fd485e92b45.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/b86a2fd485e92b45.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/d79646609dadc597.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/mail-WKgOQekD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/UsersAndLicenses-DgV3FpPl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-032",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-032"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-033</span>
+        <span class="test-title-col">should navigate to /reports and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.62s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-033-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-033-nav-reports.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Reports" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Reports link is visible in the sidebar, navigates to <code>/reports</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Reports" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/reports"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the Reports link.<br>Expected Result: The browser navigates to <code>/reports</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>aria-current</code> is now </p><p><h2>Expected Final Result</h2></p><p>The Reports link is visible in the sidebar, navigates to <code>/reports</code>, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/2b4e017c6eff32fd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2b4e017c6eff32fd.png" alt="0001 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 9" loading="lazy">
+        </a>
+        <span>0001 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 9</span>
+        <p><a href="Evidence/Screenshots/2b4e017c6eff32fd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6f596efb19958d6b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6f596efb19958d6b.png" alt="0002 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 10" loading="lazy">
+        </a>
+        <span>0002 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 10</span>
+        <p><a href="Evidence/Screenshots/6f596efb19958d6b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8b7be314138dc41a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8b7be314138dc41a.png" alt="0003 Action Click LIMAS SUD 033 Nav Reports Spec 11" loading="lazy">
+        </a>
+        <span>0003 Action Click LIMAS SUD 033 Nav Reports Spec 11</span>
+        <p><a href="Evidence/Screenshots/8b7be314138dc41a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bbfadbad80466662.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bbfadbad80466662.png" alt="0004 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 15" loading="lazy">
+        </a>
+        <span>0004 Assert ToBeVisible LIMAS SUD 033 Nav Reports Spec 15</span>
+        <p><a href="Evidence/Screenshots/bbfadbad80466662.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4b0d263465bb5a76.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4b0d263465bb5a76.png" alt="0005 Action Click LIMAS SUD 033 Nav Reports Spec 16" loading="lazy">
+        </a>
+        <span>0005 Action Click LIMAS SUD 033 Nav Reports Spec 16</span>
+        <p><a href="Evidence/Screenshots/4b0d263465bb5a76.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3f051eb7873427a8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3f051eb7873427a8.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/3f051eb7873427a8.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/3d896b1e3a2da19b.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/3d896b1e3a2da19b.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/93a65d634c4d991c.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/download-CjFkO3p9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/Reports-CFiN9DfZ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/report/allstandardlicenses",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-033",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-033"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-034</span>
+        <span class="test-title-col">should navigate to /floating-license-configurations and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.38s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-034-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-034-nav-floating-license-configs.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Floating License Configurations" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Floating License Configurations link is visible in the sidebar, navigates to <code>/floating-license-configurations</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Floating License Configurations" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/floating-license-configurations"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the Floating License Configurations link.<br>Expected Result: The browser navigates to <code>/floating-license-configurations</code>, the sidebar closes, and the destination page</p><p><h2>Expected Final Result</h2></p><p>The Floating License Configurations link is visible in the sidebar, navigates to <code>/floating-license-configurations</code>, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/0b498ed48c76453f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0b498ed48c76453f.png" alt="0001 Action Click LIMAS SUD 034 Nav Floating License Configs Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 034 Nav Floating License Configs Spec 9</span>
+        <p><a href="Evidence/Screenshots/0b498ed48c76453f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2ccaf343b0964ea0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2ccaf343b0964ea0.png" alt="0002 Action Click LIMAS SUD 034 Nav Floating License Configs Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 034 Nav Floating License Configs Spec 14</span>
+        <p><a href="Evidence/Screenshots/2ccaf343b0964ea0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b516b29fe57be1eb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b516b29fe57be1eb.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b516b29fe57be1eb.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/26f086f026745456.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/26f086f026745456.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/5fb6e398d0e61f28.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/FloatingLicenseConfigurations-ZUgFVNma.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/rotate-ccw-teoxlMJU.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useDeleteFloatingLicenseConfig-BscpIyQN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-034",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-034"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-16">
+    <div class="test-header" onclick="toggleExpand('test-16')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-035</span>
+        <span class="test-title-col">should navigate to /standard-license-configurations and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.31s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-035-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-035-nav-standard-license-configs.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Standard License Configurations" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Standard License Configurations link is visible in the sidebar, navigates to <code>/standard-license-configurations</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Standard License Configurations" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/standard-license-configurations"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the Standard License Configurations link.<br>Expected Result: The browser navigates to <code>/standard-license-configurations</code>, the sidebar closes, and the destination page</p><p><h2>Expected Final Result</h2></p><p>The Standard License Configurations link is visible in the sidebar, navigates to <code>/standard-license-configurations</code>, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/8ebd0c85a532a26a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8ebd0c85a532a26a.png" alt="0001 Action Click LIMAS SUD 035 Nav Standard License Configs Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 035 Nav Standard License Configs Spec 9</span>
+        <p><a href="Evidence/Screenshots/8ebd0c85a532a26a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5e827f42ab367dc2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5e827f42ab367dc2.png" alt="0002 Action Click LIMAS SUD 035 Nav Standard License Configs Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 035 Nav Standard License Configs Spec 14</span>
+        <p><a href="Evidence/Screenshots/5e827f42ab367dc2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/95e7ae07696ce606.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/95e7ae07696ce606.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/95e7ae07696ce606.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ecb10e68166e728e.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ecb10e68166e728e.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/7089c67de0b984ac.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-CckHloL4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/StandardLicenseConfigurations-xmE9SRD0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useStandardLicenseConfigurations-D1_RCLQc.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-035",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-035"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-17">
+    <div class="test-header" onclick="toggleExpand('test-17')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-036</span>
+        <span class="test-title-col">should navigate to /features and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.23s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-036-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-036-nav-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Features &amp; Updates" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Features &amp; Updates link is visible in the sidebar, navigates to <code>/features</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Features &amp; Updates" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/features"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the Features &amp; Updates link.<br>Expected Result: The browser navigates to <code>/features</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>aria-cur</p><p><h2>Expected Final Result</h2></p><p>The Features &amp; Updates link is visible in the sidebar, navigates to </code>/features`, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/759920b2a85a9bc2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/759920b2a85a9bc2.png" alt="0001 Action Click LIMAS SUD 036 Nav Features Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 036 Nav Features Spec 9</span>
+        <p><a href="Evidence/Screenshots/759920b2a85a9bc2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5dab83199aba1a43.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5dab83199aba1a43.png" alt="0002 Action Click LIMAS SUD 036 Nav Features Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 036 Nav Features Spec 14</span>
+        <p><a href="Evidence/Screenshots/5dab83199aba1a43.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2caf514c9329f1d7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2caf514c9329f1d7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2caf514c9329f1d7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/01bc8dc111a3be91.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/01bc8dc111a3be91.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/7d8a2d88a9f82a45.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/Features-Dst1aRI8.js",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-036",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-036"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-18">
+    <div class="test-header" onclick="toggleExpand('test-18')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-037</span>
+        <span class="test-title-col">should navigate to /profiles and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.27s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-037-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-037-nav-profiles.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Profile" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The Profile link is visible in the sidebar, navigates to <code>/profiles</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "Profile" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/profiles"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the Profile link.<br>Expected Result: The browser navigates to <code>/profiles</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>aria-current</code> is no</p><p><h2>Expected Final Result</h2></p><p>The Profile link is visible in the sidebar, navigates to <code>/profiles</code>, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/532d218af0a04f0c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/532d218af0a04f0c.png" alt="0001 Action Click LIMAS SUD 037 Nav Profiles Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 037 Nav Profiles Spec 9</span>
+        <p><a href="Evidence/Screenshots/532d218af0a04f0c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3702294f687112d5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3702294f687112d5.png" alt="0002 Action Click LIMAS SUD 037 Nav Profiles Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 037 Nav Profiles Spec 14</span>
+        <p><a href="Evidence/Screenshots/3702294f687112d5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b1d759e718dbf5b7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b1d759e718dbf5b7.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/b1d759e718dbf5b7.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1f8aa2a13bb21ddc.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1f8aa2a13bb21ddc.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/8c31e333058a2a92.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-037",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-037"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-19">
+    <div class="test-header" onclick="toggleExpand('test-19')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-038</span>
+        <span class="test-title-col">should navigate to /groups and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.20s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-038-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-038-nav-user-groups.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "User Groups" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The User Groups link is visible in the sidebar, navigates to <code>/groups</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "User Groups" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/groups"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the User Groups link.<br>Expected Result: The browser navigates to <code>/groups</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>aria-current</code> is no</p><p><h2>Expected Final Result</h2></p><p>The User Groups link is visible in the sidebar, navigates to <code>/groups</code>, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/6af719fa9cd74723.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6af719fa9cd74723.png" alt="0001 Action Click LIMAS SUD 038 Nav User Groups Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 038 Nav User Groups Spec 9</span>
+        <p><a href="Evidence/Screenshots/6af719fa9cd74723.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5054a43987f53081.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5054a43987f53081.png" alt="0002 Action Click LIMAS SUD 038 Nav User Groups Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 038 Nav User Groups Spec 14</span>
+        <p><a href="Evidence/Screenshots/5054a43987f53081.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7c968bf01dd383dd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7c968bf01dd383dd.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7c968bf01dd383dd.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4fc3eacc9faa85c1.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4fc3eacc9faa85c1.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/7aaa27a097418ec9.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/Groups-dmrNVfVb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-038",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-038"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-20">
+    <div class="test-header" onclick="toggleExpand('test-20')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-039</span>
+        <span class="test-title-col">should navigate to /system-users and return to dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.26s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> system-user-dashboard — SUD-002</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-039-case.md</span>
+        <span><strong>Spec:</strong> system-user-dashboard/LIMAS-SUD-039-nav-system-users.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</div>
+      <div class="test-plan"><h4>Purpose</h4><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "System Users" → "Link Visibility &amp; Route"</p></div>
+      
+      <div class="test-plan"><h4>Expected Result</h4><p>The System Users link is visible in the sidebar, navigates to <code>/system-users</code>, and the sidebar closes on navigation.</p></div>
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>To verify the functionality of "System User Dashboard" → "Sidebar Navigation" → "System Users" → "Link Visibility &amp; Route"</p><p><h2>Preconditions</h2></p><p><code>${LIMAS_BASE_URL}</code> is reachable.; Credentials for <code>SUPER_USER_ADMIN_USER</code> are configured.; The user is authenticated on <code>/system-user-dashboard</code>.; The sidebar dialog is open.</p><p><h2>Test Steps</h2></p><p>1. Action: Navigate to the dashboard and wait for full render.<br>Expected Result: Dashboard heading "System User Dashboard" is visible.<br>2. Action: Press Ctrl+B to open the sidebar dialog.<br>Expected Result: The sidebar dialog is visible with the navigation list.<br>3. Action: Locate the nav link with <code>href="/system-users"</code>.<br>Expected Result: The link is present and visible in the sidebar navigation list.<br>4. Action: Click the System Users link.<br>Expected Result: The browser navigates to <code>/system-users</code>, the sidebar closes, and the destination page loads.<br>5. Action: Reopen the sidebar and confirm <code>aria-c</p><p><h2>Expected Final Result</h2></p><p>The System Users link is visible in the sidebar, navigates to </code>/system-users`, and the sidebar closes on navigation.<br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/373fe275d59c017f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/373fe275d59c017f.png" alt="0001 Action Click LIMAS SUD 039 Nav System Users Spec 9" loading="lazy">
+        </a>
+        <span>0001 Action Click LIMAS SUD 039 Nav System Users Spec 9</span>
+        <p><a href="Evidence/Screenshots/373fe275d59c017f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9ecfe5dda7fcd8d8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9ecfe5dda7fcd8d8.png" alt="0002 Action Click LIMAS SUD 039 Nav System Users Spec 14" loading="lazy">
+        </a>
+        <span>0002 Action Click LIMAS SUD 039 Nav System Users Spec 14</span>
+        <p><a href="Evidence/Screenshots/9ecfe5dda7fcd8d8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2b30abbb07dd7459.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2b30abbb07dd7459.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2b30abbb07dd7459.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1ffb24ec83f40501.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1ffb24ec83f40501.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/4b537fba1dfea201.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUsers-C45os_z-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/checkbox-BcB1wnJS.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/eye-d3iIikrA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useGroups-DizMxNUT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-039",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-039"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
