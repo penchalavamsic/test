@@ -1,0 +1,40 @@
+{
+  "confirmedAt": "2026-11-25T16:46:43.808Z",
+  "issues": [
+    {
+      "ids": [
+        "LIMAS-SUD-2237"
+      ],
+      "tab": "Profiles / Manage / Features",
+      "problem": "Features tab renders its table and controls without the expected Manage Features heading.",
+      "expected": "Visible Manage Features heading.",
+      "classification": "Observed deployed UI difference; assertion retained.",
+      "evidence": "r/007/index.html#test-0"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-2264",
+        "LIMAS-SUD-2267",
+        "LIMAS-SUD-2278"
+      ],
+      "tab": "Profiles / Add Role",
+      "problem": "Save remains enabled with empty required fields.",
+      "expected": "Save disabled while required role fields are empty.",
+      "classification": "Deployed UI behavior differs from disabled-state assertions; assertions retained.",
+      "evidence": "r/010/index.html#test-3"
+    },
+    {
+      "ids": [
+        "LIMAS-SUD-2302",
+        "LIMAS-SUD-2308"
+      ],
+      "tab": "Profiles / Create Profile",
+      "problem": "Save remains enabled when required inputs are empty, including after clearing the name.",
+      "expected": "Save disabled until required fields are populated.",
+      "classification": "Independently confirmed UI requirement failure; no submission performed and assertions retained.",
+      "evidence": "r/015/index.html#test-0",
+      "independentObservation": "observations/profiles-create-empty-save.json"
+    }
+  ],
+  "updatedAt": "2026-11-25T18:00:40.832Z"
+}
