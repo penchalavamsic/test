@@ -1,0 +1,15 @@
+# Purpose
+
+Gated Lifecycle Assigns Verifies And Removes Synthetic Feature
+
+# Preconditions
+
+Authenticated as SUPER_USER_ADMIN_USER
+
+# Test Steps
+
+
+
+# Expected Final Result
+
+

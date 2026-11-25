@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMAS 3.0 Detailed Test Evidence Report — profiles — PRF-007 — SUPER_USER_ADMIN_USER</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+.report-header { width: 100%; max-width: 100%; min-width: 0; background: #1a1a2e; color: #fff; padding: 24px; }
+.report-header h1 { margin: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; font-size: 1.4em; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; width: 100%; margin-top: 16px; }
+.summary-card { min-width: 0; max-width: 100%; overflow: hidden; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; }
+.summary-card .summary-value { max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: break-word; text-align: center; line-height: 1.2; font-size: 1.6em; font-weight: bold; }
+.summary-card.profile .summary-value { font-size: clamp(15px, 1.8vw, 26px); }
+.summary-card .summary-label { font-size: 0.75em; opacity: 0.8; margin-top: 4px; }
+.summary-card.passed .summary-value { color: #4caf50; }
+.summary-card.failed .summary-value { color: #f44336; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.test-card { background: #fff; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+.test-card.failed { border-left: 4px solid #f44336; }
+.test-card.passed { border-left: 4px solid #4caf50; }
+
+.test-card-heading { display: grid; grid-template-columns: minmax(150px, auto) minmax(0, 1fr); align-items: start; gap: 16px; }
+.test-id-col { font-family: monospace; font-weight: 700; white-space: nowrap; }
+.test-title-col { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+
+.test-header { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; gap: 12px; user-select: none; }
+.test-header:hover { background: #f0f0f0; }
+.test-status { padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
+.test-status.passed { background: #e8f5e9; color: #2e7d32; }
+.test-status.failed { background: #ffebee; color: #c62828; }
+.test-duration { color: #666; font-size: 0.85em; min-width: 60px; text-align: right; white-space: nowrap; }
+.expand-icon { transition: transform 0.2s; }
+.test-card.expanded .expand-icon { transform: rotate(180deg); }
+.test-body { display: none; padding: 0 16px 16px; }
+.test-card.expanded .test-body { display: block; }
+
+.test-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 12px; font-size: 0.9em; color: #555; }
+.steps { margin: 12px 0; }
+.steps ol { padding-left: 24px; }
+.screenshots { margin: 16px 0; }
+.ss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ss-item { text-align: center; min-width: 0; }
+.ss-item img { width: 100%; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; transition: transform 0.15s; }
+.ss-item img:hover { transform: scale(1.02); }
+.ss-item span { display: block; font-size: 0.8em; color: #666; margin-top: 4px; overflow-wrap: anywhere; }
+.video-container { margin: 16px 0; }
+.trace-section, .api-summary, .test-plan, .actual-result, .test-summary { margin: 16px 0; overflow-wrap: anywhere; }
+.final-ss { margin: 16px 0; }
+.final-ss img { border-radius: 4px; border: 1px solid #ddd; max-width: 100%; }
+.errors { background: #fff3e0; border: 1px solid #ff9800; border-radius: 4px; padding: 12px; margin: 16px 0; }
+.errors pre { font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.error-fields { list-style: none; padding: 0; margin: 0 0 10px; font-size: 0.9em; }
+.error-fields li { margin: 3px 0; overflow-wrap: anywhere; }
+.ind-link { margin: 16px 0; padding: 12px; background: #e3f2fd; border-radius: 4px; font-size: 0.9em; }
+h3 { font-size: 1.1em; margin: 12px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h4 { font-size: 1em; margin: 10px 0 4px; color: #555; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; white-space: pre-wrap; word-break: break-word; }
+pre { background: #f4f4f4; padding: 8px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+p { margin: 4px 0; }
+a { color: #1976d2; }
+.no-evidence { background: #f9f9f9; border: 1px dashed #ccc; border-radius: 4px; padding: 12px; margin: 12px 0; color: #888; font-style: italic; }
+.report-container { width: 100%; max-width: 100%; min-width: 0; }
+
+@media (max-width: 700px) {
+  .test-card-heading { grid-template-columns: 1fr; gap: 6px; }
+  .test-header { flex-wrap: wrap; }
+  .summary-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.skipped { border-left: 4px solid #ff9800; }
+.test-status.skipped { background: #fff3e0; color: #e65100; }
+.auth-blocked { border-left: 4px solid #e91e63; }
+.test-status.auth-blocked { background: #fce4ec; color: #c2185b; }
+.teardown-timeout { border-left: 4px solid #9c27b0; }
+.test-status.teardown-timeout { background: #f3e5f5; color: #6a1b9a; }
+.section-desc { color: #666; font-size: 0.9em; margin-bottom: 16px; }
+.infra-badge { background: #e3f2fd; color: #1565c0; border-radius: 4px; padding: 2px 8px; font-size: 0.75em; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>LIMAS 3.0 Detailed Test Evidence Report — profiles — PRF-007 — SUPER_USER_ADMIN_USER</h1>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-value">14</div><div class="summary-label">Functional Total</div></div>
+    <div class="summary-card passed"><div class="summary-value">12</div><div class="summary-label">Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">2</div><div class="summary-label">Failed</div></div>
+    
+    
+    <div class="summary-card"><div class="summary-value">0</div><div class="summary-label">Skipped</div></div>
+    <div class="summary-card"><div class="summary-value">Not captured</div><div class="summary-label">Duration</div></div>
+    <div class="summary-card"><div class="summary-value">2026-11-25</div><div class="summary-label">Date</div></div>
+    <div class="summary-card"><div class="summary-value">Edge</div><div class="summary-label">Browser</div></div>
+    <div class="summary-card profile"><div class="summary-value">SUPER_USER_ADMIN_USER</div><div class="summary-label">Profile</div></div>
+  </div>
+  <div class="summary-grid" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.2); padding-top:12px;">
+    <div class="summary-card"><div class="summary-value">2</div><div class="summary-label">Prerequisites</div></div>
+    <div class="summary-card passed"><div class="summary-value">2</div><div class="summary-label">Infra Passed</div></div>
+    <div class="summary-card failed"><div class="summary-value">0</div><div class="summary-label">Infra Failed</div></div>
+    <div class="summary-card"><div class="summary-value">FAILED</div><div class="summary-label">Run Status</div></div>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Execution Prerequisites</h2>
+    <p class="section-desc">Infrastructure checks required before the functional batch can execute.</p>
+    
+  <div class="test-card passed" id="test-0">
+    <div class="test-header" onclick="toggleExpand('test-0')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">authenticate for System User Dashboard</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">7.59s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        
+        <span><strong>Spec:</strong> auth.setup.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/c6c9f5cafd95492b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c6c9f5cafd95492b.png" alt="0001 Action Goto Auth Setup 39" loading="lazy">
+        </a>
+        <span>0001 Action Goto Auth Setup 39</span>
+        <p><a href="Evidence/Screenshots/c6c9f5cafd95492b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7f4006bcd3768b2d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7f4006bcd3768b2d.png" alt="0002 Action Click Auth 75" loading="lazy">
+        </a>
+        <span>0002 Action Click Auth 75</span>
+        <p><a href="Evidence/Screenshots/7f4006bcd3768b2d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7eb7f3d044ee7fea.png" alt="0003 Action Fill Auth 98" loading="lazy">
+        </a>
+        <span>0003 Action Fill Auth 98</span>
+        <p><a href="Evidence/Screenshots/7eb7f3d044ee7fea.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f383f9275005a75f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f383f9275005a75f.png" alt="0004 Action Cognito Email Blur" loading="lazy">
+        </a>
+        <span>0004 Action Cognito Email Blur</span>
+        <p><a href="Evidence/Screenshots/f383f9275005a75f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/600c7cbb2ed427ff.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/600c7cbb2ed427ff.png" alt="0005 Action Cognito Next" loading="lazy">
+        </a>
+        <span>0005 Action Cognito Next</span>
+        <p><a href="Evidence/Screenshots/600c7cbb2ed427ff.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/13ad2e0135572aa4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/13ad2e0135572aa4.png" alt="0006 Action Fill Auth 99" loading="lazy">
+        </a>
+        <span>0006 Action Fill Auth 99</span>
+        <p><a href="Evidence/Screenshots/13ad2e0135572aa4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/cf23c71529e22fce.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/cf23c71529e22fce.png" alt="0007 Action Click Auth 104" loading="lazy">
+        </a>
+        <span>0007 Action Click Auth 104</span>
+        <p><a href="Evidence/Screenshots/cf23c71529e22fce.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8156e37eecce7517.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8156e37eecce7517.png" alt="0008 Assert ToBeVisible Auth 113" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Auth 113</span>
+        <p><a href="Evidence/Screenshots/8156e37eecce7517.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b14d2681bf82a22c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b14d2681bf82a22c.png" alt="0009 Assert ToHaveURL Auth Setup 45" loading="lazy">
+        </a>
+        <span>0009 Assert ToHaveURL Auth Setup 45</span>
+        <p><a href="Evidence/Screenshots/b14d2681bf82a22c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2530236486b78fef.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2530236486b78fef.png" alt="0010 Assert ToBeVisible Auth Setup 46" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Auth Setup 46</span>
+        <p><a href="Evidence/Screenshots/2530236486b78fef.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4fddbd62f1d5ab97.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4fddbd62f1d5ab97.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4fddbd62f1d5ab97.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/6254bd607462900c.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/6254bd607462900c.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/4e6b9ee921ace233.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/oauth2/authorize",<br>    "status": 302<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/login",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/6rk8nsrmm0juc0v8k4u8tjq8jo/theme-1793368356000-69362562-8087-4de9-9a4f-9f549b692bc2.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-PZcDvLN-.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-cxZh2pwU.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DveA1qCj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-YM68sC_j.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-D_RpsXwd.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-BQKrTQ40.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-ei8OKdeE.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-hFJakM1p.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CI-4zwKj.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/utils-D74goo2d.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/page-data.types-DTgJ2gWo.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/models_0-C9Gc5LKs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/root-_XdcMARd.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5NI7IJOT-D5ljDdRN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-TDCO6VRT-BYZDJ9Nq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N3LMW2A7-Dspk60uN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZNDB273M-D_sbMb99.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-N6HA5N3Q-Dw90OVWN.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GEU76AGL-CgpHVLvx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-D1Z5Sskw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login_.passkey_.fallbackLogin-DKv8US_s.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-5CFFB5AK-DyIni9fL.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/info-link-label-context-DS04OtGK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-PFXFZHAN-CWAzkkxG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-46RRH5HC-k6fHJMMi.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/entry.client-CzLRNMce.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/form-field-context-pWYTQUpT.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-XXK3TI5C-CxgFoWl9.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CacmNeqG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-KKVD53EL-C5tjO4Y6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/internal-BuPf1r5w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-C6CPwcsF.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-VRC3BCSH-BF1L0NQY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-B-LHdRm2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/manifest-335249d1.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-NSYVNWS4-CKpY7DBB.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/login-Cwq_s4LK.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DcCYdXGl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/request-BXgdso-p.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/remix-form-CXGVQnS_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-2KL3JLUI-TbA1DngW.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/components-UsGAV-ki.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-7EFEAYQG-CQiI9kxj.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-DK8HSD9y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-Y2PEAJ36-D50aUuB_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/image/cognito-image-background-page-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/login",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/verifyPassword-CcR5hbxX.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/verifyPassword",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-ZCPG2LJU-DprQ53f4.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/step-up-options-fallback-17JZnGKp.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/secondary-action-form-auZKP-Bm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-JNEAFHSS-Qf5_kPTb.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-6AAMMXWB-CM9cI_eP.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-36YO3RLR-D2DbxlcG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-GKMKJMNR-DLvxyFzm.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chunk-DFJWHFWF-De2rZtVD.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-svg-light.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/default-assets/icon/cognito-icon-favicon-ico-light.ico",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/verifyPassword",<br>    "status": 204<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/auth/callback",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/kpitdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/ap-south-1_7lcPGCGAz/.well-known/openid-configuration",<br>    "status": 200<br>  },<br>  {<br>    "method": "POST",<br>    "path": "/oauth2/token",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-1">
+    <div class="test-header" onclick="toggleExpand('test-1')">
+      <div class="test-card-heading">
+        <span class="test-id-col"></span>
+        <span class="test-title-col">auth preflight: validate saved state and confirm dashboard access</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">1.81s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        
+        <span><strong>Spec:</strong> auth-smoke.spec.ts</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <p>No plan found for . Searched: system-user-dashboard, authentication, plans</p>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b9bce51f1a586681.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9bce51f1a586681.png" alt="0001 Action Auth Smoke Navigation" loading="lazy">
+        </a>
+        <span>0001 Action Auth Smoke Navigation</span>
+        <p><a href="Evidence/Screenshots/b9bce51f1a586681.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7ec93c06ebd3747d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7ec93c06ebd3747d.png" alt="0002 Assert Auth Smoke Heading" loading="lazy">
+        </a>
+        <span>0002 Assert Auth Smoke Heading</span>
+        <p><a href="Evidence/Screenshots/7ec93c06ebd3747d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/81bb8fae9c16c432.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/81bb8fae9c16c432.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/81bb8fae9c16c432.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/3aff5257721088d3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/3aff5257721088d3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/78bbc9ff9d336e8c.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/system-user-dashboard",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/licenses-CgYb5_cl.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeUserGroups-BM-Kt9ei.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useApprovalScope-o5d8zzow.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useInfiniteQuery-DeH81Od6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useSystemUsers-DIgHhDSv.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useLicenses-CQ0aHNNs.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/floatingLicenseConfigs-DSD8S5P-.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useAccountScopeProfiles-BfW0006P.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/calendar-days-Bhhuuq3v.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/layers-CP-pZKj0.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/switch-Bltg5Y-S.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/SystemUserDashboard-CuT8-wt5.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/users/f",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/sysusers",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": []<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<div class="ind-link">
+      <strong>Test evidence:</strong>
+      <a href="#test-2" onclick="document.getElementById('test-2').classList.add('expanded')">LIMAS-SUD-2318</a> | <a href="#test-3" onclick="document.getElementById('test-3').classList.add('expanded')">LIMAS-SUD-2319</a> | <a href="#test-4" onclick="document.getElementById('test-4').classList.add('expanded')">LIMAS-SUD-2320</a> | <a href="#test-5" onclick="document.getElementById('test-5').classList.add('expanded')">LIMAS-SUD-2321</a> | <a href="#test-6" onclick="document.getElementById('test-6').classList.add('expanded')">LIMAS-SUD-2322</a> | <a href="#test-7" onclick="document.getElementById('test-7').classList.add('expanded')">LIMAS-SUD-2323</a> | <a href="#test-8" onclick="document.getElementById('test-8').classList.add('expanded')">LIMAS-SUD-2324</a> | <a href="#test-9" onclick="document.getElementById('test-9').classList.add('expanded')">LIMAS-SUD-2325</a> | <a href="#test-10" onclick="document.getElementById('test-10').classList.add('expanded')">LIMAS-SUD-2326</a> | <a href="#test-11" onclick="document.getElementById('test-11').classList.add('expanded')">LIMAS-SUD-2327</a> | <a href="#test-12" onclick="document.getElementById('test-12').classList.add('expanded')">LIMAS-SUD-2328</a> | <a href="#test-13" onclick="document.getElementById('test-13').classList.add('expanded')">LIMAS-SUD-2329</a> | <a href="#test-14" onclick="document.getElementById('test-14').classList.add('expanded')">LIMAS-SUD-2330</a> | <a href="#test-15" onclick="document.getElementById('test-15').classList.add('expanded')">LIMAS-SUD-2331</a>
+    </div>
+
+  <div class="container">
+    <h2>Functional Test Results — PRF-007</h2>
+    
+    
+  <div class="test-card passed" id="test-2">
+    <div class="test-header" onclick="toggleExpand('test-2')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2318</span>
+        <span class="test-title-col">Features tab has ARIA selected state</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">9.25s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2318-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Features Tab Has Aria Selected State</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Features Tab Has Aria Selected State</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/362873c8b422f2f3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/362873c8b422f2f3.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/362873c8b422f2f3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2f1b0b52e74a6d9a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2f1b0b52e74a6d9a.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/2f1b0b52e74a6d9a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2112153af0b55254.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2112153af0b55254.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/2112153af0b55254.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3ca6c2b505512ea2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3ca6c2b505512ea2.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/3ca6c2b505512ea2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1dcfdca3449c260d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1dcfdca3449c260d.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/1dcfdca3449c260d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ff88cd9c8d42308d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ff88cd9c8d42308d.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/ff88cd9c8d42308d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/407997f4682908dc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/407997f4682908dc.png" alt="0007 Assert ToHaveAttribute Profiles Manage Features Spec 59" loading="lazy">
+        </a>
+        <span>0007 Assert ToHaveAttribute Profiles Manage Features Spec 59</span>
+        <p><a href="Evidence/Screenshots/407997f4682908dc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3d58f604cbc7f632.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3d58f604cbc7f632.png" alt="0008 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0008 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/3d58f604cbc7f632.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dd10ead69eefd38e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dd10ead69eefd38e.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/dd10ead69eefd38e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dd10ead69eefd38e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dd10ead69eefd38e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/dd10ead69eefd38e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d8dcb3be9c67ad43.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d8dcb3be9c67ad43.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/379b7c8d0bcf81a3.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/l/font",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2318",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2318"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-3">
+    <div class="test-header" onclick="toggleExpand('test-3')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2319</span>
+        <span class="test-title-col">Features tab has Feature and All columns</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">8.95s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2319-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Features Tab Has A Feature Table With Columns</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Features Tab Has A Feature Table With Columns</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/02605f8bb646bb2c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/02605f8bb646bb2c.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/02605f8bb646bb2c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/afa1182ebc91bf0f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/afa1182ebc91bf0f.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/afa1182ebc91bf0f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/363e5a23f6f29bbd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/363e5a23f6f29bbd.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/363e5a23f6f29bbd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/34c03bd668acb477.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/34c03bd668acb477.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/34c03bd668acb477.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5cd21250c94db706.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5cd21250c94db706.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/5cd21250c94db706.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0bb53df4d774ea1b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0bb53df4d774ea1b.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/0bb53df4d774ea1b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/624e41c67bc16c31.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/624e41c67bc16c31.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 65" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 65</span>
+        <p><a href="Evidence/Screenshots/624e41c67bc16c31.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6573bb6ba71b40eb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6573bb6ba71b40eb.png" alt="0008 Assert ToHaveCount Profiles Manage Features Spec 67" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveCount Profiles Manage Features Spec 67</span>
+        <p><a href="Evidence/Screenshots/6573bb6ba71b40eb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6a5de41d7cf9a3c1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6a5de41d7cf9a3c1.png" alt="0009 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0009 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/6a5de41d7cf9a3c1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/70f4074a56a144ac.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/70f4074a56a144ac.png" alt="0010 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0010 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/70f4074a56a144ac.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/70f4074a56a144ac.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/70f4074a56a144ac.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/70f4074a56a144ac.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9f462f96c13d448d.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9f462f96c13d448d.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/81e1b8b8f38a6c0f.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2319",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2319"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-4">
+    <div class="test-header" onclick="toggleExpand('test-4')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2320</span>
+        <span class="test-title-col">Add feature control is visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">9.79s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2320-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Add Feature Combobox Is Visible</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Add Feature Combobox Is Visible</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/7c0e7f53eb33422c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7c0e7f53eb33422c.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/7c0e7f53eb33422c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1ad446c67005f05c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1ad446c67005f05c.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/1ad446c67005f05c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fbbd67d1406e51b6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fbbd67d1406e51b6.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/fbbd67d1406e51b6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3c6f82cb6c990a47.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3c6f82cb6c990a47.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/3c6f82cb6c990a47.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/22c0a703997868e3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/22c0a703997868e3.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/22c0a703997868e3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/14539c4bc4917d58.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/14539c4bc4917d58.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/14539c4bc4917d58.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 73" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 73</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="0008 Assert ToHaveAttribute Profiles Manage Features Spec 74" loading="lazy">
+        </a>
+        <span>0008 Assert ToHaveAttribute Profiles Manage Features Spec 74</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="0009 Assert ToContainText Profiles Manage Features Spec 75" loading="lazy">
+        </a>
+        <span>0009 Assert ToContainText Profiles Manage Features Spec 75</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4995770bb771a295.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4995770bb771a295.png" alt="0010 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0010 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/4995770bb771a295.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/21bc04b59b1d5ad0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/21bc04b59b1d5ad0.png" alt="0011 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0011 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/21bc04b59b1d5ad0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4fa7e010c2ed1894.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4fa7e010c2ed1894.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/4fa7e010c2ed1894.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d133c10fe2947ea1.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d133c10fe2947ea1.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/fb0337c0a0de2889.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2320",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2320"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-5">
+    <div class="test-header" onclick="toggleExpand('test-5')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2321</span>
+        <span class="test-title-col">Create Feature button is visible and enabled</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">7.69s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2321-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Create Feature Button Is Visible And Enabled</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Create Feature Button Is Visible And Enabled</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5164ba8c7a9eafe4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5164ba8c7a9eafe4.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/5164ba8c7a9eafe4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3b81d6ab306078ba.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3b81d6ab306078ba.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/3b81d6ab306078ba.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e9fa5c799de0b975.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e9fa5c799de0b975.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/e9fa5c799de0b975.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f44b52064dab5ea2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f44b52064dab5ea2.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/f44b52064dab5ea2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d72dc37bdbed68f4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d72dc37bdbed68f4.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/d72dc37bdbed68f4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9d0a5ca942a5487e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9d0a5ca942a5487e.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/9d0a5ca942a5487e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e2577321db21e7b0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e2577321db21e7b0.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 81" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 81</span>
+        <p><a href="Evidence/Screenshots/e2577321db21e7b0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a9ec0b6f813506c3.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a9ec0b6f813506c3.png" alt="0008 Assert ToBeEnabled Profiles Manage Features Spec 82" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeEnabled Profiles Manage Features Spec 82</span>
+        <p><a href="Evidence/Screenshots/a9ec0b6f813506c3.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/caee57fc71f33a6e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/caee57fc71f33a6e.png" alt="0009 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0009 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/caee57fc71f33a6e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/50d58e00a8ea9b8f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/50d58e00a8ea9b8f.png" alt="0010 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0010 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/50d58e00a8ea9b8f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0017d3aa299f125c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0017d3aa299f125c.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/0017d3aa299f125c.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/ce7273d9f1fda7e3.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/ce7273d9f1fda7e3.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/dd3ac2e1895d6fdf.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2321",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2321"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-6">
+    <div class="test-header" onclick="toggleExpand('test-6')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2322</span>
+        <span class="test-title-col">Save button is visible</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">9.38s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2322-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Save Button Is Visible</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Save Button Is Visible</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/dc3ff0d203f73a27.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dc3ff0d203f73a27.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/dc3ff0d203f73a27.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/01f3e7b42ba5f6fb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/01f3e7b42ba5f6fb.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/01f3e7b42ba5f6fb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2cf41cfe2364d2c5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2cf41cfe2364d2c5.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/2cf41cfe2364d2c5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/dec39b15d9dec251.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/dec39b15d9dec251.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/dec39b15d9dec251.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/298476efeb46aec5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/298476efeb46aec5.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/298476efeb46aec5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c955f3da6da6ddf5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c955f3da6da6ddf5.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/c955f3da6da6ddf5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e07e6833ede098fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e07e6833ede098fe.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 88" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 88</span>
+        <p><a href="Evidence/Screenshots/e07e6833ede098fe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7e0703b6ce56524d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7e0703b6ce56524d.png" alt="0008 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0008 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/7e0703b6ce56524d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/66f8e81769e1ff5d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/66f8e81769e1ff5d.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/66f8e81769e1ff5d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8e29b031d51e4c7d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8e29b031d51e4c7d.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/8e29b031d51e4c7d.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/1f4ba6aabe6b55e4.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/1f4ba6aabe6b55e4.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/0d4f4bbaf4d88b29.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2322",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2322"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-7">
+    <div class="test-header" onclick="toggleExpand('test-7')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2323</span>
+        <span class="test-title-col">Each assigned feature shows a name</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">9.31s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2323-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Assigned Features Show Name In First Column</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Assigned Features Show Name In First Column</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/0aa2c4d802145a52.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0aa2c4d802145a52.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/0aa2c4d802145a52.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/27c44105b15a6b35.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/27c44105b15a6b35.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/27c44105b15a6b35.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8d48482b39d61659.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8d48482b39d61659.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/8d48482b39d61659.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1910181e6d86530e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1910181e6d86530e.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/1910181e6d86530e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/db228ff357aff733.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db228ff357aff733.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/db228ff357aff733.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d1d73d2dec490588.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d1d73d2dec490588.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/d1d73d2dec490588.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f9006bf053995ee0.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f9006bf053995ee0.png" alt="0007 Assert ToBeGreaterThan Profiles Manage Features Spec 103" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeGreaterThan Profiles Manage Features Spec 103</span>
+        <p><a href="Evidence/Screenshots/f9006bf053995ee0.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/705e7f5876b04b07.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/705e7f5876b04b07.png" alt="0008 Assert ToBeGreaterThan Profiles Manage Features Spec 103" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeGreaterThan Profiles Manage Features Spec 103</span>
+        <p><a href="Evidence/Screenshots/705e7f5876b04b07.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e750c316378ec62c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e750c316378ec62c.png" alt="0009 Assert ToBeGreaterThan Profiles Manage Features Spec 103" loading="lazy">
+        </a>
+        <span>0009 Assert ToBeGreaterThan Profiles Manage Features Spec 103</span>
+        <p><a href="Evidence/Screenshots/e750c316378ec62c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/575585b246602ddf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/575585b246602ddf.png" alt="0010 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0010 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/575585b246602ddf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d7810ec81dc00621.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d7810ec81dc00621.png" alt="0011 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0011 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/d7810ec81dc00621.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2b1b9ff5c0b25504.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2b1b9ff5c0b25504.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2b1b9ff5c0b25504.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/9b89819d69547b71.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/9b89819d69547b71.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/88b635cbc5908870.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2323",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2323"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-8">
+    <div class="test-header" onclick="toggleExpand('test-8')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2324</span>
+        <span class="test-title-col">Each assigned feature has a Version combobox</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">39.98s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2324-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Each Assigned Feature Has A Version Combobox</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Each Assigned Feature Has A Version Combobox</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/5f2d63327d71cbdd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5f2d63327d71cbdd.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/5f2d63327d71cbdd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8fc4d8ac562c2533.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8fc4d8ac562c2533.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/8fc4d8ac562c2533.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c5149a23bf7232ae.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c5149a23bf7232ae.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/c5149a23bf7232ae.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/12dd130b81b527fc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/12dd130b81b527fc.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/12dd130b81b527fc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6bdb1035eda09c85.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6bdb1035eda09c85.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/6bdb1035eda09c85.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b3cd9ee07e12f98e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b3cd9ee07e12f98e.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/b3cd9ee07e12f98e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 114" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 114</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1dfe17c8ac5c346f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1dfe17c8ac5c346f.png" alt="0008 Action Press Profiles Manage Features Spec 22" loading="lazy">
+        </a>
+        <span>0008 Action Press Profiles Manage Features Spec 22</span>
+        <p><a href="Evidence/Screenshots/1dfe17c8ac5c346f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6371c615a6416e11.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6371c615a6416e11.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/6371c615a6416e11.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/384b64cca0f8b3e8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/384b64cca0f8b3e8.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/384b64cca0f8b3e8.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/e9789825411a6a21.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/e9789825411a6a21.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/66c986b024d14ab1.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2324",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2324"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><ul class="error-fields"><li><strong>Failure:</strong> element(s) not found</li><li><strong>Locator:</strong> <code>getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).first()</code></li><li><strong>Expected:</strong> visible</li><li><strong>Timeout:</strong> 30000ms</li></ul><pre><code>Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).first()
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
+Call log:
+  - Expect &quot;toBeVisible&quot; getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).first() with timeout 30000ms
+  - waiting for getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).first()
+
+
+  114 |       if (count === 0) { test.skip(true, &#39;No assigned features&#39;); return; }
+  115 |       for (let i = 0; i &lt; count; i++) {
+&gt; 116 |         await recordEvidence(&#39;assert-toBeVisible-profiles-manage-features.spec-114&#39;, async () =&gt; expect(profiles.manageFeaturesRowVersion(rows.nth(i))).toBeVisible());
+      |                                                                                                                                                         ^
+  117 |       }
+  118 |       await profiles.closeManageDialog();
+  119 |     });
+    at operation (tests\profiles\profiles-manage-features.spec.ts:116:153)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at tests\profiles\profiles-manage-features.spec.ts:116:29<br><code>features.spec.ts:116:153</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card failed" id="test-9">
+    <div class="test-header" onclick="toggleExpand('test-9')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2325</span>
+        <span class="test-title-col">Each assigned feature has an Access Level combobox</span>
+      </div>
+      <span class="test-status failed">FAILED</span>
+      <span class="test-duration">38.88s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2325-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Each Assigned Feature Has An Access Level Combobox</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Each Assigned Feature Has An Access Level Combobox</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/53660fac8aa8cbbb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/53660fac8aa8cbbb.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/53660fac8aa8cbbb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6f6c4db795fc28fe.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6f6c4db795fc28fe.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/6f6c4db795fc28fe.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/313287958287960e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/313287958287960e.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/313287958287960e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/470964cd7da4f083.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/470964cd7da4f083.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/470964cd7da4f083.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/05a636a4ec917a8a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/05a636a4ec917a8a.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/05a636a4ec917a8a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/59cce58a50cb9cfa.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/59cce58a50cb9cfa.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/59cce58a50cb9cfa.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f8d7ba0d89f9569f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f8d7ba0d89f9569f.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 125" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 125</span>
+        <p><a href="Evidence/Screenshots/f8d7ba0d89f9569f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/ee68456da717ac2a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/ee68456da717ac2a.png" alt="0008 Action Press Profiles Manage Features Spec 22" loading="lazy">
+        </a>
+        <span>0008 Action Press Profiles Manage Features Spec 22</span>
+        <p><a href="Evidence/Screenshots/ee68456da717ac2a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/56d96a812d4794ad.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/56d96a812d4794ad.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/56d96a812d4794ad.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bdba29bf43fd342e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bdba29bf43fd342e.png" alt="screenshot" loading="lazy">
+        </a>
+        <span>screenshot</span>
+        <p><a href="Evidence/Screenshots/bdba29bf43fd342e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/56d96a812d4794ad.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/56d96a812d4794ad.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/56d96a812d4794ad.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/d5507df6738b3f39.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/d5507df6738b3f39.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3b2cb8fb6538636e.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2325",<br>  "status": "failed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2325"<br>    }<br>  ]<br>}</p></div>
+      <div class="errors"><h4>Error Details</h4><ul class="error-fields"><li><strong>Failure:</strong> element(s) not found</li><li><strong>Locator:</strong> <code>getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).last()</code></li><li><strong>Expected:</strong> visible</li><li><strong>Timeout:</strong> 30000ms</li></ul><pre><code>Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).last()
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
+Call log:
+  - Expect &quot;toBeVisible&quot; getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).last() with timeout 30000ms
+  - waiting for getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;tbody tr&#39;).filter({ hasNot: getByRole(&#39;tabpanel&#39;, { name: &#39;Features&#39; }).locator(&#39;table&#39;).locator(&#39;td[colspan]&#39;) }).first().locator(&#39;td&#39;).nth(1).getByRole(&#39;combobox&#39;).last()
+
+
+  125 |       if (count === 0) { test.skip(true, &#39;No assigned features&#39;); return; }
+  126 |       for (let i = 0; i &lt; count; i++) {
+&gt; 127 |         await recordEvidence(&#39;assert-toBeVisible-profiles-manage-features.spec-125&#39;, async () =&gt; expect(profiles.manageFeaturesRowAccess(rows.nth(i))).toBeVisible());
+      |                                                                                                                                                        ^
+  128 |       }
+  129 |       await profiles.closeManageDialog();
+  130 |     });
+    at operation (tests\profiles\profiles-manage-features.spec.ts:127:152)
+    at recordEvidence (tests\helpers\step-evidence.ts:41:22)
+    at tests\profiles\profiles-manage-features.spec.ts:127:29<br><code>features.spec.ts:127:152</code></code></pre></div>
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-10">
+    <div class="test-header" onclick="toggleExpand('test-10')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2326</span>
+        <span class="test-title-col">Each assigned feature has a Remove button</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">11.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2326-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Each Assigned Feature Has A Remove Button</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Each Assigned Feature Has A Remove Button</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/3b0612d2d184eb9b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3b0612d2d184eb9b.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/3b0612d2d184eb9b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5005f53acadbe967.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5005f53acadbe967.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/5005f53acadbe967.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/df212250b8cfc369.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/df212250b8cfc369.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/df212250b8cfc369.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b557950af936d0dc.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b557950af936d0dc.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/b557950af936d0dc.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/369d22448440fc91.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/369d22448440fc91.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/369d22448440fc91.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/95f4de6aa400a7b1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/95f4de6aa400a7b1.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/95f4de6aa400a7b1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1de54e0b9ccd52c4.png" alt="0007 Assert ToBeVisible Profiles Manage Features Spec 136" loading="lazy">
+        </a>
+        <span>0007 Assert ToBeVisible Profiles Manage Features Spec 136</span>
+        <p><a href="Evidence/Screenshots/1de54e0b9ccd52c4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f3e2d7690299b76a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f3e2d7690299b76a.png" alt="0008 Assert ToBeVisible Profiles Manage Features Spec 136" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Profiles Manage Features Spec 136</span>
+        <p><a href="Evidence/Screenshots/f3e2d7690299b76a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b0b2c3984063d715.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b0b2c3984063d715.png" alt="0009 Assert ToBeVisible Profiles Manage Features Spec 136" loading="lazy">
+        </a>
+        <span>0009 Assert ToBeVisible Profiles Manage Features Spec 136</span>
+        <p><a href="Evidence/Screenshots/b0b2c3984063d715.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a6da5f818ea307df.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a6da5f818ea307df.png" alt="0010 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0010 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/a6da5f818ea307df.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c1ababd4cfcd69f4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c1ababd4cfcd69f4.png" alt="0011 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0011 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/c1ababd4cfcd69f4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/7ff4e1613939420f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/7ff4e1613939420f.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/7ff4e1613939420f.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/f8f116a9d19fe122.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/f8f116a9d19fe122.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/1aa32621c8be0390.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2326",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2326"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-11">
+    <div class="test-header" onclick="toggleExpand('test-11')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2327</span>
+        <span class="test-title-col">Feature names are unique across rows</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">10.44s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2327-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Feature Names Are Unique Across Rows</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Feature Names Are Unique Across Rows</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/9f859f26aaf27b0f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9f859f26aaf27b0f.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/9f859f26aaf27b0f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/57cc1dfb502ae73b.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/57cc1dfb502ae73b.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/57cc1dfb502ae73b.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/6e7e51856f705f83.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/6e7e51856f705f83.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/6e7e51856f705f83.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9c88fd6a055b0f8c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9c88fd6a055b0f8c.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/9c88fd6a055b0f8c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/e02ac986f4892f4c.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/e02ac986f4892f4c.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/e02ac986f4892f4c.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/8540cb8f2d32e5de.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/8540cb8f2d32e5de.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/8540cb8f2d32e5de.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b85c79175bbf8d94.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b85c79175bbf8d94.png" alt="0007 Assert ToBe Profiles Manage Features Spec 151" loading="lazy">
+        </a>
+        <span>0007 Assert ToBe Profiles Manage Features Spec 151</span>
+        <p><a href="Evidence/Screenshots/b85c79175bbf8d94.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/62d45586818c1d9d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/62d45586818c1d9d.png" alt="0008 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0008 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/62d45586818c1d9d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/9117f1f37270b2cb.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/9117f1f37270b2cb.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/9117f1f37270b2cb.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/015142e6f9462658.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/015142e6f9462658.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/015142e6f9462658.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/4b0e96aa93742033.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/4b0e96aa93742033.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/3f59faea69c5aef7.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2327",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2327"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-12">
+    <div class="test-header" onclick="toggleExpand('test-12')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2328</span>
+        <span class="test-title-col">Add Feature has combobox role</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">10.65s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2328-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Add Feature Has Combobox Role And Accessible Name</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Add Feature Has Combobox Role And Accessible Name</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/db457555a8bc20c6.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/db457555a8bc20c6.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/db457555a8bc20c6.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/bb3fb9d28ddb73db.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/bb3fb9d28ddb73db.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/bb3fb9d28ddb73db.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/122d873df6661632.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/122d873df6661632.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/122d873df6661632.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/725772ff66e585b1.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/725772ff66e585b1.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/725772ff66e585b1.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2adb903420b52255.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2adb903420b52255.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/2adb903420b52255.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/f1aa08e7ed2c3ab4.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/f1aa08e7ed2c3ab4.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/f1aa08e7ed2c3ab4.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/61292035c2b6ada2.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/61292035c2b6ada2.png" alt="0007 Assert ToHaveAttribute Profiles Manage Features Spec 161" loading="lazy">
+        </a>
+        <span>0007 Assert ToHaveAttribute Profiles Manage Features Spec 161</span>
+        <p><a href="Evidence/Screenshots/61292035c2b6ada2.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/efae34f0b20b5f57.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/efae34f0b20b5f57.png" alt="0008 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0008 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/efae34f0b20b5f57.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1a7420e7795606fd.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1a7420e7795606fd.png" alt="0009 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0009 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/1a7420e7795606fd.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2676d2693a82637e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2676d2693a82637e.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/2676d2693a82637e.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/e21bd9dcc1a3b6bb.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/e21bd9dcc1a3b6bb.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/18b5d93d25d2a1ff.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2328",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2328"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-13">
+    <div class="test-header" onclick="toggleExpand('test-13')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2329</span>
+        <span class="test-title-col">Add Feature opens feature-selection popover</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">10.00s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2329-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Add Feature Opens Feature Selection Popover</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Add Feature Opens Feature Selection Popover</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/31721b045afbc0a7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/31721b045afbc0a7.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/31721b045afbc0a7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/0eaee35b84f1431d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/0eaee35b84f1431d.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/0eaee35b84f1431d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/350b2fc87c48230a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/350b2fc87c48230a.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/350b2fc87c48230a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/14e597c4048650e8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/14e597c4048650e8.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/14e597c4048650e8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b8fff8e8b62488bf.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b8fff8e8b62488bf.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/b8fff8e8b62488bf.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d6b2d4130b911a76.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d6b2d4130b911a76.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/d6b2d4130b911a76.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d293d14081de4057.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d293d14081de4057.png" alt="0007 Action Click Profiles Manage Features Spec 167" loading="lazy">
+        </a>
+        <span>0007 Action Click Profiles Manage Features Spec 167</span>
+        <p><a href="Evidence/Screenshots/d293d14081de4057.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1fc1fa13d333e4a5.png" alt="0008 Assert ToBeVisible Profiles Manage Features Spec 168" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Profiles Manage Features Spec 168</span>
+        <p><a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/fbcfc1c3d0f3b619.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/fbcfc1c3d0f3b619.png" alt="0009 Action Press Profiles Manage Features Spec 169" loading="lazy">
+        </a>
+        <span>0009 Action Press Profiles Manage Features Spec 169</span>
+        <p><a href="Evidence/Screenshots/fbcfc1c3d0f3b619.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1e52a00ed13a5f82.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1e52a00ed13a5f82.png" alt="0010 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0010 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/1e52a00ed13a5f82.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/54c4be8eb7f3a974.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/54c4be8eb7f3a974.png" alt="0011 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0011 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/54c4be8eb7f3a974.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/555264a1bcefdd08.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/555264a1bcefdd08.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/555264a1bcefdd08.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/a02e8183dd3ff51a.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/a02e8183dd3ff51a.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/84ac61753acc8bc0.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2329",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2329"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-14">
+    <div class="test-header" onclick="toggleExpand('test-14')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2330</span>
+        <span class="test-title-col">Add Feature popover has runtime option list</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">10.55s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2330-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Add Feature Popover Has Runtime Option List</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Add Feature Popover Has Runtime Option List</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/b9c40efbbaccea37.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b9c40efbbaccea37.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/b9c40efbbaccea37.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3a9f8f94f90a59b7.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3a9f8f94f90a59b7.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/3a9f8f94f90a59b7.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/80b53cb29ab4778e.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/80b53cb29ab4778e.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/80b53cb29ab4778e.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/4cf46fd072268c64.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/4cf46fd072268c64.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/4cf46fd072268c64.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3a35333b0487fee8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3a35333b0487fee8.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/3a35333b0487fee8.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/2afa6bcf08fdaf78.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/2afa6bcf08fdaf78.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/2afa6bcf08fdaf78.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/696b59d7dcfa7d83.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/696b59d7dcfa7d83.png" alt="0007 Action Click Profiles Manage Features Spec 175" loading="lazy">
+        </a>
+        <span>0007 Action Click Profiles Manage Features Spec 175</span>
+        <p><a href="Evidence/Screenshots/696b59d7dcfa7d83.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1fc1fa13d333e4a5.png" alt="0008 Assert ToBeGreaterThan Profiles Manage Features Spec 178" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeGreaterThan Profiles Manage Features Spec 178</span>
+        <p><a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/55634ff650b18277.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/55634ff650b18277.png" alt="0009 Action Press Profiles Manage Features Spec 179" loading="lazy">
+        </a>
+        <span>0009 Action Press Profiles Manage Features Spec 179</span>
+        <p><a href="Evidence/Screenshots/55634ff650b18277.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d4c32e0a47ca85df.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d4c32e0a47ca85df.png" alt="0010 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0010 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/d4c32e0a47ca85df.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5760815257bfde1f.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5760815257bfde1f.png" alt="0011 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0011 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/5760815257bfde1f.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/513991f8707bfa66.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/513991f8707bfa66.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/513991f8707bfa66.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/3cd61051d00e3eee.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/3cd61051d00e3eee.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/1838c5fa9cd49770.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/approval-scope/current",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2330",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2330"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+
+  <div class="test-card passed" id="test-15">
+    <div class="test-header" onclick="toggleExpand('test-15')">
+      <div class="test-card-heading">
+        <span class="test-id-col">LIMAS-SUD-2331</span>
+        <span class="test-title-col">Keyboard Escape closes the popover</span>
+      </div>
+      <span class="test-status passed">PASSED</span>
+      <span class="test-duration">10.40s</span>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="test-body">
+      <div class="test-meta">
+        <span><strong>Profile:</strong> SUPER_USER_ADMIN_USER</span>
+        <span><strong>Module:</strong> profiles — PRF-007</span>
+        <span><strong>Plan:</strong> Plans/LIMAS-SUD-2331-case.md</span>
+        <span><strong>Spec:</strong> profiles/profiles-manage-features.spec.ts</span>
+      </div>
+      <div class="test-summary"><h4>Preconditions</h4><p>Authenticated as SUPER_USER_ADMIN_USER</p></div>
+      <div class="test-plan"><h4>Purpose</h4><p>Keyboard Escape Closes The Popover</p></div>
+      
+      
+      
+      <div class="test-plan">
+        <h4>Test Plan</h4>
+        <h2>Purpose</h2></p><p>Keyboard Escape Closes The Popover</p><p><h2>Preconditions</h2></p><p>Authenticated as SUPER_USER_ADMIN_USER</p><p><h2>Test Steps</h2></p><p></p><p><h2>Expected Final Result</h2></p><p><br>
+      </div>
+      <div class="screenshots"><h3>Screenshots</h3><div class="ss-grid"><div class="ss-item">
+        <a href="Evidence/Screenshots/42c4fdacb442ba1a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/42c4fdacb442ba1a.png" alt="0001 Action Goto Profiles Page 239" loading="lazy">
+        </a>
+        <span>0001 Action Goto Profiles Page 239</span>
+        <p><a href="Evidence/Screenshots/42c4fdacb442ba1a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c30acdf6a356fa4a.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c30acdf6a356fa4a.png" alt="0002 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0002 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/c30acdf6a356fa4a.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/634be12ec98ef219.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/634be12ec98ef219.png" alt="0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35" loading="lazy">
+        </a>
+        <span>0003 Assert ToBeGreaterThan Profiles Manage Features Spec 35</span>
+        <p><a href="Evidence/Screenshots/634be12ec98ef219.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/a6e05615170a1768.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/a6e05615170a1768.png" alt="0004 Action Click Profiles Page 305" loading="lazy">
+        </a>
+        <span>0004 Action Click Profiles Page 305</span>
+        <p><a href="Evidence/Screenshots/a6e05615170a1768.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/818b60cb6a3aec8d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/818b60cb6a3aec8d.png" alt="0005 Action Click Profiles Manage Features Spec 44" loading="lazy">
+        </a>
+        <span>0005 Action Click Profiles Manage Features Spec 44</span>
+        <p><a href="Evidence/Screenshots/818b60cb6a3aec8d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/96dcd7fbda929767.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/96dcd7fbda929767.png" alt="0006 Assert ToHaveAttribute Profiles Manage Features Spec 45" loading="lazy">
+        </a>
+        <span>0006 Assert ToHaveAttribute Profiles Manage Features Spec 45</span>
+        <p><a href="Evidence/Screenshots/96dcd7fbda929767.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/d293d14081de4057.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/d293d14081de4057.png" alt="0007 Action Click Profiles Manage Features Spec 185" loading="lazy">
+        </a>
+        <span>0007 Action Click Profiles Manage Features Spec 185</span>
+        <p><a href="Evidence/Screenshots/d293d14081de4057.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/1fc1fa13d333e4a5.png" alt="0008 Assert ToBeVisible Profiles Manage Features Spec 186" loading="lazy">
+        </a>
+        <span>0008 Assert ToBeVisible Profiles Manage Features Spec 186</span>
+        <p><a href="Evidence/Screenshots/1fc1fa13d333e4a5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/5ae7322b79f39fe5.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/5ae7322b79f39fe5.png" alt="0009 Action Press Profiles Manage Features Spec 187" loading="lazy">
+        </a>
+        <span>0009 Action Press Profiles Manage Features Spec 187</span>
+        <p><a href="Evidence/Screenshots/5ae7322b79f39fe5.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/732a990551288f0d.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/732a990551288f0d.png" alt="0010 Assert ToBeVisible Profiles Manage Features Spec 188" loading="lazy">
+        </a>
+        <span>0010 Assert ToBeVisible Profiles Manage Features Spec 188</span>
+        <p><a href="Evidence/Screenshots/732a990551288f0d.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/c5b57d8de750e774.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/c5b57d8de750e774.png" alt="0011 Action Click Profiles Page 310" loading="lazy">
+        </a>
+        <span>0011 Action Click Profiles Page 310</span>
+        <p><a href="Evidence/Screenshots/c5b57d8de750e774.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/b8679f33dec9a061.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/b8679f33dec9a061.png" alt="0012 Action Clear Profiles Page 273" loading="lazy">
+        </a>
+        <span>0012 Action Clear Profiles Page 273</span>
+        <p><a href="Evidence/Screenshots/b8679f33dec9a061.png" download>Download</a></p>
+      </div><div class="ss-item">
+        <a href="Evidence/Screenshots/3cddc705d40ad8e8.png" target="_blank" rel="noopener">
+          <img src="Evidence/Screenshots/3cddc705d40ad8e8.png" alt="Final State" loading="lazy">
+        </a>
+        <span>Final State</span>
+        <p><a href="Evidence/Screenshots/3cddc705d40ad8e8.png" download>Download</a></p>
+      </div></div></div>
+      <div class="video-container">
+      <h3>Screen Recording</h3>
+      <video controls preload="metadata" style="width:100%;max-width:640px">
+        <source src="Evidence/Recording/2432eefca63de9ff.webm" type="video/webm">
+        Video playback is not supported by this browser.
+      </video>
+      <p><a href="Evidence/Recording/2432eefca63de9ff.webm" download>Download video</a></p>
+    </div>
+      <div class="trace-section">
+      <h3>Trace</h3>
+      <p>Raw trace available for download: <a href="Evidence/Trace/526287f11033de11.zip" download>trace.zip</a></p>
+    </div>
+      <div class="api-summary"><h4>API / Navigation Summary</h4><p>[<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/usergroups",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/account-scope/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/request/pending",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/css2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-3YMXUZHx.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-CsLsjjh_.css",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/s/worksans/v24/QGYsz_wNahGAdqQ43Rh_fKDp.woff2",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/config.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/LIMASdark.svg",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useMutation-BXCK29gw.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/badge-CfKLI3xh.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useQuery-DD17Vq6w.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/select-D0x-ZCv6.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/index-BmUvSRl3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevron-up-ZcvQhqm3.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/alert-dialog-BrWnRHFr.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/search-BM_ed0nC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/command-CqA0UkEY.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/popover-CO5soqI_.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/trash-2-C4EA7kwC.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/plus-C2XI3s6D.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/chevrons-up-down-DAnKxu7q.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/ProfilesCardView-B0K8bo3Y.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/useProfiles-BWmtRtqO.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/table-C4TJKaD2.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/shield-C14WKZgG.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/square-pen-B-1xBIuA.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/features-DDEBJMGq.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/assets/DataTable-DDydKPPQ.js",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/profiles",<br>    "status": 200<br>  },<br>  {<br>    "method": "GET",<br>    "path": "/limas/api/features",<br>    "status": 200<br>  }<br>]</p></div>
+      <div class="actual-result"><h4>Actual Result</h4><p>{<br>  "testId": "LIMAS-SUD-2331",<br>  "status": "passed",<br>  "expectedStatus": "passed",<br>  "retry": 0,<br>  "profile": "SUPER_USER_ADMIN_USER",<br>  "annotations": [<br>    {<br>      "type": "testId",<br>      "description": "LIMAS-SUD-2331"<br>    },<br>    {<br>      "type": "plan-mapping",<br>      "description": "2 matching plan files; inspect Workbook test plan"<br>    }<br>  ]<br>}</p></div>
+      
+    </div>
+  </div>
+  </div>
+<script>
+function toggleExpand(id) {
+  document.getElementById(id).classList.toggle('expanded');
+}
+</script>
+</body>
+</html><script>function openLinkedCase(){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add("expanded");el.scrollIntoView()}}addEventListener("hashchange",openLinkedCase);openLinkedCase();</script>
